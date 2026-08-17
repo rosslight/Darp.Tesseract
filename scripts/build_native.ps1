@@ -18,10 +18,15 @@ $repositoryDir = [System.IO.Path]::GetFullPath((Join-Path $scriptDir ".."))
 $sourceDir = Join-Path $repositoryDir "native"
 $buildDir = Join-Path $repositoryDir "artifacts/build/$RuntimeId"
 $outputDir = Join-Path $repositoryDir "artifacts/native/$RuntimeId"
-$wrapperPath = Join-Path $repositoryDir "bindings/generated/TesseractCommon_wrap.cxx"
+$wrapperPaths = @(
+  (Join-Path $repositoryDir "bindings/generated/TesseractCommon_wrap.cxx"),
+  (Join-Path $repositoryDir "bindings/generated/TesseractKinematics_wrap.cxx")
+)
 
-if (-not (Test-Path -LiteralPath $wrapperPath)) {
-  throw "Generated wrapper is missing. Run './scripts/generate_bindings.ps1' first."
+foreach ($wrapperPath in $wrapperPaths) {
+  if (-not (Test-Path -LiteralPath $wrapperPath)) {
+    throw "Generated wrapper '$wrapperPath' is missing. Run './scripts/generate_bindings.ps1' first."
+  }
 }
 
 if (Test-Path -LiteralPath $buildDir) {
@@ -54,15 +59,18 @@ if ($LASTEXITCODE -ne 0) { throw "CMake configure failed with exit code $LASTEXI
 & cmake --build $buildDir --config $Configuration --parallel
 if ($LASTEXITCODE -ne 0) { throw "CMake build failed with exit code $LASTEXITCODE." }
 
-switch ($os) {
-  "win" { $libraryPath = Join-Path $buildDir "$Configuration/tesseract_common_csharp.dll" }
-  "linux" { $libraryPath = Join-Path $buildDir "libtesseract_common_csharp.so" }
-  "osx" { $libraryPath = Join-Path $buildDir "libtesseract_common_csharp.dylib" }
-}
+$libraryNames = @("tesseract_common_csharp", "tesseract_kinematics_csharp")
+foreach ($libraryName in $libraryNames) {
+  switch ($os) {
+    "win" { $libraryPath = Join-Path $buildDir "$Configuration/$libraryName.dll" }
+    "linux" { $libraryPath = Join-Path $buildDir "lib$libraryName.so" }
+    "osx" { $libraryPath = Join-Path $buildDir "lib$libraryName.dylib" }
+  }
 
-if (-not (Test-Path -LiteralPath $libraryPath)) {
-  throw "Native library was not found at '$libraryPath'."
-}
+  if (-not (Test-Path -LiteralPath $libraryPath)) {
+    throw "Native library was not found at '$libraryPath'."
+  }
 
-Copy-Item -LiteralPath $libraryPath -Destination $outputDir -Force
-Write-Host "Copied $libraryPath to $outputDir"
+  Copy-Item -LiteralPath $libraryPath -Destination $outputDir -Force
+  Write-Host "Copied $libraryPath to $outputDir"
+}
