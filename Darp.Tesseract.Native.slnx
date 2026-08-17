@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj" />
+  <Project Path="tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj" />
+</Solution>
+

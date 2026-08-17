@@ -1,0 +1,165 @@
+name: Build and Test Package
+
+on:
+  pull_request:
+  push:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-bindings:
+    name: Verify generated bindings
+    runs-on: windows-2025-vs2026
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Regenerate bindings with pinned SWIG
+        shell: pwsh
+        run: |
+          $swig = ./scripts/install_swig.ps1
+          ./scripts/generate_bindings.ps1 -SwigPath $swig
+
+      - name: Verify generated sources are current
+        shell: pwsh
+        run: git diff --exit-code -- bindings/generated src/Darp.Tesseract.Native/Generated
+
+  build-native:
+    name: Build native (${{ matrix.rid }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            runner: windows-2025-vs2026
+            generator: Visual Studio 18 2026
+          - rid: win-arm64
+            runner: windows-2025-vs2026
+            generator: Visual Studio 18 2026
+          - rid: linux-x64
+            runner: ubuntu-22.04
+            generator: Ninja
+          - rid: linux-arm64
+            runner: ubuntu-22.04-arm
+            generator: Ninja
+          - rid: osx-x64
+            runner: macos-15-intel
+            generator: Ninja
+          - rid: osx-arm64
+            runner: macos-latest
+            generator: Ninja
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build native runtime
+        shell: pwsh
+        run: ./scripts/build_native.ps1 -RuntimeId "${{ matrix.rid }}" -Generator "${{ matrix.generator }}"
+
+      - name: Upload native runtime artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.rid }}
+          path: artifacts/native/
+          if-no-files-found: error
+
+  pack:
+    name: Pack NuGet
+    needs: [verify-bindings, build-native]
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Download native runtime artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: native-*
+          path: artifacts/native
+          merge-multiple: true
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Pack NuGet
+        run: dotnet pack src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj -c Release -o artifacts/packages
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages
+          path: |
+            artifacts/packages/*.nupkg
+            artifacts/packages/*.snupkg
+          if-no-files-found: error
+
+  integration-test:
+    name: Package test (${{ matrix.rid }})
+    needs: pack
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            runner: windows-2025-vs2026
+          - rid: win-arm64
+            runner: windows-11-vs2026-arm
+          - rid: linux-x64
+            runner: ubuntu-22.04
+          - rid: linux-arm64
+            runner: ubuntu-22.04-arm
+          - rid: osx-x64
+            runner: macos-15-intel
+          - rid: osx-arm64
+            runner: macos-latest
+    env:
+      CI: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packages
+          path: artifacts/packages
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore integration executable from package
+        shell: pwsh
+        run: |
+          $source = (Resolve-Path "artifacts/packages").Path
+          dotnet restore tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
+            --source "https://api.nuget.org/v3/index.json" `
+            --source "$source" `
+            -p:UseLocalProjectReference=false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Run packaged native interop test
+        shell: pwsh
+        run: |
+          dotnet run `
+            --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
+            -c Release `
+            --no-restore `
+            -p:UseLocalProjectReference=false
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

@@ -1,0 +1,10 @@
+bin/
+obj/
+build/
+packages/
+artifacts/
+
+.idea/
+.vscode/
+*.DotSettings.user
+
