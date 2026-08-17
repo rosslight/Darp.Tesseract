@@ -50,26 +50,43 @@ public class TransformMap : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractKinematicsPINVOKE.delete_TransformMap(swigCPtr);
+          TesseractNativePINVOKE.delete_TransformMap(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public TransformMap() : this(TesseractKinematicsPINVOKE.new_TransformMap(), true) {
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public TransformMap() : this(TesseractNativePINVOKE.new_TransformMap(), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public int size() {
-    int ret = TesseractKinematicsPINVOKE.TransformMap_size(swigCPtr);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+    int ret = TesseractNativePINVOKE.TransformMap_size(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void set(string link_name, Isometry3d pose) {
-    TesseractKinematicsPINVOKE.TransformMap_set(swigCPtr, link_name, Isometry3d.getCPtr(pose));
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public bool contains(string key) {
+    bool ret = TesseractNativePINVOKE.TransformMap_contains(swigCPtr, key);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void set(string key, Isometry3d value) {
+    TesseractNativePINVOKE.TransformMap_set(swigCPtr, key, Isometry3d.getCPtr(value));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public Isometry3d get(string key) {
+    Isometry3d ret = new Isometry3d(TesseractNativePINVOKE.TransformMap_get(swigCPtr, key), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void clear() {
+    TesseractNativePINVOKE.TransformMap_clear(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

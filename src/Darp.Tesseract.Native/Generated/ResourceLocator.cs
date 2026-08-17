@@ -10,33 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class Timer : global::System.IDisposable {
+public class ResourceLocator : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
+  private bool swigCMemOwnBase;
 
-  internal Timer(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  internal ResourceLocator(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwnBase = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Timer obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ResourceLocator obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(Timer obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-    }
-  }
-
-  ~Timer() {
+  ~ResourceLocator() {
     Dispose(false);
   }
 
@@ -48,20 +35,13 @@ public class Timer : global::System.IDisposable {
   protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          TesseractCommonPINVOKE.delete_Timer(swigCPtr);
+        if (swigCMemOwnBase) {
+          swigCMemOwnBase = false;
+          TesseractNativePINVOKE.delete_ResourceLocator(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
-  }
-
-  public Timer() : this(TesseractCommonPINVOKE.new_Timer(), true) {
-  }
-
-  public void stop() {
-    TesseractCommonPINVOKE.Timer_stop(swigCPtr);
   }
 
 }

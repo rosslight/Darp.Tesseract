@@ -38,31 +38,29 @@ jobs:
         include:
           - rid: win-x64
             runner: windows-2025-vs2026
-            generator: Visual Studio 18 2026
-          - rid: win-arm64
-            runner: windows-2025-vs2026
-            generator: Visual Studio 18 2026
           - rid: linux-x64
             runner: ubuntu-22.04
-            generator: Ninja
           - rid: linux-arm64
             runner: ubuntu-22.04-arm
-            generator: Ninja
-          - rid: osx-x64
-            runner: macos-15-intel
-            generator: Ninja
           - rid: osx-arm64
             runner: macos-latest
-            generator: Ninja
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
+      - name: Setup pinned Pixi environment
+        uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          manifest-path: native/tesseract_nanobind/pyproject.toml
+          pixi-version: v0.70.1
+          frozen: true
+          cache: true
+
       - name: Build native runtime
         shell: pwsh
-        run: ./scripts/build_native.ps1 -RuntimeId "${{ matrix.rid }}" -Generator "${{ matrix.generator }}"
+        run: ./scripts/build_native.ps1 -RuntimeId "${{ matrix.rid }}"
 
       - name: Upload native runtime artifact
         uses: actions/upload-artifact@v4
@@ -117,14 +115,10 @@ jobs:
         include:
           - rid: win-x64
             runner: windows-2025-vs2026
-          - rid: win-arm64
-            runner: windows-11-vs2026-arm
           - rid: linux-x64
             runner: ubuntu-22.04
           - rid: linux-arm64
             runner: ubuntu-22.04-arm
-          - rid: osx-x64
-            runner: macos-15-intel
           - rid: osx-arm64
             runner: macos-latest
     env:
@@ -132,6 +126,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Download package artifact
         uses: actions/download-artifact@v4
@@ -143,6 +139,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+
+      - name: Setup pinned native dependency environment
+        uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          manifest-path: native/tesseract_nanobind/pyproject.toml
+          pixi-version: v0.70.1
+          frozen: true
+          cache: true
 
       - name: Restore integration executable from package
         shell: pwsh
@@ -157,7 +161,7 @@ jobs:
       - name: Run packaged native interop test
         shell: pwsh
         run: |
-          dotnet run `
+          pixi run --manifest-path native/tesseract_nanobind/pyproject.toml dotnet run `
             --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
             -c Release `
             --no-restore `

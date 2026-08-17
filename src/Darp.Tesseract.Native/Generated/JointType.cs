@@ -10,7 +10,14 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TesseractKinematics {
+public enum JointType : byte {
+  UNKNOWN,
+  REVOLUTE,
+  CONTINUOUS,
+  PRISMATIC,
+  FLOATING,
+  PLANAR,
+  FIXED
 }
 
 }

@@ -10,21 +10,21 @@
 
 namespace Darp.Tesseract.Native {
 
-public class StringVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IList<string>
+public class IndexVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IList<long>
  {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal StringVector(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal IndexVector(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(StringVector obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(IndexVector obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(StringVector obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(IndexVector obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -37,7 +37,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  ~StringVector() {
+  ~IndexVector() {
     Dispose(false);
   }
 
@@ -51,25 +51,25 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_StringVector(swigCPtr);
+          TesseractNativePINVOKE.delete_IndexVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public StringVector(global::System.Collections.IEnumerable c) : this() {
+  public IndexVector(global::System.Collections.IEnumerable c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (string element in c) {
+    foreach (long element in c) {
       this.Add(element);
     }
   }
 
-  public StringVector(global::System.Collections.Generic.IEnumerable<string> c) : this() {
+  public IndexVector(global::System.Collections.Generic.IEnumerable<long> c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (string element in c) {
+    foreach (long element in c) {
       this.Add(element);
     }
   }
@@ -86,7 +86,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  public string this[int index]  {
+  public long this[int index]  {
     get {
       return getitem(index);
     }
@@ -124,17 +124,17 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  public void CopyTo(string[] array)
+  public void CopyTo(long[] array)
   {
     CopyTo(0, array, 0, this.Count);
   }
 
-  public void CopyTo(string[] array, int arrayIndex)
+  public void CopyTo(long[] array, int arrayIndex)
   {
     CopyTo(0, array, arrayIndex, this.Count);
   }
 
-  public void CopyTo(int index, string[] array, int arrayIndex, int count)
+  public void CopyTo(int index, long[] array, int arrayIndex, int count)
   {
     if (array == null)
       throw new global::System.ArgumentNullException("array");
@@ -152,22 +152,22 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
       array.SetValue(getitemcopy(index+i), arrayIndex+i);
   }
 
-  public string[] ToArray() {
-    string[] array = new string[this.Count];
+  public long[] ToArray() {
+    long[] array = new long[this.Count];
     this.CopyTo(array);
     return array;
   }
 
-  global::System.Collections.Generic.IEnumerator<string> global::System.Collections.Generic.IEnumerable<string>.GetEnumerator() {
-    return new StringVectorEnumerator(this);
+  global::System.Collections.Generic.IEnumerator<long> global::System.Collections.Generic.IEnumerable<long>.GetEnumerator() {
+    return new IndexVectorEnumerator(this);
   }
 
   global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator() {
-    return new StringVectorEnumerator(this);
+    return new IndexVectorEnumerator(this);
   }
 
-  public StringVectorEnumerator GetEnumerator() {
-    return new StringVectorEnumerator(this);
+  public IndexVectorEnumerator GetEnumerator() {
+    return new IndexVectorEnumerator(this);
   }
 
   // Type-safe enumerator
@@ -175,15 +175,15 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
   /// whenever the collection is modified. This has been done for changes in the size of the
   /// collection but not when one of the elements of the collection is modified as it is a bit
   /// tricky to detect unmanaged code that modifies the collection under our feet.
-  public sealed class StringVectorEnumerator : global::System.Collections.IEnumerator
-    , global::System.Collections.Generic.IEnumerator<string>
+  public sealed class IndexVectorEnumerator : global::System.Collections.IEnumerator
+    , global::System.Collections.Generic.IEnumerator<long>
   {
-    private StringVector collectionRef;
+    private IndexVector collectionRef;
     private int currentIndex;
     private object currentObject;
     private int currentSize;
 
-    public StringVectorEnumerator(StringVector collection) {
+    public IndexVectorEnumerator(IndexVector collection) {
       collectionRef = collection;
       currentIndex = -1;
       currentObject = null;
@@ -191,7 +191,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
 
     // Type-safe iterator Current
-    public string Current {
+    public long Current {
       get {
         if (currentIndex == -1)
           throw new global::System.InvalidOperationException("Enumeration not started.");
@@ -199,7 +199,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
           throw new global::System.InvalidOperationException("Enumeration finished.");
         if (currentObject == null)
           throw new global::System.InvalidOperationException("Collection modified.");
-        return (string)currentObject;
+        return (long)currentObject;
       }
     }
 
@@ -236,142 +236,142 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  public StringVector() : this(TesseractNativePINVOKE.new_StringVector__SWIG_0(), true) {
+  public IndexVector() : this(TesseractNativePINVOKE.new_IndexVector__SWIG_0(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StringVector(StringVector other) : this(TesseractNativePINVOKE.new_StringVector__SWIG_1(StringVector.getCPtr(other)), true) {
+  public IndexVector(IndexVector other) : this(TesseractNativePINVOKE.new_IndexVector__SWIG_1(IndexVector.getCPtr(other)), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Clear() {
-    TesseractNativePINVOKE.StringVector_Clear(swigCPtr);
+    TesseractNativePINVOKE.IndexVector_Clear(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void Add(string x) {
-    TesseractNativePINVOKE.StringVector_Add(swigCPtr, x);
+  public void Add(long x) {
+    TesseractNativePINVOKE.IndexVector_Add(swigCPtr, x);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = TesseractNativePINVOKE.StringVector_size(swigCPtr);
+    uint ret = TesseractNativePINVOKE.IndexVector_size(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private bool empty() {
-    bool ret = TesseractNativePINVOKE.StringVector_empty(swigCPtr);
+    bool ret = TesseractNativePINVOKE.IndexVector_empty(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = TesseractNativePINVOKE.StringVector_capacity(swigCPtr);
+    uint ret = TesseractNativePINVOKE.IndexVector_capacity(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    TesseractNativePINVOKE.StringVector_reserve(swigCPtr, n);
+    TesseractNativePINVOKE.IndexVector_reserve(swigCPtr, n);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StringVector(int capacity) : this(TesseractNativePINVOKE.new_StringVector__SWIG_2(capacity), true) {
+  public IndexVector(int capacity) : this(TesseractNativePINVOKE.new_IndexVector__SWIG_2(capacity), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  private string getitemcopy(int index) {
-    string ret = TesseractNativePINVOKE.StringVector_getitemcopy(swigCPtr, index);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  private string getitem(int index) {
-    string ret = TesseractNativePINVOKE.StringVector_getitem(swigCPtr, index);
+  private long getitemcopy(int index) {
+    long ret = TesseractNativePINVOKE.IndexVector_getitemcopy(swigCPtr, index);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  private void setitem(int index, string val) {
-    TesseractNativePINVOKE.StringVector_setitem(swigCPtr, index, val);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void AddRange(StringVector values) {
-    TesseractNativePINVOKE.StringVector_AddRange(swigCPtr, StringVector.getCPtr(values));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public StringVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = TesseractNativePINVOKE.StringVector_GetRange(swigCPtr, index, count);
-    StringVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StringVector(cPtr, true);
+  private long getitem(int index) {
+    long ret = TesseractNativePINVOKE.IndexVector_getitem(swigCPtr, index);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void Insert(int index, string x) {
-    TesseractNativePINVOKE.StringVector_Insert(swigCPtr, index, x);
+  private void setitem(int index, long val) {
+    TesseractNativePINVOKE.IndexVector_setitem(swigCPtr, index, val);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void InsertRange(int index, StringVector values) {
-    TesseractNativePINVOKE.StringVector_InsertRange(swigCPtr, index, StringVector.getCPtr(values));
+  public void AddRange(IndexVector values) {
+    TesseractNativePINVOKE.IndexVector_AddRange(swigCPtr, IndexVector.getCPtr(values));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public IndexVector GetRange(int index, int count) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.IndexVector_GetRange(swigCPtr, index, count);
+    IndexVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new IndexVector(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void Insert(int index, long x) {
+    TesseractNativePINVOKE.IndexVector_Insert(swigCPtr, index, x);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void InsertRange(int index, IndexVector values) {
+    TesseractNativePINVOKE.IndexVector_InsertRange(swigCPtr, index, IndexVector.getCPtr(values));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    TesseractNativePINVOKE.StringVector_RemoveAt(swigCPtr, index);
+    TesseractNativePINVOKE.IndexVector_RemoveAt(swigCPtr, index);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    TesseractNativePINVOKE.StringVector_RemoveRange(swigCPtr, index, count);
+    TesseractNativePINVOKE.IndexVector_RemoveRange(swigCPtr, index, count);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public static StringVector Repeat(string value, int count) {
-    global::System.IntPtr cPtr = TesseractNativePINVOKE.StringVector_Repeat(value, count);
-    StringVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StringVector(cPtr, true);
+  public static IndexVector Repeat(long value, int count) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.IndexVector_Repeat(value, count);
+    IndexVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new IndexVector(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    TesseractNativePINVOKE.StringVector_Reverse__SWIG_0(swigCPtr);
+    TesseractNativePINVOKE.IndexVector_Reverse__SWIG_0(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    TesseractNativePINVOKE.StringVector_Reverse__SWIG_1(swigCPtr, index, count);
+    TesseractNativePINVOKE.IndexVector_Reverse__SWIG_1(swigCPtr, index, count);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void SetRange(int index, StringVector values) {
-    TesseractNativePINVOKE.StringVector_SetRange(swigCPtr, index, StringVector.getCPtr(values));
+  public void SetRange(int index, IndexVector values) {
+    TesseractNativePINVOKE.IndexVector_SetRange(swigCPtr, index, IndexVector.getCPtr(values));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public bool Contains(string value) {
-    bool ret = TesseractNativePINVOKE.StringVector_Contains(swigCPtr, value);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public int IndexOf(string value) {
-    int ret = TesseractNativePINVOKE.StringVector_IndexOf(swigCPtr, value);
+  public bool Contains(long value) {
+    bool ret = TesseractNativePINVOKE.IndexVector_Contains(swigCPtr, value);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public int LastIndexOf(string value) {
-    int ret = TesseractNativePINVOKE.StringVector_LastIndexOf(swigCPtr, value);
+  public int IndexOf(long value) {
+    int ret = TesseractNativePINVOKE.IndexVector_IndexOf(swigCPtr, value);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public bool Remove(string value) {
-    bool ret = TesseractNativePINVOKE.StringVector_Remove(swigCPtr, value);
+  public int LastIndexOf(long value) {
+    int ret = TesseractNativePINVOKE.IndexVector_LastIndexOf(swigCPtr, value);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool Remove(long value) {
+    bool ret = TesseractNativePINVOKE.IndexVector_Remove(swigCPtr, value);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

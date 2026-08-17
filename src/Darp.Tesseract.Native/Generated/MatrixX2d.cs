@@ -10,18 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class OPWInvKin : InverseKinematics {
+public class MatrixX2d : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
+  protected bool swigCMemOwn;
 
-  internal OPWInvKin(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractKinematicsPINVOKE.OPWInvKin_SWIGUpcast(cPtr), cMemoryOwn) {
+  internal MatrixX2d(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(OPWInvKin obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(MatrixX2d obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(OPWInvKin obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(MatrixX2d obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -34,25 +36,29 @@ public class OPWInvKin : InverseKinematics {
     }
   }
 
-  protected override void Dispose(bool disposing) {
+  ~MatrixX2d() {
+    Dispose(false);
+  }
+
+  public void Dispose() {
+    Dispose(true);
+    global::System.GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractKinematicsPINVOKE.delete_OPWInvKin(swigCPtr);
+          TesseractNativePINVOKE.delete_MatrixX2d(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
-      base.Dispose(disposing);
     }
   }
 
-  public OPWInvKin(OPWParameters parameters, string base_link_name, string tip_link_name, StringVector joint_names, string solver_name) : this(TesseractKinematicsPINVOKE.new_OPWInvKin__SWIG_0(OPWParameters.getCPtr(parameters), base_link_name, tip_link_name, StringVector.getCPtr(joint_names), solver_name), true) {
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public OPWInvKin(OPWParameters parameters, string base_link_name, string tip_link_name, StringVector joint_names) : this(TesseractKinematicsPINVOKE.new_OPWInvKin__SWIG_1(OPWParameters.getCPtr(parameters), base_link_name, tip_link_name, StringVector.getCPtr(joint_names)), true) {
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public MatrixX2d() : this(TesseractNativePINVOKE.new_MatrixX2d(), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

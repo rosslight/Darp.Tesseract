@@ -50,32 +50,42 @@ public class VectorXd : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractKinematicsPINVOKE.delete_VectorXd(swigCPtr);
+          TesseractNativePINVOKE.delete_VectorXd(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public VectorXd(int size) : this(TesseractKinematicsPINVOKE.new_VectorXd(size), true) {
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  /// <summary>Views the native Eigen storage. The span is valid until this object is disposed or resized.</summary>
+  public unsafe global::System.Span<double> AsSpan() =>
+    new global::System.Span<double>((void*)dataAddress(), size());
+
+  public VectorXd(int size) : this(TesseractNativePINVOKE.new_VectorXd(size), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public int size() {
-    int ret = TesseractKinematicsPINVOKE.VectorXd_size(swigCPtr);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+    int ret = TesseractNativePINVOKE.VectorXd_size(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public double get(int index) {
-    double ret = TesseractKinematicsPINVOKE.VectorXd_get(swigCPtr, index);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+    double ret = TesseractNativePINVOKE.VectorXd_get(swigCPtr, index);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void set(int index, double value) {
-    TesseractKinematicsPINVOKE.VectorXd_set(swigCPtr, index, value);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+    TesseractNativePINVOKE.VectorXd_set(swigCPtr, index, value);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public ulong dataAddress() {
+    ulong ret = TesseractNativePINVOKE.VectorXd_dataAddress(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

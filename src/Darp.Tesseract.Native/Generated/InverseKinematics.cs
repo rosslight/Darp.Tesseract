@@ -12,28 +12,15 @@ namespace Darp.Tesseract.Native {
 
 public class InverseKinematics : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
+  private bool swigCMemOwnBase;
 
   internal InverseKinematics(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+    swigCMemOwnBase = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
   internal static global::System.Runtime.InteropServices.HandleRef getCPtr(InverseKinematics obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(InverseKinematics obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-    }
   }
 
   ~InverseKinematics() {
@@ -48,9 +35,9 @@ public class InverseKinematics : global::System.IDisposable {
   protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          TesseractKinematicsPINVOKE.delete_InverseKinematics(swigCPtr);
+        if (swigCMemOwnBase) {
+          swigCMemOwnBase = false;
+          TesseractNativePINVOKE.delete_InverseKinematics(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -58,44 +45,49 @@ public class InverseKinematics : global::System.IDisposable {
   }
 
   public IKSolutions calcInvKin(TransformMap tip_link_poses, VectorXd seed) {
-    IKSolutions ret = new IKSolutions(TesseractKinematicsPINVOKE.InverseKinematics_calcInvKin(swigCPtr, TransformMap.getCPtr(tip_link_poses), VectorXd.getCPtr(seed)), true);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+    IKSolutions ret = new IKSolutions(TesseractNativePINVOKE.InverseKinematics_calcInvKin__SWIG_0(swigCPtr, TransformMap.getCPtr(tip_link_poses), VectorXd.getCPtr(seed)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public StringVector getJointNames() {
-    StringVector ret = new StringVector(TesseractKinematicsPINVOKE.InverseKinematics_getJointNames(swigCPtr), true);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public virtual void calcInvKin(IKSolutions solutions, TransformMap tip_link_poses, VectorXd seed) {
+    TesseractNativePINVOKE.InverseKinematics_calcInvKin__SWIG_1(swigCPtr, IKSolutions.getCPtr(solutions), TransformMap.getCPtr(tip_link_poses), VectorXd.getCPtr(seed));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual StringVector getJointNames() {
+    StringVector ret = new StringVector(TesseractNativePINVOKE.InverseKinematics_getJointNames(swigCPtr), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public long numJoints() {
-    long ret = TesseractKinematicsPINVOKE.InverseKinematics_numJoints(swigCPtr);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public virtual long numJoints() {
+    long ret = TesseractNativePINVOKE.InverseKinematics_numJoints(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public string getBaseLinkName() {
-    string ret = TesseractKinematicsPINVOKE.InverseKinematics_getBaseLinkName(swigCPtr);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public virtual string getBaseLinkName() {
+    string ret = TesseractNativePINVOKE.InverseKinematics_getBaseLinkName(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public string getWorkingFrame() {
-    string ret = TesseractKinematicsPINVOKE.InverseKinematics_getWorkingFrame(swigCPtr);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public virtual string getWorkingFrame() {
+    string ret = TesseractNativePINVOKE.InverseKinematics_getWorkingFrame(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public StringVector getTipLinkNames() {
-    StringVector ret = new StringVector(TesseractKinematicsPINVOKE.InverseKinematics_getTipLinkNames(swigCPtr), true);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public virtual StringVector getTipLinkNames() {
+    StringVector ret = new StringVector(TesseractNativePINVOKE.InverseKinematics_getTipLinkNames(swigCPtr), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public string getSolverName() {
-    string ret = TesseractKinematicsPINVOKE.InverseKinematics_getSolverName(swigCPtr);
-    if (TesseractKinematicsPINVOKE.SWIGPendingException.Pending) throw TesseractKinematicsPINVOKE.SWIGPendingException.Retrieve();
+  public virtual string getSolverName() {
+    string ret = TesseractNativePINVOKE.InverseKinematics_getSolverName(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 

@@ -1,64 +1,126 @@
 using Shouldly;
 using Xunit;
+using TesseractEnvironment = Darp.Tesseract.Native.Environment;
 
 namespace Darp.Tesseract.Native.IntegrationTests;
 
 public sealed class KinematicsTests
 {
     [Fact]
-    public void AbbIrb2400InverseKinematicsReturnsJointSolutions()
+    public void AbbIrb2400EnvironmentSupportsForwardJacobianAndInverseKinematics()
     {
-        using var parameters = CreateAbbIrb2400Parameters();
-        using var jointNames = new StringVector(new[]
-        {
-            "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6",
-        });
-        using var solver = new OPWInvKin(parameters, "base_link", "tool0", jointNames);
-        using var target = new Isometry3d();
-        target.setTranslation(1, 0, 1.306);
-        target.setQuaternion(0, 0, 0, 1);
-        using var targets = new TransformMap();
-        targets.set("tool0", target);
-        using var seed = new VectorXd(6);
+        var repositoryRoot = FindRepositoryRoot();
+        var tesseractRoot = Path.Combine(repositoryRoot, "native", "tesseract");
+        var urdfDirectory = Path.Combine(tesseractRoot, "support", "urdf");
+        var urdf = File.ReadAllText(Path.Combine(urdfDirectory, "abb_irb2400.urdf"));
+        var srdf = File.ReadAllText(Path.Combine(urdfDirectory, "abb_irb2400.srdf"));
 
-        using var solutions = solver.calcInvKin(targets, seed);
+        using var locator = new GeneralResourceLocator();
+        locator.addPath(Path.GetDirectoryName(tesseractRoot)!).ShouldBeTrue();
 
-        solutions.size().ShouldBeGreaterThan(0);
-        solver.getSolverName().ShouldBe("OPWInvKin");
-        solver.numJoints().ShouldBe(6);
-        for (var solutionIndex = 0; solutionIndex < solutions.size(); solutionIndex++)
+        using var sceneGraph = TesseractNative.parseURDFString(urdf, locator);
+        sceneGraph.ShouldNotBeNull();
+        sceneGraph.getRoot().ShouldBe("base_link");
+
+        using var srdfModel = new SRDFModel();
+        srdfModel.initString(sceneGraph, srdf, locator);
+
+        using var environment = new TesseractEnvironment();
+        environment.init(sceneGraph, srdfModel).ShouldBeTrue();
+        environment.isInitialized().ShouldBeTrue();
+
+        using (var stateSolver = environment.getStateSolver())
         {
-            using var solution = solutions.get(solutionIndex);
-            solution.size().ShouldBe(6);
-            for (var jointIndex = 0; jointIndex < solution.size(); jointIndex++)
-                double.IsFinite(solution.get(jointIndex)).ShouldBeTrue();
+            stateSolver.ShouldNotBeNull();
+            stateSolver.getBaseLinkName().ShouldBe("base_link");
         }
+
+        using var group = environment.getKinematicGroup("manipulator");
+        group.ShouldNotBeNull();
+        group.numJoints().ShouldBe(6);
+        group.getBaseLinkName().ShouldBe("base_link");
+
+        using var activeLinks = group.getActiveLinkNames();
+        var tipLink = activeLinks[^1];
+        tipLink.ShouldBe("tool0");
+
+        using var seed = new VectorXd(checked((int)group.numJoints()));
+        seed.AsSpan().Clear();
+
+        using var transforms = group.calcFwdKin(seed);
+        transforms.contains(tipLink).ShouldBeTrue();
+        using var target = transforms.get(tipLink);
+
+        using var jacobian = group.calcJacobian(seed, tipLink);
+        jacobian.rows().ShouldBe(6);
+        jacobian.columns().ShouldBe(6);
+        foreach (var value in jacobian.AsSpan())
+            double.IsFinite(value).ShouldBeTrue();
+
+        using var input = new KinGroupIKInput(target, group.getBaseLinkName(), tipLink);
+        using var solutions = group.calcInvKin(input, seed);
+        solutions.size().ShouldBeGreaterThan(0);
+
+        var roundTripMatched = false;
+        using var candidate = new VectorXd(checked((int)group.numJoints()));
+        for (var index = 0; index < solutions.size(); index++)
+        {
+            var solution = solutions.GetSolutionSpan(index);
+            solution.Length.ShouldBe(candidate.size());
+            foreach (var joint in solution)
+                double.IsFinite(joint).ShouldBeTrue();
+
+            solution.CopyTo(candidate.AsSpan());
+            using var candidateTransforms = group.calcFwdKin(candidate);
+            using var candidatePose = candidateTransforms.get(tipLink);
+            if (PosesApproximatelyEqual(target, candidatePose, 1e-6))
+            {
+                roundTripMatched = true;
+                break;
+            }
+        }
+
+        roundTripMatched.ShouldBeTrue("at least one IK solution should reproduce the requested FK pose");
     }
 
     [Fact]
-    public void GeneratedEigenAndParameterBindingsValidateIndices()
+    public void GeneratedNativeViewsValidateBoundsWithoutManagedArrays()
     {
-        using var parameters = new OPWParameters();
         using var vector = new VectorXd(6);
+        vector.AsSpan().Fill(0.25);
 
-        Should.Throw<IndexOutOfRangeException>(() => parameters.setOffset(6, 0));
-        Should.Throw<ArgumentException>(() => parameters.setSignCorrection(0, 0));
+        vector.get(0).ShouldBe(0.25);
+        vector.get(5).ShouldBe(0.25);
         Should.Throw<IndexOutOfRangeException>(() => vector.get(6));
     }
 
-    private static OPWParameters CreateAbbIrb2400Parameters()
+    private static bool PosesApproximatelyEqual(Isometry3d expected, Isometry3d actual, double tolerance)
     {
-        var parameters = new OPWParameters
+        var translationMatches =
+            Math.Abs(expected.translationX() - actual.translationX()) <= tolerance &&
+            Math.Abs(expected.translationY() - actual.translationY()) <= tolerance &&
+            Math.Abs(expected.translationZ() - actual.translationZ()) <= tolerance;
+
+        var quaternionDot =
+            expected.quaternionX() * actual.quaternionX() +
+            expected.quaternionY() * actual.quaternionY() +
+            expected.quaternionZ() * actual.quaternionZ() +
+            expected.quaternionW() * actual.quaternionW();
+
+        return translationMatches && Math.Abs(Math.Abs(quaternionDot) - 1) <= tolerance;
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        foreach (var start in new[] { Directory.GetCurrentDirectory(), AppContext.BaseDirectory })
         {
-            a1 = 0.100,
-            a2 = -0.135,
-            b = 0,
-            c1 = 0.615,
-            c2 = 0.705,
-            c3 = 0.755,
-            c4 = 0.085,
-        };
-        parameters.setOffset(2, -Math.PI / 2);
-        return parameters;
+            for (var directory = new DirectoryInfo(start); directory is not null; directory = directory.Parent)
+            {
+                if (File.Exists(Path.Combine(directory.FullName, "native", "tesseract", "package.xml")))
+                    return directory.FullName;
+            }
+        }
+
+        throw new DirectoryNotFoundException("Could not locate the Darp.Tesseract.Native repository root.");
     }
 }

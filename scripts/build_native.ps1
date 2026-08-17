@@ -1,76 +1,77 @@
 param(
   [Parameter(Mandatory = $true)]
-  [ValidateSet("win-x64", "win-arm64", "linux-x64", "linux-arm64", "osx-x64", "osx-arm64")]
+  [ValidateSet("win-x64", "linux-x64", "linux-arm64", "osx-arm64")]
   [string]$RuntimeId,
-  [Parameter(Mandatory = $true)]
-  [string]$Generator,
-  [string]$Toolset = "",
+  [string]$PixiPath = "",
   [string]$Configuration = "Release"
 )
 
 $ErrorActionPreference = "Stop"
 
-$parts = $RuntimeId -split '-', 2
-$os = $parts[0]
-$arch = $parts[1]
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repositoryDir = [System.IO.Path]::GetFullPath((Join-Path $scriptDir ".."))
 $sourceDir = Join-Path $repositoryDir "native"
 $buildDir = Join-Path $repositoryDir "artifacts/build/$RuntimeId"
 $outputDir = Join-Path $repositoryDir "artifacts/native/$RuntimeId"
-$wrapperPaths = @(
-  (Join-Path $repositoryDir "bindings/generated/TesseractCommon_wrap.cxx"),
-  (Join-Path $repositoryDir "bindings/generated/TesseractKinematics_wrap.cxx")
-)
+$wrapperPath = Join-Path $repositoryDir "bindings/generated/TesseractNative_wrap.cxx"
+$manifestPath = Join-Path $repositoryDir "native/tesseract_nanobind/pyproject.toml"
 
-foreach ($wrapperPath in $wrapperPaths) {
-  if (-not (Test-Path -LiteralPath $wrapperPath)) {
-    throw "Generated wrapper '$wrapperPath' is missing. Run './scripts/generate_bindings.ps1' first."
+if (-not (Test-Path -LiteralPath $wrapperPath)) {
+  throw "Generated wrapper '$wrapperPath' is missing. Run './scripts/generate_bindings.ps1' first."
+}
+if (-not (Test-Path -LiteralPath $manifestPath)) {
+  throw "The pinned nanobind Pixi manifest is missing. Run 'git submodule update --init --recursive'."
+}
+
+if ([string]::IsNullOrWhiteSpace($PixiPath)) {
+  $localPixi = Join-Path $repositoryDir "artifacts/tools/pixi/pixi.exe"
+  if (Test-Path -LiteralPath $localPixi) {
+    $PixiPath = $localPixi
+  } else {
+    $pixiCommand = Get-Command pixi -ErrorAction SilentlyContinue
+    if ($null -eq $pixiCommand) {
+      throw "Pixi was not found. Run './scripts/install_pixi.ps1' or pass -PixiPath."
+    }
+    $PixiPath = $pixiCommand.Source
   }
+}
+
+$hostRuntime = if ($IsWindows) {
+  "win-x64"
+} elseif ($IsMacOS) {
+  if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq "Arm64") { "osx-arm64" } else { "osx-x64" }
+} else {
+  if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq "Arm64") { "linux-arm64" } else { "linux-x64" }
+}
+if ($RuntimeId -ne $hostRuntime) {
+  throw "The official Tesseract conda packages are native builds; '$RuntimeId' must be built on a '$RuntimeId' host (current: '$hostRuntime')."
 }
 
 if (Test-Path -LiteralPath $buildDir) {
   Remove-Item -LiteralPath $buildDir -Recurse -Force
 }
+if (Test-Path -LiteralPath $outputDir) {
+  Remove-Item -LiteralPath $outputDir -Recurse -Force
+}
 New-Item -ItemType Directory -Path $buildDir -Force | Out-Null
 New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 
-$cmakeArgs = @("-S", $sourceDir, "-B", $buildDir, "-G", $Generator)
-if (-not [string]::IsNullOrWhiteSpace($Toolset)) {
-  $cmakeArgs += "-T", $Toolset
-}
-switch ($os) {
-  "win" {
-    $msvcArch = if ($arch -eq "arm64") { "ARM64" } else { "x64" }
-    $cmakeArgs += "-A", $msvcArch
-  }
-  "linux" {
-    $cmakeArgs += "-DCMAKE_BUILD_TYPE=$Configuration"
-  }
-  "osx" {
-    $osxArch = if ($arch -eq "x64") { "x86_64" } else { "arm64" }
-    $cmakeArgs += "-DCMAKE_BUILD_TYPE=$Configuration", "-DCMAKE_OSX_ARCHITECTURES=$osxArch", "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
-  }
-}
-
-& cmake @cmakeArgs
+$pixiArgs = @("run", "--manifest-path", $manifestPath)
+& $PixiPath @pixiArgs cmake -S $sourceDir -B $buildDir -G Ninja "-DCMAKE_BUILD_TYPE=$Configuration"
 if ($LASTEXITCODE -ne 0) { throw "CMake configure failed with exit code $LASTEXITCODE." }
 
-& cmake --build $buildDir --config $Configuration --parallel
+& $PixiPath @pixiArgs cmake --build $buildDir --config $Configuration --parallel
 if ($LASTEXITCODE -ne 0) { throw "CMake build failed with exit code $LASTEXITCODE." }
 
-$libraryNames = @("tesseract_common_csharp", "tesseract_kinematics_csharp")
-foreach ($libraryName in $libraryNames) {
-  switch ($os) {
-    "win" { $libraryPath = Join-Path $buildDir "$Configuration/$libraryName.dll" }
-    "linux" { $libraryPath = Join-Path $buildDir "lib$libraryName.so" }
-    "osx" { $libraryPath = Join-Path $buildDir "lib$libraryName.dylib" }
-  }
-
-  if (-not (Test-Path -LiteralPath $libraryPath)) {
-    throw "Native library was not found at '$libraryPath'."
-  }
-
-  Copy-Item -LiteralPath $libraryPath -Destination $outputDir -Force
-  Write-Host "Copied $libraryPath to $outputDir"
+$libraryPath = switch ($RuntimeId) {
+  "win-x64" { Join-Path $buildDir "tesseract_csharp.dll" }
+  "linux-x64" { Join-Path $buildDir "libtesseract_csharp.so" }
+  "linux-arm64" { Join-Path $buildDir "libtesseract_csharp.so" }
+  "osx-arm64" { Join-Path $buildDir "libtesseract_csharp.dylib" }
 }
+if (-not (Test-Path -LiteralPath $libraryPath)) {
+  throw "Native library was not found at '$libraryPath'."
+}
+
+Copy-Item -LiteralPath $libraryPath -Destination $outputDir -Force
+Write-Host "Copied $libraryPath to $outputDir"

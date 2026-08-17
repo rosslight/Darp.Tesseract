@@ -10,21 +10,21 @@
 
 namespace Darp.Tesseract.Native {
 
-public class StringVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IList<string>
+public class DoubleVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IList<double>
  {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal StringVector(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal DoubleVector(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(StringVector obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(DoubleVector obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(StringVector obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(DoubleVector obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -37,7 +37,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  ~StringVector() {
+  ~DoubleVector() {
     Dispose(false);
   }
 
@@ -51,25 +51,29 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_StringVector(swigCPtr);
+          TesseractNativePINVOKE.delete_DoubleVector(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public StringVector(global::System.Collections.IEnumerable c) : this() {
+  /// <summary>Views the native vector storage. The span is invalidated by mutation or disposal.</summary>
+  public unsafe global::System.Span<double> AsSpan() =>
+    new global::System.Span<double>((void*)dataAddress(), checked((int)Count));
+
+  public DoubleVector(global::System.Collections.IEnumerable c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (string element in c) {
+    foreach (double element in c) {
       this.Add(element);
     }
   }
 
-  public StringVector(global::System.Collections.Generic.IEnumerable<string> c) : this() {
+  public DoubleVector(global::System.Collections.Generic.IEnumerable<double> c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (string element in c) {
+    foreach (double element in c) {
       this.Add(element);
     }
   }
@@ -86,7 +90,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  public string this[int index]  {
+  public double this[int index]  {
     get {
       return getitem(index);
     }
@@ -124,17 +128,17 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  public void CopyTo(string[] array)
+  public void CopyTo(double[] array)
   {
     CopyTo(0, array, 0, this.Count);
   }
 
-  public void CopyTo(string[] array, int arrayIndex)
+  public void CopyTo(double[] array, int arrayIndex)
   {
     CopyTo(0, array, arrayIndex, this.Count);
   }
 
-  public void CopyTo(int index, string[] array, int arrayIndex, int count)
+  public void CopyTo(int index, double[] array, int arrayIndex, int count)
   {
     if (array == null)
       throw new global::System.ArgumentNullException("array");
@@ -152,22 +156,22 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
       array.SetValue(getitemcopy(index+i), arrayIndex+i);
   }
 
-  public string[] ToArray() {
-    string[] array = new string[this.Count];
+  public double[] ToArray() {
+    double[] array = new double[this.Count];
     this.CopyTo(array);
     return array;
   }
 
-  global::System.Collections.Generic.IEnumerator<string> global::System.Collections.Generic.IEnumerable<string>.GetEnumerator() {
-    return new StringVectorEnumerator(this);
+  global::System.Collections.Generic.IEnumerator<double> global::System.Collections.Generic.IEnumerable<double>.GetEnumerator() {
+    return new DoubleVectorEnumerator(this);
   }
 
   global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator() {
-    return new StringVectorEnumerator(this);
+    return new DoubleVectorEnumerator(this);
   }
 
-  public StringVectorEnumerator GetEnumerator() {
-    return new StringVectorEnumerator(this);
+  public DoubleVectorEnumerator GetEnumerator() {
+    return new DoubleVectorEnumerator(this);
   }
 
   // Type-safe enumerator
@@ -175,15 +179,15 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
   /// whenever the collection is modified. This has been done for changes in the size of the
   /// collection but not when one of the elements of the collection is modified as it is a bit
   /// tricky to detect unmanaged code that modifies the collection under our feet.
-  public sealed class StringVectorEnumerator : global::System.Collections.IEnumerator
-    , global::System.Collections.Generic.IEnumerator<string>
+  public sealed class DoubleVectorEnumerator : global::System.Collections.IEnumerator
+    , global::System.Collections.Generic.IEnumerator<double>
   {
-    private StringVector collectionRef;
+    private DoubleVector collectionRef;
     private int currentIndex;
     private object currentObject;
     private int currentSize;
 
-    public StringVectorEnumerator(StringVector collection) {
+    public DoubleVectorEnumerator(DoubleVector collection) {
       collectionRef = collection;
       currentIndex = -1;
       currentObject = null;
@@ -191,7 +195,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
 
     // Type-safe iterator Current
-    public string Current {
+    public double Current {
       get {
         if (currentIndex == -1)
           throw new global::System.InvalidOperationException("Enumeration not started.");
@@ -199,7 +203,7 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
           throw new global::System.InvalidOperationException("Enumeration finished.");
         if (currentObject == null)
           throw new global::System.InvalidOperationException("Collection modified.");
-        return (string)currentObject;
+        return (double)currentObject;
       }
     }
 
@@ -236,142 +240,148 @@ public class StringVector : global::System.IDisposable, global::System.Collectio
     }
   }
 
-  public StringVector() : this(TesseractNativePINVOKE.new_StringVector__SWIG_0(), true) {
+  public DoubleVector() : this(TesseractNativePINVOKE.new_DoubleVector__SWIG_0(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StringVector(StringVector other) : this(TesseractNativePINVOKE.new_StringVector__SWIG_1(StringVector.getCPtr(other)), true) {
+  public DoubleVector(DoubleVector other) : this(TesseractNativePINVOKE.new_DoubleVector__SWIG_1(DoubleVector.getCPtr(other)), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Clear() {
-    TesseractNativePINVOKE.StringVector_Clear(swigCPtr);
+    TesseractNativePINVOKE.DoubleVector_Clear(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void Add(string x) {
-    TesseractNativePINVOKE.StringVector_Add(swigCPtr, x);
+  public void Add(double x) {
+    TesseractNativePINVOKE.DoubleVector_Add(swigCPtr, x);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   private uint size() {
-    uint ret = TesseractNativePINVOKE.StringVector_size(swigCPtr);
+    uint ret = TesseractNativePINVOKE.DoubleVector_size(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private bool empty() {
-    bool ret = TesseractNativePINVOKE.StringVector_empty(swigCPtr);
+    bool ret = TesseractNativePINVOKE.DoubleVector_empty(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private uint capacity() {
-    uint ret = TesseractNativePINVOKE.StringVector_capacity(swigCPtr);
+    uint ret = TesseractNativePINVOKE.DoubleVector_capacity(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   private void reserve(uint n) {
-    TesseractNativePINVOKE.StringVector_reserve(swigCPtr, n);
+    TesseractNativePINVOKE.DoubleVector_reserve(swigCPtr, n);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public StringVector(int capacity) : this(TesseractNativePINVOKE.new_StringVector__SWIG_2(capacity), true) {
+  public DoubleVector(int capacity) : this(TesseractNativePINVOKE.new_DoubleVector__SWIG_2(capacity), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  private string getitemcopy(int index) {
-    string ret = TesseractNativePINVOKE.StringVector_getitemcopy(swigCPtr, index);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  private string getitem(int index) {
-    string ret = TesseractNativePINVOKE.StringVector_getitem(swigCPtr, index);
+  private double getitemcopy(int index) {
+    double ret = TesseractNativePINVOKE.DoubleVector_getitemcopy(swigCPtr, index);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  private void setitem(int index, string val) {
-    TesseractNativePINVOKE.StringVector_setitem(swigCPtr, index, val);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void AddRange(StringVector values) {
-    TesseractNativePINVOKE.StringVector_AddRange(swigCPtr, StringVector.getCPtr(values));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public StringVector GetRange(int index, int count) {
-    global::System.IntPtr cPtr = TesseractNativePINVOKE.StringVector_GetRange(swigCPtr, index, count);
-    StringVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StringVector(cPtr, true);
+  private double getitem(int index) {
+    double ret = TesseractNativePINVOKE.DoubleVector_getitem(swigCPtr, index);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void Insert(int index, string x) {
-    TesseractNativePINVOKE.StringVector_Insert(swigCPtr, index, x);
+  private void setitem(int index, double val) {
+    TesseractNativePINVOKE.DoubleVector_setitem(swigCPtr, index, val);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void InsertRange(int index, StringVector values) {
-    TesseractNativePINVOKE.StringVector_InsertRange(swigCPtr, index, StringVector.getCPtr(values));
+  public void AddRange(DoubleVector values) {
+    TesseractNativePINVOKE.DoubleVector_AddRange(swigCPtr, DoubleVector.getCPtr(values));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public DoubleVector GetRange(int index, int count) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.DoubleVector_GetRange(swigCPtr, index, count);
+    DoubleVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new DoubleVector(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public void Insert(int index, double x) {
+    TesseractNativePINVOKE.DoubleVector_Insert(swigCPtr, index, x);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void InsertRange(int index, DoubleVector values) {
+    TesseractNativePINVOKE.DoubleVector_InsertRange(swigCPtr, index, DoubleVector.getCPtr(values));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveAt(int index) {
-    TesseractNativePINVOKE.StringVector_RemoveAt(swigCPtr, index);
+    TesseractNativePINVOKE.DoubleVector_RemoveAt(swigCPtr, index);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void RemoveRange(int index, int count) {
-    TesseractNativePINVOKE.StringVector_RemoveRange(swigCPtr, index, count);
+    TesseractNativePINVOKE.DoubleVector_RemoveRange(swigCPtr, index, count);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public static StringVector Repeat(string value, int count) {
-    global::System.IntPtr cPtr = TesseractNativePINVOKE.StringVector_Repeat(value, count);
-    StringVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new StringVector(cPtr, true);
+  public static DoubleVector Repeat(double value, int count) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.DoubleVector_Repeat(value, count);
+    DoubleVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new DoubleVector(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public void Reverse() {
-    TesseractNativePINVOKE.StringVector_Reverse__SWIG_0(swigCPtr);
+    TesseractNativePINVOKE.DoubleVector_Reverse__SWIG_0(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public void Reverse(int index, int count) {
-    TesseractNativePINVOKE.StringVector_Reverse__SWIG_1(swigCPtr, index, count);
+    TesseractNativePINVOKE.DoubleVector_Reverse__SWIG_1(swigCPtr, index, count);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void SetRange(int index, StringVector values) {
-    TesseractNativePINVOKE.StringVector_SetRange(swigCPtr, index, StringVector.getCPtr(values));
+  public void SetRange(int index, DoubleVector values) {
+    TesseractNativePINVOKE.DoubleVector_SetRange(swigCPtr, index, DoubleVector.getCPtr(values));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public bool Contains(string value) {
-    bool ret = TesseractNativePINVOKE.StringVector_Contains(swigCPtr, value);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public int IndexOf(string value) {
-    int ret = TesseractNativePINVOKE.StringVector_IndexOf(swigCPtr, value);
+  public bool Contains(double value) {
+    bool ret = TesseractNativePINVOKE.DoubleVector_Contains(swigCPtr, value);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public int LastIndexOf(string value) {
-    int ret = TesseractNativePINVOKE.StringVector_LastIndexOf(swigCPtr, value);
+  public int IndexOf(double value) {
+    int ret = TesseractNativePINVOKE.DoubleVector_IndexOf(swigCPtr, value);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public bool Remove(string value) {
-    bool ret = TesseractNativePINVOKE.StringVector_Remove(swigCPtr, value);
+  public int LastIndexOf(double value) {
+    int ret = TesseractNativePINVOKE.DoubleVector_LastIndexOf(swigCPtr, value);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool Remove(double value) {
+    bool ret = TesseractNativePINVOKE.DoubleVector_Remove(swigCPtr, value);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public ulong dataAddress() {
+    ulong ret = TesseractNativePINVOKE.DoubleVector_dataAddress(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

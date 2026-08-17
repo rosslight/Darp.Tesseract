@@ -10,33 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class Isometry3d : global::System.IDisposable {
+public class ForwardKinematics : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
+  private bool swigCMemOwnBase;
 
-  internal Isometry3d(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
+  internal ForwardKinematics(global::System.IntPtr cPtr, bool cMemoryOwn) {
+    swigCMemOwnBase = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Isometry3d obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(ForwardKinematics obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(Isometry3d obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-    }
-  }
-
-  ~Isometry3d() {
+  ~ForwardKinematics() {
     Dispose(false);
   }
 
@@ -48,67 +35,63 @@ public class Isometry3d : global::System.IDisposable {
   protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_Isometry3d(swigCPtr);
+        if (swigCMemOwnBase) {
+          swigCMemOwnBase = false;
+          TesseractNativePINVOKE.delete_ForwardKinematics(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public Isometry3d() : this(TesseractNativePINVOKE.new_Isometry3d(), true) {
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void setTranslation(double x, double y, double z) {
-    TesseractNativePINVOKE.Isometry3d_setTranslation(swigCPtr, x, y, z);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public void setQuaternion(double x, double y, double z, double w) {
-    TesseractNativePINVOKE.Isometry3d_setQuaternion(swigCPtr, x, y, z, w);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public double translationX() {
-    double ret = TesseractNativePINVOKE.Isometry3d_translationX(swigCPtr);
+  public TransformMap calcFwdKin(VectorXd joint_angles) {
+    TransformMap ret = new TransformMap(TesseractNativePINVOKE.ForwardKinematics_calcFwdKin__SWIG_0(swigCPtr, VectorXd.getCPtr(joint_angles)), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double translationY() {
-    double ret = TesseractNativePINVOKE.Isometry3d_translationY(swigCPtr);
+  public MatrixXd calcJacobian(VectorXd joint_angles, string link_name) {
+    MatrixXd ret = new MatrixXd(TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_0(swigCPtr, VectorXd.getCPtr(joint_angles), link_name), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double translationZ() {
-    double ret = TesseractNativePINVOKE.Isometry3d_translationZ(swigCPtr);
+  public virtual void calcFwdKin(TransformMap transforms, VectorXd joint_angles) {
+    TesseractNativePINVOKE.ForwardKinematics_calcFwdKin__SWIG_1(swigCPtr, TransformMap.getCPtr(transforms), VectorXd.getCPtr(joint_angles));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual void calcJacobian(MatrixXd jacobian, VectorXd joint_angles, string link_name) {
+    TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_1(swigCPtr, MatrixXd.getCPtr(jacobian), VectorXd.getCPtr(joint_angles), link_name);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual string getBaseLinkName() {
+    string ret = TesseractNativePINVOKE.ForwardKinematics_getBaseLinkName(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double quaternionX() {
-    double ret = TesseractNativePINVOKE.Isometry3d_quaternionX(swigCPtr);
+  public virtual StringVector getJointNames() {
+    StringVector ret = new StringVector(TesseractNativePINVOKE.ForwardKinematics_getJointNames(swigCPtr), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double quaternionY() {
-    double ret = TesseractNativePINVOKE.Isometry3d_quaternionY(swigCPtr);
+  public virtual StringVector getTipLinkNames() {
+    StringVector ret = new StringVector(TesseractNativePINVOKE.ForwardKinematics_getTipLinkNames(swigCPtr), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double quaternionZ() {
-    double ret = TesseractNativePINVOKE.Isometry3d_quaternionZ(swigCPtr);
+  public virtual long numJoints() {
+    long ret = TesseractNativePINVOKE.ForwardKinematics_numJoints(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double quaternionW() {
-    double ret = TesseractNativePINVOKE.Isometry3d_quaternionW(swigCPtr);
+  public virtual string getSolverName() {
+    string ret = TesseractNativePINVOKE.ForwardKinematics_getSolverName(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

@@ -10,20 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class IKSolutions : global::System.IDisposable {
+public class PluginInfoContainer : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal IKSolutions(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal PluginInfoContainer(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(IKSolutions obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PluginInfoContainer obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(IKSolutions obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(PluginInfoContainer obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public class IKSolutions : global::System.IDisposable {
     }
   }
 
-  ~IKSolutions() {
+  ~PluginInfoContainer() {
     Dispose(false);
   }
 
@@ -50,36 +50,31 @@ public class IKSolutions : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_IKSolutions(swigCPtr);
+          TesseractNativePINVOKE.delete_PluginInfoContainer(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  /// <summary>Views one native IK solution without copying it.</summary>
-  public unsafe global::System.ReadOnlySpan<double> GetSolutionSpan(int index) =>
-    new global::System.ReadOnlySpan<double>((void*)solutionDataAddress(index), solutionSize(index));
-
-  public int size() {
-    int ret = TesseractNativePINVOKE.IKSolutions_size(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public string default_plugin {
+    set {
+      TesseractNativePINVOKE.PluginInfoContainer_default_plugin_set(swigCPtr, value);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      string ret = TesseractNativePINVOKE.PluginInfoContainer_default_plugin_get(swigCPtr);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
   }
 
-  public int solutionSize(int index) {
-    int ret = TesseractNativePINVOKE.IKSolutions_solutionSize(swigCPtr, index);
+  public void clear() {
+    TesseractNativePINVOKE.PluginInfoContainer_clear(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
   }
 
-  public ulong solutionDataAddress(int index) {
-    ulong ret = TesseractNativePINVOKE.IKSolutions_solutionDataAddress(swigCPtr, index);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public IKSolutions() : this(TesseractNativePINVOKE.new_IKSolutions(), true) {
+  public PluginInfoContainer() : this(TesseractNativePINVOKE.new_PluginInfoContainer(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 

@@ -10,7 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TesseractCommon {
+public enum GeometryType : byte {
+  UNINITIALIZED,
+  SPHERE,
+  CYLINDER,
+  CAPSULE,
+  CONE,
+  BOX,
+  PLANE,
+  MESH,
+  CONVEX_MESH,
+  SDF_MESH,
+  OCTREE,
+  POLYGON_MESH,
+  COMPOUND_MESH
 }
 
 }
