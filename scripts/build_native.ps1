@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory = $true)]
-  [ValidateSet("win-x64", "linux-x64", "linux-arm64", "osx-arm64")]
+  [ValidateSet("win-x64", "linux-x64", "linux-arm64", "osx-x64", "osx-arm64")]
   [string]$RuntimeId,
   [string]$PixiPath = "",
   [string]$Configuration = "Release"
@@ -14,13 +14,15 @@ $sourceDir = Join-Path $repositoryDir "native"
 $buildDir = Join-Path $repositoryDir "artifacts/build/$RuntimeId"
 $outputDir = Join-Path $repositoryDir "artifacts/native/$RuntimeId"
 $wrapperPath = Join-Path $repositoryDir "bindings/generated/TesseractNative_wrap.cxx"
-$manifestPath = Join-Path $repositoryDir "native/tesseract_nanobind/pyproject.toml"
+$manifestPath = Join-Path $repositoryDir "pixi.toml"
+
+& (Join-Path $scriptDir "verify_native_versions.ps1")
 
 if (-not (Test-Path -LiteralPath $wrapperPath)) {
   throw "Generated wrapper '$wrapperPath' is missing. Run './scripts/generate_bindings.ps1' first."
 }
 if (-not (Test-Path -LiteralPath $manifestPath)) {
-  throw "The pinned nanobind Pixi manifest is missing. Run 'git submodule update --init --recursive'."
+  throw "The repository Pixi manifest '$manifestPath' is missing."
 }
 
 if ([string]::IsNullOrWhiteSpace($PixiPath)) {
@@ -44,7 +46,7 @@ $hostRuntime = if ($IsWindows) {
   if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -eq "Arm64") { "linux-arm64" } else { "linux-x64" }
 }
 if ($RuntimeId -ne $hostRuntime) {
-  throw "The official Tesseract conda packages are native builds; '$RuntimeId' must be built on a '$RuntimeId' host (current: '$hostRuntime')."
+  throw "Tesseract and the generated wrapper are native builds; '$RuntimeId' must be built on a '$RuntimeId' host (current: '$hostRuntime')."
 }
 
 if (Test-Path -LiteralPath $buildDir) {
@@ -56,7 +58,7 @@ if (Test-Path -LiteralPath $outputDir) {
 New-Item -ItemType Directory -Path $buildDir -Force | Out-Null
 New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 
-$pixiArgs = @("run", "--manifest-path", $manifestPath)
+$pixiArgs = @("run", "--manifest-path", $manifestPath, "--environment", "default")
 & $PixiPath @pixiArgs cmake -S $sourceDir -B $buildDir -G Ninja "-DCMAKE_BUILD_TYPE=$Configuration"
 if ($LASTEXITCODE -ne 0) { throw "CMake configure failed with exit code $LASTEXITCODE." }
 
@@ -67,6 +69,7 @@ $libraryPath = switch ($RuntimeId) {
   "win-x64" { Join-Path $buildDir "tesseract_csharp.dll" }
   "linux-x64" { Join-Path $buildDir "libtesseract_csharp.so" }
   "linux-arm64" { Join-Path $buildDir "libtesseract_csharp.so" }
+  "osx-x64" { Join-Path $buildDir "libtesseract_csharp.dylib" }
   "osx-arm64" { Join-Path $buildDir "libtesseract_csharp.dylib" }
 }
 if (-not (Test-Path -LiteralPath $libraryPath)) {

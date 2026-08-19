@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 # Several transitive conda packages still publish configs using legacy policy
-# behavior. Match the policy compatibility used by the maintained nanobind
-# project that supplies our dependency lock.
+# behavior. Keep compatibility with the dependency graph pinned by pixi.lock.
 if(POLICY CMP0167)
   cmake_policy(SET CMP0167 OLD)
 endif()
@@ -15,9 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Pixi/conda provides the official Tesseract 0.35 packages. Keep the same
-# prefix resolution as tesseract_nanobind so local and CI builds consume the
-# exact dependency graph recorded in its pinned pixi.lock.
+# Pixi builds the pinned Tesseract source package and installs it with its
+# dependency graph into the active environment.
 if(NOT "$ENV{TESSERACT_CPP_PREFIX}" STREQUAL "")
   set(TESSERACT_CPP_PREFIX "$ENV{TESSERACT_CPP_PREFIX}")
 elseif(NOT "$ENV{CONDA_PREFIX}" STREQUAL "")
@@ -66,7 +64,7 @@ target_link_libraries(
 
 if(MSVC)
   target_compile_definitions(tesseract_csharp PRIVATE NOMINMAX _USE_MATH_DEFINES)
-  target_compile_options(tesseract_csharp PRIVATE /W4 /permissive- /EHsc)
+  target_compile_options(tesseract_csharp PRIVATE /W4 /permissive- /EHsc /Zc:__cplusplus)
 else()
   target_compile_options(tesseract_csharp PRIVATE -Wall -Wextra -Wpedantic)
 endif()

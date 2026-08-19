@@ -13293,7 +13293,9 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Joint_clone__SWIG_0__
       return 0;
     }
   }
-  jresult = new std::shared_ptr<  tesseract::scene_graph::Joint >(new tesseract::scene_graph::Joint(result)); 
+  {
+    jresult = new std::shared_ptr<tesseract::scene_graph::Joint>(new tesseract::scene_graph::Joint(SWIG_STD_MOVE(*(&result))));
+  }
   return jresult;
 }
 
@@ -13335,7 +13337,9 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Joint_clone__SWIG_1__
       return 0;
     }
   }
-  jresult = new std::shared_ptr<  tesseract::scene_graph::Joint >(new tesseract::scene_graph::Joint(result)); 
+  {
+    jresult = new std::shared_ptr<tesseract::scene_graph::Joint>(new tesseract::scene_graph::Joint(SWIG_STD_MOVE(*(&result))));
+  }
   return jresult;
 }
 
@@ -14787,7 +14791,9 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_clone__SWIG_0___
       return 0;
     }
   }
-  jresult = new std::shared_ptr<  tesseract::scene_graph::Link >(new tesseract::scene_graph::Link(result)); 
+  {
+    jresult = new std::shared_ptr<tesseract::scene_graph::Link>(new tesseract::scene_graph::Link(SWIG_STD_MOVE(*(&result))));
+  }
   return jresult;
 }
 
@@ -14829,7 +14835,9 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_clone__SWIG_1___
       return 0;
     }
   }
-  jresult = new std::shared_ptr<  tesseract::scene_graph::Link >(new tesseract::scene_graph::Link(result)); 
+  {
+    jresult = new std::shared_ptr<tesseract::scene_graph::Link>(new tesseract::scene_graph::Link(SWIG_STD_MOVE(*(&result))));
+  }
   return jresult;
 }
 

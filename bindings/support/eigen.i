@@ -1,7 +1,7 @@
 /*
  * Small, type-driven Eigen surface used by every wrapped Tesseract module.
  * Eigen is template-heavy and intentionally not parsed by SWIG. These proxy
- * declarations describe only the stable value types present in the nanobind
+ * declarations describe only the stable value types selected for the managed
  * API. The generated wrapper always compiles against the real Eigen types.
  */
 /* Proxy augmentation typemaps must precede the class declarations. */

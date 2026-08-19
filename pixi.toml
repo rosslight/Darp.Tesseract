@@ -1,0 +1,43 @@
+[workspace]
+name = "darp-tesseract-native"
+channels = ["conda-forge", "tesseract-robotics"]
+platforms = ["win-64", "linux-64", "linux-aarch64", "osx-64", "osx-arm64"]
+preview = ["pixi-build"]
+requires-pixi = ">=0.70,<0.71"
+
+[workspace.target.win.build-variants]
+c_compiler = ["vs"]
+c_compiler_version = ["2026"]
+cxx_compiler = ["vs"]
+cxx_compiler_version = ["2026"]
+
+[dependencies]
+swig = "==4.5.0"
+
+[feature.native.dependencies]
+darp-tesseract-upstream = { path = "packaging/tesseract" }
+cmake = ">=4.4,<5"
+ninja = "*"
+
+[feature.native.target.win-64.dependencies]
+vs_win-64 = "2026.*"
+
+[feature.native.target.linux-64.dependencies]
+cxx-compiler = "*"
+
+[feature.native.target.linux-aarch64.dependencies]
+cxx-compiler = "*"
+
+[feature.native.target.osx-64.dependencies]
+cxx-compiler = "*"
+
+[feature.native.target.osx-arm64.dependencies]
+cxx-compiler = "*"
+
+[environments]
+default = { features = ["native"], solve-group = "native" }
+bindings = { features = [], solve-group = "bindings" }
+
+[tasks]
+verify-native-versions = "pwsh ./scripts/verify_native_versions.ps1"
+generate-bindings = { cmd = "pwsh ./scripts/generate_bindings.ps1", depends-on = ["verify-native-versions"] }

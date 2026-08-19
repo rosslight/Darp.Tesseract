@@ -20,3 +20,13 @@
     : nullptr;
 }
 %enddef
+
+/* Materialize a move-only value result directly into the generated shared_ptr
+ * proxy. SwigValueWrapper overloads operator& to expose its stored T; moving
+ * that T avoids MSVC selecting the wrapped type's deleted copy constructor. */
+%define DARP_MOVE_ONLY_VALUE_TO_SHARED(TYPE)
+%typemap(out) TYPE
+{
+  $result = new std::shared_ptr<TYPE>(new TYPE(SWIG_STD_MOVE(*(&$1))));
+}
+%enddef

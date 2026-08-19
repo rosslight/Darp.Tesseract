@@ -4,6 +4,3 @@
 [submodule "native/eigen"]
 	path = native/eigen
 	url = https://gitlab.com/libeigen/eigen.git
-[submodule "native/tesseract_nanobind"]
-	path = native/tesseract_nanobind
-	url = https://github.com/tesseract-robotics/tesseract_nanobind.git

@@ -1,7 +1,7 @@
 /**
- * Generated C# bindings for the native Tesseract API selected by
- * tesseract_nanobind 0.35.0.7. Only reusable language interop rules live in
- * this repository; class and method declarations come from upstream headers.
+ * Generated C# bindings for the pinned native Tesseract API. Only reusable
+ * language interop rules live in this repository; class and method
+ * declarations come from the unmodified upstream headers.
  */
 %module TesseractNative
 
@@ -276,6 +276,9 @@ DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::SceneGraph)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::StateSolver)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::kinematics::ForwardKinematics)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::kinematics::InverseKinematics)
+
+DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Joint)
+DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Link)
 
 /* Apply these after %shared_ptr: that macro installs ownership features for
  * the type and otherwise supersedes an earlier overload-specific ignore. */

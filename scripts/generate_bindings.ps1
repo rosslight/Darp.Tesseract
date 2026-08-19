@@ -7,31 +7,11 @@ $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repositoryDir = [System.IO.Path]::GetFullPath((Join-Path $scriptDir ".."))
 $tesseractDir = Join-Path $repositoryDir "native/tesseract"
-$nanobindDir = Join-Path $repositoryDir "native/tesseract_nanobind"
 $nativeOutputDir = Join-Path $repositoryDir "bindings/generated"
 $managedOutputDir = Join-Path $repositoryDir "src/Darp.Tesseract.Native/Generated"
 $interfacePath = Join-Path $repositoryDir "bindings/tesseract_csharp.i"
 
-$coverageContracts = @(
-  @{ Path = "src/tesseract_common/tesseract_common_bindings.cpp"; Text = "nb::class_<tesseract::common::JointState>" },
-  @{ Path = "src/tesseract_geometry/tesseract_geometry_bindings.cpp"; Text = "nb::class_<tg::Geometry>" },
-  @{ Path = "src/tesseract_scene_graph/tesseract_scene_graph_bindings.cpp"; Text = "nb::class_<tsg::SceneGraph>" },
-  @{ Path = "src/tesseract_urdf/tesseract_urdf_bindings.cpp"; Text = 'm.def("parseURDFString"' },
-  @{ Path = "src/tesseract_srdf/tesseract_srdf_bindings.cpp"; Text = "nb::class_<ts::SRDFModel>" },
-  @{ Path = "src/tesseract_state_solver/tesseract_state_solver_bindings.cpp"; Text = "nb::class_<tsg::StateSolver>" },
-  @{ Path = "src/tesseract_kinematics/tesseract_kinematics_bindings.cpp"; Text = "nb::class_<tk::KinematicGroup" },
-  @{ Path = "src/tesseract_environment/tesseract_environment_bindings.cpp"; Text = "nb::class_<te::Environment>" }
-)
-
-foreach ($contract in $coverageContracts) {
-  $path = Join-Path $nanobindDir $contract.Path
-  if (-not (Test-Path -LiteralPath $path)) {
-    throw "The pinned nanobind coverage source is missing: '$path'. Run 'git submodule update --init --recursive'."
-  }
-  if (-not (Get-Content -Raw -LiteralPath $path).Contains($contract.Text)) {
-    throw "The nanobind coverage contract changed: expected '$($contract.Text)' in '$path'. Review bindings/tesseract_csharp.i."
-  }
-}
+& (Join-Path $scriptDir "verify_native_versions.ps1")
 
 $includeDirs = @(
   (Join-Path $repositoryDir "bindings"),
@@ -59,7 +39,7 @@ if ([string]::IsNullOrWhiteSpace($SwigPath)) {
   } else {
     $swigCommand = Get-Command swig -ErrorAction SilentlyContinue
     if ($null -eq $swigCommand) {
-      throw "SWIG was not found. On Windows run './scripts/install_swig.ps1' or pass -SwigPath."
+      throw "SWIG was not found. Run 'pixi run -e bindings generate-bindings', use './scripts/install_swig.ps1' on Windows, or pass -SwigPath."
     }
     $SwigPath = $swigCommand.Source
   }

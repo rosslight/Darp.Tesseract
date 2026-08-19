@@ -19,11 +19,18 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup pinned binding tools
+        uses: prefix-dev/setup-pixi@v0.10.0
+        with:
+          manifest-path: pixi.toml
+          pixi-version: v0.70.1
+          environments: bindings
+          frozen: true
+          cache: true
+
       - name: Regenerate bindings with pinned SWIG
         shell: pwsh
-        run: |
-          $swig = ./scripts/install_swig.ps1
-          ./scripts/generate_bindings.ps1 -SwigPath $swig
+        run: pixi run -e bindings generate-bindings
 
       - name: Verify generated sources are current
         shell: pwsh
@@ -42,6 +49,8 @@ jobs:
             runner: ubuntu-22.04
           - rid: linux-arm64
             runner: ubuntu-22.04-arm
+          - rid: osx-x64
+            runner: macos-15-intel
           - rid: osx-arm64
             runner: macos-latest
     steps:
@@ -53,8 +62,9 @@ jobs:
       - name: Setup pinned Pixi environment
         uses: prefix-dev/setup-pixi@v0.10.0
         with:
-          manifest-path: native/tesseract_nanobind/pyproject.toml
+          manifest-path: pixi.toml
           pixi-version: v0.70.1
+          environments: default
           frozen: true
           cache: true
 
@@ -119,6 +129,8 @@ jobs:
             runner: ubuntu-22.04
           - rid: linux-arm64
             runner: ubuntu-22.04-arm
+          - rid: osx-x64
+            runner: macos-15-intel
           - rid: osx-arm64
             runner: macos-latest
     env:
@@ -143,8 +155,9 @@ jobs:
       - name: Setup pinned native dependency environment
         uses: prefix-dev/setup-pixi@v0.10.0
         with:
-          manifest-path: native/tesseract_nanobind/pyproject.toml
+          manifest-path: pixi.toml
           pixi-version: v0.70.1
+          environments: default
           frozen: true
           cache: true
 
@@ -155,15 +168,17 @@ jobs:
           dotnet restore tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
             --source "https://api.nuget.org/v3/index.json" `
             --source "$source" `
+            --runtime "${{ matrix.rid }}" `
             -p:UseLocalProjectReference=false
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run packaged native interop test
         shell: pwsh
         run: |
-          pixi run --manifest-path native/tesseract_nanobind/pyproject.toml dotnet run `
+          pixi run -e default dotnet run `
             --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
             -c Release `
+            --runtime "${{ matrix.rid }}" `
             --no-restore `
             -p:UseLocalProjectReference=false
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

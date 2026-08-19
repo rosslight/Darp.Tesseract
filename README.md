@@ -18,10 +18,9 @@ Collision remains an internal dependency of `Environment`, but its public API is
 The upstream sources remain unmodified and are pinned as submodules:
 
 - `native/tesseract`: Tesseract C++ `0.35.0`;
-- `native/tesseract_nanobind`: nanobind API reference and dependency lock `0.35.0.7`;
 - `native/eigen`: Eigen headers used while SWIG parses the public API `3.4.0`.
 
-The nanobind wrapper is the API coverage oracle, not a runtime dependency. Generation checks representative declarations in the pinned nanobind modules and then parses the corresponding original Tesseract headers. The native wrapper links the official Tesseract packages from the exact Pixi lock committed by nanobind.
+The repository owns its `pixi.toml` and `pixi.lock`. Pixi builds Tesseract from the pinned submodule through `packaging/tesseract/pixi.toml`, installs it with an ABI-coherent native dependency graph, and then builds the generated wrapper against that installation. No external language-binding repository participates in generation or compilation.
 
 ## Kinematics example
 
@@ -75,12 +74,11 @@ Initialize the pinned sources:
 git submodule update --init --recursive
 ```
 
-Install the pinned Windows tools and generate the wrapper:
+Install the pinned Windows Pixi executable and generate the wrapper in the lightweight binding environment:
 
 ```powershell
-$swig = ./scripts/install_swig.ps1
 $pixi = ./scripts/install_pixi.ps1
-./scripts/generate_bindings.ps1 -SwigPath $swig
+& $pixi run -e bindings generate-bindings
 ```
 
 Build and test on Windows x64:
@@ -88,18 +86,18 @@ Build and test on Windows x64:
 ```powershell
 ./scripts/build_native.ps1 -RuntimeId win-x64 -PixiPath $pixi
 
-$pixiPrefix = (Resolve-Path native/tesseract_nanobind/.pixi/envs/default).Path
+$pixiPrefix = (Resolve-Path .pixi/envs/default).Path
 $env:CONDA_PREFIX = $pixiPrefix
 $env:Path = (Join-Path $pixiPrefix "Library/bin") + ";" + $env:Path
 dotnet run --project tests/Darp.Tesseract.Native.IntegrationTests -c Release
 ```
 
-The official Tesseract 0.35 packages currently provide native dependency sets for `win-x64`, `linux-x64`, `linux-arm64`, and `osx-arm64`. Each RID must be built on a matching host. Linux and macOS require Pixi to be installed separately; pass its path through `-PixiPath` when it is not on `PATH`.
+The workspace supports `win-x64`, `linux-x64`, `linux-arm64`, `osx-x64`, and `osx-arm64`. Tesseract and the generated wrapper are built from source on a matching native host. Windows ARM64 is intentionally deferred until its dependency ecosystem is available. Linux and macOS require Pixi to be installed separately; pass its path through `-PixiPath` when it is not on `PATH`.
 
 ## Extending the binding
 
-Add upstream headers to `bindings/tesseract_csharp.i` in dependency-coherent slices. Put only generally reusable ownership, container, or value-type rules under `bindings/support/`. Do not patch a method with a handwritten native forwarding function just to improve its C# shape, and never edit files inside the Tesseract or nanobind submodules.
+Add upstream headers to `bindings/tesseract_csharp.i` in dependency-coherent slices. Put only generally reusable ownership, container, or value-type rules under `bindings/support/`. Do not patch a method with a handwritten native forwarding function just to improve its C# shape, and never edit files inside the Tesseract submodule.
 
-When updating Tesseract, advance `native/tesseract` and `native/tesseract_nanobind` to compatible releases together, review the nanobind coverage sources, regenerate, compile the native wrapper, and run the integration test against a real robot model.
+When updating Tesseract, advance `native/tesseract`, update the version in `packaging/tesseract/pixi.toml` and `native/CMakeLists.txt`, regenerate `pixi.lock` and the bindings, compile the native wrapper, and run the integration test against a real robot model. `scripts/verify_native_versions.ps1` rejects version drift between these inputs.
 
 Packaging self-contained RID assets is a separate follow-up. The current developer build intentionally relies on the pinned Pixi environment for Tesseract's transitive native libraries.
