@@ -36,8 +36,20 @@ $runtimeId = if ($IsWindows) {
 
 $buildDir = Join-Path $repositoryDir "artifacts/build/$runtimeId"
 $outputDir = Join-Path $repositoryDir "artifacts/native/$runtimeId"
+$forbiddenBuildPaths = @($env:CONDA_PREFIX, $repositoryDir, $buildDir) |
+  Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+  ForEach-Object { [System.IO.Path]::GetFullPath($_) }
 
-function Set-PortableWrapperRuntimePath([string] $libraryPath) {
+function Test-BuildPath([string] $path) {
+  foreach ($forbiddenPath in $forbiddenBuildPaths) {
+    if ($path.StartsWith($forbiddenPath, [System.StringComparison]::Ordinal)) {
+      return $true
+    }
+  }
+  return $false
+}
+
+function Set-PortableRuntimeMetadata([string] $libraryPath) {
   if ($IsLinux) {
     & patchelf --set-rpath '$ORIGIN' $libraryPath
     if ($LASTEXITCODE -ne 0) {
@@ -47,6 +59,35 @@ function Set-PortableWrapperRuntimePath([string] $libraryPath) {
   }
 
   if ($IsMacOS) {
+    $installNameOutput = & otool -D $libraryPath
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not inspect the macOS install name in '$libraryPath'."
+    }
+    $installName = $installNameOutput | Select-Object -Skip 1 -First 1
+    if (-not [string]::IsNullOrWhiteSpace($installName) -and (Test-BuildPath $installName)) {
+      & install_name_tool -id "@rpath/$([System.IO.Path]::GetFileName($installName))" $libraryPath
+      if ($LASTEXITCODE -ne 0) {
+        throw "Could not normalize the macOS install name '$installName' in '$libraryPath'."
+      }
+    }
+
+    $linkedLibraryOutput = & otool -L $libraryPath
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not inspect the macOS linked libraries in '$libraryPath'."
+    }
+    foreach ($linkedLibraryLine in ($linkedLibraryOutput | Select-Object -Skip 1)) {
+      if ($linkedLibraryLine -notmatch '^\s*(.+?)\s+\(compatibility version') {
+        continue
+      }
+      $linkedLibrary = $Matches[1]
+      if (Test-BuildPath $linkedLibrary) {
+        & install_name_tool -change $linkedLibrary "@rpath/$([System.IO.Path]::GetFileName($linkedLibrary))" $libraryPath
+        if ($LASTEXITCODE -ne 0) {
+          throw "Could not normalize the macOS dependency '$linkedLibrary' in '$libraryPath'."
+        }
+      }
+    }
+
     $loadCommands = & otool -l $libraryPath
     if ($LASTEXITCODE -ne 0) {
       throw "Could not inspect the macOS runtime paths in '$libraryPath'."
@@ -87,10 +128,6 @@ function Assert-PortableRuntimePaths([string[]] $libraryPaths, [switch] $Require
     return
   }
 
-  $forbiddenPaths = @($env:CONDA_PREFIX, $repositoryDir, $buildDir) |
-    Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
-    ForEach-Object { [System.IO.Path]::GetFullPath($_) }
-
   foreach ($candidatePath in $libraryPaths) {
     $runtimeMetadata = if ($IsLinux) {
       & readelf -d $candidatePath
@@ -102,9 +139,11 @@ function Assert-PortableRuntimePaths([string[]] $libraryPaths, [switch] $Require
     }
 
     $runtimeMetadataText = $runtimeMetadata -join "`n"
-    foreach ($forbiddenPath in $forbiddenPaths) {
+    foreach ($forbiddenPath in $forbiddenBuildPaths) {
       if ($runtimeMetadataText.Contains($forbiddenPath, [System.StringComparison]::Ordinal)) {
-        throw "Native library '$candidatePath' retains build path '$forbiddenPath'."
+        $matchingMetadata = $runtimeMetadata |
+          Where-Object { $_.Contains($forbiddenPath, [System.StringComparison]::Ordinal) }
+        throw "Native library '$candidatePath' retains build path '$forbiddenPath' in: $($matchingMetadata -join '; ')"
       }
     }
 
@@ -146,7 +185,7 @@ $libraryPath = switch ($runtimeId) {
 if (-not (Test-Path -LiteralPath $libraryPath)) {
   throw "The installed native wrapper was not found at '$libraryPath'."
 }
-Set-PortableWrapperRuntimePath -libraryPath $libraryPath
+Set-PortableRuntimeMetadata -libraryPath $libraryPath
 Assert-PortableRuntimePaths -libraryPaths @($libraryPath) -RequireWrapperRelativePath
 
 $collectorArgs = @(
@@ -173,6 +212,11 @@ $collectorArgs += @("-P", $runtimeCollectorPath)
 if ($LASTEXITCODE -ne 0) { throw "Native runtime collection failed with exit code $LASTEXITCODE." }
 
 $packagedLibraries = Get-ChildItem -LiteralPath $outputDir -File | Select-Object -ExpandProperty FullName
+if ($IsMacOS) {
+  foreach ($packagedLibrary in $packagedLibraries) {
+    Set-PortableRuntimeMetadata -libraryPath $packagedLibrary
+  }
+}
 Assert-PortableRuntimePaths -libraryPaths $packagedLibraries
 
 Write-Host "Built $runtimeId native runtime in $outputDir"
