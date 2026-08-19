@@ -10,6 +10,18 @@
     new global::System.ReadOnlySpan<double>((void*)solutionDataAddress(index), solutionSize(index));
 %}
 
+/* Eigen::Index is a signed 64-bit integer, but its native spelling differs:
+ * long long on Windows and long on LP64 platforms. Keep the STL helpers tied
+ * to Eigen::Index instead of SWIG's generation-host integer spelling. */
+namespace std
+{
+template<> class vector<Eigen::Index>
+{
+  SWIG_STD_VECTOR_MINIMUM_INTERNAL(IList, const Eigen::Index&, Eigen::Index)
+  SWIG_STD_VECTOR_EXTRA_OP_EQUALS_EQUALS(Eigen::Index)
+};
+}
+
 /* Stable names for the STL containers used across the selected API surface. */
 %template(StringVector) std::vector<std::string>;
 %template(StringSet) std::set<std::string>;

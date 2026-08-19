@@ -148,7 +148,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/python_abi-3.14-8_cp314.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sysroot_linux-64-2.28-h4ee821c_9.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2026c-h151e31d_0.conda
-      - conda: https://conda.anaconda.org/tesseract-robotics/linux-64/boost-plugin-loader-0.4.3-h69ea3dc_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/linux-64/opw-kinematics-0.5.3-h5d87bd1_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/linux-64/ros-industrial-cmake-boilerplate-0.7.4-h149ffd7_0.conda
       linux-aarch64:
@@ -240,7 +239,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/python_abi-3.14-8_cp314.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/sysroot_linux-aarch64-2.28-h585391f_9.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2026c-h151e31d_0.conda
-      - conda: https://conda.anaconda.org/tesseract-robotics/linux-aarch64/boost-plugin-loader-0.4.3-ha39885e_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/linux-aarch64/opw-kinematics-0.5.3-hcc23be9_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/linux-aarch64/ros-industrial-cmake-boilerplate-0.7.4-hc5e3a74_0.conda
       osx-64:
@@ -339,7 +337,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-64/yaml-cpp-0.8.0-h2fb4741_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zlib-1.3.2-hbb4bfdb_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/zstd-1.5.7-hbc1a06c_7.conda
-      - conda: https://conda.anaconda.org/tesseract-robotics/osx-64/boost-plugin-loader-0.4.3-h250692c_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/osx-64/opw-kinematics-0.5.3-hae4058c_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/osx-64/ros-industrial-cmake-boilerplate-0.7.4-hc160cbd_0.conda
       osx-arm64:
@@ -438,7 +435,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/yaml-cpp-0.8.0-h784d473_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zlib-1.3.2-h8088a28_3.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hf451053_7.conda
-      - conda: https://conda.anaconda.org/tesseract-robotics/osx-arm64/boost-plugin-loader-0.4.3-hd628d51_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/osx-arm64/opw-kinematics-0.5.3-h45ba359_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/osx-arm64/ros-industrial-cmake-boilerplate-0.7.4-ha643f68_0.conda
       win-64:
@@ -506,7 +502,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/yaml-cpp-0.8.0-h5112557_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zlib-1.3.2-hfd05255_3.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/zstd-1.5.7-h534d264_7.conda
-      - conda: https://conda.anaconda.org/tesseract-robotics/win-64/boost-plugin-loader-0.4.3-h904b2cc_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/win-64/opw-kinematics-0.5.3-hc53c223_0.conda
       - conda: https://conda.anaconda.org/tesseract-robotics/win-64/ros-industrial-cmake-boilerplate-0.7.4-h153c5f7_0.conda
 packages:
@@ -6258,19 +6253,6 @@ packages:
     - zstd >=1.5.7,<1.6.0a0
   size: 387535
   timestamp: 1786599623274
-- conda: https://conda.anaconda.org/tesseract-robotics/linux-64/boost-plugin-loader-0.4.3-h69ea3dc_0.conda
-  sha256: 06a2c0d5d4eb09dda756cbc920c2b9177df5a965ceb3d1e8581079f62d7f9420
-  md5: 5e2bb94bd6ee7a5c05e45efef40ed22b
-  depends:
-  - libstdcxx >=14
-  - libgcc >=14
-  - libboost >=1.88.0,<1.89.0a0
-  license: Apache-2.0
-  run_exports:
-    weak:
-    - boost-plugin-loader >=0.4.3,<0.5.0a0
-  size: 116418
-  timestamp: 1780105637945
 - conda: https://conda.anaconda.org/tesseract-robotics/linux-64/opw-kinematics-0.5.3-h5d87bd1_0.conda
   sha256: 3ba56619a9e0af6e7d8706d5bc23d99954eae98e420826d83e51002a4862be62
   md5: 6e667ea661ec9fadf89498c43c54e2d1
@@ -6294,19 +6276,6 @@ packages:
   license: Apache-2.0 AND BSD-3-Clause
   size: 35449
   timestamp: 1780105268458
-- conda: https://conda.anaconda.org/tesseract-robotics/linux-aarch64/boost-plugin-loader-0.4.3-ha39885e_0.conda
-  sha256: c446e0582776baf1d0780b80892611a5a8847161dc51f51b0e3c5fcaca54e53a
-  md5: a963a04b2dc6e974921d4695182f6c25
-  depends:
-  - libstdcxx >=14
-  - libgcc >=14
-  - libboost >=1.88.0,<1.89.0a0
-  license: Apache-2.0
-  run_exports:
-    weak:
-    - boost-plugin-loader >=0.4.3,<0.5.0a0
-  size: 117753
-  timestamp: 1780105638324
 - conda: https://conda.anaconda.org/tesseract-robotics/linux-aarch64/opw-kinematics-0.5.3-hcc23be9_0.conda
   sha256: e0818ccc93a64d72cdb652b876d9a88e67caf709799f74a15052cf73389ba4d7
   md5: 0cb5c97cd947636b085b4ca926f90c30
@@ -6330,18 +6299,6 @@ packages:
   license: Apache-2.0 AND BSD-3-Clause
   size: 36622
   timestamp: 1780105273062
-- conda: https://conda.anaconda.org/tesseract-robotics/osx-64/boost-plugin-loader-0.4.3-h250692c_0.conda
-  sha256: bb92313cb3287910d0238a9f094b8f5a9d34cd2a258983fdd6ac2f62171f30b8
-  md5: 0b0a35fccbb3d59b7810f560a235b3aa
-  depends:
-  - libcxx >=19
-  - libboost >=1.88.0,<1.89.0a0
-  license: Apache-2.0
-  run_exports:
-    weak:
-    - boost-plugin-loader >=0.4.3,<0.5.0a0
-  size: 101294
-  timestamp: 1780105809542
 - conda: https://conda.anaconda.org/tesseract-robotics/osx-64/opw-kinematics-0.5.3-hae4058c_0.conda
   sha256: 1f8be693aaafed75a2b4e44e17da8b83303b59a3a17d0e0fe9ff2025a4e6bf07
   md5: d5b3dff14a6514596910ba85f20c5845
@@ -6363,18 +6320,6 @@ packages:
   license: Apache-2.0 AND BSD-3-Clause
   size: 35897
   timestamp: 1780105376984
-- conda: https://conda.anaconda.org/tesseract-robotics/osx-arm64/boost-plugin-loader-0.4.3-hd628d51_0.conda
-  sha256: 3b732f62a761b6a366decfe2f167629dabdf2db6abdd47ae27ca5e3ec2959beb
-  md5: c9b32b3c9c9a35e9bf197c9177a24906
-  depends:
-  - libcxx >=19
-  - libboost >=1.88.0,<1.89.0a0
-  license: Apache-2.0
-  run_exports:
-    weak:
-    - boost-plugin-loader >=0.4.3,<0.5.0a0
-  size: 96665
-  timestamp: 1780105745180
 - conda: https://conda.anaconda.org/tesseract-robotics/osx-arm64/opw-kinematics-0.5.3-h45ba359_0.conda
   sha256: f397701a13823fec519956e6ad189f214e538b3996b1442218b0db87b5d8e933
   md5: 80bdfa2c1e2b1292824841e151af6c7d
@@ -6396,20 +6341,6 @@ packages:
   license: Apache-2.0 AND BSD-3-Clause
   size: 36619
   timestamp: 1780105361544
-- conda: https://conda.anaconda.org/tesseract-robotics/win-64/boost-plugin-loader-0.4.3-h904b2cc_0.conda
-  sha256: 2ea761bc4d4c64d035b04740fa576ebce0a3aa36f3b576d9e86c5275116435ff
-  md5: 39c308133af48d420e356245a04f758e
-  depends:
-  - vc >=14.3,<15
-  - vc14_runtime >=14.44.35208
-  - ucrt >=10.0.20348.0
-  - libboost >=1.88.0,<1.89.0a0
-  license: Apache-2.0
-  run_exports:
-    weak:
-    - boost-plugin-loader >=0.4.3,<0.5.0a0
-  size: 235221
-  timestamp: 1780105641100
 - conda: https://conda.anaconda.org/tesseract-robotics/win-64/opw-kinematics-0.5.3-hc53c223_0.conda
   sha256: 5cded8c0c02723e6202150c7bd08d4d072c6348c1fd7016ba3d826f0a1e3458b
   md5: ca761d86b9e5270488211ee7b02f4d0a

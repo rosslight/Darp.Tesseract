@@ -1,3 +1,6 @@
 [submodule "native/tesseract"]
 	path = native/tesseract
 	url = https://github.com/tesseract-robotics/tesseract.git
+[submodule "native/boost_plugin_loader"]
+	path = native/boost_plugin_loader
+	url = https://github.com/tesseract-robotics/boost_plugin_loader.git

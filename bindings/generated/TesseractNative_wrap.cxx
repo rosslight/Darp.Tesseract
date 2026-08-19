@@ -1021,52 +1021,52 @@ SWIGINTERN unsigned long long std_vector_Sl_double_Sg__dataAddress(std::vector< 
     return static_cast<unsigned long long>(reinterpret_cast<std::uintptr_t>(self->data()));
   }
 SWIGINTERN std::vector< Eigen::Index > *new_std_vector_Sl_Eigen_Index_Sg___SWIG_2(int capacity){
-        std::vector< long long >* pv = 0;
+        std::vector< Eigen::Index >* pv = 0;
         if (capacity >= 0) {
-          pv = new std::vector< long long >();
+          pv = new std::vector< Eigen::Index >();
           pv->reserve(capacity);
        } else {
           throw std::out_of_range("capacity");
        }
        return pv;
       }
-SWIGINTERN long long std_vector_Sl_Eigen_Index_Sg__getitemcopy(std::vector< Eigen::Index > *self,int index){
+SWIGINTERN Eigen::Index std_vector_Sl_Eigen_Index_Sg__getitemcopy(std::vector< Eigen::Index > *self,int index){
         if (index>=0 && index<(int)self->size())
           return (*self)[index];
         else
           throw std::out_of_range("index");
       }
-SWIGINTERN std::vector< long long >::value_type const &std_vector_Sl_Eigen_Index_Sg__getitem(std::vector< Eigen::Index > *self,int index){
+SWIGINTERN Eigen::Index const &std_vector_Sl_Eigen_Index_Sg__getitem(std::vector< Eigen::Index > *self,int index){
         if (index>=0 && index<(int)self->size())
           return (*self)[index];
         else
           throw std::out_of_range("index");
       }
-SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__setitem(std::vector< Eigen::Index > *self,int index,long long const &val){
+SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__setitem(std::vector< Eigen::Index > *self,int index,Eigen::Index const &val){
         if (index>=0 && index<(int)self->size())
           (*self)[index] = val;
         else
           throw std::out_of_range("index");
       }
-SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__AddRange(std::vector< Eigen::Index > *self,std::vector< long long > const &values){
+SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__AddRange(std::vector< Eigen::Index > *self,std::vector< Eigen::Index > const &values){
         self->insert(self->end(), values.begin(), values.end());
       }
-SWIGINTERN std::vector< long long > *std_vector_Sl_Eigen_Index_Sg__GetRange(std::vector< Eigen::Index > *self,int index,int count){
+SWIGINTERN std::vector< Eigen::Index > *std_vector_Sl_Eigen_Index_Sg__GetRange(std::vector< Eigen::Index > *self,int index,int count){
         if (index < 0)
           throw std::out_of_range("index");
         if (count < 0)
           throw std::out_of_range("count");
         if (index >= (int)self->size()+1 || index+count > (int)self->size())
           throw std::invalid_argument("invalid range");
-        return new std::vector< long long >(self->begin()+index, self->begin()+index+count);
+        return new std::vector< Eigen::Index >(self->begin()+index, self->begin()+index+count);
       }
-SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__Insert(std::vector< Eigen::Index > *self,int index,long long const &x){
+SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__Insert(std::vector< Eigen::Index > *self,int index,Eigen::Index const &x){
         if (index>=0 && index<(int)self->size()+1)
           self->insert(self->begin()+index, x);
         else
           throw std::out_of_range("index");
       }
-SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__InsertRange(std::vector< Eigen::Index > *self,int index,std::vector< long long > const &values){
+SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__InsertRange(std::vector< Eigen::Index > *self,int index,std::vector< Eigen::Index > const &values){
         if (index>=0 && index<(int)self->size()+1)
           self->insert(self->begin()+index, values.begin(), values.end());
         else
@@ -1087,10 +1087,10 @@ SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__RemoveRange(std::vector< Eigen::In
           throw std::invalid_argument("invalid range");
         self->erase(self->begin()+index, self->begin()+index+count);
       }
-SWIGINTERN std::vector< long long > *std_vector_Sl_Eigen_Index_Sg__Repeat(long long const &value,int count){
+SWIGINTERN std::vector< Eigen::Index > *std_vector_Sl_Eigen_Index_Sg__Repeat(Eigen::Index const &value,int count){
         if (count < 0)
           throw std::out_of_range("count");
-        return new std::vector< long long >(count, value);
+        return new std::vector< Eigen::Index >(count, value);
       }
 SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__Reverse__SWIG_0(std::vector< Eigen::Index > *self){
         std::reverse(self->begin(), self->end());
@@ -1104,32 +1104,32 @@ SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__Reverse__SWIG_1(std::vector< Eigen
           throw std::invalid_argument("invalid range");
         std::reverse(self->begin()+index, self->begin()+index+count);
       }
-SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__SetRange(std::vector< Eigen::Index > *self,int index,std::vector< long long > const &values){
+SWIGINTERN void std_vector_Sl_Eigen_Index_Sg__SetRange(std::vector< Eigen::Index > *self,int index,std::vector< Eigen::Index > const &values){
         if (index < 0)
           throw std::out_of_range("index");
         if (index+values.size() > self->size())
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
-SWIGINTERN bool std_vector_Sl_Eigen_Index_Sg__Contains(std::vector< Eigen::Index > *self,long long const &value){
+SWIGINTERN bool std_vector_Sl_Eigen_Index_Sg__Contains(std::vector< Eigen::Index > *self,Eigen::Index const &value){
         return std::find(self->begin(), self->end(), value) != self->end();
       }
-SWIGINTERN int std_vector_Sl_Eigen_Index_Sg__IndexOf(std::vector< Eigen::Index > *self,long long const &value){
+SWIGINTERN int std_vector_Sl_Eigen_Index_Sg__IndexOf(std::vector< Eigen::Index > *self,Eigen::Index const &value){
         int index = -1;
-        std::vector< long long >::iterator it = std::find(self->begin(), self->end(), value);
+        std::vector< Eigen::Index >::iterator it = std::find(self->begin(), self->end(), value);
         if (it != self->end())
           index = (int)(it - self->begin());
         return index;
       }
-SWIGINTERN int std_vector_Sl_Eigen_Index_Sg__LastIndexOf(std::vector< Eigen::Index > *self,long long const &value){
+SWIGINTERN int std_vector_Sl_Eigen_Index_Sg__LastIndexOf(std::vector< Eigen::Index > *self,Eigen::Index const &value){
         int index = -1;
-        std::vector< long long >::reverse_iterator rit = std::find(self->rbegin(), self->rend(), value);
+        std::vector< Eigen::Index >::reverse_iterator rit = std::find(self->rbegin(), self->rend(), value);
         if (rit != self->rend())
           index = (int)(self->rend() - 1 - rit);
         return index;
       }
-SWIGINTERN bool std_vector_Sl_Eigen_Index_Sg__Remove(std::vector< Eigen::Index > *self,long long const &value){
-        std::vector< long long >::iterator it = std::find(self->begin(), self->end(), value);
+SWIGINTERN bool std_vector_Sl_Eigen_Index_Sg__Remove(std::vector< Eigen::Index > *self,Eigen::Index const &value){
+        std::vector< Eigen::Index >::iterator it = std::find(self->begin(), self->end(), value);
         if (it != self->end()) {
           self->erase(it);
           return true;
@@ -6764,16 +6764,16 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Clear___(vo
 
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Add___(void * jarg1, long long jarg2) {
   std::vector< Eigen::Index > *arg1 = 0 ;
-  long long *arg2 = 0 ;
-  long long temp2 ;
+  Eigen::Index *arg2 = 0 ;
+  Eigen::Index temp2 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
-  temp2 = (long long)jarg2; 
+  temp2 = (Eigen::Index)jarg2; 
   arg2 = &temp2; 
   {
     try
     {
-      (arg1)->push_back((long long const &)*arg2);
+      (arg1)->push_back((Eigen::Index const &)*arg2);
     }
     catch (const std::invalid_argument& exception)
     {
@@ -6961,7 +6961,7 @@ SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_getite
   long long jresult = 0 ;
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
-  long long result;
+  Eigen::Index result;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
@@ -6969,7 +6969,7 @@ SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_getite
     try
     {
       try {
-        result = (long long)std_vector_Sl_Eigen_Index_Sg__getitemcopy(arg1,arg2);
+        result = (Eigen::Index)std_vector_Sl_Eigen_Index_Sg__getitemcopy(arg1,arg2);
       } catch(std::out_of_range &_e) {
         SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
         return 0;
@@ -7000,7 +7000,7 @@ SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_getite
   long long jresult = 0 ;
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
-  std::vector< long long >::value_type *result = 0 ;
+  Eigen::Index *result = 0 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
@@ -7008,7 +7008,7 @@ SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_getite
     try
     {
       try {
-        result = (std::vector< long long >::value_type *) &std_vector_Sl_Eigen_Index_Sg__getitem(arg1,arg2);
+        result = (Eigen::Index *) &std_vector_Sl_Eigen_Index_Sg__getitem(arg1,arg2);
       } catch(std::out_of_range &_e) {
         SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
         return 0;
@@ -7038,12 +7038,12 @@ SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_getite
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_setitem___(void * jarg1, int jarg2, long long jarg3) {
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
-  long long *arg3 = 0 ;
-  long long temp3 ;
+  Eigen::Index *arg3 = 0 ;
+  Eigen::Index temp3 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
-  temp3 = (long long)jarg3; 
+  temp3 = (Eigen::Index)jarg3; 
   arg3 = &temp3; 
   {
     try
@@ -7076,12 +7076,12 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_setitem___(
 
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_AddRange___(void * jarg1, void * jarg2) {
   std::vector< Eigen::Index > *arg1 = 0 ;
-  std::vector< long long > *arg2 = 0 ;
+  std::vector< Eigen::Index > *arg2 = 0 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
-  arg2 = (std::vector< long long > *)jarg2;
+  arg2 = (std::vector< Eigen::Index > *)jarg2;
   if (!arg2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< long long > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< Eigen::Index > const & is null", 0);
     return ;
   } 
   {
@@ -7113,7 +7113,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_GetRange_
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
   int arg3 ;
-  std::vector< long long > *result = 0 ;
+  std::vector< Eigen::Index > *result = 0 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
@@ -7122,7 +7122,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_GetRange_
     try
     {
       try {
-        result = (std::vector< long long > *)std_vector_Sl_Eigen_Index_Sg__GetRange(arg1,arg2,arg3);
+        result = (std::vector< Eigen::Index > *)std_vector_Sl_Eigen_Index_Sg__GetRange(arg1,arg2,arg3);
       } catch(std::out_of_range &_e) {
         SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
         return 0;
@@ -7155,12 +7155,12 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_GetRange_
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Insert___(void * jarg1, int jarg2, long long jarg3) {
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
-  long long *arg3 = 0 ;
-  long long temp3 ;
+  Eigen::Index *arg3 = 0 ;
+  Eigen::Index temp3 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
-  temp3 = (long long)jarg3; 
+  temp3 = (Eigen::Index)jarg3; 
   arg3 = &temp3; 
   {
     try
@@ -7194,13 +7194,13 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Insert___(v
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
-  std::vector< long long > *arg3 = 0 ;
+  std::vector< Eigen::Index > *arg3 = 0 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
-  arg3 = (std::vector< long long > *)jarg3;
+  arg3 = (std::vector< Eigen::Index > *)jarg3;
   if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< long long > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< Eigen::Index > const & is null", 0);
     return ;
   } 
   {
@@ -7309,19 +7309,19 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_RemoveRange
 
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Repeat___(long long jarg1, int jarg2) {
   void * jresult = 0 ;
-  long long *arg1 = 0 ;
+  Eigen::Index *arg1 = 0 ;
   int arg2 ;
-  long long temp1 ;
-  std::vector< long long > *result = 0 ;
+  Eigen::Index temp1 ;
+  std::vector< Eigen::Index > *result = 0 ;
   
-  temp1 = (long long)jarg1; 
+  temp1 = (Eigen::Index)jarg1; 
   arg1 = &temp1; 
   arg2 = (int)jarg2; 
   {
     try
     {
       try {
-        result = (std::vector< long long > *)std_vector_Sl_Eigen_Index_Sg__Repeat((long long const &)*arg1,arg2);
+        result = (std::vector< Eigen::Index > *)std_vector_Sl_Eigen_Index_Sg__Repeat((long long const &)*arg1,arg2);
       } catch(std::out_of_range &_e) {
         SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
         return 0;
@@ -7419,13 +7419,13 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Reverse__SW
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
   std::vector< Eigen::Index > *arg1 = 0 ;
   int arg2 ;
-  std::vector< long long > *arg3 = 0 ;
+  std::vector< Eigen::Index > *arg3 = 0 ;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
   arg2 = (int)jarg2; 
-  arg3 = (std::vector< long long > *)jarg3;
+  arg3 = (std::vector< Eigen::Index > *)jarg3;
   if (!arg3) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< long long > const & is null", 0);
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< Eigen::Index > const & is null", 0);
     return ;
   } 
   {
@@ -7460,12 +7460,12 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_SetRange___
 SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Contains___(void * jarg1, long long jarg2) {
   unsigned int jresult = 0 ;
   std::vector< Eigen::Index > *arg1 = 0 ;
-  long long *arg2 = 0 ;
-  long long temp2 ;
+  Eigen::Index *arg2 = 0 ;
+  Eigen::Index temp2 ;
   bool result;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
-  temp2 = (long long)jarg2; 
+  temp2 = (Eigen::Index)jarg2; 
   arg2 = &temp2; 
   {
     try
@@ -7496,12 +7496,12 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Con
 SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_IndexOf___(void * jarg1, long long jarg2) {
   int jresult = 0 ;
   std::vector< Eigen::Index > *arg1 = 0 ;
-  long long *arg2 = 0 ;
-  long long temp2 ;
+  Eigen::Index *arg2 = 0 ;
+  Eigen::Index temp2 ;
   int result;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
-  temp2 = (long long)jarg2; 
+  temp2 = (Eigen::Index)jarg2; 
   arg2 = &temp2; 
   {
     try
@@ -7532,12 +7532,12 @@ SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_IndexOf___(v
 SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_LastIndexOf___(void * jarg1, long long jarg2) {
   int jresult = 0 ;
   std::vector< Eigen::Index > *arg1 = 0 ;
-  long long *arg2 = 0 ;
-  long long temp2 ;
+  Eigen::Index *arg2 = 0 ;
+  Eigen::Index temp2 ;
   int result;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
-  temp2 = (long long)jarg2; 
+  temp2 = (Eigen::Index)jarg2; 
   arg2 = &temp2; 
   {
     try
@@ -7568,12 +7568,12 @@ SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_LastIndexOf_
 SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_IndexVector_Remove___(void * jarg1, long long jarg2) {
   unsigned int jresult = 0 ;
   std::vector< Eigen::Index > *arg1 = 0 ;
-  long long *arg2 = 0 ;
-  long long temp2 ;
+  Eigen::Index *arg2 = 0 ;
+  Eigen::Index temp2 ;
   bool result;
   
   arg1 = (std::vector< Eigen::Index > *)jarg1; 
-  temp2 = (long long)jarg2; 
+  temp2 = (Eigen::Index)jarg2; 
   arg2 = &temp2; 
   {
     try

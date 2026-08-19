@@ -37,7 +37,7 @@
 
 namespace Eigen
 {
-typedef long long Index;
+typedef std::int64_t Index;
 class Vector2d {};
 class Vector3d {};
 class Vector4d {};

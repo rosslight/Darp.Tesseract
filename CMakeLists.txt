@@ -15,7 +15,10 @@ if("$ENV{CONDA_PREFIX}" STREQUAL "")
 endif()
 
 set(darp_tesseract_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/tesseract")
+set(darp_boost_plugin_loader_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/boost_plugin_loader")
 set(darp_tesseract_patch "${CMAKE_CURRENT_SOURCE_DIR}/patches/tesseract-disable-point-clouds.patch")
+set(darp_boost_plugin_loader_build "${CMAKE_BINARY_DIR}/boost-plugin-loader-build")
+set(darp_boost_plugin_loader_install "${CMAKE_BINARY_DIR}/boost-plugin-loader-install")
 set(darp_tesseract_source "${CMAKE_BINARY_DIR}/source/tesseract")
 set(darp_tesseract_build "${CMAKE_BINARY_DIR}/tesseract-build")
 set(darp_tesseract_install "${CMAKE_BINARY_DIR}/tesseract-install")
@@ -24,6 +27,10 @@ set(darp_wrapper_install "${CMAKE_BINARY_DIR}/wrapper-install")
 
 if(NOT EXISTS "${darp_tesseract_checkout}/package.xml")
   message(FATAL_ERROR "The Tesseract submodule is missing. Run 'git submodule update --init native/tesseract'.")
+endif()
+if(NOT EXISTS "${darp_boost_plugin_loader_checkout}/package.xml")
+  message(FATAL_ERROR
+    "The boost_plugin_loader submodule is missing. Run 'git submodule update --init native/boost_plugin_loader'.")
 endif()
 if(NOT EXISTS "${darp_tesseract_patch}")
   message(FATAL_ERROR "The required Tesseract patch is missing: ${darp_tesseract_patch}")
@@ -56,7 +63,6 @@ endif()
 
 set(darp_common_cmake_args
   -DCMAKE_BUILD_TYPE=Release
-  -DCMAKE_PREFIX_PATH=${darp_dependency_prefix}
   -DCMAKE_POSITION_INDEPENDENT_CODE=ON
   -DCMAKE_PROJECT_INCLUDE=${CMAKE_CURRENT_SOURCE_DIR}/cmake/reproducible_paths.cmake)
 file(TO_CMAKE_PATH "$ENV{CONDA_PREFIX}" darp_dependency_source_path)
@@ -67,14 +73,34 @@ if(APPLE)
 endif()
 
 ExternalProject_Add(
-  tesseract_upstream
-  SOURCE_DIR "${darp_tesseract_source}"
-  BINARY_DIR "${darp_tesseract_build}"
+  boost_plugin_loader_upstream
+  SOURCE_DIR "${darp_boost_plugin_loader_checkout}"
+  BINARY_DIR "${darp_boost_plugin_loader_build}"
   DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
   UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
   PATCH_COMMAND "${CMAKE_COMMAND}" -E true
   CMAKE_ARGS
     ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_dependency_prefix}
+    -DCMAKE_INSTALL_PREFIX=${darp_boost_plugin_loader_install}
+    -DBUILD_SHARED_LIBS=OFF
+    -DBUILD_TESTING=OFF
+  BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+  INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
+
+set(darp_tesseract_prefix_path "${darp_boost_plugin_loader_install}|${darp_dependency_prefix}")
+ExternalProject_Add(
+  tesseract_upstream
+  DEPENDS boost_plugin_loader_upstream
+  SOURCE_DIR "${darp_tesseract_source}"
+  BINARY_DIR "${darp_tesseract_build}"
+  DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
+  UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
+  PATCH_COMMAND "${CMAKE_COMMAND}" -E true
+  LIST_SEPARATOR "|"
+  CMAKE_ARGS
+    ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_tesseract_prefix_path}
     -DCMAKE_INSTALL_PREFIX=${darp_tesseract_install}
     -DBUILD_SHARED_LIBS=OFF
     -DTESSERACT_ENABLE_TESTING=OFF
@@ -93,6 +119,8 @@ ExternalProject_Add(
   BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
+set(darp_wrapper_prefix_path
+  "${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_dependency_prefix}")
 ExternalProject_Add(
   tesseract_wrapper
   DEPENDS tesseract_upstream
@@ -101,8 +129,10 @@ ExternalProject_Add(
   DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
   UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
   PATCH_COMMAND "${CMAKE_COMMAND}" -E true
+  LIST_SEPARATOR "|"
   CMAKE_ARGS
     ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_wrapper_prefix_path}
     -DCMAKE_INSTALL_PREFIX=${darp_wrapper_install}
     -DTESSERACT_CPP_PREFIX=${darp_tesseract_install}
     -DTESSERACT_SOURCE_DIR=${darp_tesseract_source}
