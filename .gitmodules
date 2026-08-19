@@ -4,3 +4,9 @@
 [submodule "native/boost_plugin_loader"]
 	path = native/boost_plugin_loader
 	url = https://github.com/tesseract-robotics/boost_plugin_loader.git
+[submodule "native/ros_industrial_cmake_boilerplate"]
+	path = native/ros_industrial_cmake_boilerplate
+	url = https://github.com/ros-industrial/ros_industrial_cmake_boilerplate.git
+[submodule "native/opw_kinematics"]
+	path = native/opw_kinematics
+	url = https://github.com/Jmeyer1292/opw_kinematics.git

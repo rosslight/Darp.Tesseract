@@ -28,10 +28,20 @@ public sealed class KinematicsTests
             $"missing packaged native asset '{wrapperName}' for {RuntimeInformation.RuntimeIdentifier}"
         );
 
-        var nativeTesseractPrefix = OperatingSystem.IsWindows() ? "tesseract_" : "libtesseract_";
+        string[] wrapperNames =
+        [
+            "tesseract_csharp.dll",
+            "libtesseract_csharp.so",
+            "libtesseract_csharp.dylib",
+        ];
         nativeFiles
-            .Where(path => !string.Equals(Path.GetFileName(path), wrapperName, StringComparison.OrdinalIgnoreCase))
-            .Where(path => Path.GetFileName(path).StartsWith(nativeTesseractPrefix, StringComparison.OrdinalIgnoreCase))
+            .Where(path =>
+            {
+                var fileName = Path.GetFileName(path);
+                return (fileName.StartsWith("tesseract_", StringComparison.OrdinalIgnoreCase)
+                        || fileName.StartsWith("libtesseract_", StringComparison.OrdinalIgnoreCase))
+                    && !wrapperNames.Contains(fileName, StringComparer.OrdinalIgnoreCase);
+            })
             .ShouldBeEmpty("Tesseract components and embedded factories should be linked into the wrapper");
         nativeFiles
             .Where(path =>

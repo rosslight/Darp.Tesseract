@@ -11,14 +11,13 @@ cxx_compiler = ["vs"]
 cxx_compiler_version = ["2026"]
 
 [dependencies]
+eigen = "==5.0.1"
+
+[feature.bindings.dependencies]
 swig = "==4.5.0"
-eigen = "*"
 
 [feature.native.dependencies]
-cmake = ">=4.4,<5"
 ninja = "*"
-ros-industrial-cmake-boilerplate = "*"
-libboost-devel = "*"
 cereal = "*"
 console_bridge = "*"
 tinyxml2 = "*"
@@ -28,26 +27,39 @@ octomap = "*"
 orocos-kdl = "*"
 bullet-cpp = "*"
 fcl = "*"
-opw-kinematics = "*"
 
 [feature.native.target.win-64.dependencies]
+cmake = ">=4.4,<5"
 vs_win-64 = "2026.*"
+libboost-devel = "*"
 
 [feature.native.target.linux-64.dependencies]
-cxx-compiler = "*"
+boost-cpp = "1.74.*"
+cmake = ">=3.21,<3.24"
+gxx = "11.*"
+libgcc-ng = "11.*"
+libstdcxx-ng = "11.*"
 
 [feature.native.target.linux-aarch64.dependencies]
-cxx-compiler = "*"
+boost-cpp = "1.74.*"
+cmake = ">=3.21,<3.24"
+gxx = "11.*"
+libgcc-ng = "11.*"
+libstdcxx-ng = "11.*"
 
 [feature.native.target.osx-64.dependencies]
+cmake = ">=4.4,<5"
 cxx-compiler = "*"
+libboost-devel = "*"
 
 [feature.native.target.osx-arm64.dependencies]
+cmake = ">=4.4,<5"
 cxx-compiler = "*"
+libboost-devel = "*"
 
 [environments]
 default = { features = ["native"], solve-group = "native" }
-bindings = { features = [], solve-group = "native" }
+bindings = { features = ["bindings"] }
 
 [tasks]
 build-native = "pwsh ./scripts/build_native.ps1"
