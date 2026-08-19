@@ -87,6 +87,7 @@ if(APPLE)
     tesseract_csharp
     PROPERTIES
       BUILD_RPATH "@loader_path"
+      INSTALL_NAME_DIR "@rpath"
       INSTALL_RPATH "@loader_path"
       INSTALL_RPATH_USE_LINK_PATH FALSE
       INSTALL_REMOVE_ENVIRONMENT_RPATH TRUE)
