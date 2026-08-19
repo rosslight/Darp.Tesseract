@@ -125,9 +125,10 @@ jobs:
       - name: Restore integration executable from package
         shell: pwsh
         run: |
+          $source = (Resolve-Path "artifacts/packages").Path
           dotnet restore tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
-            --configfile tests/Darp.Tesseract.Native.IntegrationTests/NuGet.PackageTests.config `
-            --packages "artifacts/package-test-nuget" `
+            --source "https://api.nuget.org/v3/index.json" `
+            --source "$source" `
             -p:UseLocalProjectReference=false
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
