@@ -21,4 +21,7 @@
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="xunit.v3" Version="4.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets/**/*.*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

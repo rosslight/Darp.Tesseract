@@ -1,6 +1,3 @@
 [submodule "native/tesseract"]
 	path = native/tesseract
 	url = https://github.com/tesseract-robotics/tesseract.git
-[submodule "native/eigen"]
-	path = native/eigen
-	url = https://gitlab.com/libeigen/eigen.git

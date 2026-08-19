@@ -18,6 +18,19 @@
 %include "support/exceptions.i"
 %include "support/ownership.i"
 
+%pragma(csharp) imclasscode=%{
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="darp_tesseract_initialize_plugins")]
+  private static extern int darp_tesseract_initialize_plugins();
+
+  private static readonly bool darpPluginsInitialized = InitializeDarpPlugins();
+
+  private static bool InitializeDarpPlugins() {
+    if (darp_tesseract_initialize_plugins() != 0)
+      throw new global::System.InvalidOperationException("Could not initialize embedded Tesseract plugins.");
+    return true;
+  }
+%}
+
 %{
 #include <cstdint>
 #include <filesystem>
@@ -54,6 +67,9 @@
 #include <tesseract/state_solver/state_solver.h>
 #include <tesseract/state_solver/mutable_state_solver.h>
 
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/collision/continuous_contact_manager.h>
+
 #include <tesseract/kinematics/types.h>
 #include <tesseract/kinematics/forward_kinematics.h>
 #include <tesseract/kinematics/inverse_kinematics.h>
@@ -71,6 +87,7 @@
 #define TESSERACT_SRDF_PUBLIC
 #define TESSERACT_URDF_PUBLIC
 #define TESSERACT_STATE_SOLVER_PUBLIC
+#define TESSERACT_COLLISION_PUBLIC
 #define TESSERACT_KINEMATICS_PUBLIC
 #define TESSERACT_ENVIRONMENT_PUBLIC
 #define EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -199,7 +216,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::scene_graph::SceneGraph::getInboundJoints;
 %ignore tesseract::scene_graph::SceneGraph::getOutboundJoints;
 
-/* Collision remains a private Environment implementation detail for now. */
+/* Complex collision configuration shapes remain deferred for now. */
 %ignore tesseract::common::ContactManagersPluginInfo;
 %ignore tesseract::common::TaskComposerPluginInfo;
 %ignore tesseract::environment::EnvironmentContactAllowedValidator;
@@ -219,10 +236,6 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::environment::Environment::getLinkCollisionEnabled;
 %ignore tesseract::environment::Environment::getAllowedCollisionMatrix;
 %ignore tesseract::environment::Environment::getCollisionMarginData;
-%ignore tesseract::environment::Environment::getDiscreteContactManager;
-%ignore tesseract::environment::Environment::getContinuousContactManager;
-%ignore tesseract::environment::Environment::setActiveDiscreteContactManager;
-%ignore tesseract::environment::Environment::setActiveContinuousContactManager;
 %ignore tesseract::environment::Environment::clearCachedDiscreteContactManager;
 %ignore tesseract::environment::Environment::clearCachedContinuousContactManager;
 %ignore tesseract::environment::Environment::getContactManagersPluginInfo;
@@ -264,6 +277,9 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %shared_ptr(tesseract::scene_graph::StateSolver)
 %shared_ptr(tesseract::scene_graph::MutableStateSolver)
 
+%shared_ptr(tesseract::collision::DiscreteContactManager)
+%shared_ptr(tesseract::collision::ContinuousContactManager)
+
 %shared_ptr(tesseract::kinematics::ForwardKinematics)
 %shared_ptr(tesseract::kinematics::InverseKinematics)
 %shared_ptr(tesseract::kinematics::JointGroup)
@@ -276,6 +292,8 @@ DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::SceneGraph)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::StateSolver)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::kinematics::ForwardKinematics)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::kinematics::InverseKinematics)
+DARP_UNIQUE_PTR_TO_SHARED(tesseract::collision::DiscreteContactManager)
+DARP_UNIQUE_PTR_TO_SHARED(tesseract::collision::ContinuousContactManager)
 
 DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Joint)
 DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Link)
@@ -311,67 +329,11 @@ DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Link)
     return ret;
   }
 
-/* Common */
-%include <tesseract/common/types.h>
-%include <tesseract/common/resource_locator.h>
-%include <tesseract/common/manipulator_info.h>
-%include <tesseract/common/joint_state.h>
-%include <tesseract/common/kinematic_limits.h>
-%include <tesseract/common/plugin_info.h>
-
-/* Geometry */
-%include <tesseract/geometry/geometry.h>
-%include <tesseract/geometry/impl/mesh_material.h>
-%include <tesseract/geometry/impl/box.h>
-%include <tesseract/geometry/impl/sphere.h>
-%include <tesseract/geometry/impl/cylinder.h>
-%include <tesseract/geometry/impl/capsule.h>
-%include <tesseract/geometry/impl/cone.h>
-%include <tesseract/geometry/impl/plane.h>
-%include <tesseract/geometry/impl/polygon_mesh.h>
-%include <tesseract/geometry/impl/mesh.h>
-%include <tesseract/geometry/impl/convex_mesh.h>
-%include <tesseract/geometry/impl/sdf_mesh.h>
-%include <tesseract/geometry/impl/compound_mesh.h>
-%include <tesseract/geometry/geometries.h>
-%include <tesseract/geometry/utils.h>
-%include <tesseract/geometry/mesh_parser.h>
-
-/* Scene graph, robot description, and state solver */
-%include <tesseract/scene_graph/joint.h>
-%include <tesseract/scene_graph/link.h>
-%include <tesseract/scene_graph/graph.h>
-%include <tesseract/scene_graph/scene_state.h>
-%include <tesseract/urdf/urdf_parser.h>
-%include <tesseract/srdf/kinematics_information.h>
-%include <tesseract/srdf/srdf_model.h>
-%include <tesseract/srdf/utils.h>
-%include <tesseract/state_solver/state_solver.h>
-%include <tesseract/state_solver/mutable_state_solver.h>
-
-/* Generic kinematics and Environment. types.h contains initialized namespace
- * constants that SWIG cannot parse, so its two public value types are declared
- * equivalently here while the wrapper compiles against the real header. */
-namespace tesseract
-{
-namespace kinematics
-{
-struct URParameters
-{
-  URParameters();
-  URParameters(double d1, double a2, double a3, double d4, double d5, double d6);
-  double d1;
-  double a2;
-  double a3;
-  double d4;
-  double d5;
-  double d6;
-};
-}
-}
-%include <tesseract/kinematics/forward_kinematics.h>
-%include <tesseract/kinematics/inverse_kinematics.h>
-%include <tesseract/kinematics/joint_group.h>
-%include <tesseract/kinematics/kinematic_group.h>
-%include <tesseract/kinematics/kinematics_plugin_factory.h>
-%include <tesseract/environment/environment.h>
+%include "components/common.i"
+%include "components/geometry.i"
+%include "components/scene_graph.i"
+%include "components/robot_description.i"
+%include "components/state_solver.i"
+%include "components/collision.i"
+%include "components/kinematics.i"
+%include "components/environment.i"

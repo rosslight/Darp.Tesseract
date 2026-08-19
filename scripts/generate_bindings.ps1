@@ -11,17 +11,26 @@ $nativeOutputDir = Join-Path $repositoryDir "bindings/generated"
 $managedOutputDir = Join-Path $repositoryDir "src/Darp.Tesseract.Native/Generated"
 $interfacePath = Join-Path $repositoryDir "bindings/tesseract_csharp.i"
 
-& (Join-Path $scriptDir "verify_native_versions.ps1")
+if ([string]::IsNullOrWhiteSpace($env:CONDA_PREFIX)) {
+  throw "The bindings environment is not active. Run 'pixi run -e bindings generate-bindings'."
+}
+
+$eigenIncludeDir = if ($IsWindows) {
+  Join-Path $env:CONDA_PREFIX "Library/include/eigen3"
+} else {
+  Join-Path $env:CONDA_PREFIX "include/eigen3"
+}
 
 $includeDirs = @(
   (Join-Path $repositoryDir "bindings"),
-  (Join-Path $repositoryDir "native/eigen"),
+  $eigenIncludeDir,
   (Join-Path $tesseractDir "common/include"),
   (Join-Path $tesseractDir "geometry/include"),
   (Join-Path $tesseractDir "scene_graph/include"),
   (Join-Path $tesseractDir "urdf/include"),
   (Join-Path $tesseractDir "srdf/include"),
   (Join-Path $tesseractDir "state_solver/include"),
+  (Join-Path $tesseractDir "collision/core/include"),
   (Join-Path $tesseractDir "kinematics/core/include"),
   (Join-Path $tesseractDir "environment/include")
 )

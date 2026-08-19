@@ -24,24 +24,14 @@ endif()
 
 if(WIN32)
   set(runtime_search_directory "$ENV{CONDA_PREFIX}/Library/bin")
-  file(GLOB tesseract_plugin_libraries "${runtime_search_directory}/tesseract_kinematics*factor*.dll")
-elseif(APPLE)
-  set(runtime_search_directory "$ENV{CONDA_PREFIX}/lib")
-  file(GLOB tesseract_plugin_libraries "${runtime_search_directory}/libtesseract_kinematics*factor*.dylib")
 else()
   set(runtime_search_directory "$ENV{CONDA_PREFIX}/lib")
-  file(GLOB tesseract_plugin_libraries "${runtime_search_directory}/libtesseract_kinematics*factor*.so*")
 endif()
 
-if(NOT tesseract_plugin_libraries)
-  message(FATAL_ERROR "No Tesseract runtime libraries were found in '${runtime_search_directory}'.")
-endif()
-
-# Kinematics plugin libraries are loaded by name from SRDF/YAML configuration,
-# so dependency scanning the wrapper alone cannot discover them. Treat every
-# plugin factory exposed by the bindings as a root, then collect the complete
-# transitive runtime closure.
-set(runtime_roots "${WRAPPER_LIBRARY}" ${tesseract_plugin_libraries})
+# Tesseract and the selected collision/kinematics factories are linked into
+# the wrapper. The wrapper is the sole runtime root; remaining files are the
+# small third-party closure that is intentionally kept dynamic.
+set(runtime_roots "${WRAPPER_LIBRARY}")
 file(
   GET_RUNTIME_DEPENDENCIES
   LIBRARIES ${runtime_roots}

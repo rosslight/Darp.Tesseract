@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>darp_test</name>
+  <version>0.1.0</version>
+  <description>Test-only Tesseract resource package.</description>
+  <maintainer email="dev@rosslight.com">rosslight GmbH</maintainer>
+  <license>Apache-2.0</license>
+</package>

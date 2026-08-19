@@ -1,0 +1,16 @@
+%include <tesseract/geometry/geometry.h>
+%include <tesseract/geometry/impl/mesh_material.h>
+%include <tesseract/geometry/impl/box.h>
+%include <tesseract/geometry/impl/sphere.h>
+%include <tesseract/geometry/impl/cylinder.h>
+%include <tesseract/geometry/impl/capsule.h>
+%include <tesseract/geometry/impl/cone.h>
+%include <tesseract/geometry/impl/plane.h>
+%include <tesseract/geometry/impl/polygon_mesh.h>
+%include <tesseract/geometry/impl/mesh.h>
+%include <tesseract/geometry/impl/convex_mesh.h>
+%include <tesseract/geometry/impl/sdf_mesh.h>
+%include <tesseract/geometry/impl/compound_mesh.h>
+%include <tesseract/geometry/geometries.h>
+%include <tesseract/geometry/utils.h>
+%include <tesseract/geometry/mesh_parser.h>

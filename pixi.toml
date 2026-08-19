@@ -2,7 +2,6 @@
 name = "darp-tesseract-native"
 channels = ["conda-forge", "tesseract-robotics"]
 platforms = ["win-64", "linux-64", "linux-aarch64", "osx-64", "osx-arm64"]
-preview = ["pixi-build"]
 requires-pixi = ">=0.70,<0.71"
 
 [workspace.target.win.build-variants]
@@ -13,11 +12,24 @@ cxx_compiler_version = ["2026"]
 
 [dependencies]
 swig = "==4.5.0"
+eigen = "*"
 
 [feature.native.dependencies]
-darp-tesseract-upstream = { path = "packaging/tesseract" }
 cmake = ">=4.4,<5"
 ninja = "*"
+ros-industrial-cmake-boilerplate = "*"
+libboost-devel = "*"
+cereal = "*"
+console_bridge = "*"
+tinyxml2 = "*"
+yaml-cpp = "*"
+boost-plugin-loader = "*"
+assimp = "*"
+octomap = "*"
+orocos-kdl = "*"
+bullet-cpp = "*"
+fcl = "*"
+opw-kinematics = "*"
 
 [feature.native.target.win-64.dependencies]
 vs_win-64 = "2026.*"
@@ -36,8 +48,8 @@ cxx-compiler = "*"
 
 [environments]
 default = { features = ["native"], solve-group = "native" }
-bindings = { features = [], solve-group = "bindings" }
+bindings = { features = [], solve-group = "native" }
 
 [tasks]
-verify-native-versions = "pwsh ./scripts/verify_native_versions.ps1"
-generate-bindings = { cmd = "pwsh ./scripts/generate_bindings.ps1", depends-on = ["verify-native-versions"] }
+build-native = "pwsh ./scripts/build_native.ps1"
+generate-bindings = "pwsh ./scripts/generate_bindings.ps1"

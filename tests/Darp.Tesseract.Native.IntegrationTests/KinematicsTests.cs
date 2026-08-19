@@ -1,4 +1,5 @@
 using Shouldly;
+using System.Runtime.InteropServices;
 using Xunit;
 using TesseractEnvironment = Darp.Tesseract.Native.Environment;
 
@@ -14,46 +15,43 @@ public sealed class KinematicsTests
         var path = System.Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
         path.Contains(".pixi", StringComparison.OrdinalIgnoreCase).ShouldBeFalse();
 
-        var requiredNativeAssets = OperatingSystem.IsWindows()
-            ? new[]
-            {
-                "tesseract_csharp.dll",
-                "tesseract_environment.dll",
-                "tesseract_kinematics_kdl_factories.dll",
-                "boost_plugin_loader.dll",
-            }
+        var wrapperName = OperatingSystem.IsWindows()
+            ? "tesseract_csharp.dll"
             : OperatingSystem.IsMacOS()
-                ? new[]
-                {
-                    "libtesseract_csharp.dylib",
-                    "libtesseract_environment.dylib",
-                    "libtesseract_kinematics_kdl_factories.dylib",
-                    "libboost_plugin_loader.dylib",
-                }
-                : new[]
-                {
-                    "libtesseract_csharp.so",
-                    "libtesseract_environment.so",
-                    "libtesseract_kinematics_kdl_factories.so",
-                    "libboost_plugin_loader.so",
-                };
+                ? "libtesseract_csharp.dylib"
+                : "libtesseract_csharp.so";
+        var nativeFiles = Directory
+            .EnumerateFiles(AppContext.BaseDirectory, "*", SearchOption.AllDirectories)
+            .ToArray();
+        nativeFiles.ShouldContain(
+            path => string.Equals(Path.GetFileName(path), wrapperName, StringComparison.OrdinalIgnoreCase),
+            $"missing packaged native asset '{wrapperName}' for {RuntimeInformation.RuntimeIdentifier}"
+        );
 
-        foreach (var asset in requiredNativeAssets)
-            File.Exists(Path.Combine(AppContext.BaseDirectory, asset)).ShouldBeTrue($"missing packaged native asset '{asset}'");
+        var nativeTesseractPrefix = OperatingSystem.IsWindows() ? "tesseract_" : "libtesseract_";
+        nativeFiles
+            .Where(path => !string.Equals(Path.GetFileName(path), wrapperName, StringComparison.OrdinalIgnoreCase))
+            .Where(path => Path.GetFileName(path).StartsWith(nativeTesseractPrefix, StringComparison.OrdinalIgnoreCase))
+            .ShouldBeEmpty("Tesseract components and embedded factories should be linked into the wrapper");
+        nativeFiles
+            .Where(path =>
+                Path.GetFileName(path).StartsWith("vtk", StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileName(path).StartsWith("pcl_", StringComparison.OrdinalIgnoreCase)
+            )
+            .ShouldBeEmpty("the lean runtime must not contain the disabled PCL/VTK point-cloud stack");
     }
 #endif
 
     [Fact]
     public void AbbIrb2400EnvironmentSupportsForwardJacobianAndInverseKinematics()
     {
-        var repositoryRoot = FindRepositoryRoot();
-        var tesseractRoot = Path.Combine(repositoryRoot, "native", "tesseract");
-        var urdfDirectory = Path.Combine(tesseractRoot, "support", "urdf");
-        var urdf = File.ReadAllText(Path.Combine(urdfDirectory, "abb_irb2400.urdf"));
-        var srdf = File.ReadAllText(Path.Combine(urdfDirectory, "abb_irb2400.srdf"));
+        var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets");
+        var fixtureRoot = Path.Combine(assetRoot, "darp_test");
+        var urdf = File.ReadAllText(Path.Combine(fixtureRoot, "abb_irb2400.urdf"));
+        var srdf = File.ReadAllText(Path.Combine(fixtureRoot, "abb_irb2400.srdf"));
 
         using var locator = new GeneralResourceLocator();
-        locator.addPath(Path.GetDirectoryName(tesseractRoot)!).ShouldBeTrue();
+        locator.addPath(assetRoot).ShouldBeTrue();
 
         using var sceneGraph = TesseractNative.parseURDFString(urdf, locator);
         sceneGraph.ShouldNotBeNull();
@@ -121,6 +119,46 @@ public sealed class KinematicsTests
     }
 
     [Fact]
+    public void EmbeddedCollisionFactoriesLoadFromUnchangedPluginConfiguration()
+    {
+        using var environment = CreateEnvironment();
+
+        environment.setActiveDiscreteContactManager("BulletDiscreteBVHManager").ShouldBeTrue();
+        using (var bullet = environment.getDiscreteContactManager())
+        {
+            bullet.ShouldNotBeNull();
+            bullet.getName().ShouldContain("Bullet", Case.Insensitive);
+            using var collisionObjects = bullet.getCollisionObjects();
+            collisionObjects.Count.ShouldBeGreaterThan(0);
+        }
+
+        environment.setActiveDiscreteContactManager("FCLDiscreteBVHManager").ShouldBeTrue();
+        using (var fcl = environment.getDiscreteContactManager())
+        {
+            fcl.ShouldNotBeNull();
+            fcl.getName().ShouldContain("FCL", Case.Insensitive);
+            using var collisionObjects = fcl.getCollisionObjects();
+            collisionObjects.Count.ShouldBeGreaterThan(0);
+        }
+
+        environment.setActiveContinuousContactManager("BulletCastBVHManager").ShouldBeTrue();
+        using var continuous = environment.getContinuousContactManager();
+        continuous.ShouldNotBeNull();
+        continuous.getName().ShouldContain("Bullet", Case.Insensitive);
+    }
+
+    [Fact]
+    public void EmbeddedOpwFactoryLoadsFromUnchangedPluginConfiguration()
+    {
+        using var environment = CreateEnvironment();
+        using var group = environment.getKinematicGroup("manipulator");
+
+        group.ShouldNotBeNull();
+        using var inverseKinematics = group.getInverseKinematics();
+        inverseKinematics.getSolverName().ShouldBe("OPWInvKin");
+    }
+
+    [Fact]
     public void GeneratedNativeViewsValidateBoundsWithoutManagedArrays()
     {
         using var vector = new VectorXd(6);
@@ -147,17 +185,22 @@ public sealed class KinematicsTests
         return translationMatches && Math.Abs(Math.Abs(quaternionDot) - 1) <= tolerance;
     }
 
-    private static string FindRepositoryRoot()
+    private static TesseractEnvironment CreateEnvironment()
     {
-        foreach (var start in new[] { Directory.GetCurrentDirectory(), AppContext.BaseDirectory })
-        {
-            for (var directory = new DirectoryInfo(start); directory is not null; directory = directory.Parent)
-            {
-                if (File.Exists(Path.Combine(directory.FullName, "native", "tesseract", "package.xml")))
-                    return directory.FullName;
-            }
-        }
+        var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets");
+        var fixtureRoot = Path.Combine(assetRoot, "darp_test");
+        var urdf = File.ReadAllText(Path.Combine(fixtureRoot, "abb_irb2400.urdf"));
+        var srdf = File.ReadAllText(Path.Combine(fixtureRoot, "abb_irb2400.srdf"));
 
-        throw new DirectoryNotFoundException("Could not locate the Darp.Tesseract.Native repository root.");
+        using var locator = new GeneralResourceLocator();
+        locator.addPath(assetRoot).ShouldBeTrue();
+        using var sceneGraph = TesseractNative.parseURDFString(urdf, locator);
+        sceneGraph.ShouldNotBeNull();
+        using var srdfModel = new SRDFModel();
+        srdfModel.initString(sceneGraph, srdf, locator);
+
+        var environment = new TesseractEnvironment();
+        environment.init(sceneGraph, srdfModel).ShouldBeTrue();
+        return environment;
     }
 }

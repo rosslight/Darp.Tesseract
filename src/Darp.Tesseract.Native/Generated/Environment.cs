@@ -394,6 +394,54 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
+  public bool setActiveDiscreteContactManager(string name) {
+    bool ret = TesseractNativePINVOKE.Environment_setActiveDiscreteContactManager(swigCPtr, name);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public DiscreteContactManager getDiscreteContactManager() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_getDiscreteContactManager__SWIG_0(swigCPtr);
+    DiscreteContactManager ret = (cPtr == global::System.IntPtr.Zero)
+      ? null
+      : new DiscreteContactManager(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public DiscreteContactManager getDiscreteContactManager(string name) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_getDiscreteContactManager__SWIG_1(swigCPtr, name);
+    DiscreteContactManager ret = (cPtr == global::System.IntPtr.Zero)
+      ? null
+      : new DiscreteContactManager(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool setActiveContinuousContactManager(string name) {
+    bool ret = TesseractNativePINVOKE.Environment_setActiveContinuousContactManager(swigCPtr, name);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public ContinuousContactManager getContinuousContactManager() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_getContinuousContactManager__SWIG_0(swigCPtr);
+    ContinuousContactManager ret = (cPtr == global::System.IntPtr.Zero)
+      ? null
+      : new ContinuousContactManager(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public ContinuousContactManager getContinuousContactManager(string name) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_getContinuousContactManager__SWIG_1(swigCPtr, name);
+    ContinuousContactManager ret = (cPtr == global::System.IntPtr.Zero)
+      ? null
+      : new ContinuousContactManager(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

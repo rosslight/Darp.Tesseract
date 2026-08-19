@@ -489,6 +489,9 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <tesseract/state_solver/state_solver.h>
 #include <tesseract/state_solver/mutable_state_solver.h>
 
+#include <tesseract/collision/discrete_contact_manager.h>
+#include <tesseract/collision/continuous_contact_manager.h>
+
 #include <tesseract/kinematics/types.h>
 #include <tesseract/kinematics/forward_kinematics.h>
 #include <tesseract/kinematics/inverse_kinematics.h>
@@ -20930,6 +20933,1468 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_MutableStateSol
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_DiscreteContactManager___(void * jarg1) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_getName___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager const > *smartarg1 = 0 ;
+  std::string result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = ((tesseract::collision::DiscreteContactManager const *)arg1)->getName();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_clone___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager const > *smartarg1 = 0 ;
+  SwigValueWrapper< std::unique_ptr< tesseract::collision::DiscreteContactManager > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = ((tesseract::collision::DiscreteContactManager const *)arg1)->clone();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    std::unique_ptr<tesseract::collision::DiscreteContactManager> swig_result = std::move(result);
+    jresult = swig_result
+    ? new std::shared_ptr<tesseract::collision::DiscreteContactManager>(std::move(swig_result))
+    :nullptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_hasCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)((tesseract::collision::DiscreteContactManager const *)arg1)->hasCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_removeCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->removeCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_enableCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->enableCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_disableCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->disableCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_isCollisionObjectEnabled___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)((tesseract::collision::DiscreteContactManager const *)arg1)->isCollisionObjectEnabled((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_setCollisionObjectsTransform__SWIG_0___(void * jarg1, const char * jarg2, void * jarg3) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  Eigen::Isometry3d *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (Eigen::Isometry3d *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Eigen::Isometry3d const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((std::string const &)*arg2,(Eigen::Isometry3d const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_setCollisionObjectsTransform__SWIG_1___(void * jarg1, void * jarg2, void * jarg3) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  tesseract::common::VectorIsometry3d *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  arg3 = (tesseract::common::VectorIsometry3d *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::VectorIsometry3d const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((std::vector< std::string > const &)*arg2,(tesseract::common::VectorIsometry3d const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_setCollisionObjectsTransform__SWIG_2___(void * jarg1, void * jarg2) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  tesseract::common::TransformMap *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::common::TransformMap *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::TransformMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((tesseract::common::TransformMap const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_getCollisionObjects___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager const > *smartarg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &((tesseract::collision::DiscreteContactManager const *)arg1)->getCollisionObjects();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_setActiveCollisionObjects___(void * jarg1, void * jarg2) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setActiveCollisionObjects((std::vector< std::string > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_getActiveCollisionObjects___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager const > *smartarg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &((tesseract::collision::DiscreteContactManager const *)arg1)->getActiveCollisionObjects();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_setDefaultCollisionMargin___(void * jarg1, double jarg2) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->setDefaultCollisionMargin(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_setCollisionMarginPair___(void * jarg1, const char * jarg2, const char * jarg3, double jarg4) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  double arg4 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  arg4 = (double)jarg4; 
+  {
+    try
+    {
+      (arg1)->setCollisionMarginPair((std::string const &)*arg2,(std::string const &)*arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_incrementCollisionMargin___(void * jarg1, double jarg2) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->incrementCollisionMargin(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContinuousContactManager___(void * jarg1) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_getName___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager const > *smartarg1 = 0 ;
+  std::string result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContinuousContactManager const *)arg1)->getName();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_clone___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager const > *smartarg1 = 0 ;
+  SwigValueWrapper< std::unique_ptr< tesseract::collision::ContinuousContactManager > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContinuousContactManager const *)arg1)->clone();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    std::unique_ptr<tesseract::collision::ContinuousContactManager> swig_result = std::move(result);
+    jresult = swig_result
+    ? new std::shared_ptr<tesseract::collision::ContinuousContactManager>(std::move(swig_result))
+    :nullptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_hasCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)((tesseract::collision::ContinuousContactManager const *)arg1)->hasCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_removeCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->removeCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_enableCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->enableCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_disableCollisionObject___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->disableCollisionObject((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_isCollisionObjectEnabled___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)((tesseract::collision::ContinuousContactManager const *)arg1)->isCollisionObjectEnabled((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionObjectsTransform__SWIG_0___(void * jarg1, const char * jarg2, void * jarg3) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  Eigen::Isometry3d *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (Eigen::Isometry3d *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Eigen::Isometry3d const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((std::string const &)*arg2,(Eigen::Isometry3d const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionObjectsTransform__SWIG_1___(void * jarg1, void * jarg2, void * jarg3) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  tesseract::common::VectorIsometry3d *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  arg3 = (tesseract::common::VectorIsometry3d *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::VectorIsometry3d const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((std::vector< std::string > const &)*arg2,(tesseract::common::VectorIsometry3d const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionObjectsTransform__SWIG_2___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  tesseract::common::TransformMap *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::common::TransformMap *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::TransformMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((tesseract::common::TransformMap const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionObjectsTransform__SWIG_3___(void * jarg1, const char * jarg2, void * jarg3, void * jarg4) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  Eigen::Isometry3d *arg3 = 0 ;
+  Eigen::Isometry3d *arg4 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  arg3 = (Eigen::Isometry3d *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Eigen::Isometry3d const & is null", 0);
+    return ;
+  } 
+  arg4 = (Eigen::Isometry3d *)jarg4;
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Eigen::Isometry3d const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((std::string const &)*arg2,(Eigen::Isometry3d const &)*arg3,(Eigen::Isometry3d const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionObjectsTransform__SWIG_4___(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  tesseract::common::VectorIsometry3d *arg3 = 0 ;
+  tesseract::common::VectorIsometry3d *arg4 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  arg3 = (tesseract::common::VectorIsometry3d *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::VectorIsometry3d const & is null", 0);
+    return ;
+  } 
+  arg4 = (tesseract::common::VectorIsometry3d *)jarg4;
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::VectorIsometry3d const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((std::vector< std::string > const &)*arg2,(tesseract::common::VectorIsometry3d const &)*arg3,(tesseract::common::VectorIsometry3d const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionObjectsTransform__SWIG_5___(void * jarg1, void * jarg2, void * jarg3) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  tesseract::common::TransformMap *arg2 = 0 ;
+  tesseract::common::TransformMap *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::common::TransformMap *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::TransformMap const & is null", 0);
+    return ;
+  } 
+  arg3 = (tesseract::common::TransformMap *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::TransformMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setCollisionObjectsTransform((tesseract::common::TransformMap const &)*arg2,(tesseract::common::TransformMap const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_getCollisionObjects___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager const > *smartarg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &((tesseract::collision::ContinuousContactManager const *)arg1)->getCollisionObjects();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setActiveCollisionObjects___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setActiveCollisionObjects((std::vector< std::string > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_getActiveCollisionObjects___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager const > *smartarg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &((tesseract::collision::ContinuousContactManager const *)arg1)->getActiveCollisionObjects();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setDefaultCollisionMargin___(void * jarg1, double jarg2) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->setDefaultCollisionMargin(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_setCollisionMarginPair___(void * jarg1, const char * jarg2, const char * jarg3, double jarg4) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  double arg4 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  arg4 = (double)jarg4; 
+  {
+    try
+    {
+      (arg1)->setCollisionMarginPair((std::string const &)*arg2,(std::string const &)*arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_incrementCollisionMargin___(void * jarg1, double jarg2) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->incrementCollisionMargin(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_URParameters__SWIG_0___() {
   void * jresult = 0 ;
   tesseract::kinematics::URParameters *result = 0 ;
@@ -25685,6 +27150,264 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getGroupN
     }
   }
   jresult = new std::set< std::string >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setActiveDiscreteContactManager___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::environment::Environment *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::environment::Environment > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::environment::Environment > *)jarg1;
+  arg1 = (tesseract::environment::Environment *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->setActiveDiscreteContactManager((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getDiscreteContactManager__SWIG_0___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::environment::Environment *arg1 = 0 ;
+  std::shared_ptr< tesseract::environment::Environment const > *smartarg1 = 0 ;
+  SwigValueWrapper< std::unique_ptr< tesseract::collision::DiscreteContactManager > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::environment::Environment > *)jarg1;
+  arg1 = (tesseract::environment::Environment *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = ((tesseract::environment::Environment const *)arg1)->getDiscreteContactManager();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    std::unique_ptr<tesseract::collision::DiscreteContactManager> swig_result = std::move(result);
+    jresult = swig_result
+    ? new std::shared_ptr<tesseract::collision::DiscreteContactManager>(std::move(swig_result))
+    :nullptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getDiscreteContactManager__SWIG_1___(void * jarg1, const char * jarg2) {
+  void * jresult = 0 ;
+  tesseract::environment::Environment *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::environment::Environment const > *smartarg1 = 0 ;
+  SwigValueWrapper< std::unique_ptr< tesseract::collision::DiscreteContactManager > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::environment::Environment > *)jarg1;
+  arg1 = (tesseract::environment::Environment *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = ((tesseract::environment::Environment const *)arg1)->getDiscreteContactManager((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    std::unique_ptr<tesseract::collision::DiscreteContactManager> swig_result = std::move(result);
+    jresult = swig_result
+    ? new std::shared_ptr<tesseract::collision::DiscreteContactManager>(std::move(swig_result))
+    :nullptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setActiveContinuousContactManager___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  tesseract::environment::Environment *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::environment::Environment > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::environment::Environment > *)jarg1;
+  arg1 = (tesseract::environment::Environment *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)(arg1)->setActiveContinuousContactManager((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getContinuousContactManager__SWIG_0___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::environment::Environment *arg1 = 0 ;
+  std::shared_ptr< tesseract::environment::Environment const > *smartarg1 = 0 ;
+  SwigValueWrapper< std::unique_ptr< tesseract::collision::ContinuousContactManager > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::environment::Environment > *)jarg1;
+  arg1 = (tesseract::environment::Environment *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = ((tesseract::environment::Environment const *)arg1)->getContinuousContactManager();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    std::unique_ptr<tesseract::collision::ContinuousContactManager> swig_result = std::move(result);
+    jresult = swig_result
+    ? new std::shared_ptr<tesseract::collision::ContinuousContactManager>(std::move(swig_result))
+    :nullptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getContinuousContactManager__SWIG_1___(void * jarg1, const char * jarg2) {
+  void * jresult = 0 ;
+  tesseract::environment::Environment *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::environment::Environment const > *smartarg1 = 0 ;
+  SwigValueWrapper< std::unique_ptr< tesseract::collision::ContinuousContactManager > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::environment::Environment > *)jarg1;
+  arg1 = (tesseract::environment::Environment *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = ((tesseract::environment::Environment const *)arg1)->getContinuousContactManager((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    std::unique_ptr<tesseract::collision::ContinuousContactManager> swig_result = std::move(result);
+    jresult = swig_result
+    ? new std::shared_ptr<tesseract::collision::ContinuousContactManager>(std::move(swig_result))
+    :nullptr;
+  }
   return jresult;
 }
 

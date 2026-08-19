@@ -1,0 +1,67 @@
+diff --git a/urdf/CMakeLists.txt b/urdf/CMakeLists.txt
+index b4ba8a27..8265cfd8 100644
+--- a/urdf/CMakeLists.txt
++++ b/urdf/CMakeLists.txt
+@@ -1,5 +1,10 @@
+ find_package(Boost REQUIRED)
+-find_package(PCL REQUIRED COMPONENTS io)
++
++option(TESSERACT_URDF_ENABLE_POINT_CLOUDS "Enable PCL point-cloud parsing in the URDF parser" ON)
++
++if(TESSERACT_URDF_ENABLE_POINT_CLOUDS)
++  find_package(PCL REQUIRED COMPONENTS io)
++endif()
+ 
+ set(SUPPORTED_COMPONENTS ${SUPPORTED_COMPONENTS} "urdf" PARENT_SCOPE)
+ 
+@@ -23,13 +28,16 @@ add_library(
+   src/octomap.cpp
+   src/octree.cpp
+   src/origin.cpp
+-  src/point_cloud.cpp
+   src/safety_controller.cpp
+   src/sdf_mesh.cpp
+   src/sphere.cpp
+   src/urdf_parser.cpp
+   src/visual.cpp
+   src/utils.cpp)
++
++if(TESSERACT_URDF_ENABLE_POINT_CLOUDS)
++  target_sources(urdf PRIVATE src/point_cloud.cpp)
++endif()
+ add_library(tesseract::urdf ALIAS urdf)
+ set_target_properties(urdf PROPERTIES OUTPUT_NAME tesseract_urdf)
+ target_link_libraries(
+@@ -46,9 +54,11 @@ target_compile_options(urdf PRIVATE ${TESSERACT_COMPILE_OPTIONS_PRIVATE})
+ target_compile_options(urdf PUBLIC ${TESSERACT_COMPILE_OPTIONS_PUBLIC})
+ target_compile_definitions(urdf PUBLIC ${TESSERACT_COMPILE_DEFINITIONS})
+ 
+-target_link_libraries(urdf PRIVATE ${PCL_IO_LIBRARIES})
+-target_include_directories(urdf PRIVATE ${PCL_INCLUDE_DIRS})
+-target_compile_definitions(urdf PUBLIC TESSERACT_PARSE_POINT_CLOUDS="ON")
++if(TESSERACT_URDF_ENABLE_POINT_CLOUDS)
++  target_link_libraries(urdf PRIVATE ${PCL_IO_LIBRARIES})
++  target_include_directories(urdf PRIVATE ${PCL_INCLUDE_DIRS})
++  target_compile_definitions(urdf PUBLIC TESSERACT_PARSE_POINT_CLOUDS="ON")
++endif()
+ 
+ target_include_directories(urdf PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+                                        "$<INSTALL_INTERFACE:include>")
+diff --git a/urdf/src/octomap.cpp b/urdf/src/octomap.cpp
+index e6ef07a4..d15273ec 100644
+--- a/urdf/src/octomap.cpp
++++ b/urdf/src/octomap.cpp
+@@ -92,8 +92,13 @@ tesseract::geometry::Octree::Ptr parseOctomap(const tinyxml2::XMLElement* xml_el
+   }
+ #endif
+ 
++#ifdef TESSERACT_PARSE_POINT_CLOUDS
+   std::throw_with_nested(std::runtime_error("Octomap: Missing element '" + std::string(OCTREE_ELEMENT_NAME) + "' or '" +
+                                             std::string(POINT_CLOUD_ELEMENT_NAME) + "'; must define one!"));
++#else
++  std::throw_with_nested(std::runtime_error("Octomap: Missing element '" + std::string(OCTREE_ELEMENT_NAME) +
++                                            "'; point-cloud parsing is disabled!"));
++#endif
+ }
+ 
+ tinyxml2::XMLElement* writeOctomap(const std::shared_ptr<const tesseract::geometry::Octree>& octree,
