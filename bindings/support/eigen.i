@@ -37,7 +37,9 @@
 
 namespace Eigen
 {
-typedef std::int64_t Index;
+/* Keep Index nominal while parsing so generated C++ continues to use the
+ * platform's real Eigen::Index typedef. Its managed ABI is always Int64. */
+struct Index;
 class Vector2d {};
 class Vector3d {};
 class Vector4d {};
@@ -47,6 +49,9 @@ class MatrixX2d {};
 class Quaterniond {};
 class Isometry3d {};
 }
+
+%apply long long { Eigen::Index };
+%apply const long long& { const Eigen::Index& };
 
 /* Eigen::Ref does not own storage. Accept the corresponding generated Eigen
  * owner and construct the lightweight Ref in automatic wrapper storage. */
