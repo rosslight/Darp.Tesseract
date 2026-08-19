@@ -6,8 +6,7 @@
 
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
-    <Version>0.1.0+tesseract.0.35.0</Version>
+    <Version>0.1.3+tesseract.0.35.0</Version>
     <TesseractVersion>0.35.0</TesseractVersion>
   </PropertyGroup>
 </Project>
-

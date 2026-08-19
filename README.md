@@ -85,12 +85,14 @@ Build and test on Windows x64:
 
 ```powershell
 ./scripts/build_native.ps1 -RuntimeId win-x64 -PixiPath $pixi
-
-$pixiPrefix = (Resolve-Path .pixi/envs/default).Path
-$env:CONDA_PREFIX = $pixiPrefix
-$env:Path = (Join-Path $pixiPrefix "Library/bin") + ";" + $env:Path
 dotnet run --project tests/Darp.Tesseract.Native.IntegrationTests -c Release
 ```
+
+`build_native.ps1` collects the wrapper, supported kinematics plugins, and
+their transitive native dependencies into the RID-specific package assets.
+Consumers only need a normal `PackageReference`; .NET copies the matching
+runtime assets to the application output without requiring Pixi, `PATH`
+changes, or a separate Tesseract installation.
 
 The workspace supports `win-x64`, `linux-x64`, `linux-arm64`, `osx-x64`, and `osx-arm64`. Tesseract and the generated wrapper are built from source on a matching native host. Windows ARM64 is intentionally deferred until its dependency ecosystem is available. Linux and macOS require Pixi to be installed separately; pass its path through `-PixiPath` when it is not on `PATH`.
 
@@ -100,4 +102,7 @@ Add upstream headers to `bindings/tesseract_csharp.i` in dependency-coherent sli
 
 When updating Tesseract, advance `native/tesseract`, update the version in `packaging/tesseract/pixi.toml` and `native/CMakeLists.txt`, regenerate `pixi.lock` and the bindings, compile the native wrapper, and run the integration test against a real robot model. `scripts/verify_native_versions.ps1` rejects version drift between these inputs.
 
-Packaging self-contained RID assets is a separate follow-up. The current developer build intentionally relies on the pinned Pixi environment for Tesseract's transitive native libraries.
+CI runs the integration executable directly from the packed NuGet package on
+each supported RID, outside the Pixi build environment. The package test
+verifies the required native assets and exercises URDF/SRDF loading, environment
+initialization, forward kinematics, Jacobians, and inverse kinematics.

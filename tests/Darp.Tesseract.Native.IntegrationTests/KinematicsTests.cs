@@ -6,6 +6,43 @@ namespace Darp.Tesseract.Native.IntegrationTests;
 
 public sealed class KinematicsTests
 {
+#if PACKAGE_CONSUMER
+    [Fact]
+    public void PackagedTestDoesNotInheritTheNativeBuildEnvironment()
+    {
+        System.Environment.GetEnvironmentVariable("CONDA_PREFIX").ShouldBeNullOrEmpty();
+        var path = System.Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
+        path.Contains(".pixi", StringComparison.OrdinalIgnoreCase).ShouldBeFalse();
+
+        var requiredNativeAssets = OperatingSystem.IsWindows()
+            ? new[]
+            {
+                "tesseract_csharp.dll",
+                "tesseract_environment.dll",
+                "tesseract_kinematics_kdl_factories.dll",
+                "boost_plugin_loader.dll",
+            }
+            : OperatingSystem.IsMacOS()
+                ? new[]
+                {
+                    "libtesseract_csharp.dylib",
+                    "libtesseract_environment.dylib",
+                    "libtesseract_kinematics_kdl_factories.dylib",
+                    "libboost_plugin_loader.dylib",
+                }
+                : new[]
+                {
+                    "libtesseract_csharp.so",
+                    "libtesseract_environment.so",
+                    "libtesseract_kinematics_kdl_factories.so",
+                    "libboost_plugin_loader.so",
+                };
+
+        foreach (var asset in requiredNativeAssets)
+            File.Exists(Path.Combine(AppContext.BaseDirectory, asset)).ShouldBeTrue($"missing packaged native asset '{asset}'");
+    }
+#endif
+
     [Fact]
     public void AbbIrb2400EnvironmentSupportsForwardJacobianAndInverseKinematics()
     {

@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <DarpTesseractNativeRuntimeIdentifier Condition="'$(DarpTesseractNativeRuntimeIdentifier)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</DarpTesseractNativeRuntimeIdentifier>
+    <DarpTesseractNativeRuntimeIdentifier Condition="'$(DarpTesseractNativeRuntimeIdentifier)' == ''">$(NETCoreSdkRuntimeIdentifier)</DarpTesseractNativeRuntimeIdentifier>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <_DarpTesseractNativeRuntime Include="$(MSBuildThisFileDirectory)..\runtimes\$(DarpTesseractNativeRuntimeIdentifier)\native\*" />
+  </ItemGroup>
+
+  <Target Name="CopyDarpTesseractNativeRuntime" AfterTargets="CopyFilesToOutputDirectory" Condition="'@(_DarpTesseractNativeRuntime)' != ''">
+    <Copy SourceFiles="@(_DarpTesseractNativeRuntime)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="PublishDarpTesseractNativeRuntime" BeforeTargets="ComputeFilesToPublish" Condition="'@(_DarpTesseractNativeRuntime)' != ''">
+    <ItemGroup>
+      <ResolvedFileToPublish Include="@(_DarpTesseractNativeRuntime)" RelativePath="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+  </Target>
+</Project>

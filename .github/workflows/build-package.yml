@@ -152,15 +152,6 @@ jobs:
         with:
           global-json-file: global.json
 
-      - name: Setup pinned native dependency environment
-        uses: prefix-dev/setup-pixi@v0.10.0
-        with:
-          manifest-path: pixi.toml
-          pixi-version: v0.70.1
-          environments: default
-          frozen: true
-          cache: true
-
       - name: Restore integration executable from package
         shell: pwsh
         run: |
@@ -168,17 +159,15 @@ jobs:
           dotnet restore tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
             --source "https://api.nuget.org/v3/index.json" `
             --source "$source" `
-            --runtime "${{ matrix.rid }}" `
             -p:UseLocalProjectReference=false
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run packaged native interop test
         shell: pwsh
         run: |
-          pixi run -e default dotnet run `
+          dotnet run `
             --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj `
             -c Release `
-            --runtime "${{ matrix.rid }}" `
             --no-restore `
             -p:UseLocalProjectReference=false
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

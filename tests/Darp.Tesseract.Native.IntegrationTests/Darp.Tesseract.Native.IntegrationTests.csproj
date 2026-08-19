@@ -14,9 +14,11 @@
   <ItemGroup Condition="'$(UseLocalProjectReference)' != 'true'">
     <PackageReference Include="Darp.Tesseract.Native" Version="$(DarpTesseractNativeVersion)" />
   </ItemGroup>
+  <PropertyGroup Condition="'$(UseLocalProjectReference)' != 'true'">
+    <DefineConstants>$(DefineConstants);PACKAGE_CONSUMER</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="xunit.v3" Version="4.0.0" />
   </ItemGroup>
 </Project>
-

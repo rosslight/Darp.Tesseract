@@ -25,6 +25,7 @@
       <Nullable>disable</Nullable>
     </Compile>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="buildTransitive/Darp.Tesseract.Native.targets" Pack="true" PackagePath="buildTransitive/Darp.Tesseract.Native.targets" />
     <None Include="../../artifacts/native/**/*.*"
           Condition="Exists('../../artifacts/native')"
           Pack="true"
