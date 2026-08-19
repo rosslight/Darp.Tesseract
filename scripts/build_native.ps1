@@ -148,8 +148,10 @@ $libraryPath = switch ($runtimeId) {
 if (-not (Test-Path -LiteralPath $libraryPath)) {
   throw "The installed native wrapper was not found at '$libraryPath'."
 }
-Set-PortableWrapperRuntimePath -libraryPath $libraryPath
-Assert-PortableRuntimePaths -libraryPaths @($libraryPath) -RequireWrapperRelativePath
+if (-not $IsMacOS) {
+  Set-PortableWrapperRuntimePath -libraryPath $libraryPath
+  Assert-PortableRuntimePaths -libraryPaths @($libraryPath) -RequireWrapperRelativePath
+}
 
 $collectorArgs = @(
   "-DWRAPPER_LIBRARY=$libraryPath"
@@ -175,6 +177,11 @@ $collectorArgs += @("-P", $runtimeCollectorPath)
 if ($LASTEXITCODE -ne 0) { throw "Native runtime collection failed with exit code $LASTEXITCODE." }
 
 $packagedLibraries = Get-ChildItem -LiteralPath $outputDir -File | Select-Object -ExpandProperty FullName
+if ($IsMacOS) {
+  $packagedWrapperPath = Join-Path $outputDir ([System.IO.Path]::GetFileName($libraryPath))
+  Set-PortableWrapperRuntimePath -libraryPath $packagedWrapperPath
+  Assert-PortableRuntimePaths -libraryPaths @($packagedWrapperPath) -RequireWrapperRelativePath
+}
 Assert-PortableRuntimePaths -libraryPaths $packagedLibraries
 
 Write-Host "Built $runtimeId native runtime in $outputDir"
