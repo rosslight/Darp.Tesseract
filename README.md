@@ -7,15 +7,15 @@ Generated .NET bindings for [Tesseract Robotics](https://github.com/tesseract-ro
 The repository keeps the native and managed build boundaries separate:
 
 - Pixi locks the compiler and third-party native dependency environment.
-- A root CMake superbuild copies the pinned Tesseract submodule into an ignored build directory, applies the repository's small point-cloud patch, builds Tesseract statically, and builds the generated wrapper against that private installation.
+- A root CMake superbuild copies the pinned Tesseract submodule into an ignored build directory, applies the repository's focused runtime-dependency patch, builds Tesseract statically, and builds the generated wrapper against that private installation.
 - `dotnet pack` consumes the resulting `artifacts/native/<rid>/` directories without invoking Pixi or CMake.
 - NuGet's standard `runtimes/<rid>/native/` assets select and deploy the matching wrapper and its adjacent runtime dependencies.
 
-The Tesseract checkout stays pristine. `patches/tesseract-disable-point-clouds.patch` only makes PCL-backed URDF point-cloud parsing optional; disabling it avoids the PCL/VTK dependency graph while retaining normal URDF geometry, meshes, and octomap files.
+The Tesseract checkout stays pristine. `patches/tesseract-runtime-dependencies.patch` contains two focused build-graph changes: it makes PCL-backed URDF point-cloud parsing optional and avoids linking the compiled Boost.Graph library when Tesseract only consumes its header API. This removes the PCL/VTK and Boost.Regex/ICU runtime graphs while retaining normal URDF geometry, meshes, octomap files, and scene-graph functionality.
 
 The single `tesseract_csharp` wrapper contains statically linked Tesseract components and the Bullet, FCL, KDL, OPW, and UR plugin factories. A generated internal bootstrap registers that already-loaded wrapper with Tesseract's normal plugin loader. Existing SRDF/YAML class aliases and search-library entries therefore continue to work without separate generic factory libraries.
 
-The native build targets `win-x64`, `linux-x64`, `linux-arm64`, `osx-x64`, and `osx-arm64` on matching native hosts. Windows ARM64 is deferred. Linux targets glibc 2.28 and macOS targets 11.0.
+The native build targets `win-x64`, `linux-x64`, `linux-arm64`, `osx-x64`, and `osx-arm64` on matching native hosts. Windows ARM64 is deferred. Linux targets glibc 2.28 and expects the distribution's standard C/C++ runtimes and zlib; the package supplies the adjacent robotics dependency closure. macOS targets 11.0.
 
 ## Current binding surface
 

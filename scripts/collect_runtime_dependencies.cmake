@@ -32,6 +32,18 @@ endif()
 # the wrapper. The wrapper is the sole runtime root; remaining files are the
 # small third-party closure that is intentionally kept dynamic.
 set(runtime_roots "${WRAPPER_LIBRARY}")
+set(system_dependency_names
+  "api-ms-.*"
+  "ext-ms-.*"
+  "^(AzureAttestManager|AzureAttestNormal|HvsiFileTrust|PdmUtilities|wpaxholder)\\.dll$")
+if(UNIX AND NOT APPLE)
+  # A standard Linux distribution supplies the platform C/C++ runtime and
+  # zlib. Package the robotics dependency graph, not a competing toolchain.
+  list(APPEND system_dependency_names
+    "^ld-linux.*\\.so.*$"
+    "^lib(c|m|pthread|dl|rt)\\.so.*$"
+    "^lib(stdc\\+\\+|gcc_s|gomp|z)\\.so.*$")
+endif()
 file(
   GET_RUNTIME_DEPENDENCIES
   LIBRARIES ${runtime_roots}
@@ -39,10 +51,7 @@ file(
   UNRESOLVED_DEPENDENCIES_VAR unresolved_dependencies
   CONFLICTING_DEPENDENCIES_PREFIX dependency_conflicts
   DIRECTORIES "${runtime_search_directory}"
-  PRE_EXCLUDE_REGEXES
-    "api-ms-.*"
-    "ext-ms-.*"
-    "^(AzureAttestManager|AzureAttestNormal|HvsiFileTrust|PdmUtilities|wpaxholder)\\.dll$"
+  PRE_EXCLUDE_REGEXES ${system_dependency_names}
   POST_EXCLUDE_REGEXES
     ".*[Ww][Ii][Nn][Dd][Oo][Ww][Ss][/\\\\][Ss][Yy][Ss][Tt][Ee][Mm]32[/\\\\].*"
     "^/lib/.*"

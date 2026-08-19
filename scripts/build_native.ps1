@@ -37,6 +37,86 @@ $runtimeId = if ($IsWindows) {
 $buildDir = Join-Path $repositoryDir "artifacts/build/$runtimeId"
 $outputDir = Join-Path $repositoryDir "artifacts/native/$runtimeId"
 
+function Set-PortableWrapperRuntimePath([string] $libraryPath) {
+  if ($IsLinux) {
+    & patchelf --set-rpath '$ORIGIN' $libraryPath
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not normalize the Linux runtime path in '$libraryPath'."
+    }
+    return
+  }
+
+  if ($IsMacOS) {
+    $loadCommands = & otool -l $libraryPath
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not inspect the macOS runtime paths in '$libraryPath'."
+    }
+
+    $runtimePaths = [System.Collections.Generic.List[string]]::new()
+    for ($index = 0; $index -lt $loadCommands.Count; $index++) {
+      if ($loadCommands[$index].Trim() -ne 'cmd LC_RPATH') {
+        continue
+      }
+      for ($detailIndex = $index + 1; $detailIndex -lt [Math]::Min($index + 5, $loadCommands.Count); $detailIndex++) {
+        if ($loadCommands[$detailIndex] -match '^\s*path\s+(.+?)\s+\(offset\s+\d+\)$') {
+          $runtimePaths.Add($Matches[1])
+          break
+        }
+      }
+    }
+
+    foreach ($runtimePath in ($runtimePaths | Select-Object -Unique)) {
+      if ($runtimePath -ne '@loader_path') {
+        & install_name_tool -delete_rpath $runtimePath $libraryPath
+        if ($LASTEXITCODE -ne 0) {
+          throw "Could not remove macOS runtime path '$runtimePath' from '$libraryPath'."
+        }
+      }
+    }
+    if (-not $runtimePaths.Contains('@loader_path')) {
+      & install_name_tool -add_rpath '@loader_path' $libraryPath
+      if ($LASTEXITCODE -ne 0) {
+        throw "Could not add the relative macOS runtime path to '$libraryPath'."
+      }
+    }
+  }
+}
+
+function Assert-PortableRuntimePaths([string[]] $libraryPaths, [switch] $RequireWrapperRelativePath) {
+  if (-not ($IsLinux -or $IsMacOS)) {
+    return
+  }
+
+  $forbiddenPaths = @($env:CONDA_PREFIX, $repositoryDir, $buildDir) |
+    Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+    ForEach-Object { [System.IO.Path]::GetFullPath($_) }
+
+  foreach ($candidatePath in $libraryPaths) {
+    $runtimeMetadata = if ($IsLinux) {
+      & readelf -d $candidatePath
+    } else {
+      & otool -l $candidatePath
+    }
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not inspect native runtime paths in '$candidatePath'."
+    }
+
+    $runtimeMetadataText = $runtimeMetadata -join "`n"
+    foreach ($forbiddenPath in $forbiddenPaths) {
+      if ($runtimeMetadataText.Contains($forbiddenPath, [System.StringComparison]::Ordinal)) {
+        throw "Native library '$candidatePath' retains build path '$forbiddenPath'."
+      }
+    }
+
+    if ($RequireWrapperRelativePath) {
+      $expectedRuntimePath = if ($IsLinux) { '$ORIGIN' } else { '@loader_path' }
+      if (-not $runtimeMetadataText.Contains($expectedRuntimePath, [System.StringComparison]::Ordinal)) {
+        throw "Native wrapper '$candidatePath' does not use the relative runtime path '$expectedRuntimePath'."
+      }
+    }
+  }
+}
+
 if (Test-Path -LiteralPath $buildDir) {
   Remove-Item -LiteralPath $buildDir -Recurse -Force
 }
@@ -66,6 +146,8 @@ $libraryPath = switch ($runtimeId) {
 if (-not (Test-Path -LiteralPath $libraryPath)) {
   throw "The installed native wrapper was not found at '$libraryPath'."
 }
+Set-PortableWrapperRuntimePath -libraryPath $libraryPath
+Assert-PortableRuntimePaths -libraryPaths @($libraryPath) -RequireWrapperRelativePath
 
 $collectorArgs = @(
   "-DWRAPPER_LIBRARY=$libraryPath"
@@ -89,5 +171,8 @@ $collectorArgs += @("-P", $runtimeCollectorPath)
 
 & cmake @collectorArgs
 if ($LASTEXITCODE -ne 0) { throw "Native runtime collection failed with exit code $LASTEXITCODE." }
+
+$packagedLibraries = Get-ChildItem -LiteralPath $outputDir -File | Select-Object -ExpandProperty FullName
+Assert-PortableRuntimePaths -libraryPaths $packagedLibraries
 
 Write-Host "Built $runtimeId native runtime in $outputDir"

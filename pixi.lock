@@ -106,6 +106,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/octomap-1.9.7-h4bd325d_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openssl-3.0.3-h166bdaf_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/orocos-kdl-1.5.1-h122e73d_2.tar.bz2
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/patchelf-0.17.2-h58526e2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pthread-stubs-0.4-h36c2ea0_1001.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/rhash-1.4.1-h7f98852_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/tinyxml2-9.0.0-h9c3ff4c_2.tar.bz2
@@ -176,6 +177,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/octomap-1.9.7-hd62202e_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/openssl-3.0.3-h4e544f5_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/orocos-kdl-1.5.1-ha219c25_2.tar.bz2
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/patchelf-0.17.2-h884eca8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pthread-stubs-0.4-hb9de7d4_1001.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/python-3.10.4-h5016f1d_0_cpython.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/readline-8.1-h1a49cc3_0.tar.bz2
@@ -1122,6 +1124,17 @@ packages:
     - orocos-kdl >=1.5.1,<1.6.0a0
   size: 403712
   timestamp: 1636327176662
+- conda: https://conda.anaconda.org/conda-forge/linux-64/patchelf-0.17.2-h58526e2_0.conda
+  sha256: eb355ac225be2f698e19dba4dcab7cb0748225677a9799e9cc8e4cadc3cb738f
+  md5: ba76a6a448819560b5f8b08a9c74f415
+  depends:
+  - libgcc-ng >=7.5.0
+  - libstdcxx-ng >=7.5.0
+  license: GPL-3.0-or-later
+  license_family: GPL
+  run_exports: {}
+  size: 94048
+  timestamp: 1673473024463
 - conda: https://conda.anaconda.org/conda-forge/linux-64/pcre2-10.47-haa7fec5_0.conda
   sha256: 5e6f7d161356fefd981948bea5139c5aa0436767751a6930cb1ca801ebb113ff
   md5: 7a3bff861a6583f1889021facefc08b1
@@ -1992,6 +2005,17 @@ packages:
     - orocos-kdl >=1.5.1,<1.6.0a0
   size: 404394
   timestamp: 1636327345783
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/patchelf-0.17.2-h884eca8_0.conda
+  sha256: 8b98158f36a7a92013a1982ab7a60947151350ac5c513c1d1575825d0fa52518
+  md5: bbd8dee69c4ac2e2d07bca100b8fcc31
+  depends:
+  - libgcc-ng >=7.5.0
+  - libstdcxx-ng >=7.5.0
+  license: GPL-3.0-or-later
+  license_family: GPL
+  run_exports: {}
+  size: 101306
+  timestamp: 1673473812166
 - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pcre2-10.47-hf841c20_0.conda
   sha256: 04df2cee95feba440387f33f878e9f655521e69f4be33a0cd637f07d3d81f0f9
   md5: 1a30c42e32ca0ea216bd0bfe6f842f0b

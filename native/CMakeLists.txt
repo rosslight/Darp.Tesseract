@@ -85,11 +85,19 @@ endif()
 if(APPLE)
   set_target_properties(
     tesseract_csharp
-    PROPERTIES BUILD_RPATH "@loader_path" INSTALL_RPATH "@loader_path" INSTALL_RPATH_USE_LINK_PATH FALSE)
+    PROPERTIES
+      BUILD_RPATH "@loader_path"
+      INSTALL_RPATH "@loader_path"
+      INSTALL_RPATH_USE_LINK_PATH FALSE
+      INSTALL_REMOVE_ENVIRONMENT_RPATH TRUE)
 elseif(UNIX)
   set_target_properties(
     tesseract_csharp
-    PROPERTIES BUILD_RPATH "$ORIGIN" INSTALL_RPATH "$ORIGIN" INSTALL_RPATH_USE_LINK_PATH FALSE)
+    PROPERTIES
+      BUILD_RPATH "$ORIGIN"
+      INSTALL_RPATH "$ORIGIN"
+      INSTALL_RPATH_USE_LINK_PATH FALSE
+      INSTALL_REMOVE_ENVIRONMENT_RPATH TRUE)
 endif()
 
 set_target_properties(

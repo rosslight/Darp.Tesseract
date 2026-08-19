@@ -39,6 +39,7 @@ cmake = ">=3.21,<3.24"
 gxx = "11.*"
 libgcc-ng = "11.*"
 libstdcxx-ng = "11.*"
+patchelf = "*"
 
 [feature.native.target.linux-aarch64.dependencies]
 boost-cpp = "1.74.*"
@@ -46,6 +47,7 @@ cmake = ">=3.21,<3.24"
 gxx = "11.*"
 libgcc-ng = "11.*"
 libstdcxx-ng = "11.*"
+patchelf = "*"
 
 [feature.native.target.osx-64.dependencies]
 cmake = ">=4.4,<5"
