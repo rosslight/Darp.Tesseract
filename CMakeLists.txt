@@ -135,7 +135,9 @@ ExternalProject_Add(
     -DCMAKE_PREFIX_PATH=${darp_source_dependency_prefix_path}
     -DCMAKE_INSTALL_PREFIX=${darp_opw_kinematics_install}
     -DOPW_ENABLE_TESTING=OFF
-  BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+  # OPW is header-only. Its unconditional "node" target is a sample utility,
+  # not an install prerequisite or part of the native package.
+  BUILD_COMMAND "${CMAKE_COMMAND}" -E true
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
 set(darp_tesseract_prefix_path
