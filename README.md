@@ -111,7 +111,8 @@ Set the repository Actions secret or variable `NUGET_USER` to the NuGet profile 
 that created the policy, and allow GitHub Actions to create pull requests.
 `NuGet/login` exchanges the workflow's OIDC token for a temporary publishing key;
 no long-lived API key secret is needed. A manual workflow dispatch can run
-release-please again if needed.
+release-please again if needed. Select `verify-publishing` for a standalone
+Trusted Publishing login check.
 
 The package includes `LICENSE`, `THIRD-PARTY-NOTICES.md`, upstream license texts
 and a platform-specific native dependency inventory with original license and

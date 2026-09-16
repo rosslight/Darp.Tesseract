@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      verify-publishing:
+        description: Verify the NuGet Trusted Publishing login
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -17,6 +22,7 @@ concurrency:
 
 jobs:
   release-please:
+    if: github.ref == 'refs/heads/main' && !inputs.verify-publishing
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.rp.outputs.release_created }}
@@ -29,6 +35,18 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  verify-publishing:
+    if: github.event_name == 'workflow_dispatch' && inputs.verify-publishing
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: NuGet login (Trusted Publishing)
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER || vars.NUGET_USER }}
 
   build-package:
     needs: release-please
