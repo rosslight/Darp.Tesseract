@@ -14,7 +14,7 @@
     <Authors>rosslight GmbH</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/rosslight/Darp.Tesseract.Native</RepositoryUrl>
+    <RepositoryUrl>https://github.com/rosslight/Darp.Tesseract</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -25,6 +25,11 @@
       <Nullable>disable</Nullable>
     </Compile>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../LICENSE" Pack="true" PackagePath="/" />
+    <None Include="../../THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="/" />
+    <None Include="../../packaging/licenses/**/*" Pack="true" PackagePath="licenses/upstream/%(RecursiveDir)%(Filename)%(Extension)" />
+    <None Include="../../packaging/sources/**/*" Pack="true" PackagePath="licenses/sources/%(RecursiveDir)%(Filename)%(Extension)" />
+    <None Include="../../artifacts/notices/**/*" Pack="true" PackagePath="licenses/%(RecursiveDir)%(Filename)%(Extension)" />
     <None Include="../../artifacts/native/**/*.*"
           Condition="Exists('../../artifacts/native')"
           Pack="true"

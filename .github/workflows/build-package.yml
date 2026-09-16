@@ -4,6 +4,11 @@ on:
   pull_request:
   push:
   workflow_call:
+    inputs:
+      release-tag:
+        type: string
+        required: false
+        default: ''
   workflow_dispatch:
 
 permissions:
@@ -50,7 +55,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: native-${{ matrix.rid }}
-          path: artifacts/native/
+          path: |
+            artifacts/native/
+            artifacts/notices/
           if-no-files-found: error
 
   pack:
@@ -67,7 +74,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: native-*
-          path: artifacts/native
+          path: artifacts
           merge-multiple: true
 
       - name: Setup .NET
@@ -77,6 +84,12 @@ jobs:
 
       - name: Pack NuGet
         run: dotnet pack src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj -c Release -o artifacts/packages
+
+      - name: Validate package contents and release version
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ inputs.release-tag }}
+        run: ./scripts/validate_package.ps1 -PackageDirectory artifacts/packages -ReleaseTag "$env:RELEASE_TAG"
 
       - name: Upload package artifact
         uses: actions/upload-artifact@v4

@@ -88,6 +88,30 @@ if(APPLE)
   list(APPEND darp_common_cmake_args -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0)
 endif()
 
+# The Pixi Windows KDL package is static. Build the same pinned upstream
+# version as a shared DLL so consumers can replace the LGPL library.
+if(WIN32)
+  set(darp_kdl_install "${CMAKE_BINARY_DIR}/kdl-install")
+  ExternalProject_Add(
+    orocos_kdl_shared
+    URL "${CMAKE_CURRENT_SOURCE_DIR}/packaging/sources/orocos_kdl-1.5.3.tar.gz"
+    URL_HASH SHA256=3895eed1b51a6803c79e7ac4acd6a2243d621b887ac26a1a6b82a86a1131c3b6
+    SOURCE_SUBDIR orocos_kdl
+    PATCH_COMMAND "${CMAKE_COMMAND}" -DSOURCE_DIRECTORY=<SOURCE_DIR>
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/prepare_kdl_shared.cmake"
+    CMAKE_ARGS
+      ${darp_common_cmake_args}
+      -DCMAKE_PREFIX_PATH=${darp_dependency_prefix}
+      -DCMAKE_INSTALL_PREFIX=${darp_kdl_install}
+      -DEIGEN3_INCLUDE_DIR=${darp_dependency_prefix}/include/eigen3
+      -DENABLE_TESTS=OFF
+      -DENABLE_EXAMPLES=OFF
+    BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+    INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
+  set(darp_kdl_dependency orocos_kdl_shared)
+  set(darp_kdl_prefix "${darp_kdl_install}|")
+endif()
+
 ExternalProject_Add(
   ros_industrial_cmake_boilerplate_upstream
   SOURCE_DIR "${darp_ros_cmake_checkout}"
@@ -141,10 +165,10 @@ ExternalProject_Add(
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
 set(darp_tesseract_prefix_path
-  "${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
+  "${darp_kdl_prefix}${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
 ExternalProject_Add(
   tesseract_upstream
-  DEPENDS boost_plugin_loader_upstream opw_kinematics_upstream
+  DEPENDS boost_plugin_loader_upstream opw_kinematics_upstream ${darp_kdl_dependency}
   SOURCE_DIR "${darp_tesseract_source}"
   BINARY_DIR "${darp_tesseract_build}"
   DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
@@ -173,7 +197,7 @@ ExternalProject_Add(
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
 set(darp_wrapper_prefix_path
-  "${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
+  "${darp_kdl_prefix}${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
 ExternalProject_Add(
   tesseract_wrapper
   DEPENDS tesseract_upstream
