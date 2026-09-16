@@ -156,6 +156,7 @@ if (-not $IsMacOS) {
 $collectorArgs = @(
   "-DWRAPPER_LIBRARY=$libraryPath"
   "-DOUTPUT_DIRECTORY=$outputDir"
+  "-DADDITIONAL_RUNTIME_DIRECTORY=$(Join-Path $buildDir 'kdl-install/bin')"
 )
 if ($IsWindows) {
   $linkerEntry = Get-Content -LiteralPath (Join-Path $buildDir "wrapper-build/CMakeCache.txt") |
@@ -183,5 +184,7 @@ if ($IsMacOS) {
   Assert-PortableRuntimePaths -libraryPaths @($packagedWrapperPath) -RequireWrapperRelativePath
 }
 Assert-PortableRuntimePaths -libraryPaths $packagedLibraries
+
+& (Join-Path $scriptDir 'collect_notices.ps1') -RuntimeId $runtimeId -BuildDirectory $buildDir
 
 Write-Host "Built $runtimeId native runtime in $outputDir"

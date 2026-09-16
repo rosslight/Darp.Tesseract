@@ -95,6 +95,27 @@ dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesserac
 
 CI builds the five native RIDs independently, merges their artifacts into one NuGet package, and runs the smoke tests from that package without Pixi or native build paths.
 
+## Releases
+
+Releases follow the same release-please flow as `Darp.Luau.Native`. Conventional
+commits on `main` create or update a release PR containing `CHANGELOG.md`,
+`version.txt`, `.release-please-manifest.json` and `Directory.Build.props`.
+Merging that PR creates a `v<version>` GitHub release, builds all
+five packaged runtimes, tests package consumers, then publishes
+`Darp.Tesseract.Native` and its symbol package to NuGet.org and attaches them to
+the GitHub release.
+
+Configure NuGet Trusted Publishing for `rosslight/Darp.Tesseract`, workflow
+`release.yml`, package owner `rosslight`, and package pattern `Darp.Tesseract*`.
+Set the repository Actions secret or variable `NUGET_USER` to the NuGet profile username
+that created the policy, and allow GitHub Actions to create pull requests.
+`NuGet/login` exchanges the workflow's OIDC token for a temporary publishing key;
+no long-lived API key secret is needed.
+
+The package includes `LICENSE`, `THIRD-PARTY-NOTICES.md`, upstream license texts
+and platform-specific native dependency licenses and
+source materials. KDL is kept dynamically linked, including on Windows.
+
 ## Extend the bindings
 
 Add public headers deliberately to the relevant file under `bindings/components/`. Put only reusable ownership, container, filesystem, Eigen, or exception behavior under `bindings/support/`. Run `pixi run -e bindings generate-bindings` and review the generated C# and C++ diffs before committing them.

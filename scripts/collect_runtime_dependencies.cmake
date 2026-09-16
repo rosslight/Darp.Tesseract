@@ -50,7 +50,7 @@ file(
   RESOLVED_DEPENDENCIES_VAR resolved_dependencies
   UNRESOLVED_DEPENDENCIES_VAR unresolved_dependencies
   CONFLICTING_DEPENDENCIES_PREFIX dependency_conflicts
-  DIRECTORIES "${runtime_search_directory}"
+  DIRECTORIES "${ADDITIONAL_RUNTIME_DIRECTORY}" "${runtime_search_directory}"
   PRE_EXCLUDE_REGEXES ${system_dependency_names}
   POST_EXCLUDE_REGEXES
     ".*[Ww][Ii][Nn][Dd][Oo][Ww][Ss][/\\\\][Ss][Yy][Ss][Tt][Ee][Mm]32[/\\\\].*"
