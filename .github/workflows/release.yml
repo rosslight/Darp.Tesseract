@@ -5,11 +5,6 @@ on:
     branches:
       - main
   workflow_dispatch:
-    inputs:
-      verify-publishing:
-        description: Verify the NuGet Trusted Publishing login
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -22,7 +17,7 @@ concurrency:
 
 jobs:
   release-please:
-    if: github.ref == 'refs/heads/main' && !inputs.verify-publishing
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.rp.outputs.release_created }}
@@ -36,24 +31,10 @@ jobs:
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
 
-  verify-publishing:
-    if: github.event_name == 'workflow_dispatch' && inputs.verify-publishing
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: NuGet login (Trusted Publishing)
-        uses: NuGet/login@v1
-        with:
-          user: ${{ secrets.NUGET_USER || vars.NUGET_USER }}
-
   build-package:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
     uses: ./.github/workflows/build-package.yml
-    with:
-      release-tag: ${{ needs.release-please.outputs.tag_name }}
 
   publish:
     name: Publish and release
@@ -88,18 +69,7 @@ jobs:
           NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
         shell: bash
         run: |
-          set -euo pipefail
-          if [[ -z "${NUGET_API_KEY}" ]]; then
-            echo "::error::NuGet Trusted Publishing did not return a temporary API key."
-            exit 1
-          fi
-          shopt -s nullglob
-          packages=(artifacts/packages/*.nupkg)
-          if [[ ${#packages[@]} -ne 1 ]]; then
-            echo "::error::Expected exactly one Darp.Tesseract.Native package."
-            exit 1
-          fi
-          dotnet nuget push "${packages[0]}" \
+          dotnet nuget push "artifacts/packages/*.nupkg" \
             --api-key "${NUGET_API_KEY}" \
             --source "https://api.nuget.org/v3/index.json" \
             --skip-duplicate

@@ -185,6 +185,6 @@ if ($IsMacOS) {
 }
 Assert-PortableRuntimePaths -libraryPaths $packagedLibraries
 
-& (Join-Path $scriptDir 'collect_notices.ps1') -RuntimeId $runtimeId
+& (Join-Path $scriptDir 'collect_notices.ps1') -RuntimeId $runtimeId -BuildDirectory $buildDir
 
 Write-Host "Built $runtimeId native runtime in $outputDir"

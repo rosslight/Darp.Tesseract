@@ -94,8 +94,10 @@ if(WIN32)
   set(darp_kdl_install "${CMAKE_BINARY_DIR}/kdl-install")
   ExternalProject_Add(
     orocos_kdl_shared
-    URL "${CMAKE_CURRENT_SOURCE_DIR}/packaging/sources/orocos_kdl-1.5.3.tar.gz"
+    URL "https://github.com/orocos/orocos_kinematics_dynamics/archive/1.5.3.tar.gz"
     URL_HASH SHA256=3895eed1b51a6803c79e7ac4acd6a2243d621b887ac26a1a6b82a86a1131c3b6
+    DOWNLOAD_DIR "${CMAKE_BINARY_DIR}/kdl-download"
+    DOWNLOAD_NAME orocos_kdl-1.5.3.tar.gz
     SOURCE_SUBDIR orocos_kdl
     PATCH_COMMAND "${CMAKE_COMMAND}" -DSOURCE_DIRECTORY=<SOURCE_DIR>
       -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/prepare_kdl_shared.cmake"

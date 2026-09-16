@@ -27,8 +27,9 @@
     <None Include="../../README.md" Pack="true" PackagePath="/" />
     <None Include="../../LICENSE" Pack="true" PackagePath="/" />
     <None Include="../../THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="/" />
-    <None Include="../../packaging/licenses/**/*" Pack="true" PackagePath="licenses/upstream/" />
-    <None Include="../../packaging/sources/**/*" Pack="true" PackagePath="licenses/sources/" />
+    <None Include="../../native/tesseract/LICENSE*" Pack="true" PackagePath="licenses/upstream/tesseract/" />
+    <None Include="../../native/boost_plugin_loader/LICENSE*" Pack="true" PackagePath="licenses/upstream/boost_plugin_loader/" />
+    <None Include="../../native/opw_kinematics/LICENSE*" Pack="true" PackagePath="licenses/upstream/opw_kinematics/" />
     <None Include="../../artifacts/notices/**/*" Pack="true" PackagePath="licenses/" />
     <None Include="../../artifacts/native/**/*.*"
           Condition="Exists('../../artifacts/native')"
