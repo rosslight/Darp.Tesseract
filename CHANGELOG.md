@@ -1,0 +1,32 @@
+# Changelog
+
+## [0.2.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.1.3+tesseract.0.35.0...v0.2.0+tesseract.0.35.0) (2026-09-16)
+
+
+### Features
+
+* Add basic kinematics ([7824e4b](https://github.com/rosslight/Darp.Tesseract/commit/7824e4b2de51b588ecccd5dfa0796cecd31dbde3))
+* bootstrap Tesseract native bindings ([6fa90a9](https://github.com/rosslight/Darp.Tesseract/commit/6fa90a9df88503dbc290c60b556c0f2fa89071ac))
+* Generate scene, geometry, environment, kinematics ([16da437](https://github.com/rosslight/Darp.Tesseract/commit/16da4377da6eba29d352456b1f0a29673c09b5c3))
+* More deterministic builds ([986afa9](https://github.com/rosslight/Darp.Tesseract/commit/986afa924d9d0afa86d48bdde69fb48520675a88))
+
+
+### Bug Fixes
+
+* clean portable native runtimes ([3ec873b](https://github.com/rosslight/Darp.Tesseract/commit/3ec873bfbaff53f2c11ab7431dc6f649d1e2d80d))
+* ignore otool filename header ([84ee95a](https://github.com/rosslight/Darp.Tesseract/commit/84ee95ab568ab9e25078d0caa2f7d77d4c34a6f4))
+* make macOS wrapper relocatable ([c807c10](https://github.com/rosslight/Darp.Tesseract/commit/c807c10fc0af450e140e44327cfe3a992fe367e7))
+* make native matrix portable ([d604dd2](https://github.com/rosslight/Darp.Tesseract/commit/d604dd2cdc3cba33a0dcbbf2d95593ae81e0e611))
+* Make nuget package independent of pixi environment ([24d473c](https://github.com/rosslight/Darp.Tesseract/commit/24d473c76cb0eddaf7b6a4c83c1e99fc017a0313))
+* normalize macOS wrapper after collection ([0b97ffe](https://github.com/rosslight/Darp.Tesseract/commit/0b97ffe2a8ae8b495d099c2e25c2e83aab6a5f35))
+* normalize packaged macOS metadata ([4dc433e](https://github.com/rosslight/Darp.Tesseract/commit/4dc433e1309a3d3b68c2e7ae1819ef93287eac59))
+* pin the macOS compiler generation ([bbd309d](https://github.com/rosslight/Darp.Tesseract/commit/bbd309dead125d416b4b717331127e5080f5e897))
+* preserve Eigen index type in bindings ([04d1ae5](https://github.com/rosslight/Darp.Tesseract/commit/04d1ae514322df0cb804ac378484f2e62db08cc4))
+* restore local native test assets ([8a1f006](https://github.com/rosslight/Darp.Tesseract/commit/8a1f00657fb8b58a93ad2322ebfdd8335061846c))
+* skip the OPW sample executable ([a75b741](https://github.com/rosslight/Darp.Tesseract/commit/a75b741694860f81eb72035469976a875e21d868))
+* target the Linux host C++ ABI ([1f9add8](https://github.com/rosslight/Darp.Tesseract/commit/1f9add857219208610a850a64d3d2a678eb88d38))
+
+
+### Build
+
+* prepare NuGet trusted publishing and native attribution ([#1](https://github.com/rosslight/Darp.Tesseract/issues/1)) ([35c5506](https://github.com/rosslight/Darp.Tesseract/commit/35c55063a0c4d4f2b072644fb243c208b122e952))
