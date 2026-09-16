@@ -1,5 +1,5 @@
 param(
-  [Parameter(Mandatory)][string] $RuntimeId
+  [Parameter(Mandatory)][ValidateSet('win-x64', 'linux-x64', 'linux-arm64', 'osx-x64', 'osx-arm64')][string] $RuntimeId
 )
 
 $ErrorActionPreference = 'Stop'
@@ -9,6 +9,11 @@ $outputDir = Join-Path $repositoryDir "artifacts/notices/$RuntimeId"
 if ([string]::IsNullOrWhiteSpace($env:CONDA_PREFIX)) {
   throw 'Collect notices inside the pinned Pixi environment.'
 }
+$noticesRoot = [IO.Path]::GetFullPath((Join-Path $repositoryDir 'artifacts/notices'))
+if (-not [IO.Path]::GetFullPath($outputDir).StartsWith($noticesRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+  throw 'Notice output must remain within artifacts/notices.'
+}
+if (Test-Path -LiteralPath $outputDir) { Remove-Item -LiteralPath $outputDir -Recurse -Force }
 New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
 
 $runtimeNames = @(Get-ChildItem -LiteralPath $runtimeDir -File | ForEach-Object { $_.Name.ToLowerInvariant() })
@@ -35,7 +40,7 @@ foreach ($metadataFile in Get-ChildItem (Join-Path $env:CONDA_PREFIX 'conda-meta
   if ($licenseFiles.Count -eq 0) {
     throw "No packaged license texts found for '$($metadata.name)' in '$licenseDir'."
   }
-  $dependencyDir = Join-Path $outputDir "$($metadata.name)-$($metadata.version)-$($metadata.build)"
+  $dependencyDir = Join-Path $outputDir $metadata.name
   foreach ($licenseFile in $licenseFiles) {
     $destination = Join-Path $dependencyDir ([IO.Path]::GetRelativePath($licenseDir, $licenseFile.FullName))
     New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
