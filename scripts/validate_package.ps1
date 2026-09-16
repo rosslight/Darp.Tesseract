@@ -12,6 +12,8 @@ $archive = [IO.Compression.ZipFile]::OpenRead($packages[0].FullName)
 try {
   $names = @($archive.Entries.FullName)
   foreach ($required in @('LICENSE', 'THIRD-PARTY-NOTICES.md', 'README.md',
+    'licenses/upstream/opw_kinematics/LICENSE',
+    'licenses/upstream/tesseract/LICENSE',
     'licenses/sources/orocos_kdl-1.5.3.tar.gz', 'licenses/sources/prepare_kdl_shared.cmake')) {
     if ($names -notcontains $required) { throw "Missing package material: $required" }
   }

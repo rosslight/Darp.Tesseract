@@ -41,6 +41,16 @@ foreach ($metadataFile in Get-ChildItem (Join-Path $env:CONDA_PREFIX 'conda-meta
     New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
     Copy-Item -LiteralPath $licenseFile.FullName -Destination $destination
   }
+  # Header packages can contain further third-party license texts outside
+  # info/licenses (for example Cereal's bundled RapidJSON and RapidXML).
+  foreach ($installedLicense in $metadata.files | Where-Object {
+    $_.Replace('\', '/').Split('/')[-1] -match '^(LICENSE|COPYING|NOTICE)([._-].*)?$'
+  }) {
+    $source = Join-Path $env:CONDA_PREFIX $installedLicense
+    $destination = Join-Path $dependencyDir "installed/$installedLicense"
+    New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
+    Copy-Item -LiteralPath $source -Destination $destination
+  }
   $recipeDir = Join-Path $packageDir 'info/recipe'
   if (Test-Path -LiteralPath $recipeDir) {
     Copy-Item -LiteralPath $recipeDir -Destination (Join-Path $dependencyDir 'source-recipe') -Recurse -Force

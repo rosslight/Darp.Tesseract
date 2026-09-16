@@ -27,9 +27,9 @@
     <None Include="../../README.md" Pack="true" PackagePath="/" />
     <None Include="../../LICENSE" Pack="true" PackagePath="/" />
     <None Include="../../THIRD-PARTY-NOTICES.md" Pack="true" PackagePath="/" />
-    <None Include="../../packaging/licenses/**/*" Pack="true" PackagePath="licenses/upstream/%(RecursiveDir)%(Filename)%(Extension)" />
-    <None Include="../../packaging/sources/**/*" Pack="true" PackagePath="licenses/sources/%(RecursiveDir)%(Filename)%(Extension)" />
-    <None Include="../../artifacts/notices/**/*" Pack="true" PackagePath="licenses/%(RecursiveDir)%(Filename)%(Extension)" />
+    <None Include="../../packaging/licenses/**/*" Pack="true" PackagePath="licenses/upstream/%(RecursiveDir)" />
+    <None Include="../../packaging/sources/**/*" Pack="true" PackagePath="licenses/sources/%(RecursiveDir)" />
+    <None Include="../../artifacts/notices/**/*" Pack="true" PackagePath="licenses/%(RecursiveDir)" />
     <None Include="../../artifacts/native/**/*.*"
           Condition="Exists('../../artifacts/native')"
           Pack="true"
