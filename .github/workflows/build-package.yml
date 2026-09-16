@@ -47,7 +47,9 @@ jobs:
           pixi-version: v0.70.1
           environments: default
           frozen: true
-          cache: true
+          # Environment-only caches omit the extracted package info/licenses
+          # and source recipes needed for redistribution notices.
+          cache: false
 
       - name: Build native runtime
         shell: pwsh
