@@ -78,6 +78,30 @@
 #include <tesseract/kinematics/kinematics_plugin_factory.h>
 
 #include <tesseract/environment/environment.h>
+#include <tesseract/common/allowed_collision_matrix.h>
+#include <tesseract/common/collision_margin_data.h>
+#include <tesseract/environment/commands/add_contact_managers_plugin_info_command.h>
+#include <tesseract/environment/commands/add_kinematics_information_command.h>
+#include <tesseract/environment/commands/add_link_command.h>
+#include <tesseract/environment/commands/add_scene_graph_command.h>
+#include <tesseract/environment/commands/add_trajectory_link_command.h>
+#include <tesseract/environment/commands/change_collision_margins_command.h>
+#include <tesseract/environment/commands/change_joint_acceleration_limits_command.h>
+#include <tesseract/environment/commands/change_joint_origin_command.h>
+#include <tesseract/environment/commands/change_joint_position_limits_command.h>
+#include <tesseract/environment/commands/change_joint_velocity_limits_command.h>
+#include <tesseract/environment/commands/change_link_collision_enabled_command.h>
+#include <tesseract/environment/commands/change_link_origin_command.h>
+#include <tesseract/environment/commands/change_link_visibility_command.h>
+#include <tesseract/environment/commands/modify_allowed_collisions_command.h>
+#include <tesseract/environment/commands/move_joint_command.h>
+#include <tesseract/environment/commands/move_link_command.h>
+#include <tesseract/environment/commands/remove_allowed_collision_link_command.h>
+#include <tesseract/environment/commands/remove_joint_command.h>
+#include <tesseract/environment/commands/remove_link_command.h>
+#include <tesseract/environment/commands/replace_joint_command.h>
+#include <tesseract/environment/commands/set_active_continuous_contact_manager_command.h>
+#include <tesseract/environment/commands/set_active_discrete_contact_manager_command.h>
 %}
 
 /* Export/serialization macros are irrelevant to the SWIG parser. */
@@ -136,7 +160,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
   std::vector<std::string> const &);
 %ignore tesseract::common::GeneralResourceLocator::GeneralResourceLocator(
   std::vector<std::filesystem::path> const &);
-%ignore tesseract::common::JointTrajectory;
+
 %ignore tesseract::scene_graph::Joint::Joint(tesseract::scene_graph::Joint&&);
 %ignore tesseract::scene_graph::Joint::Joint(tesseract::scene_graph::Joint);
 %ignore tesseract::scene_graph::Link::Link(tesseract::scene_graph::Link&&);
@@ -151,8 +175,6 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::environment::Environment::lockRead;
 %ignore tesseract::environment::Environment::clone;
 %ignore tesseract::environment::Environment::getCommandHistory;
-%ignore tesseract::environment::Environment::applyCommands;
-%ignore tesseract::environment::Environment::applyCommand;
 %ignore tesseract::environment::Environment::init(std::vector<std::shared_ptr<const Command>> const &);
 %ignore tesseract::environment::Environment::init(
   std::filesystem::path const &,
@@ -216,8 +238,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::scene_graph::SceneGraph::getInboundJoints;
 %ignore tesseract::scene_graph::SceneGraph::getOutboundJoints;
 
-/* Complex collision configuration shapes remain deferred for now. */
-%ignore tesseract::common::ContactManagersPluginInfo;
+/* Other collision configuration APIs remain deferred for now. */
 %ignore tesseract::common::TaskComposerPluginInfo;
 %ignore tesseract::environment::EnvironmentContactAllowedValidator;
 %ignore tesseract::srdf::SRDFModel::contact_managers_plugin_info;
@@ -233,9 +254,6 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::scene_graph::SceneGraph::clearAllowedCollisions;
 %ignore tesseract::scene_graph::SceneGraph::isCollisionAllowed;
 %ignore tesseract::scene_graph::SceneGraph::getAllowedCollisionMatrix;
-%ignore tesseract::environment::Environment::getLinkCollisionEnabled;
-%ignore tesseract::environment::Environment::getAllowedCollisionMatrix;
-%ignore tesseract::environment::Environment::getCollisionMarginData;
 %ignore tesseract::environment::Environment::clearCachedDiscreteContactManager;
 %ignore tesseract::environment::Environment::clearCachedContinuousContactManager;
 %ignore tesseract::environment::Environment::getContactManagersPluginInfo;
@@ -286,7 +304,31 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %shared_ptr(tesseract::kinematics::KinematicGroup)
 %shared_ptr(tesseract::kinematics::KinematicsPluginFactory)
 %shared_ptr(tesseract::srdf::SRDFModel)
+%shared_ptr(tesseract::common::AllowedCollisionMatrix)
 %shared_ptr(tesseract::environment::Environment)
+%shared_ptr(tesseract::environment::Command)
+%shared_ptr(tesseract::environment::AddContactManagersPluginInfoCommand)
+%shared_ptr(tesseract::environment::AddKinematicsInformationCommand)
+%shared_ptr(tesseract::environment::AddLinkCommand)
+%shared_ptr(tesseract::environment::AddSceneGraphCommand)
+%shared_ptr(tesseract::environment::AddTrajectoryLinkCommand)
+%shared_ptr(tesseract::environment::ChangeCollisionMarginsCommand)
+%shared_ptr(tesseract::environment::ChangeJointAccelerationLimitsCommand)
+%shared_ptr(tesseract::environment::ChangeJointOriginCommand)
+%shared_ptr(tesseract::environment::ChangeJointPositionLimitsCommand)
+%shared_ptr(tesseract::environment::ChangeJointVelocityLimitsCommand)
+%shared_ptr(tesseract::environment::ChangeLinkCollisionEnabledCommand)
+%shared_ptr(tesseract::environment::ChangeLinkOriginCommand)
+%shared_ptr(tesseract::environment::ChangeLinkVisibilityCommand)
+%shared_ptr(tesseract::environment::ModifyAllowedCollisionsCommand)
+%shared_ptr(tesseract::environment::MoveJointCommand)
+%shared_ptr(tesseract::environment::MoveLinkCommand)
+%shared_ptr(tesseract::environment::RemoveAllowedCollisionLinkCommand)
+%shared_ptr(tesseract::environment::RemoveJointCommand)
+%shared_ptr(tesseract::environment::RemoveLinkCommand)
+%shared_ptr(tesseract::environment::ReplaceJointCommand)
+%shared_ptr(tesseract::environment::SetActiveContinuousContactManagerCommand)
+%shared_ptr(tesseract::environment::SetActiveDiscreteContactManagerCommand)
 
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::SceneGraph)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::StateSolver)

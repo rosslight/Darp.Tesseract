@@ -101,6 +101,18 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
+  public bool applyCommands(CommandVector commands) {
+    bool ret = TesseractNativePINVOKE.Environment_applyCommands(swigCPtr, CommandVector.getCPtr(commands));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public bool applyCommand(Command command) {
+    bool ret = TesseractNativePINVOKE.Environment_applyCommand(swigCPtr, Command.getCPtr(command));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public SceneGraph getSceneGraph() {
     global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_getSceneGraph(swigCPtr);
     SceneGraph ret = (cPtr == global::System.IntPtr.Zero) ? null : new SceneGraph(cPtr, true);
@@ -277,8 +289,21 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
+  public bool getLinkCollisionEnabled(string name) {
+    bool ret = TesseractNativePINVOKE.Environment_getLinkCollisionEnabled(swigCPtr, name);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public bool getLinkVisibility(string name) {
     bool ret = TesseractNativePINVOKE.Environment_getLinkVisibility(swigCPtr, name);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public AllowedCollisionMatrix getAllowedCollisionMatrix() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_getAllowedCollisionMatrix(swigCPtr);
+    AllowedCollisionMatrix ret = (cPtr == global::System.IntPtr.Zero) ? null : new AllowedCollisionMatrix(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -438,6 +463,12 @@ public class Environment : global::System.IDisposable {
     ContinuousContactManager ret = (cPtr == global::System.IntPtr.Zero)
       ? null
       : new ContinuousContactManager(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public CollisionMarginData getCollisionMarginData() {
+    CollisionMarginData ret = new CollisionMarginData(TesseractNativePINVOKE.Environment_getCollisionMarginData(swigCPtr), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
