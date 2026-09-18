@@ -179,6 +179,25 @@ public sealed class KinematicsTests
         Should.Throw<IndexOutOfRangeException>(() => vector.get(6));
     }
 
+    [Fact]
+    public void EnvironmentSupportsSingleAndBatchCommands()
+    {
+        using var environment = CreateEnvironment();
+        using var link = new Link("fixture");
+        using var add = new AddLinkCommand(link);
+
+        environment.applyCommand(add).ShouldBeTrue();
+        using var added = environment.getLink("fixture");
+        added.ShouldNotBeNull();
+        added.getName().ShouldBe("fixture");
+
+        using var remove = new RemoveLinkCommand("fixture");
+        using var commands = new CommandVector { remove };
+
+        environment.applyCommands(commands).ShouldBeTrue();
+        environment.getLink("fixture").ShouldBeNull();
+    }
+
     private static bool PosesApproximatelyEqual(Isometry3d expected, Isometry3d actual, double tolerance)
     {
         var translationMatches =
