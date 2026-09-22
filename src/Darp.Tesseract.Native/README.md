@@ -22,10 +22,6 @@ foreach (var solution in solutions)
     using (solution) Console.WriteLine(solution);
 ```
 
-The editable [playground](../../examples/Darp.Tesseract.Native.Playground/Program.cs)
-also covers joint-state constructors/properties, empty optional vectors, limits,
-and environment state. Run it yourself with URDF, SRDF, group and tip-link arguments.
-
 ## Generated and handwritten parts
 
 | Part | Source |

@@ -3,12 +3,6 @@
 Double-precision matrices, column vectors, quaternions and rigid transforms backed
 by `System.Numerics.Tensors`. This is the sole geometry implementation.
 
-Run the editable examples with:
-
-```powershell
-dotnet run --project examples/Darp.Geometry.Playground
-```
-
 ## Ownership and views
 
 Mutable geometry types are disposable classes. Read-only views expose interfaces
