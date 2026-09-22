@@ -1,4 +1,4 @@
-# Generated Tensor2 bindings
+# Generated geometry bindings
 
 `Darp.Tesseract.Native` is the single generated binding package. It targets .NET 10
 and uses the reusable math types from `Darp.Geometry`. Constructors, methods and
@@ -6,24 +6,20 @@ properties are generated from upstream headers using shared type mappings.
 There is one native wrapper module and one managed native-object graph.
 
 ```csharp
-using Darp.Geometry.Tensor2;
+using Darp.Geometry;
 using Darp.Tesseract.Native;
 
 // group comes from Darp.Tesseract.Native.Environment.getKinematicGroup(...).
-var joints = new VectorXD(0.0, 0.2, -0.3, 0.0, 0.4, 0.0);
-TransformMap poses = group.calcFwdKin(joints);
-ReadOnlyIsometry3D tool = poses["tool0"];
-Vector3D position = tool.Translation.Clone();
-ReadOnlyMatrixXD jacobian = group.calcJacobian(joints, "tool0");
+using var joints = new VectorXD(0.0, 0.2, -0.3, 0.0, 0.4, 0.0);
+using var poses = group.calcFwdKin(joints);
+using var tool = poses["tool0"];
+using var position = tool.Translation;
+using var jacobian = group.calcJacobian(joints, "tool0");
 
 using var target = new KinGroupIKInput(tool, group.getBaseLinkName(), "tool0");
-IKSolutions solutions = group.calcInvKin(target, joints);
-foreach (ReadOnlyVectorXD solution in solutions)
-    Console.WriteLine(solution);
-
-// Output references replace the container; earlier element views stay valid.
-group.calcFwdKin(ref poses, joints);
-group.calcInvKin(ref solutions, target, joints);
+using var solutions = group.calcInvKin(target, joints);
+foreach (var solution in solutions)
+    using (solution) Console.WriteLine(solution);
 ```
 
 The editable [playground](../../examples/Darp.Tesseract.Native.Playground/Program.cs)
@@ -53,23 +49,29 @@ and IK solution sequences.
 - Concrete Eigen values and `const T&` inputs are materialized as native values;
   those signatures cannot consume an Eigen Map directly.
 - Value results move into a retained native allocation and expose read-only
-  Tensor2 descriptors. Reference/pointer getters produce independent snapshots,
+  disposable geometry views. Reference/pointer getters produce independent snapshots,
   because the originating object can be modified or explicitly disposed.
 - Maps and sequences are frozen after construction. Indexing creates a tensor
   view that shares ownership of their native allocation, without copying element
-  coefficients. A view can outlive the managed collection.
+  coefficients. A view survives disposal of the collection. Dispose each extracted element, including
+  elements obtained through enumeration, when finished.
 - Writable `Eigen::Ref` parameters use a local native value, then copy back into
   the supplied mutable descriptor after a successful call. Its shape cannot change.
 - Writable `T&` parameters use `ref` managed parameters. They return replacement
   descriptors/containers, allowing resizing while preserving earlier views.
+  Replacement does not dispose the old managed object: retain it in a separate
+  variable and dispose both objects when finished. Existing aliases stay valid.
   The native in/out value is initialized from the old value, so append/update
   semantics are preserved. There is no reuse promise for output buffers.
 - Inputs created from managed dictionaries/lists copy their elements into a native
   container once. Empty containers and empty native vectors/matrices are supported.
 
-The matrix/vector interfaces retain memory managers during ordinary math and
-scalar access. Explicit raw tensor spans still require the usual caller-managed
-lifetime. Native proxy disposal and concurrent mutation remain the caller's
+Geometry objects and containers implement `IDisposable`. Retained views, borrows
+and pins keep shared storage alive independently. The last release disposes the
+storage owner. Geometry method inputs accept `IReadOnlyMatrixD`; generated property
+setters with concrete read-only types require an explicit retained `AsReadOnly()`
+view. Explicit raw tensor spans require keeping their source or borrow alive and
+undisposed throughout access. Native proxy disposal and concurrent mutation remain the caller's
 responsibility. Read-only access is not a security boundary against unsafe code.
 
 ## Regeneration

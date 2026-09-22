@@ -61,13 +61,13 @@ public class JointState : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  static private global::System.IntPtr SwigConstructJointState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD position) {
-    using (var position_arg = new TensorArgument(position.AsReadOnlyMatrix())) {
+  static private global::System.IntPtr SwigConstructJointState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD position) {
+    using (var position_arg = new TensorArgument(position)) {
     return TesseractNativePINVOKE.new_JointState__SWIG_1(StringVector.getCPtr(joint_names), position_arg.Handle);
     }
   }
 
-  public JointState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD position) : this(JointState.SwigConstructJointState(joint_names, position), true) {
+  public JointState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD position) : this(JointState.SwigConstructJointState(joint_names, position), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -84,9 +84,9 @@ public class JointState : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD position {
+  public global::Darp.Geometry.ReadOnlyVectorXD position {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_position_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -100,9 +100,9 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD velocity {
+  public global::Darp.Geometry.ReadOnlyVectorXD velocity {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_velocity_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -116,9 +116,9 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD acceleration {
+  public global::Darp.Geometry.ReadOnlyVectorXD acceleration {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_acceleration_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -132,9 +132,9 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD effort {
+  public global::Darp.Geometry.ReadOnlyVectorXD effort {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_effort_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }

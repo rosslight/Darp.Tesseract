@@ -44,24 +44,28 @@ public class InverseKinematics : global::System.IDisposable {
     }
   }
 
-  public IKSolutions calcInvKin(TransformMap tip_link_poses, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD seed) {
-    using (var seed_arg = new TensorArgument(seed.AsReadOnlyMatrix())) {
+  public IKSolutions calcInvKin(TransformMap tip_link_poses, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+    using (var tip_link_poses_arg = new ContainerArgument(tip_link_poses.Owner)) {
+    using (var seed_arg = new TensorArgument(seed)) {
     {
-      var result = TesseractNativePINVOKE.InverseKinematics_calcInvKin__SWIG_0(swigCPtr, tip_link_poses.Handle, seed_arg.Handle);
+      var result = TesseractNativePINVOKE.InverseKinematics_calcInvKin__SWIG_0(swigCPtr, tip_link_poses_arg.Handle, seed_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return new IKSolutions(result);
     }
     }
+    }
   }
 
-  public virtual void calcInvKin(ref IKSolutions solutions, TransformMap tip_link_poses, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD seed) {
-    using (var solutions_arg = new ContainerArgument(solutions.Handle)) {
-    using (var seed_arg = new TensorArgument(seed.AsReadOnlyMatrix())) {
+  public virtual void calcInvKin(ref IKSolutions solutions, TransformMap tip_link_poses, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+    using (var solutions_arg = new ContainerArgument(solutions.Owner)) {
+    using (var tip_link_poses_arg = new ContainerArgument(tip_link_poses.Owner)) {
+    using (var seed_arg = new TensorArgument(seed)) {
     try {
-      TesseractNativePINVOKE.InverseKinematics_calcInvKin__SWIG_1(swigCPtr, solutions_arg.Handle, tip_link_poses.Handle, seed_arg.Handle);
+      TesseractNativePINVOKE.InverseKinematics_calcInvKin__SWIG_1(swigCPtr, solutions_arg.Handle, tip_link_poses_arg.Handle, seed_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } finally {
       if (solutions_arg.HasOutput) solutions = new IKSolutions(solutions_arg.Take());
+    }
     }
     }
     }

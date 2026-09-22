@@ -81,9 +81,9 @@ public class Material : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD color {
+  public global::Darp.Geometry.ReadOnlyVectorXD color {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Material_color_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }

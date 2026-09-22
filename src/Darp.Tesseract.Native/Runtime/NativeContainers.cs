@@ -1,16 +1,16 @@
 using System.Collections;
-using System.Runtime.InteropServices;
-using Darp.Geometry.Tensor2;
+using System.Diagnostics.CodeAnalysis;
+using Darp.Geometry;
 
 namespace Darp.Tesseract.Native;
 
-/// <summary>Shared implementation for generated immutable native map bindings.</summary>
-public abstract class NativeMap<T> : IReadOnlyDictionary<string, T> where T : struct, IReadOnlyMatrixD
+/// <summary>Immutable native map. Each retrieved value owns an independent storage reference and must be disposed.</summary>
+public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable where T : class, IReadOnlyMatrixD
 {
     private readonly NativeOwner _owner;
     private readonly int _kind;
     private readonly Func<IntPtr, T> _wrap;
-    internal HandleRef Handle => _owner.Handle;
+    internal NativeOwner Owner => _owner;
     private protected NativeMap(IntPtr pointer, int kind, Func<IntPtr, T> wrap)
     { _owner = new NativeOwner(pointer); _kind = kind; _wrap = wrap; }
     private protected NativeMap(int kind, Func<IntPtr, T> wrap)
@@ -21,48 +21,69 @@ public abstract class NativeMap<T> : IReadOnlyDictionary<string, T> where T : st
         {
             foreach (var pair in values)
             {
-                using var input = new TensorArgument(pair.Value.AsReadOnlyMatrix());
-                DarpGeometryInterop.add(Handle, kind, pair.Key, input.Handle);
+                using var input = new TensorArgument(pair.Value);
+                DarpGeometryInterop.add(_owner.Handle, kind, pair.Key, input.Handle);
             }
         }
         catch { _owner.Dispose(); throw; }
     }
-    public int Count => DarpGeometryInterop.count(Handle, _kind);
+    public int Count
+    {
+        get
+        {
+            using var lease = _owner.Borrow();
+            return DarpGeometryInterop.count(lease.Handle, _kind);
+        }
+    }
     public T this[string key]
     {
         get
         {
-            if (!ContainsKey(key)) throw new KeyNotFoundException(key);
-            return _wrap(DarpGeometryInterop.element(Handle, _kind, 0, key));
+            using var lease = _owner.Borrow();
+            if (!DarpGeometryInterop.contains(lease.Handle, _kind, key)) throw new KeyNotFoundException(key);
+            return _wrap(DarpGeometryInterop.element(lease.Handle, _kind, 0, key));
         }
     }
-    public bool ContainsKey(string key) => DarpGeometryInterop.contains(Handle, _kind, key);
-    public bool TryGetValue(string key, out T value)
+    public bool ContainsKey(string key)
     {
-        if (!ContainsKey(key)) { value = default; return false; }
-        value = this[key]; return true;
+        using var lease = _owner.Borrow();
+        return DarpGeometryInterop.contains(lease.Handle, _kind, key);
+    }
+    public bool TryGetValue(string key, [MaybeNullWhen(false)] out T value)
+    {
+        using var lease = _owner.Borrow();
+        if (!DarpGeometryInterop.contains(lease.Handle, _kind, key)) { value = null; return false; }
+        value = _wrap(DarpGeometryInterop.element(lease.Handle, _kind, 0, key));
+        return true;
     }
     public IEnumerable<string> Keys
     {
         get
         {
-            using var keys = DarpGeometryInterop.keys(Handle, _kind);
+            using var lease = _owner.Borrow();
+            using var keys = DarpGeometryInterop.keys(lease.Handle, _kind);
             foreach (string key in keys) yield return key;
         }
     }
-    public IEnumerable<T> Values { get { foreach (string key in Keys) yield return this[key]; } }
+    public IEnumerable<T> Values { get { foreach (var pair in this) yield return pair.Value; } }
     public IEnumerator<KeyValuePair<string, T>> GetEnumerator()
-    { foreach (string key in Keys) yield return new(key, this[key]); }
+    {
+        using var lease = _owner.Borrow();
+        using var keys = DarpGeometryInterop.keys(lease.Handle, _kind);
+        foreach (string key in keys)
+            yield return new(key, _wrap(DarpGeometryInterop.element(lease.Handle, _kind, 0, key)));
+    }
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public void Dispose() => _owner.Dispose();
 }
 
-/// <summary>Shared implementation for generated immutable native sequence bindings.</summary>
-public abstract class NativeList<T> : IReadOnlyList<T> where T : struct, IReadOnlyMatrixD
+/// <summary>Immutable native sequence. Each retrieved value owns an independent storage reference and must be disposed.</summary>
+public abstract class NativeList<T> : IReadOnlyList<T>, IDisposable where T : class, IReadOnlyMatrixD
 {
     private readonly NativeOwner _owner;
     private readonly int _kind;
     private readonly Func<IntPtr, T> _wrap;
-    internal HandleRef Handle => _owner.Handle;
+    internal NativeOwner Owner => _owner;
     private protected NativeList(IntPtr pointer, int kind, Func<IntPtr, T> wrap)
     { _owner = new NativeOwner(pointer); _kind = kind; _wrap = wrap; }
     private protected NativeList(int kind, Func<IntPtr, T> wrap)
@@ -73,22 +94,36 @@ public abstract class NativeList<T> : IReadOnlyList<T> where T : struct, IReadOn
         {
             foreach (var value in values)
             {
-                using var input = new TensorArgument(value.AsReadOnlyMatrix());
-                DarpGeometryInterop.add(Handle, kind, "", input.Handle);
+                using var input = new TensorArgument(value);
+                DarpGeometryInterop.add(_owner.Handle, kind, "", input.Handle);
             }
         }
         catch { _owner.Dispose(); throw; }
     }
-    public int Count => DarpGeometryInterop.count(Handle, _kind);
+    public int Count
+    {
+        get
+        {
+            using var lease = _owner.Borrow();
+            return DarpGeometryInterop.count(lease.Handle, _kind);
+        }
+    }
     public T this[int index]
     {
         get
         {
+            using var lease = _owner.Borrow();
             ArgumentOutOfRangeException.ThrowIfNegative(index);
-            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, Count);
-            return _wrap(DarpGeometryInterop.element(Handle, _kind, index, ""));
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, DarpGeometryInterop.count(lease.Handle, _kind));
+            return _wrap(DarpGeometryInterop.element(lease.Handle, _kind, index, ""));
         }
     }
-    public IEnumerator<T> GetEnumerator() { for (int i = 0; i < Count; i++) yield return this[i]; }
+    public IEnumerator<T> GetEnumerator()
+    {
+        using var lease = _owner.Borrow();
+        int count = DarpGeometryInterop.count(lease.Handle, _kind);
+        for (int i = 0; i < count; i++) yield return _wrap(DarpGeometryInterop.element(lease.Handle, _kind, i, ""));
+    }
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public void Dispose() => _owner.Dispose();
 }

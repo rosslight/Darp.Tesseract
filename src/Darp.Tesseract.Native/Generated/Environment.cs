@@ -158,7 +158,7 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D findTCPOffset(ManipulatorInfo manip_info) {
+  public global::Darp.Geometry.ReadOnlyIsometry3D findTCPOffset(ManipulatorInfo manip_info) {
     var result = TesseractNativePINVOKE.Environment_findTCPOffset(swigCPtr, ManipulatorInfo.getCPtr(manip_info));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);
@@ -198,8 +198,12 @@ public class Environment : global::System.IDisposable {
   }
 
   public void setState(StringDoubleMap joints, TransformMap floating_joints) {
-    TesseractNativePINVOKE.Environment_setState__SWIG_0(swigCPtr, StringDoubleMap.getCPtr(joints), floating_joints.Handle);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
+    {
+      TesseractNativePINVOKE.Environment_setState__SWIG_0(swigCPtr, StringDoubleMap.getCPtr(joints), floating_joints_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    }
+    }
   }
 
   public void setState(StringDoubleMap joints) {
@@ -207,17 +211,19 @@ public class Environment : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void setState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_values, TransformMap floating_joints) {
-    using (var joint_values_arg = new TensorArgument(joint_values.AsReadOnlyMatrix())) {
+  public void setState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joints) {
+    using (var joint_values_arg = new TensorArgument(joint_values)) {
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
     {
-      TesseractNativePINVOKE.Environment_setState__SWIG_2(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle, floating_joints.Handle);
+      TesseractNativePINVOKE.Environment_setState__SWIG_2(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle, floating_joints_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    }
     }
     }
   }
 
-  public void setState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_values) {
-    using (var joint_values_arg = new TensorArgument(joint_values.AsReadOnlyMatrix())) {
+  public void setState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+    using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       TesseractNativePINVOKE.Environment_setState__SWIG_3(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
@@ -226,14 +232,22 @@ public class Environment : global::System.IDisposable {
   }
 
   public void setState(TransformMap floating_joints) {
-    TesseractNativePINVOKE.Environment_setState__SWIG_4(swigCPtr, floating_joints.Handle);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
+    {
+      TesseractNativePINVOKE.Environment_setState__SWIG_4(swigCPtr, floating_joints_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    }
+    }
   }
 
   public SceneState getState(StringDoubleMap joints, TransformMap floating_joints) {
-    SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_0(swigCPtr, StringDoubleMap.getCPtr(joints), floating_joints.Handle), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
+    {
+      SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_0(swigCPtr, StringDoubleMap.getCPtr(joints), floating_joints_arg.Handle), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
   }
 
   public SceneState getState(StringDoubleMap joints) {
@@ -242,18 +256,20 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
-  public SceneState getState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_values, TransformMap floating_joints) {
-    using (var joint_values_arg = new TensorArgument(joint_values.AsReadOnlyMatrix())) {
+  public SceneState getState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joints) {
+    using (var joint_values_arg = new TensorArgument(joint_values)) {
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
     {
-      SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_2(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle, floating_joints.Handle), true);
+      SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_2(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle, floating_joints_arg.Handle), true);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     }
     }
+    }
   }
 
-  public SceneState getState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_values) {
-    using (var joint_values_arg = new TensorArgument(joint_values.AsReadOnlyMatrix())) {
+  public SceneState getState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+    using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_3(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle), true);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
@@ -263,9 +279,13 @@ public class Environment : global::System.IDisposable {
   }
 
   public SceneState getState(TransformMap floating_joints) {
-    SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_4(swigCPtr, floating_joints.Handle), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
+    {
+      SceneState ret = new SceneState(TesseractNativePINVOKE.Environment_getState__SWIG_4(swigCPtr, floating_joints_arg.Handle), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
   }
 
   public SceneState getState() {
@@ -274,22 +294,24 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
-  public void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_values, TransformMap floating_joints) {
-    using (var link_transforms_arg = new ContainerArgument(link_transforms.Handle)) {
-    using (var joint_values_arg = new TensorArgument(joint_values.AsReadOnlyMatrix())) {
+  public void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joints) {
+    using (var link_transforms_arg = new ContainerArgument(link_transforms.Owner)) {
+    using (var joint_values_arg = new TensorArgument(joint_values)) {
+    using (var floating_joints_arg = new ContainerArgument(floating_joints.Owner)) {
     try {
-      TesseractNativePINVOKE.Environment_getLinkTransforms__SWIG_0(swigCPtr, link_transforms_arg.Handle, StringVector.getCPtr(joint_names), joint_values_arg.Handle, floating_joints.Handle);
+      TesseractNativePINVOKE.Environment_getLinkTransforms__SWIG_0(swigCPtr, link_transforms_arg.Handle, StringVector.getCPtr(joint_names), joint_values_arg.Handle, floating_joints_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } finally {
       if (link_transforms_arg.HasOutput) link_transforms = new TransformMap(link_transforms_arg.Take());
     }
     }
     }
+    }
   }
 
-  public void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_values) {
-    using (var link_transforms_arg = new ContainerArgument(link_transforms.Handle)) {
-    using (var joint_values_arg = new TensorArgument(joint_values.AsReadOnlyMatrix())) {
+  public void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+    using (var link_transforms_arg = new ContainerArgument(link_transforms.Owner)) {
+    using (var joint_values_arg = new TensorArgument(joint_values)) {
     try {
       TesseractNativePINVOKE.Environment_getLinkTransforms__SWIG_1(swigCPtr, link_transforms_arg.Handle, StringVector.getCPtr(joint_names), joint_values_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
@@ -352,13 +374,13 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD getCurrentJointValues() {
+  public global::Darp.Geometry.ReadOnlyVectorXD getCurrentJointValues() {
     var result = TesseractNativePINVOKE.Environment_getCurrentJointValues__SWIG_0(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD getCurrentJointValues(StringVector joint_names) {
+  public global::Darp.Geometry.ReadOnlyVectorXD getCurrentJointValues(StringVector joint_names) {
     var result = TesseractNativePINVOKE.Environment_getCurrentJointValues__SWIG_1(swigCPtr, StringVector.getCPtr(joint_names));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);
@@ -418,13 +440,13 @@ public class Environment : global::System.IDisposable {
     return new VectorIsometry3d(result);
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D getLinkTransform(string link_name) {
+  public global::Darp.Geometry.ReadOnlyIsometry3D getLinkTransform(string link_name) {
     var result = TesseractNativePINVOKE.Environment_getLinkTransform(swigCPtr, link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D getRelativeLinkTransform(string from_link_name, string to_link_name) {
+  public global::Darp.Geometry.ReadOnlyIsometry3D getRelativeLinkTransform(string from_link_name, string to_link_name) {
     var result = TesseractNativePINVOKE.Environment_getRelativeLinkTransform(swigCPtr, from_link_name, to_link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);

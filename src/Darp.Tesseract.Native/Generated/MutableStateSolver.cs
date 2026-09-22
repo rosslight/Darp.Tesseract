@@ -83,8 +83,8 @@ public class MutableStateSolver : StateSolver {
     return ret;
   }
 
-  public virtual bool changeJointOrigin(string name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D new_origin) {
-    using (var new_origin_arg = new TensorArgument(new_origin.AsReadOnlyMatrix())) {
+  public virtual bool changeJointOrigin(string name, global::Darp.Geometry.IReadOnlyMatrixD new_origin) {
+    using (var new_origin_arg = new TensorArgument(new_origin)) {
     {
       bool ret = TesseractNativePINVOKE.MutableStateSolver_changeJointOrigin(swigCPtr, name, new_origin_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();

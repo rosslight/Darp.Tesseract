@@ -58,8 +58,8 @@ public class SceneState : global::System.IDisposable {
   }
 
   public TransformMap floating_joints {
-    set { TesseractNativePINVOKE.SceneState_floating_joints_set(swigCPtr, value.Handle);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); }
+    set { using (var value_arg = new ContainerArgument(value.Owner)) { TesseractNativePINVOKE.SceneState_floating_joints_set(swigCPtr, value_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); } }
 
     get { var result = TesseractNativePINVOKE.SceneState_floating_joints_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); return new TransformMap(result); }
@@ -67,8 +67,8 @@ public class SceneState : global::System.IDisposable {
   }
 
   public TransformMap link_transforms {
-    set { TesseractNativePINVOKE.SceneState_link_transforms_set(swigCPtr, value.Handle);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); }
+    set { using (var value_arg = new ContainerArgument(value.Owner)) { TesseractNativePINVOKE.SceneState_link_transforms_set(swigCPtr, value_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); } }
 
     get { var result = TesseractNativePINVOKE.SceneState_link_transforms_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); return new TransformMap(result); }
@@ -76,15 +76,15 @@ public class SceneState : global::System.IDisposable {
   }
 
   public TransformMap joint_transforms {
-    set { TesseractNativePINVOKE.SceneState_joint_transforms_set(swigCPtr, value.Handle);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); }
+    set { using (var value_arg = new ContainerArgument(value.Owner)) { TesseractNativePINVOKE.SceneState_joint_transforms_set(swigCPtr, value_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); } }
 
     get { var result = TesseractNativePINVOKE.SceneState_joint_transforms_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); return new TransformMap(result); }
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD getJointValues(StringVector joint_names) {
+  public global::Darp.Geometry.ReadOnlyVectorXD getJointValues(StringVector joint_names) {
     var result = TesseractNativePINVOKE.SceneState_getJointValues(swigCPtr, StringVector.getCPtr(joint_names));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);

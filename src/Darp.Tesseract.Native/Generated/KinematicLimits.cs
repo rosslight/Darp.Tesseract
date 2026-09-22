@@ -57,9 +57,9 @@ public class KinematicLimits : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD joint_limits {
+  public global::Darp.Geometry.ReadOnlyMatrixXD joint_limits {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_joint_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -73,9 +73,9 @@ public class KinematicLimits : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD velocity_limits {
+  public global::Darp.Geometry.ReadOnlyMatrixXD velocity_limits {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_velocity_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -89,9 +89,9 @@ public class KinematicLimits : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD acceleration_limits {
+  public global::Darp.Geometry.ReadOnlyMatrixXD acceleration_limits {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_acceleration_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -105,9 +105,9 @@ public class KinematicLimits : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD jerk_limits {
+  public global::Darp.Geometry.ReadOnlyMatrixXD jerk_limits {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_jerk_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }

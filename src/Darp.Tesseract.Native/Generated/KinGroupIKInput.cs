@@ -57,13 +57,13 @@ public class KinGroupIKInput : global::System.IDisposable {
     }
   }
 
-  static private global::System.IntPtr SwigConstructKinGroupIKInput(global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D p, string wf, string tl) {
-    using (var p_arg = new TensorArgument(p.AsReadOnlyMatrix())) {
+  static private global::System.IntPtr SwigConstructKinGroupIKInput(global::Darp.Geometry.IReadOnlyMatrixD p, string wf, string tl) {
+    using (var p_arg = new TensorArgument(p)) {
     return TesseractNativePINVOKE.new_KinGroupIKInput__SWIG_0(p_arg.Handle, wf, tl);
     }
   }
 
-  public KinGroupIKInput(global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D p, string wf, string tl) : this(KinGroupIKInput.SwigConstructKinGroupIKInput(p, wf, tl), true) {
+  public KinGroupIKInput(global::Darp.Geometry.IReadOnlyMatrixD p, string wf, string tl) : this(KinGroupIKInput.SwigConstructKinGroupIKInput(p, wf, tl), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -71,9 +71,9 @@ public class KinGroupIKInput : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D pose {
+  public global::Darp.Geometry.ReadOnlyIsometry3D pose {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinGroupIKInput_pose_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }

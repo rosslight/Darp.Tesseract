@@ -184,8 +184,8 @@ public class KinematicsInformation : global::System.IDisposable {
     return ret;
   }
 
-  public void addGroupTCP(string group_name, string tcp_name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D tcp) {
-    using (var tcp_arg = new TensorArgument(tcp.AsReadOnlyMatrix())) {
+  public void addGroupTCP(string group_name, string tcp_name, global::Darp.Geometry.IReadOnlyMatrixD tcp) {
+    using (var tcp_arg = new TensorArgument(tcp)) {
     {
       TesseractNativePINVOKE.KinematicsInformation_addGroupTCP(swigCPtr, group_name, tcp_name, tcp_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();

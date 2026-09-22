@@ -1,4 +1,4 @@
-namespace Darp.Geometry.Tensor2;
+namespace Darp.Geometry;
 
 // Shared addressing for mutable/read-only matrices, blocks, transposes, and column vectors.
 internal readonly record struct MatrixLayout(int Rows, int Columns, int RowStride, int ColumnStride)

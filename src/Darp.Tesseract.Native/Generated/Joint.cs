@@ -70,9 +70,9 @@ public class Joint : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyVector3D axis {
+  public global::Darp.Geometry.ReadOnlyVector3D axis {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Joint_axis_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }
@@ -110,9 +110,9 @@ public class Joint : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D parent_to_joint_origin_transform {
+  public global::Darp.Geometry.ReadOnlyIsometry3D parent_to_joint_origin_transform {
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Joint_parent_to_joint_origin_transform_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       }

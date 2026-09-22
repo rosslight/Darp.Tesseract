@@ -36,8 +36,8 @@ public class KinematicGroup : JointGroup {
     }
   }
 
-  public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD seed) {
-    using (var seed_arg = new TensorArgument(seed.AsReadOnlyMatrix())) {
+  public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+    using (var seed_arg = new TensorArgument(seed)) {
     {
       var result = TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_0(swigCPtr, KinGroupIKInput.getCPtr(tip_link_pose), seed_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
@@ -46,9 +46,9 @@ public class KinematicGroup : JointGroup {
     }
   }
 
-  public void calcInvKin(ref IKSolutions solutions, KinGroupIKInput tip_link_pose, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD seed) {
-    using (var solutions_arg = new ContainerArgument(solutions.Handle)) {
-    using (var seed_arg = new TensorArgument(seed.AsReadOnlyMatrix())) {
+  public void calcInvKin(ref IKSolutions solutions, KinGroupIKInput tip_link_pose, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+    using (var solutions_arg = new ContainerArgument(solutions.Owner)) {
+    using (var seed_arg = new TensorArgument(seed)) {
     try {
       TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_1(swigCPtr, solutions_arg.Handle, KinGroupIKInput.getCPtr(tip_link_pose), seed_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();

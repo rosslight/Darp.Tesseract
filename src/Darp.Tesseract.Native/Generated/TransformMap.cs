@@ -10,11 +10,11 @@
 
 namespace Darp.Tesseract.Native {
 
-public sealed class TransformMap : NativeMap<global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D> {
+public sealed class TransformMap : NativeMap<global::Darp.Geometry.ReadOnlyIsometry3D> {
   public TransformMap() : base(1, TensorResult.Isometry) { }
   internal TransformMap(global::System.IntPtr handle) : base(handle, 1, TensorResult.Isometry) { }
 
-  public TransformMap(global::System.Collections.Generic.IReadOnlyDictionary<string, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D> values)
+  public TransformMap(global::System.Collections.Generic.IReadOnlyDictionary<string, global::Darp.Geometry.ReadOnlyIsometry3D> values)
     : base(1, TensorResult.Isometry, values) { }
 
 }

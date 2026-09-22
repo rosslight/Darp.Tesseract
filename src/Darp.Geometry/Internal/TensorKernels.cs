@@ -1,6 +1,6 @@
 using System.Numerics.Tensors;
 
-namespace Darp.Geometry.Tensor2;
+namespace Darp.Geometry;
 
 /// <summary>Shared numerical algorithms over rank-two tensor views. Results own their coefficients.</summary>
 internal static class TensorKernels
@@ -9,9 +9,7 @@ internal static class TensorKernels
     public static double Norm(ReadOnlyTensorSpan<double> matrix)
     {
         MatrixShape.RequireMatrix(matrix);
-        if (matrix.Lengths[1] == 1 && TryGetContiguousColumn(matrix, 0, out var column))
-            return TensorPrimitives.Norm(column);
-
+        if (matrix.Lengths[0] == 0 || matrix.Lengths[1] == 0) return 0;
         double scale = 0;
         for (int c = 0; c < matrix.Lengths[1]; c++)
             for (int r = 0; r < matrix.Lengths[0]; r++)
@@ -162,7 +160,7 @@ internal static class TensorKernels
 
     private static bool TryGetContiguousColumn(ReadOnlyTensorSpan<double> matrix, int column, out ReadOnlySpan<double> values)
     {
-        if (matrix.Lengths[0] == 1 || matrix.Strides[0] == 1)
+        if (matrix.Lengths[0] > 0 && (matrix.Lengths[0] == 1 || matrix.Strides[0] == 1))
             return matrix.TryGetSpan([0, column], (int)matrix.Lengths[0], out values);
         values = default;
         return false;

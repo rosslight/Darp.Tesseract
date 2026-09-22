@@ -40,13 +40,13 @@ public class ChangeJointOriginCommand : Command {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  static private global::System.IntPtr SwigConstructChangeJointOriginCommand(string joint_name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D origin) {
-    using (var origin_arg = new TensorArgument(origin.AsReadOnlyMatrix())) {
+  static private global::System.IntPtr SwigConstructChangeJointOriginCommand(string joint_name, global::Darp.Geometry.IReadOnlyMatrixD origin) {
+    using (var origin_arg = new TensorArgument(origin)) {
     return TesseractNativePINVOKE.new_ChangeJointOriginCommand__SWIG_1(joint_name, origin_arg.Handle);
     }
   }
 
-  public ChangeJointOriginCommand(string joint_name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D origin) : this(ChangeJointOriginCommand.SwigConstructChangeJointOriginCommand(joint_name, origin), true) {
+  public ChangeJointOriginCommand(string joint_name, global::Darp.Geometry.IReadOnlyMatrixD origin) : this(ChangeJointOriginCommand.SwigConstructChangeJointOriginCommand(joint_name, origin), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -56,7 +56,7 @@ public class ChangeJointOriginCommand : Command {
     return ret;
   }
 
-  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D getOrigin() {
+  public global::Darp.Geometry.ReadOnlyIsometry3D getOrigin() {
     var result = TesseractNativePINVOKE.ChangeJointOriginCommand_getOrigin(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);

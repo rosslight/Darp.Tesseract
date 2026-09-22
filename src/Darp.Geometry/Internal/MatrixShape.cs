@@ -1,15 +1,15 @@
 using System.Numerics.Tensors;
 
-namespace Darp.Geometry.Tensor2;
+namespace Darp.Geometry;
 
 // Checks precede dimension indexing so rank errors are reported at the operation boundary.
 internal static class MatrixShape
 {
     public static void RequireMatrix(ReadOnlyTensorSpan<double> matrix)
     {
-        if (matrix.Rank != 2 || matrix.Lengths[0] <= 0 || matrix.Lengths[1] <= 0 ||
+        if (matrix.Rank != 2 || matrix.Lengths[0] < 0 || matrix.Lengths[1] < 0 ||
             matrix.Lengths[0] > int.MaxValue || matrix.Lengths[1] > int.MaxValue)
-            throw new ArgumentException("Expected a nonempty rank-two matrix with Int32 dimensions.", nameof(matrix));
+            throw new ArgumentException("Expected a rank-two matrix with Int32 dimensions.", nameof(matrix));
     }
 
     public static void RequireSameShape(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)

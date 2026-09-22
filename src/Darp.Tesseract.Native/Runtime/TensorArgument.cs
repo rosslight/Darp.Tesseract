@@ -1,6 +1,6 @@
 using System.Buffers;
 using System.Runtime.InteropServices;
-using Darp.Geometry.Tensor2;
+using Darp.Geometry;
 
 namespace Darp.Tesseract.Native;
 
@@ -9,8 +9,9 @@ internal sealed unsafe class TensorArgument : IDisposable
 {
     private MemoryHandle _pin;
     private readonly NativeOwner _owner;
-    internal TensorArgument(ReadOnlyMatrixXD matrix)
+    internal TensorArgument(IReadOnlyMatrixD input)
     {
+        using var matrix = input.BorrowReadOnly();
         _pin = matrix.Pin();
         try
         {
@@ -22,17 +23,30 @@ internal sealed unsafe class TensorArgument : IDisposable
     internal HandleRef Handle => _owner.Handle;
     internal bool HasOutput => DarpGeometryInterop.changed(Handle);
     internal MatrixXD TakeMatrixXD() => TensorResult.MutableMatrix(_owner.Take());
-    internal VectorXD TakeVectorXD() => TakeMatrixXD().AsVector();
-    internal Vector3D TakeVector3D() => Vector3D.FromMatrix(TakeMatrixXD());
-    internal Isometry3D TakeIsometry3D() => Isometry3D.View(TakeMatrixXD());
-    internal QuaternionD TakeQuaternionD() => TensorResult.MutableQuaternion(_owner.Take());
-    internal void CopyBack(MatrixXD destination)
+    internal VectorXD TakeVectorXD()
     {
-        var source = TakeMatrixXD();
-        if (source.Rows != destination.Rows || source.Columns != destination.Columns)
+        using var matrix = TakeMatrixXD();
+        return matrix.AsVector();
+    }
+    internal Vector3D TakeVector3D()
+    {
+        using var matrix = TakeMatrixXD();
+        return Vector3D.FromMatrix(matrix);
+    }
+    internal Isometry3D TakeIsometry3D()
+    {
+        using var matrix = TakeMatrixXD();
+        return Isometry3D.View(matrix);
+    }
+    internal QuaternionD TakeQuaternionD() => TensorResult.MutableQuaternion(_owner.Take());
+    internal void CopyBack(IMatrixD destination)
+    {
+        using var source = TakeMatrixXD();
+        using var target = destination.AsMatrix();
+        if (source.Rows != target.Rows || source.Columns != target.Columns)
             throw new InvalidOperationException("A native Eigen::Ref output cannot resize the destination.");
         for (int c = 0; c < source.Columns; c++)
-            for (int r = 0; r < source.Rows; r++) destination[r, c] = source[r, c];
+            for (int r = 0; r < source.Rows; r++) target[r, c] = source[r, c];
     }
     public void Dispose()
     {
@@ -44,7 +58,11 @@ internal sealed unsafe class TensorArgument : IDisposable
 internal sealed class ContainerArgument : IDisposable
 {
     private readonly NativeOwner _owner;
-    internal ContainerArgument(HandleRef source) => _owner = new NativeOwner(DarpGeometryInterop.argument(source));
+    internal ContainerArgument(NativeOwner source)
+    {
+        using var lease = source.Borrow();
+        _owner = new NativeOwner(DarpGeometryInterop.argument(lease.Handle));
+    }
     internal HandleRef Handle => _owner.Handle;
     internal bool HasOutput => DarpGeometryInterop.changed(Handle);
     internal IntPtr Take() => _owner.Take();
