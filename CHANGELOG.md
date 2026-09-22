@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.2.0+tesseract.0.35.0...v0.3.0+tesseract.0.35.0) (2026-09-22)
+
+
+### Features
+
+* Add a basic first version of an LA lib ([0e78290](https://github.com/rosslight/Darp.Tesseract/commit/0e782905701d696dded56030232da57105c0088d))
+* Add environment commands generation ([#3](https://github.com/rosslight/Darp.Tesseract/issues/3)) ([3b90622](https://github.com/rosslight/Darp.Tesseract/commit/3b9062277fe849265680603b80cc9aff6e8f766d))
+
 ## [0.2.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.1.3+tesseract.0.35.0...v0.2.0+tesseract.0.35.0) (2026-09-16)
 
 
