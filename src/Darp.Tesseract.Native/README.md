@@ -1,78 +1,107 @@
-# Generated geometry bindings
+# Darp.Tesseract.Native
 
-`Darp.Tesseract.Native` is the single generated binding package. It targets .NET 10
-and uses the reusable math types from `Darp.Geometry`. Constructors, methods and
-properties are generated from upstream headers using shared type mappings.
-There is one native wrapper module and one managed native-object graph.
+Generated .NET 10 bindings for Tesseract Robotics. The package includes the native
+runtime and depends on [Darp.Geometry](../Darp.Geometry/README.md) for vectors,
+matrices, quaternions and transforms.
+
+Method names follow Tesseract's C++ API. Look in [Generated](Generated) for the
+available C# signatures. For build prerequisites and platform support, see the
+[repository README](../../README.md).
+
+## Load a robot and compute kinematics
+
+This example uses the ABB robot fixture included in the repository. Run it from
+the repository root in an application referencing the binding package or project.
 
 ```csharp
 using Darp.Geometry;
 using Darp.Tesseract.Native;
+using TesseractEnvironment = Darp.Tesseract.Native.Environment;
 
-// group comes from Darp.Tesseract.Native.Environment.getKinematicGroup(...).
-using var joints = new VectorXD(0.0, 0.2, -0.3, 0.0, 0.4, 0.0);
-using var poses = group.calcFwdKin(joints);
+var assets = Path.GetFullPath(
+    "tests/Darp.Tesseract.Native.IntegrationTests/Assets");
+var robot = Path.Combine(assets, "darp_test");
+
+using var locator = new GeneralResourceLocator();
+locator.addPath(assets);
+
+using var sceneGraph = TesseractNative.parseURDFString(
+    File.ReadAllText(Path.Combine(robot, "abb_irb2400.urdf")), locator);
+using var srdf = new SRDFModel();
+srdf.initString(
+    sceneGraph,
+    File.ReadAllText(Path.Combine(robot, "abb_irb2400.srdf")),
+    locator);
+
+using var environment = new TesseractEnvironment();
+if (!environment.init(sceneGraph, srdf))
+    throw new InvalidOperationException("Could not initialize the robot.");
+
+using var group = environment.getKinematicGroup("manipulator");
+using var seed = new VectorXD(checked((int)group.numJoints()));
+using var poses = group.calcFwdKin(seed);
 using var tool = poses["tool0"];
 using var position = tool.Translation;
-using var jacobian = group.calcJacobian(joints, "tool0");
+using var jacobian = group.calcJacobian(seed, "tool0");
 
-using var target = new KinGroupIKInput(tool, group.getBaseLinkName(), "tool0");
-using var solutions = group.calcInvKin(target, joints);
+Console.WriteLine(position);
+Console.WriteLine($"Jacobian: {jacobian.Rows} by {jacobian.Columns}");
+
+using var target = new KinGroupIKInput(
+    tool, group.getBaseLinkName(), "tool0");
+using var solutions = group.calcInvKin(target, seed);
 foreach (var solution in solutions)
-    using (solution) Console.WriteLine(solution);
+{
+    using (solution)
+        Console.WriteLine(solution);
+}
 ```
 
-## Generated and handwritten parts
+For your robot, change the URDF, SRDF, resource path, group name and tip link.
+The SRDF and referenced YAML configure the kinematics plugins.
+[The integration tests](../../tests/Darp.Tesseract.Native.IntegrationTests/KinematicsTests.cs)
+also show collision-manager setup, environment commands and joint-state access.
 
-| Part | Source |
+## Geometry inputs and results
+
+Generated geometry inputs accept `IReadOnlyMatrixD` where the native signature
+allows read-only access. The binding checks the required shape. You can supply
+a geometry object backed by managed memory or a result from an earlier native call.
+
+Results use the matching read-only interfaces, such as `IReadOnlyVectorXD`,
+`IReadOnlyMatrixD` and `IReadOnlyIsometry3D`. Call `Clone()` for a writable copy.
+Results own a reference to native storage and remain usable after the originating
+proxy is disposed.
+
+Transform maps and geometry sequences are disposable too. Each lookup or
+enumeration produces an independently retained element. Dispose both the
+collection and the elements you take from it, as in the example above.
+
+## What copies, and what shares memory?
+
+| Native signature or result | Binding behavior |
 | --- | --- |
-| Public Tesseract API | SWIG, using `bindings/tesseract_csharp.i` and upstream headers |
-| Eigen input/output conversion | Reusable macros in `bindings/geometry/typemaps.i` |
-| Eight Eigen types and three containers | Explicit declarations in `bindings/geometry/mappings.i` |
-| Native container operations and managed container declarations | SWIG declarations in `mappings.i` and reusable collection macros in `typemaps.i` |
-| Pinning, memory manager, SafeHandle and generic container implementation | Handwritten shared code under `Runtime/`, plus `bindings/geometry/runtime.h` |
+| `const Eigen::Ref` input | Pins compatible inner-contiguous memory. Packs other layouts into a temporary native value. |
+| Eigen value or `const T&` input | Creates a native value from the supplied coefficients. |
+| Eigen value result | Moves the result into owned native storage and returns a read-only view. |
+| Reference or pointer getter | Returns an independent snapshot, so later proxy changes do not invalidate it. |
+| Element of a returned geometry map or sequence | Shares the collection's native allocation without copying coefficients. |
+| Writable `Eigen::Ref` | Copies back into the supplied mutable object after success. The shape stays fixed. |
+| Writable `T&` | Uses a managed `ref` parameter and replaces the result object, allowing its shape to change. |
 
-The type rules cover fixed vectors (2/3/4), dynamic vectors, dynamic matrices,
-N by 2 matrices, quaternions and isometries. The same rules handle FK/IK, Jacobians,
-state solvers, collision transforms, scene-graph fields, joint states, limits and
-command constructors. Container rules cover transform maps, transform sequences
-and IK solution sequences.
+A `ref` replacement does not dispose the previous managed object. Keep a separate
+reference to the old value if you need to dispose it after the call. Existing
+aliases remain valid.
 
-## Ownership and copying rules
+Creating native containers from managed dictionaries or lists copies their
+elements. Empty vectors, matrices and containers are supported.
 
-- `const Eigen::Ref` inputs borrow pinned inner-contiguous storage. Padded
-  column-major matrices are supported. Other layouts are packed locally.
-- Concrete Eigen values and `const T&` inputs are materialized as native values;
-  those signatures cannot consume an Eigen Map directly.
-- Value results move into a retained native allocation and expose read-only
-  disposable geometry views. Reference/pointer getters produce independent snapshots,
-  because the originating object can be modified or explicitly disposed.
-- Maps and sequences are frozen after construction. Indexing creates a tensor
-  view that shares ownership of their native allocation, without copying element
-  coefficients. A view survives disposal of the collection. Dispose each extracted element, including
-  elements obtained through enumeration, when finished.
-- Writable `Eigen::Ref` parameters use a local native value, then copy back into
-  the supplied mutable descriptor after a successful call. Its shape cannot change.
-- Writable `T&` parameters use `ref` managed parameters. They return replacement
-  descriptors/containers, allowing resizing while preserving earlier views.
-  Replacement does not dispose the old managed object: retain it in a separate
-  variable and dispose both objects when finished. Existing aliases stay valid.
-  The native in/out value is initialized from the old value, so append/update
-  semantics are preserved. There is no reuse promise for output buffers.
-- Inputs created from managed dictionaries/lists copy their elements into a native
-  container once. Empty containers and empty native vectors/matrices are supported.
+Do not dispose or mutate an input concurrently with a native call. Raw tensor
+spans follow the [geometry lifetime rules](../Darp.Geometry/README.md#tensor-spans).
 
-Geometry objects and containers implement `IDisposable`. Retained views
-and pins keep shared storage alive independently. The last release disposes the
-storage owner. Geometry method inputs accept `IReadOnlyMatrixD`; generated read-only
-results expose semantic interfaces. `AsReadOnly()` creates an independently retained
-view with no writable interface. Explicit raw tensor spans require keeping their
-source view alive and undisposed throughout access. Native proxy disposal and
-concurrent mutation remain the caller's responsibility. Read-only access is not a security boundary against unsafe code.
+## Change or extend a binding
 
-## Regeneration
-
-From the repository root:
+Edit the SWIG inputs, then regenerate both managed and native output:
 
 ```powershell
 pixi run -e bindings generate-bindings
@@ -80,11 +109,18 @@ pixi run build-native
 dotnet build src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj
 ```
 
-The generation command invokes SWIG directly. Type mappings and collection declarations
-live in the SWIG interface files; no separate manifest or support-code generator is
-needed. Compilation and integration tests verify the generated bindings.
-Do not edit generated files manually.
+Run these commands from the repository root. Rebuilding the native wrapper matters
+when a change alters the generated interop signatures.
 
-This covers the selected binding surface; existing `%ignore` declarations still
-define which upstream APIs are exposed. Integration tests exercise robot loading,
-FK/Jacobian/IK, plugins, commands, strided inputs and retained native views.
+| Change | Source |
+| --- | --- |
+| Expose an upstream header or exclude a signature | [bindings/components](../../bindings/components) |
+| Add an Eigen type or geometry container mapping | [mappings.i](../../bindings/geometry/mappings.i) |
+| Change generated C# conversion or ownership code | [typemaps.i](../../bindings/geometry/typemaps.i) |
+| Change native Eigen conversion behavior | [runtime.h](../../bindings/geometry/runtime.h) |
+| Change managed pinning, memory ownership or containers | [Runtime](Runtime) |
+| Change shared SWIG behavior for other C++ types | [bindings/support](../../bindings/support) |
+
+SWIG writes C# files to `src/Darp.Tesseract.Native/Generated/` and the C++ wrapper
+to `bindings/generated/`. Review and commit both outputs with the input changes.
+The generated files are not the place to fix conversion behavior.

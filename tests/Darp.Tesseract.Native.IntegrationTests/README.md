@@ -1,26 +1,68 @@
-# Integration tests
+# Tests
 
-These tests exercise the public generated API against the real native wrapper.
-The ABB fixture covers URDF/SRDF loading, FK/Jacobian/IK round trips, embedded
-collision and OPW factories, and environment commands. Geometry checks cover
-strided vector inputs, row-major matrix properties, shape rejection, empty vectors,
-output replacement, snapshots after disposal, and container views after explicit disposal and collection. Focused managed geometry
-tests cover final-owner release, retained views and pins, alias disposal, failed
-ownership transfer, read-only views, representative transform algebra, empty shapes
-and stable normalization across layouts.
-They deliberately avoid exhaustive overload and coefficient-by-coefficient math tests.
+This project tests managed geometry and the generated bindings against the real
+native wrapper. It uses xUnit v3 and Microsoft.Testing.Platform, selected by the
+repository's [global.json](../../global.json).
 
-Build the host runtime first with `pixi run build-native`, then run:
+## Run against the source projects
+
+From the repository root, build the host's native runtime and run the tests:
 
 ```powershell
+pixi run build-native
 dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj
 ```
 
-CI packs `Darp.Geometry` and `Darp.Tesseract.Native`, restores this executable with
-`-p:UseLocalProjectReference=false`, and runs the same tests against those packages.
-That mode adds a packaging check and requires `CONDA_PREFIX` and Pixi PATH entries
-to be absent. See `.github/workflows/build-package.yml` for the exact commands.
+You only need to rebuild native code after changes that affect the native wrapper
+or its dependencies. See [source build setup](../../README.md#build-from-source)
+for prerequisites and submodules.
 
-Forced collection tests use non-inlined helpers so the originating native proxy
-or collection is out of scope before collection. They verify retained views remain
-usable; they are not an exhaustive native leak or concurrency test.
+The test project references the source projects by default. Native assets come
+from `artifacts/native/<rid>/` and copy to the managed output directory. Tests load
+their robot files from `Assets/`, which the test project also copies to its output.
+
+## What the tests cover
+
+| File | Checks |
+| --- | --- |
+| [GeometryOwnershipTests.cs](GeometryOwnershipTests.cs) | Shared storage release, retained views and pins, read-only access, nested layouts, transform algebra, empty shapes and stable normalization |
+| [KinematicsTests.cs](KinematicsTests.cs) | ABB robot loading, FK/Jacobian/IK round trips, collision and OPW plugins, environment commands, strided inputs, shape checks, output replacement and native result lifetimes |
+
+The ABB IRB 2400 fixture and its plugin configuration live under
+[Assets/darp_test](Assets/darp_test). Lifetime tests include explicit disposal and
+forced collection to check that retained results stay usable. They do not measure
+native leaks or establish thread safety.
+
+## Run against local packages
+
+Build the native assets and pack both libraries first, following the
+[pack instructions](../../README.md#pack-and-release). Then restore and test with
+project references disabled:
+
+```powershell
+dotnet restore tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj --source artifacts/packages --source https://api.nuget.org/v3/index.json -p:UseLocalProjectReference=false
+
+dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj -c Release --no-restore -p:UseLocalProjectReference=false
+```
+
+Run package tests outside a Pixi shell. This mode adds a deployment check that
+requires an empty `CONDA_PREFIX` and no `.pixi` entries in `PATH`. It checks that
+the package supplies the wrapper without separate Tesseract component libraries
+or the disabled PCL/VTK dependencies.
+
+Use `-p:DarpTesseractNativeVersion=<version>` on both commands to test a version
+other than the repository's current version. When rebuilding the same package
+version, use a fresh NuGet package cache so restore does not reuse an earlier build.
+
+To return to source-project testing, restore again without
+`UseLocalProjectReference=false` before using `--no-restore`.
+
+[The package workflow](../../.github/workflows/build-package.yml) runs this mode
+on each supported platform.
+
+## Common setup failures
+
+- A missing `tesseract_csharp` library usually means the host runtime has not been built or copied to the output.
+- A native loader error can also indicate a missing adjacent dependency. Keep the files from `artifacts/native/<rid>/` together.
+- Resource or plugin errors should be investigated against the files in the output's `Assets/` directory and the group names in the SRDF.
+- Package tests rejecting `CONDA_PREFIX` or `PATH` are detecting the build environment. Run them in a normal shell.

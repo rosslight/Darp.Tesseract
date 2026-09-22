@@ -1,145 +1,134 @@
 # Darp.Tesseract.Native
 
-Generated .NET bindings for [Tesseract Robotics](https://github.com/tesseract-robotics/tesseract). The package exposes the SWIG-generated API directly and ships ready-to-use native runtimes for Windows, Linux, and macOS.
+.NET 10 bindings for [Tesseract Robotics](https://github.com/tesseract-robotics/tesseract).
+Use them to load robot descriptions, query scene graphs, compute forward and inverse
+kinematics, and work with collision managers.
 
-## Architecture
+The C# API follows the upstream C++ API, including names such as `calcFwdKin` and
+`getKinematicGroup`. SWIG generates the bindings. This repository also contains
+`Darp.Geometry`, the managed vector, matrix and transform library used by those bindings.
 
-The repository keeps the native and managed build boundaries separate:
+## Where to start
 
-- Pixi locks the compiler and third-party native dependency environment.
-- A root CMake superbuild copies the pinned Tesseract submodule into an ignored build directory, applies the repository's focused runtime-dependency patch, builds Tesseract statically, and builds the generated wrapper against that private installation.
-- `dotnet pack` consumes the resulting `artifacts/native/<rid>/` directories without invoking Pixi or CMake.
-- NuGet's standard `runtimes/<rid>/native/` assets select and deploy the matching wrapper and its adjacent runtime dependencies.
+| If you want to... | Read |
+| --- | --- |
+| Load a robot and call FK or IK | [Native binding usage](src/Darp.Tesseract.Native/README.md) |
+| Work with vectors, matrices, rotations or views | [Darp.Geometry](src/Darp.Geometry/README.md) |
+| Run tests against source or a NuGet package | [Test instructions](tests/Darp.Tesseract.Native.IntegrationTests/README.md) |
+| Build or change the bindings | The instructions below |
 
-The Tesseract checkout stays pristine. `patches/tesseract-runtime-dependencies.patch` contains two focused build-graph changes: it makes PCL-backed URDF point-cloud parsing optional and avoids linking the compiled Boost.Graph library when Tesseract only consumes its header API. This removes the PCL/VTK and Boost.Regex/ICU runtime graphs while retaining normal URDF geometry, meshes, octomap files, and scene-graph functionality.
+`Darp.Tesseract.Native` depends on `Darp.Geometry` and packages the native wrapper
+and its runtime dependencies. Applications consuming the package do not need Pixi,
+SWIG or a C++ build environment. Geometry can also be used on its own.
 
-The single `tesseract_csharp` wrapper contains statically linked Tesseract components and the Bullet, FCL, KDL, OPW, and UR plugin factories. A generated internal bootstrap registers that already-loaded wrapper with Tesseract's normal plugin loader. Existing SRDF/YAML class aliases and search-library entries therefore continue to work without separate generic factory libraries.
+## Supported platforms and scope
 
-The native build targets `win-x64`, `linux-x64`, `linux-arm64`, `osx-x64`, and `osx-arm64` on matching native hosts. Windows ARM64 is deferred. Linux targets glibc 2.28 and expects the distribution's standard C/C++ runtimes and zlib; the package supplies the adjacent robotics dependency closure. macOS targets 11.0.
+The build and package-test workflow targets these runtimes on matching hosts:
 
-## Current binding surface
+| Platform | Runtime identifiers | Baseline |
+| --- | --- | --- |
+| Windows | `win-x64` | x64 only |
+| Linux | `linux-x64`, `linux-arm64` | glibc 2.28 |
+| macOS | `osx-x64`, `osx-arm64` | macOS 11 |
 
-The modular SWIG inputs cover feasible non-visual APIs from:
+Linux also needs the distribution's C/C++ runtimes and zlib. Windows ARM64 is not supported.
 
-- common values, resources, containers, and plugin metadata;
-- Eigen vectors, matrices, quaternions, and transforms;
-- geometry and scene graphs;
-- URDF/SRDF parsing and state solvers;
-- collision-manager lifecycle and stable operations;
-- environments, joint groups, FK, Jacobians, KDL/OPW/UR IK, and generic IKFast-facing types.
+The bindings include resources, geometry, scene graphs, URDF/SRDF parsing, state
+solvers, environments, collision-manager operations and kinematics. The native
+wrapper embeds Bullet, FCL, KDL, OPW and UR plugin factories.
 
-Unsupported C++ shapes are ignored explicitly in the component interface files. A curated managed façade, visualization, ROS integration, PCL point-cloud parsing, and robot-specific IKFast solvers are outside this package.
+Visualization, ROS integration, PCL point-cloud parsing and robot-specific IKFast
+solvers are outside this package. Some upstream signatures are excluded explicitly
+in [bindings/components](bindings/components). Treat the generated C# declarations
+as the reference for what is available.
 
-## Geometry surface
+## Build from source
 
-[Darp.Tesseract.Native](src/Darp.Tesseract.Native/README.md) uses the disposable
-matrix, vector, quaternion and isometry classes from [Darp.Geometry](src/Darp.Geometry/README.md).
-Views retain shared storage independently; dispose every result and view when done.
+Run these commands from the repository root. You need:
 
-```csharp
-using Darp.Geometry;
-using Darp.Tesseract.Native;
+- The .NET SDK selected by [global.json](global.json), currently .NET 10.
+- PowerShell 7, available as `pwsh`, including on Linux and macOS.
+- Pixi 0.70.x, as required by [pixi.toml](pixi.toml).
+- A host C++ toolchain supported by the Pixi environment. The Windows configuration uses Visual Studio 2026.
 
-using var joints = new VectorXD(6);
-using var poses = group.calcFwdKin(joints);
-using var tool = poses["tool0"];
-using var translation = tool.Translation;
-Console.WriteLine(translation);
-```
-
-Ordinary scalar access and math manage storage lifetime internally. Tensor spans
-provide explicit access; retained `AsMatrix()` / `AsReadOnlyMatrix()` views keep storage alive until disposed.
-
-## Kinematics example
-
-```csharp
-using Darp.Geometry;
-using Darp.Tesseract.Native;
-
-var urdf = File.ReadAllText("robot.urdf");
-var srdf = File.ReadAllText("robot.srdf");
-
-using var locator = new GeneralResourceLocator();
-locator.addPath(Path.GetFullPath("resources"));
-
-using var sceneGraph = TesseractNative.parseURDFString(urdf, locator);
-using var srdfModel = new SRDFModel();
-srdfModel.initString(sceneGraph, srdf, locator);
-
-using var environment = new Darp.Tesseract.Native.Environment();
-if (!environment.init(sceneGraph, srdfModel))
-    throw new InvalidOperationException("Could not initialize the environment.");
-
-using var group = environment.getKinematicGroup("manipulator");
-using var seed = new VectorXD(checked((int)group.numJoints()));
-
-using var activeLinks = group.getActiveLinkNames();
-var tip = activeLinks[^1];
-using var transforms = group.calcFwdKin(seed);
-using var target = transforms[tip];
-using var input = new KinGroupIKInput(target, group.getBaseLinkName(), tip);
-using var solutions = group.calcInvKin(input, seed);
-```
-
-Returned geometry objects retain their native storage independently of the originating proxy or container. Dispose them when finished.
-
-## Develop locally
-
-Initialize the pinned Tesseract source:
+Initialize all pinned upstream sources, then build the host's native runtime:
 
 ```powershell
-git submodule update --init native/tesseract
+git submodule update --init --recursive
+pixi run build-native
+dotnet build Darp.Tesseract.Native.slnx
 ```
 
-Install Pixi on Windows when it is not already available:
+On Windows, [scripts/install_pixi.ps1](scripts/install_pixi.ps1) can install the
+repository's Pixi version. The native build writes to `artifacts/native/<rid>/`.
+The managed project copies those files to its output directory.
 
-```powershell
-$pixi = ./scripts/install_pixi.ps1
-```
-
-Generate committed binding sources explicitly:
+Generated sources are committed. Regenerate them when changing SWIG declarations
+or upstream headers:
 
 ```powershell
 pixi run -e bindings generate-bindings
+pixi run build-native
+dotnet build Darp.Tesseract.Native.slnx
 ```
 
-Build the current host's native runtime:
+Keep the generated C# and C++ changes together. Do not edit generated files by hand.
+
+Run the integration tests after building the native runtime:
 
 ```powershell
-pixi run build-native
+dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj
 ```
 
-The command produces only `artifacts/native/<host-rid>/`. Managed packaging and tests remain ordinary .NET operations:
+## Repository layout
+
+| Path | Contents |
+| --- | --- |
+| `src/Darp.Geometry/` | Managed geometry types, interface extensions and tensor kernels |
+| `src/Darp.Tesseract.Native/Generated/` | SWIG-generated C# API |
+| `src/Darp.Tesseract.Native/Runtime/` | Managed native-memory and container support |
+| `bindings/components/` | Upstream headers to expose and signatures to exclude |
+| `bindings/geometry/` | Eigen mappings, collection mappings and native conversion code |
+| `bindings/support/` | Shared SWIG rules for ownership, exceptions and other C++ types |
+| `bindings/generated/` | Generated C++ wrapper |
+| `native/` | Pinned upstream submodules |
+| `tests/Darp.Tesseract.Native.IntegrationTests/` | Geometry, native interop and package tests |
+
+The root CMake build copies Tesseract into an ignored build directory and applies
+[the runtime dependency patch](patches/tesseract-runtime-dependencies.patch) there.
+It leaves the submodule checkout unchanged. The patch disables PCL-backed URDF
+point-cloud parsing and removes an unnecessary compiled Boost.Graph dependency.
+
+Tesseract components and plugin factories link into `tesseract_csharp`. Other
+required native libraries ship alongside it. KDL remains dynamically linked.
+The plugin bootstrap registers the wrapper with Tesseract's plugin loader so
+existing SRDF/YAML factory names and search-library entries can be used.
+
+## Pack and release
+
+After building native assets, create both packages:
 
 ```powershell
 dotnet pack src/Darp.Geometry/Darp.Geometry.csproj -c Release -o artifacts/packages
 dotnet pack src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj -c Release -o artifacts/packages
-dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj -c Release
 ```
 
-CI builds the five native RIDs independently, merges their artifacts into one NuGet package, and runs the smoke tests from that package without Pixi or native build paths.
+Packing does not run CMake or Pixi. It includes the runtime directories already
+present under `artifacts/native/`. A local build normally provides only the host's
+runtime. [CI](.github/workflows/build-package.yml) builds all five runtimes, combines
+them into a package, and tests that package on each platform without the native
+build environment.
 
-## Releases
+[Release automation](.github/workflows/release.yml) uses conventional commits on
+`main` to maintain a release-please PR. Merging it creates a version tag, builds
+and tests the packages, publishes them to NuGet.org, and attaches package and
+symbol files to the GitHub release.
 
-Releases follow the same release-please flow as `Darp.Luau.Native`. Conventional
-commits on `main` create or update a release PR containing `CHANGELOG.md`,
-`version.txt`, `.release-please-manifest.json` and `Directory.Build.props`.
-Merging that PR creates a `v<version>` GitHub release, builds all
-five packaged runtimes, tests package consumers, then publishes
-`Darp.Geometry`, `Darp.Tesseract.Native` and their symbol packages to NuGet.org and attaches them to
-the GitHub release.
+Maintainers must configure NuGet Trusted Publishing for both `Darp.Geometry` and
+`Darp.Tesseract.Native`, using the `rosslight/Darp.Tesseract` repository and
+`release.yml` workflow. Set the Actions secret or variable `NUGET_USER` to the
+NuGet profile username associated with that policy. GitHub Actions also needs
+permission to create release PRs.
 
-Configure NuGet Trusted Publishing for `rosslight/Darp.Tesseract`, workflow
-`release.yml`, package owner `rosslight`, and package pattern `Darp.Tesseract*`.
-Set the repository Actions secret or variable `NUGET_USER` to the NuGet profile username
-that created the policy, and allow GitHub Actions to create pull requests.
-`NuGet/login` exchanges the workflow's OIDC token for a temporary publishing key;
-no long-lived API key secret is needed.
-
-The package includes `LICENSE`, `THIRD-PARTY-NOTICES.md`, upstream license texts
-and platform-specific native dependency licenses and
-source materials. KDL is kept dynamically linked, including on Windows.
-
-## Extend the bindings
-
-Add public headers deliberately to the relevant file under `bindings/components/`. Put only reusable ownership, container, filesystem, Eigen, or exception behavior under `bindings/support/`. Run `pixi run -e bindings generate-bindings` and review the generated C# and C++ diffs before committing them.
+See [LICENSE](LICENSE) and [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) for
+licensing. Native packages include upstream notices and dependency license materials.

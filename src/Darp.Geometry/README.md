@@ -1,91 +1,137 @@
 # Darp.Geometry
 
-Double-precision matrices, column vectors, quaternions and rigid transforms backed
-by `System.Numerics.Tensors`. This is the sole geometry implementation.
+Double-precision vectors, matrices, quaternions and rigid transforms for .NET 10.
+The library uses `System.Numerics.Tensors` and works without the Tesseract native
+runtime.
 
-## Ownership and views
+## Types and conventions
 
-Mutable geometry types are disposable classes. Read-only views expose interfaces
-implemented by internal objects that cannot be cast to mutable geometry types.
-Each object owns
-one reference to shared storage. `AsReadOnly()`, matrix conversions, blocks, rows,
-columns and transposes create independently retained views. Dispose every returned
-view or arithmetic result when finished. `IReadOnlyVector3D alias = vector`
-assigns the same object and does not retain storage independently; its runtime type
-remains mutable. Call `AsReadOnly()` to obtain an independently retained view that
-exposes no writable interface. `Clone()` allocates independent writable storage.
+| Type | Shape | Use |
+| --- | --- | --- |
+| `VectorXD` | N by 1 | Joint values and arbitrary column vectors |
+| `Vector3D` | 3 by 1 | Positions, directions and axes |
+| `MatrixXD` | Rows by columns | General matrices and Jacobians |
+| `Matrix3D` | 3 by 3 | Small matrices, including rotations |
+| `QuaternionD` | 4 by 1, X/Y/Z/W | Rotations |
+| `Isometry3D` | 4 by 4 | Rigid transforms |
+
+Angles are radians. Transforms act on column vectors, and `a * b` applies `b`
+first. Matrices allocated by the library use column-major storage.
+
+```csharp
+using Darp.Geometry;
+
+using var axis = Vector3D.UnitZ;
+using var rotation = QuaternionD.FromAxisAngle(axis, Math.PI / 2);
+using var translation = new Vector3D(1, 2, 3);
+using var transform = new Isometry3D(rotation, translation);
+using var point = Vector3D.UnitX;
+using var world = transform * point;
+// world is approximately [1, 3, 3].
+```
+
+Named operations are extension methods on read-only interfaces. They work on
+both concrete objects and interface values:
+
+```csharp
+using var vector = new Vector3D(3, 0, 4);
+using var readable = vector.AsReadOnly();
+using var unit = readable.Normalized(); // Returns a new Vector3D.
+double length = vector.Norm();          // 5
+```
+
+Import `Darp.Geometry` to use these extensions. Concrete types also provide
+operators. Use named operations such as `Add`, `Multiply` and `Scale` when the
+left operand is an interface.
+
+## Views, copies and disposal
+
+Every geometry object is disposable. A view shares coefficients but has its own
+reference to their storage. Dispose returned views and arithmetic results when
+finished.
+
+| Operation | Shares coefficients? | Independent lifetime? |
+| --- | --- | --- |
+| Assignment, including assignment to a read-only interface | Same object | No |
+| `AsReadOnly()`, `AsMatrix()`, `AsReadOnlyMatrix()` | Yes | Yes |
+| `Block()`, `Slice()`, `Row()`, `Column()`, `Transposed()` | Yes | Yes |
+| `Clone()` and arithmetic results | No | Yes |
 
 ```csharp
 using var matrix = MatrixXD.Identity(3);
 using var column = matrix.Column(0);
 using var readable = column.AsReadOnly();
 using var snapshot = readable.Clone();
+
 matrix.Dispose();
 column[0] = 7;
-Console.WriteLine(readable[0]); // 7: live read-only view.
-Console.WriteLine(snapshot[0]); // 1: independent copy.
+Console.WriteLine(readable[0]); // 7
+Console.WriteLine(snapshot[0]); // 1
 ```
 
-Disposing an object invalidates that object and every ordinary C# alias to it.
-Retained views remain valid. The last view or pin releases the underlying
-owner once. Finalization provides a fallback; deterministic disposal is preferred.
-Read-only access prevents writes through that view, not through other aliases.
-Concurrent coefficient mutation needs caller synchronization.
+Disposing `matrix` invalidates that object, but the retained column and read-only
+view remain usable. The last view or pin releases the storage owner.
 
-`MatrixXD.CreateFromMemory(memory, ...)` borrows external storage; callers keep
-its external owner valid. `CreateFromMemoryWithOwner(memory, memoryManager, ...)`
-transfers disposal of a `MemoryManager<double>` to shared storage, including on
-failed construction. Do not dispose that manager separately after transferring it.
+Read-only means no writes through that view. Other aliases can still change its
+values. `AsReadOnly()` returns an internal implementation without writable access.
+Assigning a mutable object to `IReadOnlyVector3D` only changes the variable's type;
+it neither creates a view nor removes the object's writable API.
 
-## Tensor access
+## Mapping existing memory
 
-Synchronous math reads input spans directly without allocating retained views.
-Inputs are kept alive for the call; callers must not dispose them concurrently.
-Retain a matrix view for span access that must survive disposal of the original object:
+`CreateFromMemory` maps memory without copying it:
+
+```csharp
+double[] values = [1, 2, 3, 4, 5, 6];
+using var matrix = MatrixXD.CreateFromMemory(
+    values, rows: 2, columns: 3, columnStride: 1, rowStride: 3);
+
+matrix[1, 2] = 9; // Also changes values[5].
+```
+
+Strides count doubles, not bytes. Positive strides support row-major, padded and
+strided layouts. `Row(i)` has shape 1 by N, `Column(i)` is a column vector, and
+`AsVector()` requires one column.
+
+For externally owned memory, keep its owner valid while any view uses it.
+`MatrixXD.CreateFromMemoryWithOwner` instead transfers a
+`MemoryManager<double>` to the shared storage. The last view or pin disposes it.
+Failed construction also disposes the transferred manager.
+
+## Tensor spans
+
+`AsTensorSpan()` and `AsReadOnlyTensorSpan()` expose rank-two spans with
+`[row, column]` indexing. They do not retain storage.
 
 ```csharp
 using var matrix = MatrixXD.Identity(3);
-using var access = matrix.AsMatrix();
-var tensor = access.AsTensorSpan();
-matrix.Dispose();
-tensor[0, 0] = 2; // Access remains alive and undisposed.
+var coefficients = matrix.AsTensorSpan();
+coefficients[0, 1] = 2;
+GC.KeepAlive(matrix); // After the span's last use.
 ```
 
-`AsReadOnlyMatrix()` similarly retains a read-only view. No separate borrow object
-is needed. A tensor span does not own a reference: keep its source view alive and
-undisposed until the span's last use. Never access it concurrently with disposal of
-that view. A `Pin()` handle independently retains storage until disposed. These are
-runtime contracts, not compiler-enforced borrow checking.
+Keep the source object alive and undisposed until the span's last use.
+If access must outlive the original object, first create a retained view with
+`AsMatrix()` or `AsReadOnlyMatrix()`, then obtain the span from that view.
+`Pin()` also retains storage until its handle is disposed.
 
-## Shapes and operations
+Synchronous math reads spans directly and keeps its inputs alive for the call.
+It does not allocate retained input views. Callers must not dispose inputs during
+a call or mutate shared coefficients concurrently without synchronization.
 
-Each geometry object directly retains shared storage and its layout through
-`GeometryObject`; specializations do not wrap chains of matrix/vector objects.
-`VectorXD` specializes an N by 1 shape, `Vector3D` has three coefficients, and
-`Matrix3D` has shape 3 by 3.
-Quaternion coefficients use X/Y/Z/W in a 4 by 1 matrix, while `Isometry3D` exposes
-a homogeneous 4 by 4 matrix. Read-only access uses `IReadOnlyMatrixD`,
-`IReadOnlyMatrix3D`, `IReadOnlyVectorXD`, `IReadOnlyVector3D`,
-`IReadOnlyQuaternionD` and `IReadOnlyIsometry3D`. Extension methods provide
-operations on these interfaces; arithmetic results are independent mutable objects.
+## Numerical behavior
 
-`Row(i)` preserves its 1 by N orientation, `Column(i)` returns a vector, and
-`AsVector()` requires one column. `Transposed()` shares storage. Matrix multiplication
-is algebraic. `MatrixExtensions` centralizes kernels behind `IReadOnlyMatrixD` and
-`IMatrixD`; tensor spans are an explicit access API, not the numerical input contract.
+Empty matrices and vectors are allowed. Empty norms and dot products are zero;
+normalizing a zero norm throws.
 
-Owned matrices use column-major storage. Mapping supports positive strides,
-including row-major, padded, strided vectors, blocks and transposes. Tensor spans
-use rank two and logical [row, column] indexing. Empty dimensions are valid;
-empty norms/dot products are zero, and normalization of zero norm is rejected.
+Quaternion rotation operations normalize their inputs locally. Quaternion
+multiplication preserves the algebraic coefficients.
 
-Angles are radians, transforms act on column vectors, and `a * b` applies b first.
-Rotation operations normalize quaternion inputs locally; Hamilton multiplication
-preserves algebraic coefficients. Isometry setters copy inputs, including overlapping
-views. Callers editing raw matrix coefficients must preserve orthonormal rotation
-and homogeneous last row [0,0,0,1]. `Rotation` computes an independent quaternion;
-`Translation` and `RotationMatrix` return retained views.
+For an isometry, `Translation` and `RotationMatrix` return retained views.
+`Rotation` computes a new quaternion. Setters copy their inputs. If you edit an
+isometry through matrix or span access, you are responsible for keeping its
+rotation orthonormal and its last row equal to [0, 0, 0, 1].
 
-General solvers and decompositions are outside this implementation.
-The [native bindings](../Darp.Tesseract.Native/README.md) use the same disposable
-geometry types for native results and call-scoped input pinning.
+General linear solvers and decompositions are not implemented.
+See the [geometry tests](../../tests/Darp.Tesseract.Native.IntegrationTests/GeometryOwnershipTests.cs)
+for executable examples of views, disposal, layouts and transform operations.
