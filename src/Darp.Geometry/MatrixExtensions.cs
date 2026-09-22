@@ -1,3 +1,5 @@
+using System.Numerics.Tensors;
+
 namespace Darp.Geometry;
 
 /// <summary>Operations on read-only matrix access. Results own independent storage.</summary>
@@ -24,78 +26,99 @@ public static class MatrixExtensions
         return result;
     }
 
-    public static IReadOnlyMatrixD Row(this IReadOnlyMatrixD matrix, int row) =>
-        matrix.Block(row, 0, 1, matrix.Columns);
+    public static ReadOnlyMatrixXD Row<T>(this T matrix, int row)
+        where T : IReadOnlyMatrixD => matrix.Block(row, 0, 1, matrix.Columns);
 
-    public static IReadOnlyVectorXD Column(this IReadOnlyMatrixD matrix, int column)
+    public static ReadOnlyVectorXD Column<T>(this T matrix, int column)
+        where T : IReadOnlyMatrixD
     {
         var block = matrix.Block(0, column, matrix.Rows, 1);
         return block.AsVector();
     }
 
-    public static double Norm(this IReadOnlyMatrixD matrix)
+    public static double Norm<T>(this T matrix)
+        where T : IReadOnlyMatrixD
     {
         using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
         return TensorKernels.Norm(matrixSpan);
     }
 
-    public static double SquaredNorm(this IReadOnlyMatrixD matrix)
+    public static double SquaredNorm<T>(this T matrix)
+        where T : IReadOnlyMatrixD
     {
         using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
         return TensorKernels.SquaredNorm(matrixSpan);
     }
 
-    public static double InnerProduct(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    public static double InnerProduct<TLeft, TRight>(this TLeft left, TRight right)
+        where TLeft : IReadOnlyMatrixD
+        where TRight : IReadOnlyMatrixD
     {
         using var leftLease = left.GetReadOnlyTensorSpan(out var leftSpan);
         using var rightLease = right.GetReadOnlyTensorSpan(out var rightSpan);
         return TensorKernels.InnerProduct(leftSpan, rightSpan);
     }
 
-    public static double Dot(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    public static double Dot<TLeft, TRight>(this TLeft left, TRight right)
+        where TLeft : IReadOnlyMatrixD
+        where TRight : IReadOnlyMatrixD
     {
         using var leftLease = left.GetReadOnlyTensorSpan(out var leftSpan);
         using var rightLease = right.GetReadOnlyTensorSpan(out var rightSpan);
         return TensorKernels.Dot(leftSpan, rightSpan);
     }
 
-    public static MatrixXD Normalized(this IReadOnlyMatrixD matrix)
+    public static MatrixXD Normalized<TM>(in TM matrix)
+        where TM : IReadOnlyMatrixD
     {
         using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
         return TensorKernels.Normalized(matrixSpan);
     }
 
-    public static MatrixXD Add(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    public static TM1 Add<TM1, TM2>(in TM1 left, in TM2 right)
+        where TM1 : IReadOnlyMatrixD<TM1>
+        where TM2 : IReadOnlyMatrixD<TM2>
     {
         using var leftLease = left.GetReadOnlyTensorSpan(out var leftSpan);
         using var rightLease = right.GetReadOnlyTensorSpan(out var rightSpan);
-        return TensorKernels.Add(leftSpan, rightSpan);
+        MatrixData data = TensorKernels.Add(leftSpan, rightSpan);
+        return TM1.Create(data);
     }
 
-    public static MatrixXD Subtract(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    public static TM1 Subtract<TM1, TM2>(in TM1 left, in TM2 right)
+        where TM1 : IReadOnlyMatrixD<TM1>
+        where TM2 : IReadOnlyMatrixD<TM2>
     {
         using var leftLease = left.GetReadOnlyTensorSpan(out var leftSpan);
         using var rightLease = right.GetReadOnlyTensorSpan(out var rightSpan);
-        return TensorKernels.Subtract(leftSpan, rightSpan);
+        MatrixData data = TensorKernels.Subtract(leftSpan, rightSpan);
+        return TM1.Create(data);
     }
 
-    public static MatrixXD Multiply(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    public static TM1 Multiply<TM1, TM2>(in TM1 left, in TM2 right)
+        where TM1 : IReadOnlyMatrixD<TM1>
+        where TM2 : IReadOnlyMatrixD<TM2>
     {
         using var leftLease = left.GetReadOnlyTensorSpan(out var leftSpan);
         using var rightLease = right.GetReadOnlyTensorSpan(out var rightSpan);
-        return TensorKernels.Multiply(leftSpan, rightSpan);
+        MatrixData data =  TensorKernels.Multiply(leftSpan, rightSpan);
+        return TM1.Create(data);
     }
 
-    public static MatrixXD Scale(this IReadOnlyMatrixD matrix, double scalar)
+    public static TM Scale<TM>(this TM matrix, double scalar)
+        where TM : IReadOnlyMatrixD<TM>
     {
         using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
-        return TensorKernels.Scale(matrixSpan, scalar);
+        MatrixData data =  TensorKernels.Scale(matrixSpan, scalar);
+        return TM.Create(data);
     }
 
-    public static MatrixXD Divide(this IReadOnlyMatrixD matrix, double scalar)
+    public static TM Divide<TM>(this TM matrix, double scalar)
+        where TM : IReadOnlyMatrixD<TM>
     {
         using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
-        return TensorKernels.Divide(matrixSpan, scalar);
+        MatrixData data = TensorKernels.Divide(matrixSpan, scalar);
+        return TM.Create(data);
     }
 
     public static MatrixXD Lerp(this IReadOnlyMatrixD left, IReadOnlyMatrixD right, double amount)
@@ -105,23 +128,21 @@ public static class MatrixExtensions
         return TensorKernels.Lerp(leftSpan, rightSpan, amount);
     }
 
-    public static Vector3D Cross(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    public static Vector3D Cross(this ReadOnlyMatrixXD left, ReadOnlyMatrixXD right)
     {
-        using var leftLease = left.GetReadOnlyTensorSpan(out var leftSpan);
-        using var rightLease = right.GetReadOnlyTensorSpan(out var rightSpan);
+        using TensorSpanLease leftLease = left.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> leftSpan);
+        using TensorSpanLease rightLease = right.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> rightSpan);
         return TensorKernels.Cross(leftSpan, rightSpan);
     }
 
-    public static double Determinant3x3(this IReadOnlyMatrixD matrix)
+    public static double Determinant3x3(this in ReadOnlyMatrixXD matrix)
     {
-        using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
+        using TensorSpanLease matrixLease = matrix.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> matrixSpan);
         return TensorKernels.Determinant3x3(matrixSpan);
     }
 
-    public static VectorXD Multiply(this IReadOnlyMatrixD matrix, IReadOnlyVectorXD vector) =>
-        VectorXD.FromMatrix(matrix.Multiply((IReadOnlyMatrixD)vector));
-
-    internal static string Format(IReadOnlyMatrixD matrix)
+    internal static string Format<TM>(in TM matrix)
+        where TM : IReadOnlyMatrixD<TM>
     {
         using var valuesLease = matrix.GetReadOnlyTensorSpan(out var values);
         var rows = new string[matrix.Rows];
@@ -134,4 +155,10 @@ public static class MatrixExtensions
         }
         return string.Join(Environment.NewLine, rows);
     }
+}
+
+public static class VectorExtensions
+{
+    public static VectorXD Multiply<TM1, TM2>(in TM1 matrix, in TM2 vector) =>
+        VectorXD.FromMatrix(GeometryExtensions.Multiply(matrix, vector.AsReadOnlyMatrix()));
 }

@@ -1,9 +1,18 @@
 namespace Darp.Geometry;
 
 // Views and access leases keep this shared storage reachable; there are no per-view references to count.
-internal sealed class MatrixStorage(Memory<double> memory, IDisposable? owner)
+internal sealed class MatrixStorage(Memory<double> memory, IDisposable? owner, bool isReadOnly = false)
 {
     internal readonly Memory<double> Memory = memory;
+
+    internal void RequireWritable()
+    {
+        if (isReadOnly)
+            throw new InvalidOperationException(
+                "Default geometry has read-only zero storage. Construct a value or clone it before writing."
+            );
+    }
+
     private readonly StorageOwner? _owner = owner is null ? null : new(owner);
 
     // Only transferred ownership needs finalization. Ordinary managed matrices have no finalizer.
@@ -11,7 +20,10 @@ internal sealed class MatrixStorage(Memory<double> memory, IDisposable? owner)
     {
         ~StorageOwner()
         {
-            try { owner.Dispose(); }
+            try
+            {
+                owner.Dispose();
+            }
             catch { } // Finalizers cannot propagate exceptions from an external owner.
         }
     }

@@ -31,7 +31,7 @@ var world = transform * point;
 ```
 
 Named operations are extension methods on read-only interfaces. They work on
-both concrete objects and interface values:
+both concrete structs and interface values:
 
 ```csharp
 var vector = new Vector3D(3, 0, 4);
@@ -46,7 +46,9 @@ left operand is an interface.
 
 ## Views and copies
 
-Geometry objects are not disposable. Views keep their shared storage alive;
+Geometry types are non-disposable `readonly struct`s. Each contains a reference
+to shared coefficient storage and its view layout. Copying a struct aliases that
+storage; it does not copy the coefficients. Views keep their shared storage alive;
 `Clone()` and arithmetic create independent coefficients.
 
 ```csharp
@@ -63,9 +65,40 @@ Managed arrays follow normal GC lifetime. Native-backed results share an owner
 that is released when the storage becomes unreachable; release is not deterministic.
 
 Read-only means no writes through that view. Other aliases can still change its
-values. `AsReadOnly()` returns an internal implementation without writable access.
-Assigning a mutable object to `IReadOnlyVector3D` only changes the variable's type;
-it neither creates a view nor removes the object's writable API.
+values. `AsReadOnly()` returns a concrete `ReadOnlyVector3D`, `ReadOnlyMatrixXD`,
+or corresponding readonly struct. These views expose no writable access.
+Assigning a writable struct to an interface boxes it; the boxed copy still shares
+its storage. `MatrixMarshal` and scalar matrix operations use generic constraints
+to avoid boxing concrete structs. Shape-specific arithmetic extensions still
+accept interfaces and can box their arguments.
+
+## Default values
+
+`default(Vector3D)` is a 3-element zero vector backed by shared read-only storage.
+The same applies to other fixed-size types. `default(VectorXD)` is an empty 0 by 1
+vector; `default(MatrixXD)` is an empty 0 by 0 matrix. Reading, readonly views and
+readonly tensor access work. Setters and writable tensor access throw
+`InvalidOperationException`, including through derived views.
+
+```csharp
+Vector3D zero = default;
+Console.WriteLine(zero.X); // 0
+// zero.X = 1;            // Throws: shared zero storage is read-only.
+
+var writable = new Vector3D(); // Allocates writable zero coefficients.
+writable.X = 1;
+var copy = zero.Clone();       // Also creates independent writable storage.
+```
+
+`readonly` describes the struct's storage reference and layout, not its
+coefficients. Constructors allocate writable storage. `new Isometry3D()` creates
+an identity transform; `QuaternionD.Identity` creates an identity quaternion.
+Their `default` values contain all zeros and do **not** represent valid rotations
+or rigid transforms.
+
+For a view returned by a property, store it in a local before assigning its
+coefficients, for example `var translation = pose.Translation; translation.X = 1;`.
+The local shares storage with `pose`.
 
 ## Mapping existing memory
 
@@ -113,7 +146,8 @@ Disposing the lease does not invalidate the matrix or its views.
 Internal math follows the same scoped-access pattern. A lease neither prevents
 concurrent mutation nor protects caller-owned memory from external disposal.
 
-Use `MatrixMarshal.Pin(matrix)` only when native code needs a stable pointer.
+Use `MatrixMarshal.Pin(matrix)` when native code needs a stable read-only pointer.
+Do not write through that pointer, including when pinning shared default storage.
 Dispose that `MemoryHandle` after the pointer's last use. Both span leases and
 pins keep transferred storage owners alive for their scope.
 

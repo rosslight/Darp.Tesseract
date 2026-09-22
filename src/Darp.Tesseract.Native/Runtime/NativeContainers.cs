@@ -4,8 +4,8 @@ using Darp.Geometry;
 
 namespace Darp.Tesseract.Native;
 
-/// <summary>Immutable native map. Each retrieved value owns an independent storage reference and must be disposed.</summary>
-public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable where T : class, IReadOnlyMatrixD
+/// <summary>Immutable native map. Retrieved geometry keeps its storage alive independently of this container.</summary>
+public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable where T : IReadOnlyMatrixD
 {
     private readonly NativeOwner _owner;
     private readonly int _kind;
@@ -52,7 +52,7 @@ public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out T value)
     {
         using var lease = _owner.Borrow();
-        if (!DarpGeometryInterop.contains(lease.Handle, _kind, key)) { value = null; return false; }
+        if (!DarpGeometryInterop.contains(lease.Handle, _kind, key)) { value = default; return false; }
         value = _wrap(DarpGeometryInterop.element(lease.Handle, _kind, 0, key));
         return true;
     }
@@ -77,8 +77,8 @@ public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable
     public void Dispose() => _owner.Dispose();
 }
 
-/// <summary>Immutable native sequence. Each retrieved value owns an independent storage reference and must be disposed.</summary>
-public abstract class NativeList<T> : IReadOnlyList<T>, IDisposable where T : class, IReadOnlyMatrixD
+/// <summary>Immutable native sequence. Retrieved geometry keeps its storage alive independently of this container.</summary>
+public abstract class NativeList<T> : IReadOnlyList<T>, IDisposable where T : IReadOnlyMatrixD
 {
     private readonly NativeOwner _owner;
     private readonly int _kind;

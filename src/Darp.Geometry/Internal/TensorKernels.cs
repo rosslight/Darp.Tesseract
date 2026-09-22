@@ -64,11 +64,11 @@ internal static class TensorKernels
         return Divide(matrix, norm);
     }
 
-    public static MatrixXD Add(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)
+    public static MatrixData Add(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)
     {
         MatrixShape.RequireSameShape(left, right);
-        var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
-        using var destinationLease = result.GetTensorSpan(out var destination);
+        var result = new MatrixData((int)left.Lengths[0], (int)left.Lengths[1]);
+        using var destinationLease = result.AcquireWritableTensorSpan(out var destination);
         for (int c = 0; c < left.Lengths[1]; c++)
         {
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
@@ -80,11 +80,11 @@ internal static class TensorKernels
         return result;
     }
 
-    public static MatrixXD Subtract(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)
+    public static MatrixData Subtract(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)
     {
         MatrixShape.RequireSameShape(left, right);
-        var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
-        using var destinationLease = result.GetTensorSpan(out var destination);
+        var result = new MatrixData((int)left.Lengths[0], (int)left.Lengths[1]);
+        using var destinationLease = result.AcquireWritableTensorSpan(out var destination);
         for (int c = 0; c < left.Lengths[1]; c++)
         {
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
@@ -97,11 +97,11 @@ internal static class TensorKernels
     }
 
     /// <summary>Algebraic matrix multiplication; left.Lengths[1] must equal right.Lengths[0].</summary>
-    public static MatrixXD Multiply(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)
+    public static MatrixData Multiply(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right)
     {
         MatrixShape.RequireProduct(left, right);
-        var result = new MatrixXD((int)left.Lengths[0], (int)right.Lengths[1]);
-        using var destinationLease = result.GetTensorSpan(out var destination);
+        var result = new MatrixData((int)left.Lengths[0], (int)right.Lengths[1]);
+        using var destinationLease = result.AcquireWritableTensorSpan(out var destination);
         for (int c = 0; c < right.Lengths[1]; c++)
         for (int k = 0; k < left.Lengths[1]; k++)
         for (int r = 0; r < left.Lengths[0]; r++)
@@ -109,11 +109,11 @@ internal static class TensorKernels
         return result;
     }
 
-    public static MatrixXD Scale(ReadOnlyTensorSpan<double> matrix, double scalar)
+    public static MatrixData Scale(ReadOnlyTensorSpan<double> matrix, double scalar)
     {
         MatrixShape.RequireMatrix(matrix);
-        var result = new MatrixXD((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
-        using var destinationLease = result.GetTensorSpan(out var destination);
+        var result = new MatrixData((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
+        using var destinationLease = result.AcquireWritableTensorSpan(out var destination);
         for (int c = 0; c < matrix.Lengths[1]; c++)
         {
             if (TryGetContiguousColumn(matrix, c, out var column))
@@ -125,11 +125,11 @@ internal static class TensorKernels
         return result;
     }
 
-    public static MatrixXD Divide(ReadOnlyTensorSpan<double> matrix, double scalar)
+    public static MatrixData Divide(ReadOnlyTensorSpan<double> matrix, double scalar)
     {
         MatrixShape.RequireMatrix(matrix);
-        var result = new MatrixXD((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
-        using var destinationLease = result.GetTensorSpan(out var destination);
+        var result = new MatrixData((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
+        using var destinationLease = result.AcquireWritableTensorSpan(out var destination);
         for (int c = 0; c < matrix.Lengths[1]; c++)
         for (int r = 0; r < matrix.Lengths[0]; r++)
             destination[r, c] = matrix[r, c] / scalar;

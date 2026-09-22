@@ -2,7 +2,7 @@ namespace Darp.Geometry;
 
 internal static class QuaternionMath
 {
-    public static QuaternionD FromAxisAngle(IReadOnlyVector3D axis, double angle)
+    public static QuaternionD FromAxisAngle(in ReadOnlyVector3D axis, double angle)
     {
         if (!double.IsFinite(angle))
             throw new ArgumentOutOfRangeException(nameof(angle));
@@ -11,7 +11,7 @@ internal static class QuaternionMath
         return new(unit[0, 0] * sine, unit[1, 0] * sine, unit[2, 0] * sine, Math.Cos(angle / 2));
     }
 
-    public static QuaternionD FromRotationMatrix(IReadOnlyMatrix3D value)
+    public static QuaternionD FromRotationMatrix(in ReadOnlyMatrix3D value)
     {
         using var lease = value.GetReadOnlyTensorSpan(out var matrix);
         MatrixShape.RequireSize(matrix, 3, 3);
@@ -57,10 +57,10 @@ internal static class QuaternionMath
                 (matrix[1, 0] - matrix[0, 1]) / s
             );
         }
-        return result.Normalized();
+        return result.AsReadOnly().Normalized();
     }
 
-    public static QuaternionD Slerp(IReadOnlyQuaternionD a, IReadOnlyQuaternionD b, double amount)
+    public static QuaternionD Slerp(in ReadOnlyQuaternionD a, in ReadOnlyQuaternionD b, double amount)
     {
         if (!double.IsFinite(amount))
             throw new ArgumentOutOfRangeException(nameof(amount));
@@ -85,6 +85,6 @@ internal static class QuaternionMath
             unitA.Z * weightA + unitB.Z * weightB,
             unitA.W * weightA + unitB.W * weightB
         );
-        return result.Normalized();
+        return result.AsReadOnly().Normalized();
     }
 }

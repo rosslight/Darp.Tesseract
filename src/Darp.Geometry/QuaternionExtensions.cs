@@ -26,7 +26,7 @@ public static partial class GeometryExtensions
         return (new(sign * q.X / sine, sign * q.Y / sine, sign * q.Z / sine), 2 * Math.Atan2(sine, sign * q.W));
     }
 
-    public static Vector3D Rotate(this IReadOnlyQuaternionD value, IReadOnlyVector3D vector)
+    public static Vector3D Rotate(in ReadOnlyQuaternionD value, in ReadOnlyVector3D vector)
     {
         var q = value.Normalized();
         double x = vector.X,
@@ -60,7 +60,7 @@ public static partial class GeometryExtensions
     }
 
     /// <summary>Hamilton product: for rotations, apply right first, then left.</summary>
-    public static QuaternionD Multiply(this IReadOnlyQuaternionD left, IReadOnlyQuaternionD right) =>
+    public static QuaternionD Multiply(this in ReadOnlyQuaternionD left, in ReadOnlyQuaternionD right) =>
         new(
             left.W * right.X + left.X * right.W + left.Y * right.Z - left.Z * right.Y,
             left.W * right.Y - left.X * right.Z + left.Y * right.W + left.Z * right.X,

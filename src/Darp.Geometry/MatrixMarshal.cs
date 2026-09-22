@@ -7,13 +7,15 @@ namespace Darp.Geometry;
 public static class MatrixMarshal
 {
     /// <summary>Acquires read access. Keep the returned lease alive and undisposed through the span's last use.</summary>
-    public static TensorSpanLease GetReadOnlyTensorSpan(this IReadOnlyMatrixD matrix, out ReadOnlyTensorSpan<double> span)
-        => matrix.AcquireReadOnlyTensorSpan(out span);
+    public static TensorSpanLease GetReadOnlyTensorSpan<TM>(in TM matrix, out ReadOnlyTensorSpan<double> span)
+        where TM : IReadOnlyMatrixD =>
+        matrix.GetReadOnlyTensorSpan(out span);
 
     /// <summary>Acquires write access. Keep the returned lease alive and undisposed through the span's last use.</summary>
-    public static TensorSpanLease GetTensorSpan(this IMatrixD matrix, out TensorSpan<double> span)
-        => matrix.AcquireTensorSpan(out span);
+    public static TensorSpanLease GetTensorSpan<TM>(in TM matrix, out TensorSpan<double> span)
+        where TM : IMatrixD =>
+        matrix.GetTensorSpan(out span);
 
-    /// <summary>Pins coefficients for native pointer access until the returned handle is disposed.</summary>
-    public static MemoryHandle Pin(this IReadOnlyMatrixD matrix) => matrix.Pin();
+    /// <summary>Pins coefficients for read-only native pointer access until the returned handle is disposed.</summary>
+    public static MemoryHandle Pin(this in ReadOnlyMatrixXD matrix) => matrix.Data.Pin();
 }

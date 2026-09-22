@@ -8,11 +8,48 @@ namespace Darp.Tesseract.Native.IntegrationTests;
 public sealed class GeometryOwnershipTests
 {
     [Fact]
+    public void DefaultValuesReadAsZeroAndRejectWritableAccess()
+    {
+        Vector3D vector = default;
+        vector.Count.ShouldBe(3);
+        vector.ToArray().ShouldBe(new double[] { 0, 0, 0 });
+        using (vector.GetReadOnlyTensorSpan(out var values))
+            values[2, 0].ShouldBe(0);
+        Should.Throw<InvalidOperationException>(() => vector.X = 1);
+        Should.Throw<InvalidOperationException>(() =>
+        {
+            using var lease = vector.AsMatrix().GetTensorSpan(out var values);
+        });
+
+        default(Matrix3D).SquaredNorm().ShouldBe(0);
+        default(QuaternionD).W.ShouldBe(0);
+        default(Isometry3D)[3, 3].ShouldBe(0);
+        default(VectorXD).Count.ShouldBe(0);
+        default(VectorXD).Columns.ShouldBe(1);
+        default(MatrixXD).Rows.ShouldBe(0);
+        default(MatrixXD).Columns.ShouldBe(0);
+        default(ReadOnlyVector3D).Z.ShouldBe(0);
+    }
+
+    [Fact]
+    public void ConstructedValuesAndClonedDefaultsAreWritable()
+    {
+        var vector = new Vector3D();
+        var alias = vector;
+        alias.X = 4;
+        vector.X.ShouldBe(4);
+        var clone = default(Vector3D).Clone();
+        clone.X = 5;
+        default(Vector3D).X.ShouldBe(0);
+        new Isometry3D()[3, 3].ShouldBe(1);
+    }
+
+    [Fact]
     public void TensorAccessDoesNotPinOrDisposeSharedStorage()
     {
         var owner = new CountingOwner();
         var matrix = MatrixXD.CreateFromMemoryWithOwner(owner.Memory, owner, 2, 2);
-        var column = matrix.Column(0);
+        var column = matrix.SliceColumn(0);
         var readOnly = matrix.AsReadOnly();
         using (matrix.GetTensorSpan(out var values))
         {
@@ -31,9 +68,8 @@ public sealed class GeometryOwnershipTests
     public void AssignmentAndReadOnlyViewsShareCoefficientsButClonesDoNot()
     {
         var source = new Vector3D(1, 2, 3);
-        IReadOnlyVector3D alias = source;
+        var alias = source;
         var readOnly = source.AsReadOnly();
-        (readOnly is IMatrixD).ShouldBeFalse();
         var snapshot = readOnly.Clone();
         source.X = 8;
         alias.X.ShouldBe(8);
@@ -49,11 +85,10 @@ public sealed class GeometryOwnershipTests
         double[] values = [0, 1, 2, 3, 10, 11, 12, 13, 20, 21, 22, 23];
         var matrix = MatrixXD.CreateFromMemory(values, 3, 4, columnStride: 1, rowStride: 4);
         var readOnly = matrix.AsReadOnly();
-        var block = readOnly.Block(1, 1, 2, 3);
+        var block = readOnly[1..2, 1..3];
         var transpose = block.Transposed();
         var column = transpose.Column(1);
 
-        (column is IMatrixD).ShouldBeFalse();
         column.ToArray().ShouldBe(new double[] { 21, 22, 23 });
         values[10] = 222;
         column[1].ShouldBe(222);

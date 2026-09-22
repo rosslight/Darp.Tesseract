@@ -1,22 +1,32 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>Read-only access to coefficients; other aliases may still mutate shared storage.</summary>
-public interface IReadOnlyMatrixD
+public interface IReadOnlyMatrixD<out TM> where TM : IReadOnlyMatrixD<TM>
 {
+    /// <summary> The rows of this matrix </summary>
     int Rows { get; }
+
+    /// <summary> The columns of this matrix </summary>
     int Columns { get; }
+
+    /// <summary> The row stride of this matrix </summary>
     int RowStride { get; }
+
+    /// <summary> The column stride of this matrix </summary>
     int ColumnStride { get; }
+
+    /// <summary> Gets the element at the (row, column) coordinate </summary>
+    /// <param name="row">The row to get</param>
+    /// <param name="column">The column to get</param>
     double this[int row, int column] { get; }
 
-    /// <summary>Acquire scoped read access without pinning the backing memory.</summary>
-    internal TensorSpanLease AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> tensorSpan);
-    internal MemoryHandle Pin();
-    IReadOnlyMatrixD AsReadOnlyMatrix();
-    IReadOnlyMatrixD Block(int row, int column, int rows, int columns);
-    IReadOnlyMatrixD Transposed();
-    IReadOnlyVectorXD AsVector();
+    /// <summary> Gets the element at the (row, column) coordinate </summary>
+    /// <param name="row">The row to get</param>
+    /// <param name="column">The column to get</param>
+    double this[Index row, Index column] { get; }
+
+    internal TensorSpanLease GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span);
+
+    internal static abstract TM Create(in MatrixData data);
 }
