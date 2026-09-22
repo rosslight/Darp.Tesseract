@@ -21,5 +21,5 @@ internal sealed class ReadOnlyVector3D : GeometryObject, IReadOnlyVector3D
 
     public IReadOnlyVectorXD AsVector() => new ReadOnlyVectorXD(Storage, Layout, Offset);
 
-    public override string ToString() => $"[{string.Join(", ", GeometryExtensions.ToArray(this))}]";
+    public override string ToString() => $"[{string.Join(", ", this.ToArray())}]";
 }

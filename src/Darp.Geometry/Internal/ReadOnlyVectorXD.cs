@@ -15,5 +15,5 @@ internal sealed class ReadOnlyVectorXD : GeometryObject, IReadOnlyVectorXD
             count == 0 ? Offset : checked(Offset + start * RowStride)
         );
 
-    public override string ToString() => $"[{string.Join(", ", GeometryExtensions.ToArray(this))}]";
+    public override string ToString() => $"[{string.Join(", ", this.ToArray())}]";
 }

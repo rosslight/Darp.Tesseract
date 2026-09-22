@@ -35,5 +35,5 @@ public static partial class GeometryExtensions
 
     /// <summary>Applies right first, then left. The result has independent storage.</summary>
     public static Isometry3D Multiply(this IReadOnlyIsometry3D left, IReadOnlyIsometry3D right) =>
-        Isometry3D.FromOwnedMatrix(MatrixOperations.Multiply(left, right));
+        Isometry3D.FromOwnedMatrix(left.Multiply((IReadOnlyMatrixD)right));
 }

@@ -1,28 +1,29 @@
 namespace Darp.Geometry;
 
 /// <summary>Operations on read-only matrix access. Results own independent storage.</summary>
+/// <remarks>Callers must not dispose inputs concurrently with an operation.</remarks>
 public static class MatrixExtensions
 {
     public static MatrixXD Clone(this IReadOnlyMatrixD matrix)
     {
-        using var source = matrix.AsReadOnlyMatrix();
-        var values = source.AsReadOnlyTensorSpan();
-        var result = new MatrixXD(source.Rows, source.Columns);
+        var values = matrix.AsReadOnlyTensorSpan();
+        var result = new MatrixXD(matrix.Rows, matrix.Columns);
         var target = result.AsTensorSpan();
-        for (int c = 0; c < source.Columns; c++)
-        for (int r = 0; r < source.Rows; r++)
+        for (int c = 0; c < matrix.Columns; c++)
+        for (int r = 0; r < matrix.Rows; r++)
             target[r, c] = values[r, c];
+        GC.KeepAlive(matrix);
         return result;
     }
 
     public static double[,] ToArray(this IReadOnlyMatrixD matrix)
     {
-        using var source = matrix.AsReadOnlyMatrix();
-        var values = source.AsReadOnlyTensorSpan();
-        var result = new double[source.Rows, source.Columns];
-        for (int c = 0; c < source.Columns; c++)
-        for (int r = 0; r < source.Rows; r++)
+        var values = matrix.AsReadOnlyTensorSpan();
+        var result = new double[matrix.Rows, matrix.Columns];
+        for (int c = 0; c < matrix.Columns; c++)
+        for (int r = 0; r < matrix.Rows; r++)
             result[r, c] = values[r, c];
+        GC.KeepAlive(matrix);
         return result;
     }
 
@@ -35,41 +36,119 @@ public static class MatrixExtensions
         return block.AsVector();
     }
 
-    public static double Norm(this IReadOnlyMatrixD matrix) => MatrixOperations.Norm(matrix);
+    public static double Norm(this IReadOnlyMatrixD matrix)
+    {
+        var result = TensorKernels.Norm(matrix.AsReadOnlyTensorSpan());
+        GC.KeepAlive(matrix);
+        return result;
+    }
 
-    public static double SquaredNorm(this IReadOnlyMatrixD matrix) => MatrixOperations.SquaredNorm(matrix);
+    public static double SquaredNorm(this IReadOnlyMatrixD matrix)
+    {
+        var result = TensorKernels.SquaredNorm(matrix.AsReadOnlyTensorSpan());
+        GC.KeepAlive(matrix);
+        return result;
+    }
 
-    public static MatrixXD Normalized(this IReadOnlyMatrixD matrix) => MatrixOperations.Normalized(matrix);
+    public static double InnerProduct(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    {
+        var result = TensorKernels.InnerProduct(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan());
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
 
-    public static MatrixXD Add(this IReadOnlyMatrixD matrix, IReadOnlyMatrixD other) =>
-        MatrixOperations.Add(matrix, other);
+    public static double Dot(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    {
+        var result = TensorKernels.Dot(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan());
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
 
-    public static MatrixXD Subtract(this IReadOnlyMatrixD matrix, IReadOnlyMatrixD other) =>
-        MatrixOperations.Subtract(matrix, other);
+    public static MatrixXD Normalized(this IReadOnlyMatrixD matrix)
+    {
+        var result = TensorKernels.Normalized(matrix.AsReadOnlyTensorSpan());
+        GC.KeepAlive(matrix);
+        return result;
+    }
 
-    public static MatrixXD Multiply(this IReadOnlyMatrixD matrix, IReadOnlyMatrixD other) =>
-        MatrixOperations.Multiply(matrix, other);
+    public static MatrixXD Add(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    {
+        var result = TensorKernels.Add(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan());
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
+
+    public static MatrixXD Subtract(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    {
+        var result = TensorKernels.Subtract(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan());
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
+
+    public static MatrixXD Multiply(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    {
+        var result = TensorKernels.Multiply(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan());
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
+
+    public static MatrixXD Scale(this IReadOnlyMatrixD matrix, double scalar)
+    {
+        var result = TensorKernels.Scale(matrix.AsReadOnlyTensorSpan(), scalar);
+        GC.KeepAlive(matrix);
+        return result;
+    }
+
+    public static MatrixXD Divide(this IReadOnlyMatrixD matrix, double scalar)
+    {
+        var result = TensorKernels.Divide(matrix.AsReadOnlyTensorSpan(), scalar);
+        GC.KeepAlive(matrix);
+        return result;
+    }
+
+    public static MatrixXD Lerp(this IReadOnlyMatrixD left, IReadOnlyMatrixD right, double amount)
+    {
+        var result = TensorKernels.Lerp(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan(), amount);
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
+
+    public static Vector3D Cross(this IReadOnlyMatrixD left, IReadOnlyMatrixD right)
+    {
+        var result = TensorKernels.Cross(left.AsReadOnlyTensorSpan(), right.AsReadOnlyTensorSpan());
+        GC.KeepAlive(left);
+        GC.KeepAlive(right);
+        return result;
+    }
+
+    public static double Determinant3x3(this IReadOnlyMatrixD matrix)
+    {
+        var result = TensorKernels.Determinant3x3(matrix.AsReadOnlyTensorSpan());
+        GC.KeepAlive(matrix);
+        return result;
+    }
 
     public static VectorXD Multiply(this IReadOnlyMatrixD matrix, IReadOnlyVectorXD vector) =>
-        VectorXD.FromOwnedMatrix(MatrixOperations.Multiply(matrix, vector));
-
-    public static MatrixXD Scale(this IReadOnlyMatrixD matrix, double scalar) => MatrixOperations.Scale(matrix, scalar);
-
-    public static MatrixXD Divide(this IReadOnlyMatrixD matrix, double scalar) =>
-        MatrixOperations.Divide(matrix, scalar);
+        VectorXD.FromOwnedMatrix(matrix.Multiply((IReadOnlyMatrixD)vector));
 
     internal static string Format(IReadOnlyMatrixD matrix)
     {
-        using var source = matrix.AsReadOnlyMatrix();
-        var values = source.AsReadOnlyTensorSpan();
-        var rows = new string[source.Rows];
-        for (int r = 0; r < source.Rows; r++)
+        var values = matrix.AsReadOnlyTensorSpan();
+        var rows = new string[matrix.Rows];
+        for (int r = 0; r < matrix.Rows; r++)
         {
-            var row = new string[source.Columns];
-            for (int c = 0; c < source.Columns; c++)
+            var row = new string[matrix.Columns];
+            for (int c = 0; c < matrix.Columns; c++)
                 row[c] = values[r, c].ToString();
             rows[r] = $"[{string.Join(", ", row)}]";
         }
+        GC.KeepAlive(matrix);
         return string.Join(Environment.NewLine, rows);
     }
 }

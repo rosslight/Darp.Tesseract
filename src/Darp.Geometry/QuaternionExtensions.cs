@@ -9,7 +9,7 @@ public static partial class GeometryExtensions
 
     public static QuaternionD Inverse(this IReadOnlyQuaternionD value)
     {
-        double norm = MatrixOperations.Norm(value);
+        double norm = value.Norm();
         if (!(norm > 0) || !double.IsFinite(norm))
             throw new InvalidOperationException("A finite nonzero quaternion is required.");
         return new(-value.X / norm / norm, -value.Y / norm / norm, -value.Z / norm / norm, value.W / norm / norm);

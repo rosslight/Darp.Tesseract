@@ -45,8 +45,9 @@ failed construction. Do not dispose that manager separately after transferring i
 
 ## Tensor access
 
-Ordinary scalar access and math retain storage internally. Retain a matrix view
-for span access that must survive disposal of the original object:
+Synchronous math reads input spans directly without allocating retained views.
+Inputs are kept alive for the call; callers must not dispose them concurrently.
+Retain a matrix view for span access that must survive disposal of the original object:
 
 ```csharp
 using var matrix = MatrixXD.Identity(3);
@@ -76,7 +77,7 @@ operations on these interfaces; arithmetic results are independent mutable objec
 
 `Row(i)` preserves its 1 by N orientation, `Column(i)` returns a vector, and
 `AsVector()` requires one column. `Transposed()` shares storage. Matrix multiplication
-is algebraic. `MatrixOperations` centralizes kernels behind `IReadOnlyMatrixD` and
+is algebraic. `MatrixExtensions` centralizes kernels behind `IReadOnlyMatrixD` and
 `IMatrixD`; tensor spans are an explicit access API, not the numerical input contract.
 
 Owned matrices use column-major storage. Mapping supports positive strides,

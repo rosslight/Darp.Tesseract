@@ -68,7 +68,7 @@ public sealed class QuaternionD : GeometryObject, IMatrixD, IReadOnlyQuaternionD
 
     public static QuaternionD FromRotationMatrix(IReadOnlyMatrix3D matrix) => QuaternionMath.FromRotationMatrix(matrix);
 
-    public static QuaternionD operator *(QuaternionD a, IReadOnlyQuaternionD b) => GeometryExtensions.Multiply(a, b);
+    public static QuaternionD operator *(QuaternionD a, IReadOnlyQuaternionD b) => a.Multiply(b);
 
     public static Vector3D operator *(QuaternionD rotation, IReadOnlyVector3D vector) => rotation.Rotate(vector);
 

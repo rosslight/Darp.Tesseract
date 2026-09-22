@@ -8,7 +8,7 @@ internal static class QuaternionMath
             throw new ArgumentOutOfRangeException(nameof(angle));
         using var view = axis.AsReadOnlyMatrix();
         MatrixShape.RequireSize(view.AsReadOnlyTensorSpan(), 3, 1);
-        using var unit = MatrixOperations.Normalized(view);
+        using var unit = view.Normalized();
         double sine = Math.Sin(angle / 2);
         return new(unit[0, 0] * sine, unit[1, 0] * sine, unit[2, 0] * sine, Math.Cos(angle / 2));
     }

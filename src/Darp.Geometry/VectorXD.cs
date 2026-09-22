@@ -73,5 +73,5 @@ public sealed class VectorXD : GeometryObject, IMatrixD, IReadOnlyVectorXD
 
     public static VectorXD operator /(VectorXD value, double scalar) => value.Divide(scalar);
 
-    public override string ToString() => $"[{string.Join(", ", GeometryExtensions.ToArray(this))}]";
+    public override string ToString() => $"[{string.Join(", ", this.ToArray())}]";
 }

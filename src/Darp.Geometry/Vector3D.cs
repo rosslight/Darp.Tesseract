@@ -92,5 +92,5 @@ public sealed class Vector3D : GeometryObject, IMatrixD, IReadOnlyVector3D
 
     public static Vector3D operator /(Vector3D value, double scalar) => value.Divide(scalar);
 
-    public override string ToString() => $"[{string.Join(", ", GeometryExtensions.ToArray(this))}]";
+    public override string ToString() => $"[{string.Join(", ", this.ToArray())}]";
 }
