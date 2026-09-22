@@ -16,7 +16,7 @@ public static class Playground
         output.WriteLine($"Live read-only view: {readable}; independent clone: {snapshot}");
         output.WriteLine($"Outer product:\n{outer}");
 
-        using var access = vector.Borrow();
+        using var access = vector.AsMatrix();
         vector.Dispose();
         var coefficients = access.AsTensorSpan();
         coefficients[0, 0] = 4;
@@ -28,13 +28,13 @@ public static class Playground
         using var transform = new Isometry3D(rotation, translation);
         using var pose = transform.AsReadOnly();
         using var point = Vector3D.UnitX;
-        using var world = pose * point;
+        using var world = pose.TransformPoint(point);
         using var inverse = pose.Inverse();
         using var roundTrip = inverse * world;
         output.WriteLine($"World point: {world}; back in tool: {roundTrip}");
 
         double[] rowMajor = [1, 2, 3, 4, 5, 6];
-        using var matrix = MatrixXD.Map(rowMajor, 2, 3, columnStride: 1, rowStride: 3);
+        using var matrix = MatrixXD.CreateFromMemory(rowMajor, 2, 3, columnStride: 1, rowStride: 3);
         using var transpose = matrix.Transposed();
         output.WriteLine($"Mapped row-major matrix:\n{matrix}\nTranspose view:\n{transpose}");
     }

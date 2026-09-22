@@ -185,7 +185,7 @@ public sealed class KinematicsTests
         environment.getLink("fixture").ShouldBeNull();
     }
 
-    private static bool PosesApproximatelyEqual(ReadOnlyIsometry3D expected, ReadOnlyIsometry3D actual, double tolerance)
+    private static bool PosesApproximatelyEqual(IReadOnlyIsometry3D expected, IReadOnlyIsometry3D actual, double tolerance)
     {
         using var a = expected.AsReadOnlyMatrix();
         using var b = actual.AsReadOnlyMatrix();
@@ -202,7 +202,7 @@ public sealed class KinematicsTests
         using var group = environment.getKinematicGroup("manipulator");
         using var joints = new VectorXD(0.1, -0.2, 0.3, 0.1, 0.2, -0.1);
         var storage = new double[12];
-        using var strided = VectorXD.Map(storage, 6, 2);
+        using var strided = VectorXD.CreateFromMemory(storage, 6, 2);
         for (int i = 0; i < 6; i++) { strided[i] = joints[i]; storage[i * 2 + 1] = 99; }
         using var expectedPoses = group.calcFwdKin(joints);
         using var expected = expectedPoses["tool0"];
@@ -225,7 +225,7 @@ public sealed class KinematicsTests
     public void MatrixPropertiesPreserveRowMajorLayoutAndRejectWrongShape()
     {
         using var limits = new KinematicLimits();
-        using var matrix = MatrixXD.Map(new double[] { -1, 1, -2, 2, -3, 3 }, 3, 2, columnStride: 1, rowStride: 2);
+        using var matrix = MatrixXD.CreateFromMemory(new double[] { -1, 1, -2, 2, -3, 3 }, 3, 2, columnStride: 1, rowStride: 2);
         using var readable = matrix.AsReadOnly();
         limits.joint_limits = readable;
         using var saved = limits.joint_limits;
@@ -254,7 +254,7 @@ public sealed class KinematicsTests
     }
 
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-    private static ReadOnlyVectorXD CreateJointSnapshot()
+    private static IReadOnlyVectorXD CreateJointSnapshot()
     {
         using var names = new StringVector { "a", "b", "c" };
         using var initial = new VectorXD(1.0, 2.0, 3.0);
@@ -289,13 +289,13 @@ public sealed class KinematicsTests
     }
 
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-    private static ReadOnlyIsometry3D CreateDetachedPose()
+    private static IReadOnlyIsometry3D CreateDetachedPose()
     {
         using var pose = Isometry3D.Identity;
         using var translation = pose.Translation;
         translation.X = 1; translation.Y = 2; translation.Z = 3;
         using var readable = pose.AsReadOnly();
-        using var map = new TransformMap(new Dictionary<string, ReadOnlyIsometry3D> { ["pose"] = readable });
+        using var map = new TransformMap(new Dictionary<string, IReadOnlyIsometry3D> { ["pose"] = readable });
         return map["pose"];
     }
 

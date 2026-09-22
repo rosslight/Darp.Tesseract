@@ -84,7 +84,7 @@ public class JointState : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.ReadOnlyVectorXD position {
+  public global::Darp.Geometry.IReadOnlyVectorXD position {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_position_set(swigCPtr, value_arg.Handle);
@@ -100,7 +100,7 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.ReadOnlyVectorXD velocity {
+  public global::Darp.Geometry.IReadOnlyVectorXD velocity {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_velocity_set(swigCPtr, value_arg.Handle);
@@ -116,7 +116,7 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.ReadOnlyVectorXD acceleration {
+  public global::Darp.Geometry.IReadOnlyVectorXD acceleration {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_acceleration_set(swigCPtr, value_arg.Handle);
@@ -132,7 +132,7 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.ReadOnlyVectorXD effort {
+  public global::Darp.Geometry.IReadOnlyVectorXD effort {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_effort_set(swigCPtr, value_arg.Handle);

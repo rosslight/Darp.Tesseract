@@ -3,6 +3,13 @@ namespace Darp.Geometry;
 // Shared addressing for mutable/read-only matrices, blocks, transposes, and column vectors.
 internal readonly record struct MatrixLayout(int Rows, int Columns, int RowStride, int ColumnStride)
 {
+    internal MatrixLayout Require(int? rows, int columns)
+    {
+        if ((rows.HasValue && Rows != rows.Value) || Columns != columns)
+            throw new ArgumentException($"Expected a {rows?.ToString() ?? "N"} by {columns} matrix.");
+        return this;
+    }
+
     public int Extent => Rows == 0 || Columns == 0 ? 0 : checked((Rows - 1) * RowStride + (Columns - 1) * ColumnStride + 1);
 
     public static MatrixLayout Create(int rows, int columns, int rowStride, int columnStride)

@@ -78,7 +78,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.ReadOnlyMatrixXD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name) {
+  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     {
       var result = TesseractNativePINVOKE.JointGroup_calcJacobian__SWIG_0(swigCPtr, joint_angles_arg.Handle, link_name);
@@ -88,7 +88,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.ReadOnlyMatrixXD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name, global::Darp.Geometry.IReadOnlyMatrixD link_point) {
+  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name, global::Darp.Geometry.IReadOnlyMatrixD link_point) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     using (var link_point_arg = new TensorArgument(link_point)) {
     {
@@ -100,7 +100,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.ReadOnlyMatrixXD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string base_link_name, string link_name) {
+  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string base_link_name, string link_name) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     {
       var result = TesseractNativePINVOKE.JointGroup_calcJacobian__SWIG_2(swigCPtr, joint_angles_arg.Handle, base_link_name, link_name);
@@ -110,7 +110,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.ReadOnlyMatrixXD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string base_link_name, string link_name, global::Darp.Geometry.IReadOnlyMatrixD link_point) {
+  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string base_link_name, string link_name, global::Darp.Geometry.IReadOnlyMatrixD link_point) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     using (var link_point_arg = new TensorArgument(link_point)) {
     {

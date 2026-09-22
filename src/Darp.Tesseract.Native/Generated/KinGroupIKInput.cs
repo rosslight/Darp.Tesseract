@@ -71,7 +71,7 @@ public class KinGroupIKInput : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public global::Darp.Geometry.ReadOnlyIsometry3D pose {
+  public global::Darp.Geometry.IReadOnlyIsometry3D pose {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinGroupIKInput_pose_set(swigCPtr, value_arg.Handle);

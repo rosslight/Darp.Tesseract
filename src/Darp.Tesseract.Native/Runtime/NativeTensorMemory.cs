@@ -8,10 +8,11 @@ internal sealed unsafe class NativeTensorMemory : MemoryManager<double>
     private readonly NativeOwner _owner;
     private readonly double* _data;
     private readonly int _extent;
-    internal int Rows { get; }
-    internal int Columns { get; }
-    internal int RowStride { get; }
-    internal int ColumnStride { get; }
+
+    public int Rows { get; }
+    public int Columns { get; }
+    public int RowStride { get; }
+    public int ColumnStride { get; }
 
     internal NativeTensorMemory(IntPtr pointer)
     {
@@ -23,22 +24,37 @@ internal sealed unsafe class NativeTensorMemory : MemoryManager<double>
             RowStride = DarpGeometryInterop.rowStride(_owner.Handle);
             ColumnStride = DarpGeometryInterop.columnStride(_owner.Handle);
             _data = (double*)DarpGeometryInterop.data(_owner.Handle);
-            _extent = Rows == 0 || Columns == 0 ? 0 : checked((Rows - 1) * RowStride + (Columns - 1) * ColumnStride + 1);
+            _extent = Rows == 0 || Columns == 0
+                ? 0
+                : checked((Rows - 1) * RowStride + (Columns - 1) * ColumnStride + 1);
         }
-        catch { _owner.Dispose(); throw; }
+        catch
+        {
+            _owner.Dispose(); throw;
+        }
     }
-    internal MatrixXD TakeMatrix() => MatrixXD.Own(CreateMemory(_extent), this, Rows, Columns, ColumnStride, RowStride);
+
+    internal MatrixXD TakeMatrix()
+    {
+        var memory = CreateMemory(_extent);
+        return MatrixXD.CreateFromMemoryWithOwner(memory, this, Rows, Columns, ColumnStride, RowStride);
+    }
+
     public override Span<double> GetSpan()
     {
         ObjectDisposedException.ThrowIf(_owner.IsClosed, this);
         return new(_data, _extent);
     }
+
     public override MemoryHandle Pin(int elementIndex = 0)
     {
-        if ((uint)elementIndex > (uint)_extent) throw new ArgumentOutOfRangeException(nameof(elementIndex));
+        ArgumentOutOfRangeException.ThrowIfNegative(elementIndex);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(elementIndex, _extent);
         return new MemoryHandle(_data + elementIndex, pinnable: _owner.Borrow());
     }
+
     public override void Unpin() { }
+
     protected override void Dispose(bool disposing) => _owner.Dispose();
 }
 
@@ -47,33 +63,35 @@ internal static class TensorResult
     internal static MatrixXD MutableMatrix(IntPtr pointer)
     {
         var memory = new NativeTensorMemory(pointer);
-        try { return memory.TakeMatrix(); }
-        catch { ((IDisposable)memory).Dispose(); throw; }
+        return memory.TakeMatrix();
     }
-    internal static ReadOnlyMatrixXD Matrix(IntPtr pointer)
+    internal static IReadOnlyMatrixD Matrix(IntPtr pointer)
     {
         using var matrix = MutableMatrix(pointer);
         return matrix.AsReadOnly();
     }
-    internal static ReadOnlyVectorXD Vector(IntPtr pointer)
+    internal static IReadOnlyVectorXD Vector(IntPtr pointer)
     {
-        using var matrix = Matrix(pointer);
-        return matrix.AsVector();
+        using var matrix = MutableMatrix(pointer);
+        using var vector = matrix.AsVector();
+        return vector.AsReadOnly();
     }
-    internal static ReadOnlyVector3D Vector3(IntPtr pointer)
+    internal static IReadOnlyVector3D Vector3(IntPtr pointer)
     {
-        using var matrix = Matrix(pointer);
-        return ReadOnlyVector3D.FromMatrix(matrix);
+        using var matrix = MutableMatrix(pointer);
+        using var vector = Vector3D.FromMatrix(matrix);
+        return vector.AsReadOnly();
     }
-    internal static ReadOnlyIsometry3D Isometry(IntPtr pointer)
+    internal static IReadOnlyIsometry3D Isometry(IntPtr pointer)
     {
-        using var matrix = Matrix(pointer);
-        return ReadOnlyIsometry3D.View(matrix);
+        using var matrix = MutableMatrix(pointer);
+        using var transform = Isometry3D.View(matrix);
+        return transform.AsReadOnly();
     }
-    internal static ReadOnlyQuaternionD Quaternion(IntPtr pointer)
+    internal static IReadOnlyQuaternionD Quaternion(IntPtr pointer)
     {
-        using var matrix = Matrix(pointer);
-        return ReadOnlyQuaternionD.FromMatrix(matrix);
+        using var quaternion = MutableQuaternion(pointer);
+        return quaternion.AsReadOnly();
     }
     internal static QuaternionD MutableQuaternion(IntPtr pointer)
     {

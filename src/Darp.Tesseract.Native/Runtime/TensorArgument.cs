@@ -11,7 +11,7 @@ internal sealed unsafe class TensorArgument : IDisposable
     private readonly NativeOwner _owner;
     internal TensorArgument(IReadOnlyMatrixD input)
     {
-        using var matrix = input.BorrowReadOnly();
+        using var matrix = input.AsReadOnlyMatrix();
         _pin = matrix.Pin();
         try
         {

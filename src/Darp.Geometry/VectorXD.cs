@@ -2,67 +2,41 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>A mutable N by 1 matrix specialization. All vector algebra uses the matrix kernels.</summary>
-public sealed class VectorXD : IMatrixD
+/// <summary>Mutable geometry owning one reference to its coefficient storage.</summary>
+public sealed class VectorXD : GeometryObject, IMatrixD, IReadOnlyVectorXD
 {
-    private readonly MatrixXD _matrix;
-    internal VectorXD(MatrixXD matrix)
+    internal VectorXD(MatrixStorage storage, MatrixLayout layout, int offset = 0) : base(storage, layout, offset) { }
+
+    private VectorXD(Memory<double> memory, MatrixLayout layout) : base(memory, layout) { }
+    internal static VectorXD FromOwnedMatrix(MatrixXD matrix)
     {
-        if (matrix.Columns != 1)
-        {
-            matrix.Dispose();
-            throw new ArgumentException("Expected an N by 1 matrix.", nameof(matrix));
-        }
-        _matrix = matrix;
+        using (matrix) return new(matrix.Storage, matrix.Layout.Require(null, 1), matrix.Offset);
     }
-    public VectorXD(int count) : this(new MatrixXD(count, 1)) { }
+    public static VectorXD FromMatrix(MatrixXD matrix) => new(matrix.Storage, matrix.Layout.Require(null, 1), matrix.Offset);
+    public IReadOnlyVectorXD AsReadOnly() => new ReadOnlyVectorXD(Storage, Layout, Offset);
+    public MatrixXD AsMatrix() => RetainMatrix();
+    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    public VectorXD(int count) : base(count, 1) { }
     public VectorXD(params ReadOnlySpan<double> values) : this(values.Length)
     {
         for (int i = 0; i < values.Length; i++) this[i] = values[i];
     }
-    public ReadOnlyVectorXD AsReadOnly() => new(_matrix.AsReadOnly());
-    public static VectorXD Map(Memory<double> memory, int count, int stride = 1) =>
-        new(MatrixXD.Map(memory, count, 1, rowStride: stride));
-    public int Count => _matrix.Rows;
-    public double this[int index]
+    public static VectorXD CreateFromMemory(Memory<double> memory, int count, int stride = 1) =>
+        new(memory, MatrixLayout.Create(count, 1, stride, Math.Max(1, checked(count * stride))));
+    public int Count => Rows;
+    public double this[int index] { get => base[index, 0]; set => SetValue(index, 0, value); }
+    public VectorXD Slice(int start, int count)
     {
-        get => _matrix[index, 0];
-        set => SetValue(index, value);
+        var layout = Layout.Block(start, 0, count, 1);
+        return new(Storage, layout, layout.Extent == 0 ? Offset : checked(Offset + start * RowStride));
     }
-    internal void SetValue(int index, double value) => _matrix.SetValue(index, 0, value);
-    public MatrixXD AsMatrix() => _matrix.AsMatrix();
-    public MatrixXD Transposed() => _matrix.Transposed();
-    public VectorXD Slice(int start, int count) => new(_matrix.Block(start, 0, count, 1));
-    public VectorXD Clone() => new(_matrix.Clone());
-    public double[] ToArray()
-    {
-        var result = new double[Count];
-        for (int i = 0; i < Count; i++) result[i] = this[i];
-        return result;
-    }
-    public VectorXD Normalized() => new(MatrixOperations.Normalized(this));
-    public static VectorXD Lerp(IReadOnlyMatrixD a, IReadOnlyMatrixD b, double amount) =>
-        new(MatrixOperations.Lerp(a, b, amount));
-    public static VectorXD operator +(VectorXD a, VectorXD b) => new(a._matrix + b._matrix);
-    public static VectorXD operator -(VectorXD a, VectorXD b) => new(a._matrix - b._matrix);
-    public static VectorXD operator -(VectorXD value) => new(-value._matrix);
-    public static VectorXD operator *(VectorXD value, double scalar) => new(value._matrix * scalar);
+    IReadOnlyVectorXD IReadOnlyVectorXD.Slice(int start, int count) => new ReadOnlyVectorXD(Storage, Layout.Block(start, 0, count, 1), count == 0 ? Offset : checked(Offset + start * RowStride));
+    public MatrixXD Transposed() => new(Storage, Layout.Transposed(), Offset);
+    public static VectorXD operator +(VectorXD a, IReadOnlyVectorXD b) => a.Add(b);
+    public static VectorXD operator -(VectorXD a, IReadOnlyVectorXD b) => a.Subtract(b);
+    public static VectorXD operator -(VectorXD value) => value.Scale(-1);
+    public static VectorXD operator *(VectorXD value, double scalar) => value.Scale(scalar);
     public static VectorXD operator *(double scalar, VectorXD value) => value * scalar;
-    public static VectorXD operator /(VectorXD value, double scalar) => new(value._matrix / scalar);
-    public static VectorXD operator +(VectorXD a, ReadOnlyVectorXD b) => new(MatrixOperations.Add(a, b));
-    public static VectorXD operator +(ReadOnlyVectorXD a, VectorXD b) => new(MatrixOperations.Add(a, b));
-    public static VectorXD operator -(VectorXD a, ReadOnlyVectorXD b) => new(MatrixOperations.Subtract(a, b));
-    public static VectorXD operator -(ReadOnlyVectorXD a, VectorXD b) => new(MatrixOperations.Subtract(a, b));
-    public int Rows => _matrix.Rows;
-    public int Columns => _matrix.Columns;
-    public ReadOnlyMatrixXD AsReadOnlyMatrix() => _matrix.AsReadOnly();
-    public ReadOnlyTensorSpan<double> AsReadOnlyTensorSpan() => _matrix.AsReadOnlyTensorSpan();
-    public TensorSpan<double> AsTensorSpan() => _matrix.AsTensorSpan();
-    public double Norm() => MatrixOperations.Norm(this);
-    public double SquaredNorm() => MatrixOperations.SquaredNorm(this);
-    public double Dot<TOther>(TOther other) where TOther : IReadOnlyMatrixD => MatrixOperations.Dot(this, other);
-    public MatrixBorrow Borrow() => _matrix.Borrow();
-    public ReadOnlyMatrixBorrow BorrowReadOnly() => _matrix.BorrowReadOnly();
-    public void Dispose() => _matrix.Dispose();
-    public override string ToString() => $"[{string.Join(", ", ToArray())}]";
+    public static VectorXD operator /(VectorXD value, double scalar) => value.Divide(scalar);
+    public override string ToString() => $"[{string.Join(", ", GeometryExtensions.ToArray(this))}]";
 }

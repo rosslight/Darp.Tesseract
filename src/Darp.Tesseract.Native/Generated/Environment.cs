@@ -158,7 +158,7 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
-  public global::Darp.Geometry.ReadOnlyIsometry3D findTCPOffset(ManipulatorInfo manip_info) {
+  public global::Darp.Geometry.IReadOnlyIsometry3D findTCPOffset(ManipulatorInfo manip_info) {
     var result = TesseractNativePINVOKE.Environment_findTCPOffset(swigCPtr, ManipulatorInfo.getCPtr(manip_info));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);
@@ -374,13 +374,13 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
-  public global::Darp.Geometry.ReadOnlyVectorXD getCurrentJointValues() {
+  public global::Darp.Geometry.IReadOnlyVectorXD getCurrentJointValues() {
     var result = TesseractNativePINVOKE.Environment_getCurrentJointValues__SWIG_0(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);
   }
 
-  public global::Darp.Geometry.ReadOnlyVectorXD getCurrentJointValues(StringVector joint_names) {
+  public global::Darp.Geometry.IReadOnlyVectorXD getCurrentJointValues(StringVector joint_names) {
     var result = TesseractNativePINVOKE.Environment_getCurrentJointValues__SWIG_1(swigCPtr, StringVector.getCPtr(joint_names));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);
@@ -440,13 +440,13 @@ public class Environment : global::System.IDisposable {
     return new VectorIsometry3d(result);
   }
 
-  public global::Darp.Geometry.ReadOnlyIsometry3D getLinkTransform(string link_name) {
+  public global::Darp.Geometry.IReadOnlyIsometry3D getLinkTransform(string link_name) {
     var result = TesseractNativePINVOKE.Environment_getLinkTransform(swigCPtr, link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);
   }
 
-  public global::Darp.Geometry.ReadOnlyIsometry3D getRelativeLinkTransform(string from_link_name, string to_link_name) {
+  public global::Darp.Geometry.IReadOnlyIsometry3D getRelativeLinkTransform(string from_link_name, string to_link_name) {
     var result = TesseractNativePINVOKE.Environment_getRelativeLinkTransform(swigCPtr, from_link_name, to_link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);

@@ -54,7 +54,7 @@ public class ForwardKinematics : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.ReadOnlyMatrixXD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name) {
+  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     {
       var result = TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_0(swigCPtr, joint_angles_arg.Handle, link_name);

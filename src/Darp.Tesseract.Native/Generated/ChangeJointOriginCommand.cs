@@ -56,7 +56,7 @@ public class ChangeJointOriginCommand : Command {
     return ret;
   }
 
-  public global::Darp.Geometry.ReadOnlyIsometry3D getOrigin() {
+  public global::Darp.Geometry.IReadOnlyIsometry3D getOrigin() {
     var result = TesseractNativePINVOKE.ChangeJointOriginCommand_getOrigin(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);

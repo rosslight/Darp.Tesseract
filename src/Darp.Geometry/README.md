@@ -11,11 +11,15 @@ dotnet run --project examples/Darp.Geometry.Playground
 
 ## Ownership and views
 
-All mutable and read-only geometry types are disposable classes. Each object owns
+Mutable geometry types are disposable classes. Read-only views expose interfaces
+implemented by internal objects that cannot be cast to mutable geometry types.
+Each object owns
 one reference to shared storage. `AsReadOnly()`, matrix conversions, blocks, rows,
 columns and transposes create independently retained views. Dispose every returned
-view or arithmetic result when finished. Assignment aliases the same object;
-`Clone()` allocates independent writable storage. There are no implicit conversions.
+view or arithmetic result when finished. `IReadOnlyVector3D alias = vector`
+assigns the same object and does not retain storage independently; its runtime type
+remains mutable. Call `AsReadOnly()` to obtain an independently retained view that
+exposes no writable interface. `Clone()` allocates independent writable storage.
 
 ```csharp
 using var matrix = MatrixXD.Identity(3);
@@ -29,42 +33,46 @@ Console.WriteLine(snapshot[0]); // 1: independent copy.
 ```
 
 Disposing an object invalidates that object and every ordinary C# alias to it.
-Retained views remain valid. The last view, borrow or pin releases the underlying
+Retained views remain valid. The last view or pin releases the underlying
 owner once. Finalization provides a fallback; deterministic disposal is preferred.
 Read-only access prevents writes through that view, not through other aliases.
 Concurrent coefficient mutation needs caller synchronization.
 
-`Map(memory, ...)` borrows external storage; callers keep its external owner valid.
-`MatrixXD.Own(memory, owner, ...)` and `ReadOnlyMatrixXD.Own(...)` transfer disposal
-of an external owner to the shared storage, including on failed construction.
-Do not separately dispose an owner after transferring it.
+`MatrixXD.CreateFromMemory(memory, ...)` borrows external storage; callers keep
+its external owner valid. `CreateFromMemoryWithOwner(memory, memoryManager, ...)`
+transfers disposal of a `MemoryManager<double>` to shared storage, including on
+failed construction. Do not dispose that manager separately after transferring it.
 
 ## Tensor access
 
-Ordinary scalar access and math retain storage internally. `Borrow()` and
-`BorrowReadOnly()` provide explicit retained access for custom algorithms:
+Ordinary scalar access and math retain storage internally. Retain a matrix view
+for span access that must survive disposal of the original object:
 
 ```csharp
 using var matrix = MatrixXD.Identity(3);
-using var access = matrix.Borrow();
+using var access = matrix.AsMatrix();
 var tensor = access.AsTensorSpan();
 matrix.Dispose();
 tensor[0, 0] = 2; // Access remains alive and undisposed.
 ```
 
-A tensor span does not own a reference. Never use an extracted span after its
-borrow is disposed, or concurrently with disposal of that borrow. Direct
-`AsTensorSpan()` / `AsReadOnlyTensorSpan()` access requires keeping the source
-object alive and undisposed throughout the span's use. A `Pin()` handle independently
-retains storage until disposed. These are runtime contracts, not compiler-enforced
-borrow checking.
+`AsReadOnlyMatrix()` similarly retains a read-only view. No separate borrow object
+is needed. A tensor span does not own a reference: keep its source view alive and
+undisposed until the span's last use. Never access it concurrently with disposal of
+that view. A `Pin()` handle independently retains storage until disposed. These are
+runtime contracts, not compiler-enforced borrow checking.
 
 ## Shapes and operations
 
-`MatrixXD` is the storage foundation. `VectorXD` specializes an N by 1 matrix;
-`Vector3D` specializes three coefficients. `Matrix3D` has shape 3 by 3.
+Each geometry object directly retains shared storage and its layout through
+`GeometryObject`; specializations do not wrap chains of matrix/vector objects.
+`VectorXD` specializes an N by 1 shape, `Vector3D` has three coefficients, and
+`Matrix3D` has shape 3 by 3.
 Quaternion coefficients use X/Y/Z/W in a 4 by 1 matrix, while `Isometry3D` exposes
-a homogeneous 4 by 4 matrix. Each type has a matching `ReadOnly...` class.
+a homogeneous 4 by 4 matrix. Read-only access uses `IReadOnlyMatrixD`,
+`IReadOnlyMatrix3D`, `IReadOnlyVectorXD`, `IReadOnlyVector3D`,
+`IReadOnlyQuaternionD` and `IReadOnlyIsometry3D`. Extension methods provide
+operations on these interfaces; arithmetic results are independent mutable objects.
 
 `Row(i)` preserves its 1 by N orientation, `Column(i)` returns a vector, and
 `AsVector()` requires one column. `Transposed()` shares storage. Matrix multiplication

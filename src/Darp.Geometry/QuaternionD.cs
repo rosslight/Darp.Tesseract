@@ -2,61 +2,31 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>A mutable X,Y,Z,W quaternion owning a reference to its coefficient storage.</summary>
-public sealed class QuaternionD : IMatrixD
+/// <summary>A mutable X,Y,Z,W quaternion owning one reference to its coefficient storage.</summary>
+public sealed class QuaternionD : GeometryObject, IMatrixD, IReadOnlyQuaternionD
 {
-    private readonly VectorXD _coefficients;
-    internal QuaternionD(VectorXD coefficients)
-    {
-        if (coefficients.Count != 4)
-        {
-            coefficients.Dispose();
-            throw new ArgumentException("Expected four coefficients.", nameof(coefficients));
-        }
-        _coefficients = coefficients;
-    }
-    public QuaternionD(double x, double y, double z, double w) : this(new VectorXD(x, y, z, w)) { }
+    internal QuaternionD(MatrixStorage storage, MatrixLayout layout, int offset = 0) : base(storage, layout, offset) { }
+
+    private QuaternionD(Memory<double> memory, MatrixLayout layout) : base(memory, layout) { }
+    public QuaternionD(double x, double y, double z, double w) : base(4, 1) { X = x; Y = y; Z = z; W = w; }
+    internal static QuaternionD FromOwnedMatrix(MatrixXD matrix) { using (matrix) return new(matrix.Storage, matrix.Layout.Require(4, 1), matrix.Offset); }
     public static QuaternionD Identity => new(0, 0, 0, 1);
-    public static QuaternionD Map(Memory<double> memory, int stride = 1) => new(VectorXD.Map(memory, 4, stride));
-    public static QuaternionD FromMatrix(MatrixXD matrix) => new(matrix.AsVector());
-    public double X { get => _coefficients[0]; set => _coefficients.SetValue(0, value); }
-    public double Y { get => _coefficients[1]; set => _coefficients.SetValue(1, value); }
-    public double Z { get => _coefficients[2]; set => _coefficients.SetValue(2, value); }
-    public double W { get => _coefficients[3]; set => _coefficients.SetValue(3, value); }
-    public VectorXD Coefficients => new(_coefficients.AsMatrix());
-    public ReadOnlyQuaternionD AsReadOnly() => new(_coefficients.AsReadOnly());
-    public QuaternionD Clone() => new(_coefficients.Clone());
-    public double Norm() => _coefficients.Norm();
-    public double SquaredNorm() => _coefficients.SquaredNorm();
-    public double Dot(IReadOnlyMatrixD other) => _coefficients.Dot(other);
-    public QuaternionD Normalized() => new(_coefficients.Normalized());
-    public QuaternionD Conjugate() => new(-X, -Y, -Z, W);
-    public QuaternionD Inverse() { using var view = AsReadOnly(); return view.Inverse(); }
-    public static QuaternionD FromAxisAngle(IReadOnlyMatrixD axis, double angle) => ReadOnlyQuaternionD.FromAxisAngle(axis, angle);
-    public (Vector3D Axis, double Angle) ToAxisAngle() { using var view = AsReadOnly(); return view.ToAxisAngle(); }
-    public Vector3D Rotate(IReadOnlyMatrixD vector) { using var view = AsReadOnly(); return view.Rotate(vector); }
-    public Matrix3D ToRotationMatrix() { using var view = AsReadOnly(); return view.ToRotationMatrix(); }
-    public static QuaternionD FromRotationMatrix(IReadOnlyMatrixD matrix) => ReadOnlyQuaternionD.FromRotationMatrix(matrix);
-    public static QuaternionD Slerp(IReadOnlyMatrixD a, IReadOnlyMatrixD b, double amount) => ReadOnlyQuaternionD.Slerp(a, b, amount);
-    public static QuaternionD operator *(QuaternionD a, QuaternionD b)
-    {
-        using var left = a.AsReadOnly();
-        using var right = b.AsReadOnly();
-        return left * right;
-    }
-    public static QuaternionD operator *(QuaternionD a, ReadOnlyQuaternionD b)
-    {
-        using var left = a.AsReadOnly();
-        return left * b;
-    }
-    public static Vector3D operator *(QuaternionD a, IReadOnlyMatrixD b) => a.Rotate(b);
-    public static QuaternionD operator -(QuaternionD value) => new(-value._coefficients);
-    public ReadOnlyMatrixXD AsReadOnlyMatrix() => _coefficients.AsReadOnlyMatrix();
-    public MatrixXD AsMatrix() => _coefficients.AsMatrix();
-    public ReadOnlyTensorSpan<double> AsReadOnlyTensorSpan() => _coefficients.AsReadOnlyTensorSpan();
-    public TensorSpan<double> AsTensorSpan() => _coefficients.AsTensorSpan();
-    public MatrixBorrow Borrow() => _coefficients.Borrow();
-    public ReadOnlyMatrixBorrow BorrowReadOnly() => _coefficients.BorrowReadOnly();
-    public void Dispose() => _coefficients.Dispose();
+    public static QuaternionD CreateFromMemory(Memory<double> memory, int stride = 1) =>
+        new(memory, MatrixLayout.Create(4, 1, stride, checked(4 * stride)));
+    public static QuaternionD FromMatrix(MatrixXD matrix) => new(matrix.Storage, matrix.Layout.Require(4, 1), matrix.Offset);
+    public double X { get => base[0, 0]; set => SetValue(0, 0, value); }
+    public double Y { get => base[1, 0]; set => SetValue(1, 0, value); }
+    public double Z { get => base[2, 0]; set => SetValue(2, 0, value); }
+    public double W { get => base[3, 0]; set => SetValue(3, 0, value); }
+    public VectorXD Coefficients => new(Storage, Layout, Offset);
+    IReadOnlyVectorXD IReadOnlyQuaternionD.Coefficients => new ReadOnlyVectorXD(Storage, Layout, Offset);
+    public IReadOnlyQuaternionD AsReadOnly() => new ReadOnlyQuaternionD(Storage, Layout, Offset);
+    public MatrixXD AsMatrix() => RetainMatrix();
+    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    public static QuaternionD FromAxisAngle(IReadOnlyVector3D axis, double angle) => QuaternionMath.FromAxisAngle(axis, angle);
+    public static QuaternionD FromRotationMatrix(IReadOnlyMatrix3D matrix) => QuaternionMath.FromRotationMatrix(matrix);
+    public static QuaternionD operator *(QuaternionD a, IReadOnlyQuaternionD b) => GeometryExtensions.Multiply(a, b);
+    public static Vector3D operator *(QuaternionD rotation, IReadOnlyVector3D vector) => rotation.Rotate(vector);
+    public static QuaternionD operator -(QuaternionD value) => new(-value.X, -value.Y, -value.Z, -value.W);
     public override string ToString() => $"(X={X}, Y={Y}, Z={Z}, W={W})";
 }

@@ -66,13 +66,13 @@ and IK solution sequences.
 - Inputs created from managed dictionaries/lists copy their elements into a native
   container once. Empty containers and empty native vectors/matrices are supported.
 
-Geometry objects and containers implement `IDisposable`. Retained views, borrows
+Geometry objects and containers implement `IDisposable`. Retained views
 and pins keep shared storage alive independently. The last release disposes the
-storage owner. Geometry method inputs accept `IReadOnlyMatrixD`; generated property
-setters with concrete read-only types require an explicit retained `AsReadOnly()`
-view. Explicit raw tensor spans require keeping their source or borrow alive and
-undisposed throughout access. Native proxy disposal and concurrent mutation remain the caller's
-responsibility. Read-only access is not a security boundary against unsafe code.
+storage owner. Geometry method inputs accept `IReadOnlyMatrixD`; generated read-only
+results expose semantic interfaces. `AsReadOnly()` creates an independently retained
+view with no writable interface. Explicit raw tensor spans require keeping their
+source view alive and undisposed throughout access. Native proxy disposal and
+concurrent mutation remain the caller's responsibility. Read-only access is not a security boundary against unsafe code.
 
 ## Regeneration
 

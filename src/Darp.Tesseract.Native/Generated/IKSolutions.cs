@@ -10,11 +10,11 @@
 
 namespace Darp.Tesseract.Native {
 
-public sealed class IKSolutions : NativeList<global::Darp.Geometry.ReadOnlyVectorXD> {
+public sealed class IKSolutions : NativeList<global::Darp.Geometry.IReadOnlyVectorXD> {
   public IKSolutions() : base(3, TensorResult.Vector) { }
   internal IKSolutions(global::System.IntPtr handle) : base(handle, 3, TensorResult.Vector) { }
 
-  public IKSolutions(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.ReadOnlyVectorXD> values)
+  public IKSolutions(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.IReadOnlyVectorXD> values)
     : base(3, TensorResult.Vector, values) { }
 
 }

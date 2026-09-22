@@ -24,9 +24,9 @@ namespace darp_geometry { struct Value {}; }
 %ignore TYPE;
 %typemap(ctype) TYPE, const TYPE&, TYPE* "void *"
 %typemap(imtype, out="global::System.IntPtr") TYPE, const TYPE&, TYPE* "global::System.Runtime.InteropServices.HandleRef"
-%typemap(cstype) TYPE, const TYPE&, TYPE* "global::Darp.Geometry.Tensor2.MANAGED"
+%typemap(cstype, out="global::Darp.Geometry.MANAGED") TYPE, const TYPE&, TYPE* "global::Darp.Geometry.IReadOnlyMatrixD"
 %typemap(csin,
-  pre="    using (var $csinput_arg = new TensorArgument($csinput.AsReadOnlyMatrix())) {",
+  pre="    using (var $csinput_arg = new TensorArgument($csinput)) {",
   terminator="    }",
   cshin="$csinput") TYPE, const TYPE&, TYPE* "$csinput_arg.Handle"
 %typemap(csout, excode=SWIGEXCODE) TYPE, const TYPE&, TYPE* {
@@ -41,7 +41,7 @@ namespace darp_geometry { struct Value {}; }
 %}
 %typemap(csvarin, excode=SWIGEXCODE2) TYPE, const TYPE&, TYPE* %{
     set {
-      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+      using (var value_arg = new TensorArgument(value)) {
         $imcall;$excode
       }
     }
@@ -71,9 +71,9 @@ namespace darp_geometry { struct Value {}; }
 
 %typemap(ctype) TYPE& "void *"
 %typemap(imtype) TYPE& "global::System.Runtime.InteropServices.HandleRef"
-%typemap(cstype) TYPE& "ref global::Darp.Geometry.Tensor2.MUTABLE"
+%typemap(cstype) TYPE& "ref global::Darp.Geometry.MUTABLE"
 %typemap(csin,
-  pre="    using (var $csinput_arg = new TensorArgument($csinput.AsReadOnlyMatrix())) {",
+  pre="    using (var $csinput_arg = new TensorArgument($csinput)) {",
   post="      if ($csinput_arg.HasOutput) $csinput = $csinput_arg.TAKE();",
   terminator="    }",
   cshin="ref $csinput") TYPE& "$csinput_arg.Handle"
@@ -90,9 +90,9 @@ namespace darp_geometry { struct Value {}; }
 %define DARP_TENSOR_REF(TYPE, MANAGED, MUTABLE)
 %typemap(ctype) const Eigen::Ref<const TYPE>& "void *"
 %typemap(imtype) const Eigen::Ref<const TYPE>& "global::System.Runtime.InteropServices.HandleRef"
-%typemap(cstype) const Eigen::Ref<const TYPE>& "global::Darp.Geometry.Tensor2.MANAGED"
+%typemap(cstype) const Eigen::Ref<const TYPE>& "global::Darp.Geometry.IReadOnlyMatrixD"
 %typemap(csin,
-  pre="    using (var $csinput_arg = new TensorArgument($csinput.AsReadOnlyMatrix())) {",
+  pre="    using (var $csinput_arg = new TensorArgument($csinput)) {",
   terminator="    }",
   cshin="$csinput") const Eigen::Ref<const TYPE>& "$csinput_arg.Handle"
 %typemap(in, canthrow=1) const Eigen::Ref<const TYPE>& (std::optional<darp_geometry::ConstRef<TYPE>> local) {
@@ -101,10 +101,10 @@ namespace darp_geometry { struct Value {}; }
 }
 %typemap(ctype) Eigen::Ref<TYPE> "void *"
 %typemap(imtype) Eigen::Ref<TYPE> "global::System.Runtime.InteropServices.HandleRef"
-%typemap(cstype) Eigen::Ref<TYPE> "global::Darp.Geometry.Tensor2.MUTABLE"
+%typemap(cstype) Eigen::Ref<TYPE> "global::Darp.Geometry.MUTABLE"
 %typemap(csin,
-  pre="    using (var $csinput_arg = new TensorArgument($csinput.AsReadOnlyMatrix())) {",
-  post="      if ($csinput_arg.HasOutput) $csinput_arg.CopyBack($csinput.AsMatrix());",
+  pre="    using (var $csinput_arg = new TensorArgument($csinput)) {",
+  post="      if ($csinput_arg.HasOutput) $csinput_arg.CopyBack($csinput);",
   terminator="    }",
   cshin="$csinput") Eigen::Ref<TYPE> "$csinput_arg.Handle"
 %typemap(in, canthrow=1) Eigen::Ref<TYPE> (TYPE local, std::optional<Eigen::Ref<TYPE>> ref) {
@@ -121,7 +121,7 @@ namespace darp_geometry { struct Value {}; }
 %typemap(ctype) TYPE, const TYPE&, TYPE* "void *"
 %typemap(imtype, out="global::System.IntPtr") TYPE, const TYPE&, TYPE* "global::System.Runtime.InteropServices.HandleRef"
 %typemap(cstype) TYPE, const TYPE&, TYPE* "MANAGED"
-%typemap(csin) TYPE, const TYPE&, TYPE* "$csinput.Handle"
+%typemap(csin, pre="    using (var $csinput_arg = new ContainerArgument($csinput.Owner)) {", terminator="    }", cshin="$csinput") TYPE, const TYPE&, TYPE* "$csinput_arg.Handle"
 %typemap(in, canthrow=1) TYPE {
   try { $1 = darp_geometry::container<TYPE>(static_cast<darp_geometry::Value*>($input)); }
   DARP_GEOMETRY_CATCH
@@ -146,13 +146,13 @@ namespace darp_geometry { struct Value {}; }
     get { var result = $imcall;$excode return new MANAGED(result); }
 %}
 %typemap(csvarin, excode=SWIGEXCODE2) TYPE, const TYPE&, TYPE* %{
-    set { $imcall;$excode }
+    set { using (var value_arg = new ContainerArgument(value.Owner)) { $imcall;$excode } }
 %}
 %typemap(ctype) TYPE& "void *"
 %typemap(imtype) TYPE& "global::System.Runtime.InteropServices.HandleRef"
 %typemap(cstype) TYPE& "ref MANAGED"
 %typemap(csin,
-  pre="    using (var $csinput_arg = new ContainerArgument($csinput.Handle)) {",
+  pre="    using (var $csinput_arg = new ContainerArgument($csinput.Owner)) {",
   post="      if ($csinput_arg.HasOutput) $csinput = new MANAGED($csinput_arg.Take());",
   terminator="    }",
   cshin="ref $csinput") TYPE& "$csinput_arg.Handle"
@@ -171,7 +171,7 @@ namespace darp_geometry { struct Value {}; }
 %nodefaultctor TYPE;
 %nodefaultdtor TYPE;
 %typemap(csclassmodifiers) TYPE "public sealed class";
-%typemap(csbase) TYPE "BASE<global::Darp.Geometry.Tensor2.ELEMENT>";
+%typemap(csbase) TYPE "BASE<global::Darp.Geometry.ELEMENT>";
 %typemap(csinterfaces) TYPE "";
 %typemap(csdispose) TYPE "";
 %typemap(csdisposing) TYPE "";
@@ -184,7 +184,7 @@ namespace darp_geometry { struct Value {}; }
 %define DARP_MAP_PROXY(TYPE, MANAGED, ELEMENT, KIND, WRAP)
 DARP_CONTAINER_PROXY(TYPE, MANAGED, NativeMap, ELEMENT, KIND, WRAP)
 %typemap(cscode) TYPE %{
-  public MANAGED(global::System.Collections.Generic.IReadOnlyDictionary<string, global::Darp.Geometry.Tensor2.ELEMENT> values)
+  public MANAGED(global::System.Collections.Generic.IReadOnlyDictionary<string, global::Darp.Geometry.ELEMENT> values)
     : base(KIND, TensorResult.WRAP, values) { }
 %}
 %enddef
@@ -192,7 +192,7 @@ DARP_CONTAINER_PROXY(TYPE, MANAGED, NativeMap, ELEMENT, KIND, WRAP)
 %define DARP_LIST_PROXY(TYPE, MANAGED, ELEMENT, KIND, WRAP)
 DARP_CONTAINER_PROXY(TYPE, MANAGED, NativeList, ELEMENT, KIND, WRAP)
 %typemap(cscode) TYPE %{
-  public MANAGED(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.Tensor2.ELEMENT> values)
+  public MANAGED(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.ELEMENT> values)
     : base(KIND, TensorResult.WRAP, values) { }
 %}
 %enddef

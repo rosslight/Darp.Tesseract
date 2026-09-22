@@ -52,7 +52,7 @@ public class Inertial : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public global::Darp.Geometry.ReadOnlyIsometry3D origin {
+  public global::Darp.Geometry.IReadOnlyIsometry3D origin {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Inertial_origin_set(swigCPtr, value_arg.Handle);

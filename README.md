@@ -30,17 +30,30 @@ The modular SWIG inputs cover feasible non-visual APIs from:
 
 Unsupported C++ shapes are ignored explicitly in the component interface files. A curated managed façade, visualization, ROS integration, PCL point-cloud parsing, and robot-specific IKFast solvers are outside this package.
 
-## Tensor2 geometry surface
+## Geometry surface
 
-[Darp.Tesseract.Native](src/Darp.Tesseract.Native/README.md) uses managed Tensor2
-vectors, matrices, quaternions and transforms from the `Darp.Geometry` dependency.
-The package requires .NET 10. A single generation pipeline and native module serve
-all exposed APIs; Eigen proxy classes have been replaced by these managed types.
+[Darp.Tesseract.Native](src/Darp.Tesseract.Native/README.md) uses the disposable
+matrix, vector, quaternion and isometry classes from [Darp.Geometry](src/Darp.Geometry/README.md).
+Views retain shared storage independently; dispose every result and view when done.
+
+```csharp
+using Darp.Geometry;
+using Darp.Tesseract.Native;
+
+using var joints = new VectorXD(6);
+using var poses = group.calcFwdKin(joints);
+using var tool = poses["tool0"];
+using var translation = tool.Translation;
+Console.WriteLine(translation);
+```
+
+Ordinary scalar access and math manage storage lifetime internally. Tensor spans
+provide explicit access; retained `AsMatrix()` / `AsReadOnlyMatrix()` views keep storage alive until disposed.
 
 ## Kinematics example
 
 ```csharp
-using Darp.Geometry.Tensor2;
+using Darp.Geometry;
 using Darp.Tesseract.Native;
 
 var urdf = File.ReadAllText("robot.urdf");
@@ -58,16 +71,17 @@ if (!environment.init(sceneGraph, srdfModel))
     throw new InvalidOperationException("Could not initialize the environment.");
 
 using var group = environment.getKinematicGroup("manipulator");
-var seed = new VectorXD(checked((int)group.numJoints()));
+using var seed = new VectorXD(checked((int)group.numJoints()));
 
-var tip = group.getActiveLinkNames()[^1];
-var transforms = group.calcFwdKin(seed);
-var target = transforms[tip];
+using var activeLinks = group.getActiveLinkNames();
+var tip = activeLinks[^1];
+using var transforms = group.calcFwdKin(seed);
+using var target = transforms[tip];
 using var input = new KinGroupIKInput(target, group.getBaseLinkName(), tip);
-var solutions = group.calcInvKin(input, seed);
+using var solutions = group.calcInvKin(input, seed);
 ```
 
-Returned Tensor2 descriptors retain their native storage. Ordinary scalar access and math keep that storage alive; explicitly extracted raw tensor spans require caller-managed lifetime.
+Returned geometry objects retain their native storage independently of the originating proxy or container. Dispose them when finished.
 
 ## Develop locally
 
