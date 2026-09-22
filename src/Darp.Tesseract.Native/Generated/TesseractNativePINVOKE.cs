@@ -237,155 +237,50 @@ class TesseractNativePINVOKE {
   }
 
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_Vector2d___")]
-  public static extern global::System.IntPtr new_Vector2d();
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_tensor___")]
+  public static extern global::System.IntPtr DarpGeometryInterop_tensor(ulong jarg1, int jarg2, int jarg3, int jarg4, int jarg5);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector2d_size___")]
-  public static extern int Vector2d_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_argument___")]
+  public static extern global::System.IntPtr DarpGeometryInterop_argument(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector2d_get___")]
-  public static extern double Vector2d_get(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_release___")]
+  public static extern void DarpGeometryInterop_release(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector2d_set___")]
-  public static extern void Vector2d_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, double jarg3);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_changed___")]
+  public static extern bool DarpGeometryInterop_changed(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector2d_dataAddress___")]
-  public static extern ulong Vector2d_dataAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_data___")]
+  public static extern ulong DarpGeometryInterop_data(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_Vector2d___")]
-  public static extern void delete_Vector2d(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_rows___")]
+  public static extern int DarpGeometryInterop_rows(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_Vector3d___")]
-  public static extern global::System.IntPtr new_Vector3d();
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_columns___")]
+  public static extern int DarpGeometryInterop_columns(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector3d_size___")]
-  public static extern int Vector3d_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_rowStride___")]
+  public static extern int DarpGeometryInterop_rowStride(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector3d_get___")]
-  public static extern double Vector3d_get(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_columnStride___")]
+  public static extern int DarpGeometryInterop_columnStride(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector3d_set___")]
-  public static extern void Vector3d_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, double jarg3);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_create___")]
+  public static extern global::System.IntPtr DarpGeometryInterop_create(int jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector3d_dataAddress___")]
-  public static extern ulong Vector3d_dataAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_count___")]
+  public static extern int DarpGeometryInterop_count(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_Vector3d___")]
-  public static extern void delete_Vector3d(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_element___")]
+  public static extern global::System.IntPtr DarpGeometryInterop_element(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, string jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_Vector4d___")]
-  public static extern global::System.IntPtr new_Vector4d();
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_add___")]
+  public static extern void DarpGeometryInterop_add(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector4d_size___")]
-  public static extern int Vector4d_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_keys___")]
+  public static extern global::System.IntPtr DarpGeometryInterop_keys(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector4d_get___")]
-  public static extern double Vector4d_get(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector4d_set___")]
-  public static extern void Vector4d_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, double jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Vector4d_dataAddress___")]
-  public static extern ulong Vector4d_dataAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_Vector4d___")]
-  public static extern void delete_Vector4d(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_VectorXd___")]
-  public static extern global::System.IntPtr new_VectorXd(int jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_VectorXd_size___")]
-  public static extern int VectorXd_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_VectorXd_get___")]
-  public static extern double VectorXd_get(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_VectorXd_set___")]
-  public static extern void VectorXd_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, double jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_VectorXd_dataAddress___")]
-  public static extern ulong VectorXd_dataAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_VectorXd___")]
-  public static extern void delete_VectorXd(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_MatrixXd___")]
-  public static extern global::System.IntPtr new_MatrixXd(int jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_MatrixXd_rows___")]
-  public static extern int MatrixXd_rows(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_MatrixXd_columns___")]
-  public static extern int MatrixXd_columns(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_MatrixXd_get___")]
-  public static extern double MatrixXd_get(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_MatrixXd_set___")]
-  public static extern void MatrixXd_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3, double jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_MatrixXd_dataAddress___")]
-  public static extern ulong MatrixXd_dataAddress(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_MatrixXd___")]
-  public static extern void delete_MatrixXd(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_MatrixX2d___")]
-  public static extern global::System.IntPtr new_MatrixX2d();
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_MatrixX2d___")]
-  public static extern void delete_MatrixX2d(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_Quaterniond___")]
-  public static extern global::System.IntPtr new_Quaterniond(double jarg1, double jarg2, double jarg3, double jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Quaterniond_x___")]
-  public static extern double Quaterniond_x(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Quaterniond_y___")]
-  public static extern double Quaterniond_y(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Quaterniond_z___")]
-  public static extern double Quaterniond_z(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Quaterniond_w___")]
-  public static extern double Quaterniond_w(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_Quaterniond___")]
-  public static extern void delete_Quaterniond(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_Isometry3d___")]
-  public static extern global::System.IntPtr new_Isometry3d();
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_setTranslation___")]
-  public static extern void Isometry3d_setTranslation(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, double jarg3, double jarg4);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_setQuaternion___")]
-  public static extern void Isometry3d_setQuaternion(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2, double jarg3, double jarg4, double jarg5);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_translationX___")]
-  public static extern double Isometry3d_translationX(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_translationY___")]
-  public static extern double Isometry3d_translationY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_translationZ___")]
-  public static extern double Isometry3d_translationZ(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_quaternionX___")]
-  public static extern double Isometry3d_quaternionX(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_quaternionY___")]
-  public static extern double Isometry3d_quaternionY(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_quaternionZ___")]
-  public static extern double Isometry3d_quaternionZ(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Isometry3d_quaternionW___")]
-  public static extern double Isometry3d_quaternionW(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_Isometry3d___")]
-  public static extern void delete_Isometry3d(global::System.Runtime.InteropServices.HandleRef jarg1);
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpGeometryInterop_contains___")]
+  public static extern bool DarpGeometryInterop_contains(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, string jarg3);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_StringVector__SWIG_0___")]
   public static extern global::System.IntPtr new_StringVector__SWIG_0();
@@ -797,54 +692,6 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_IndexVector___")]
   public static extern void delete_IndexVector(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TransformMap___")]
-  public static extern global::System.IntPtr new_TransformMap();
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TransformMap_size___")]
-  public static extern int TransformMap_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TransformMap_contains___")]
-  public static extern bool TransformMap_contains(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TransformMap_set___")]
-  public static extern void TransformMap_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TransformMap_get___")]
-  public static extern global::System.IntPtr TransformMap_get(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TransformMap_clear___")]
-  public static extern void TransformMap_clear(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TransformMap___")]
-  public static extern void delete_TransformMap(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_VectorIsometry3d_size___")]
-  public static extern int VectorIsometry3d_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_VectorIsometry3d_get___")]
-  public static extern global::System.IntPtr VectorIsometry3d_get(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_VectorIsometry3d___")]
-  public static extern global::System.IntPtr new_VectorIsometry3d();
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_VectorIsometry3d___")]
-  public static extern void delete_VectorIsometry3d(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_IKSolutions_size___")]
-  public static extern int IKSolutions_size(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_IKSolutions_solutionSize___")]
-  public static extern int IKSolutions_solutionSize(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_IKSolutions_solutionDataAddress___")]
-  public static extern ulong IKSolutions_solutionDataAddress(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_IKSolutions___")]
-  public static extern global::System.IntPtr new_IKSolutions();
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_IKSolutions___")]
-  public static extern void delete_IKSolutions(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_ResourceLocator___")]
   public static extern void delete_ResourceLocator(global::System.Runtime.InteropServices.HandleRef jarg1);

@@ -30,9 +30,19 @@ The modular SWIG inputs cover feasible non-visual APIs from:
 
 Unsupported C++ shapes are ignored explicitly in the component interface files. A curated managed façade, visualization, ROS integration, PCL point-cloud parsing, and robot-specific IKFast solvers are outside this package.
 
+## Tensor2 geometry surface
+
+[Darp.Tesseract.Native](src/Darp.Tesseract.Native/README.md) uses managed Tensor2
+vectors, matrices, quaternions and transforms from the `Darp.Geometry` dependency.
+The package requires .NET 10. A single generation pipeline and native module serve
+all exposed APIs; Eigen proxy classes have been replaced by these managed types.
+
 ## Kinematics example
 
 ```csharp
+using Darp.Geometry.Tensor2;
+using Darp.Tesseract.Native;
+
 var urdf = File.ReadAllText("robot.urdf");
 var srdf = File.ReadAllText("robot.srdf");
 
@@ -48,17 +58,16 @@ if (!environment.init(sceneGraph, srdfModel))
     throw new InvalidOperationException("Could not initialize the environment.");
 
 using var group = environment.getKinematicGroup("manipulator");
-using var seed = new VectorXd(checked((int)group.numJoints()));
-seed.AsSpan().Clear();
+var seed = new VectorXD(checked((int)group.numJoints()));
 
 var tip = group.getActiveLinkNames()[^1];
-using var transforms = group.calcFwdKin(seed);
-using var target = transforms.get(tip);
+var transforms = group.calcFwdKin(seed);
+var target = transforms[tip];
 using var input = new KinGroupIKInput(target, group.getBaseLinkName(), tip);
-using var solutions = group.calcInvKin(input, seed);
+var solutions = group.calcInvKin(input, seed);
 ```
 
-Native-backed spans such as `VectorXd.AsSpan()` and `IKSolutions.GetSolutionSpan()` remain valid only while their owning proxy is alive and unchanged.
+Returned Tensor2 descriptors retain their native storage. Ordinary scalar access and math keep that storage alive; explicitly extracted raw tensor spans require caller-managed lifetime.
 
 ## Develop locally
 
@@ -89,6 +98,7 @@ pixi run build-native
 The command produces only `artifacts/native/<host-rid>/`. Managed packaging and tests remain ordinary .NET operations:
 
 ```powershell
+dotnet pack src/Darp.Geometry/Darp.Geometry.csproj -c Release -o artifacts/packages
 dotnet pack src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj -c Release -o artifacts/packages
 dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesseract.Native.IntegrationTests.csproj -c Release
 ```
@@ -102,7 +112,7 @@ commits on `main` create or update a release PR containing `CHANGELOG.md`,
 `version.txt`, `.release-please-manifest.json` and `Directory.Build.props`.
 Merging that PR creates a `v<version>` GitHub release, builds all
 five packaged runtimes, tests package consumers, then publishes
-`Darp.Tesseract.Native` and its symbol package to NuGet.org and attaches them to
+`Darp.Geometry`, `Darp.Tesseract.Native` and their symbol packages to NuGet.org and attaches them to
 the GitHub release.
 
 Configure NuGet Trusted Publishing for `rosslight/Darp.Tesseract`, workflow

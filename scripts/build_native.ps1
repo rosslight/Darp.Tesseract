@@ -8,8 +8,10 @@ $runtimeCollectorPath = Join-Path $scriptDir "collect_runtime_dependencies.cmake
 if ([string]::IsNullOrWhiteSpace($env:CONDA_PREFIX)) {
   throw "The native environment is not active. Run 'pixi run build-native'."
 }
-if (-not (Test-Path -LiteralPath $wrapperPath)) {
-  throw "Generated wrapper '$wrapperPath' is missing. Run 'pixi run -e bindings generate-bindings'."
+foreach ($generatedWrapper in @($wrapperPath)) {
+  if (-not (Test-Path -LiteralPath $generatedWrapper)) {
+    throw "Generated wrapper '$generatedWrapper' is missing. Run 'pixi run -e bindings generate-bindings'."
+  }
 }
 
 $architecture = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture

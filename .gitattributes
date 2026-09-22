@@ -1,1 +1,2 @@
 bindings/generated/TesseractNative_wrap.cxx whitespace=-trailing-space
+src/Darp.Tesseract.Native/Generated/*.cs whitespace=-trailing-space

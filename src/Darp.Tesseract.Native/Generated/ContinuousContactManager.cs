@@ -89,33 +89,43 @@ public class ContinuousContactManager : global::System.IDisposable {
     return ret;
   }
 
-  public virtual void setCollisionObjectsTransform(string name, Isometry3d pose) {
-    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_0(swigCPtr, name, Isometry3d.getCPtr(pose));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  public virtual void setCollisionObjectsTransform(string name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D pose) {
+    using (var pose_arg = new TensorArgument(pose.AsReadOnlyMatrix())) {
+    {
+      TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_0(swigCPtr, name, pose_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    }
+    }
   }
 
   public virtual void setCollisionObjectsTransform(StringVector names, VectorIsometry3d poses) {
-    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_1(swigCPtr, StringVector.getCPtr(names), VectorIsometry3d.getCPtr(poses));
+    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_1(swigCPtr, StringVector.getCPtr(names), poses.Handle);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public virtual void setCollisionObjectsTransform(TransformMap transforms) {
-    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_2(swigCPtr, TransformMap.getCPtr(transforms));
+    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_2(swigCPtr, transforms.Handle);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public virtual void setCollisionObjectsTransform(string name, Isometry3d pose1, Isometry3d pose2) {
-    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_3(swigCPtr, name, Isometry3d.getCPtr(pose1), Isometry3d.getCPtr(pose2));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  public virtual void setCollisionObjectsTransform(string name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D pose1, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D pose2) {
+    using (var pose1_arg = new TensorArgument(pose1.AsReadOnlyMatrix())) {
+    using (var pose2_arg = new TensorArgument(pose2.AsReadOnlyMatrix())) {
+    {
+      TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_3(swigCPtr, name, pose1_arg.Handle, pose2_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    }
+    }
+    }
   }
 
   public virtual void setCollisionObjectsTransform(StringVector names, VectorIsometry3d pose1, VectorIsometry3d pose2) {
-    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_4(swigCPtr, StringVector.getCPtr(names), VectorIsometry3d.getCPtr(pose1), VectorIsometry3d.getCPtr(pose2));
+    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_4(swigCPtr, StringVector.getCPtr(names), pose1.Handle, pose2.Handle);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
   public virtual void setCollisionObjectsTransform(TransformMap pose1, TransformMap pose2) {
-    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_5(swigCPtr, TransformMap.getCPtr(pose1), TransformMap.getCPtr(pose2));
+    TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_5(swigCPtr, pose1.Handle, pose2.Handle);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 

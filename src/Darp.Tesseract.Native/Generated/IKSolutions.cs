@@ -10,78 +10,12 @@
 
 namespace Darp.Tesseract.Native {
 
-public class IKSolutions : global::System.IDisposable {
-  private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
+public sealed class IKSolutions : NativeList<global::Darp.Geometry.Tensor2.ReadOnlyVectorXD> {
+  public IKSolutions() : base(3, TensorResult.Vector) { }
+  internal IKSolutions(global::System.IntPtr handle) : base(handle, 3, TensorResult.Vector) { }
 
-  internal IKSolutions(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(IKSolutions obj) {
-    return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(IKSolutions obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-    }
-  }
-
-  ~IKSolutions() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
-    lock(this) {
-      if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_IKSolutions(swigCPtr);
-        }
-        swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-      }
-    }
-  }
-
-  /// <summary>Views one native IK solution without copying it.</summary>
-  public unsafe global::System.ReadOnlySpan<double> GetSolutionSpan(int index) =>
-    new global::System.ReadOnlySpan<double>((void*)solutionDataAddress(index), solutionSize(index));
-
-  public int size() {
-    int ret = TesseractNativePINVOKE.IKSolutions_size(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public int solutionSize(int index) {
-    int ret = TesseractNativePINVOKE.IKSolutions_solutionSize(swigCPtr, index);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public ulong solutionDataAddress(int index) {
-    ulong ret = TesseractNativePINVOKE.IKSolutions_solutionDataAddress(swigCPtr, index);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public IKSolutions() : this(TesseractNativePINVOKE.new_IKSolutions(), true) {
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
+  public IKSolutions(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.Tensor2.ReadOnlyVectorXD> values)
+    : base(3, TensorResult.Vector, values) { }
 
 }
 

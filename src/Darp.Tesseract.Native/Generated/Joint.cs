@@ -70,17 +70,20 @@ public class Joint : global::System.IDisposable {
     } 
   }
 
-  public Vector3d axis {
+  public global::Darp.Geometry.Tensor2.ReadOnlyVector3D axis {
     set {
-      TesseractNativePINVOKE.Joint_axis_set(swigCPtr, Vector3d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.Joint_axis_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.Joint_axis_get(swigCPtr);
-      Vector3d ret = (cPtr == global::System.IntPtr.Zero) ? null : new Vector3d(cPtr, false);
+      var result = TesseractNativePINVOKE.Joint_axis_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Vector3(result);
+    }
+
   }
 
   public string child_link_name {
@@ -107,17 +110,20 @@ public class Joint : global::System.IDisposable {
     } 
   }
 
-  public Isometry3d parent_to_joint_origin_transform {
+  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D parent_to_joint_origin_transform {
     set {
-      TesseractNativePINVOKE.Joint_parent_to_joint_origin_transform_set(swigCPtr, Isometry3d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.Joint_parent_to_joint_origin_transform_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.Joint_parent_to_joint_origin_transform_get(swigCPtr);
-      Isometry3d ret = (cPtr == global::System.IntPtr.Zero) ? null : new Isometry3d(cPtr, false);
+      var result = TesseractNativePINVOKE.Joint_parent_to_joint_origin_transform_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Isometry(result);
+    }
+
   }
 
   public JointDynamics dynamics {

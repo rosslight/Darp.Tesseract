@@ -81,17 +81,20 @@ public class Material : global::System.IDisposable {
     } 
   }
 
-  public Vector4d color {
+  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD color {
     set {
-      TesseractNativePINVOKE.Material_color_set(swigCPtr, Vector4d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.Material_color_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.Material_color_get(swigCPtr);
-      Vector4d ret = (cPtr == global::System.IntPtr.Zero) ? null : new Vector4d(cPtr, false);
+      var result = TesseractNativePINVOKE.Material_color_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Vector(result);
+    }
+
   }
 
   public void clear() {

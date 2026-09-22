@@ -52,17 +52,20 @@ public class Collision : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public Isometry3d origin {
+  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D origin {
     set {
-      TesseractNativePINVOKE.Collision_origin_set(swigCPtr, Isometry3d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.Collision_origin_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.Collision_origin_get(swigCPtr);
-      Isometry3d ret = (cPtr == global::System.IntPtr.Zero) ? null : new Isometry3d(cPtr, false);
+      var result = TesseractNativePINVOKE.Collision_origin_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Isometry(result);
+    }
+
   }
 
   public Geometry geometry {

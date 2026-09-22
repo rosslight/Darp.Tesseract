@@ -10,68 +10,12 @@
 
 namespace Darp.Tesseract.Native {
 
-public class VectorIsometry3d : global::System.IDisposable {
-  private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
+public sealed class VectorIsometry3d : NativeList<global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D> {
+  public VectorIsometry3d() : base(2, TensorResult.Isometry) { }
+  internal VectorIsometry3d(global::System.IntPtr handle) : base(handle, 2, TensorResult.Isometry) { }
 
-  internal VectorIsometry3d(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(VectorIsometry3d obj) {
-    return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(VectorIsometry3d obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-    }
-  }
-
-  ~VectorIsometry3d() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
-    lock(this) {
-      if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_VectorIsometry3d(swigCPtr);
-        }
-        swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-      }
-    }
-  }
-
-  public int size() {
-    int ret = TesseractNativePINVOKE.VectorIsometry3d_size(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public Isometry3d get(int index) {
-    Isometry3d ret = new Isometry3d(TesseractNativePINVOKE.VectorIsometry3d_get(swigCPtr, index), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public VectorIsometry3d() : this(TesseractNativePINVOKE.new_VectorIsometry3d(), true) {
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
+  public VectorIsometry3d(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D> values)
+    : base(2, TensorResult.Isometry, values) { }
 
 }
 

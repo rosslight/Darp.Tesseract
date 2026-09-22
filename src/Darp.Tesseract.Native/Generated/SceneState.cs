@@ -58,54 +58,42 @@ public class SceneState : global::System.IDisposable {
   }
 
   public TransformMap floating_joints {
-    set {
-      TesseractNativePINVOKE.SceneState_floating_joints_set(swigCPtr, TransformMap.getCPtr(value));
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
-    get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.SceneState_floating_joints_get(swigCPtr);
-      TransformMap ret = (cPtr == global::System.IntPtr.Zero) ? null : new TransformMap(cPtr, false);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+    set { TesseractNativePINVOKE.SceneState_floating_joints_set(swigCPtr, value.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); }
+
+    get { var result = TesseractNativePINVOKE.SceneState_floating_joints_get(swigCPtr);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); return new TransformMap(result); }
+
   }
 
   public TransformMap link_transforms {
-    set {
-      TesseractNativePINVOKE.SceneState_link_transforms_set(swigCPtr, TransformMap.getCPtr(value));
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
-    get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.SceneState_link_transforms_get(swigCPtr);
-      TransformMap ret = (cPtr == global::System.IntPtr.Zero) ? null : new TransformMap(cPtr, false);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+    set { TesseractNativePINVOKE.SceneState_link_transforms_set(swigCPtr, value.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); }
+
+    get { var result = TesseractNativePINVOKE.SceneState_link_transforms_get(swigCPtr);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); return new TransformMap(result); }
+
   }
 
   public TransformMap joint_transforms {
-    set {
-      TesseractNativePINVOKE.SceneState_joint_transforms_set(swigCPtr, TransformMap.getCPtr(value));
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
-    get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.SceneState_joint_transforms_get(swigCPtr);
-      TransformMap ret = (cPtr == global::System.IntPtr.Zero) ? null : new TransformMap(cPtr, false);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+    set { TesseractNativePINVOKE.SceneState_joint_transforms_set(swigCPtr, value.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); }
+
+    get { var result = TesseractNativePINVOKE.SceneState_joint_transforms_get(swigCPtr);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve(); return new TransformMap(result); }
+
   }
 
-  public VectorXd getJointValues(StringVector joint_names) {
-    VectorXd ret = new VectorXd(TesseractNativePINVOKE.SceneState_getJointValues(swigCPtr, StringVector.getCPtr(joint_names)), true);
+  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD getJointValues(StringVector joint_names) {
+    var result = TesseractNativePINVOKE.SceneState_getJointValues(swigCPtr, StringVector.getCPtr(joint_names));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+    return TensorResult.Vector(result);
   }
 
   public TransformMap getFloatingJointValues(StringVector joint_names) {
-    TransformMap ret = new TransformMap(TesseractNativePINVOKE.SceneState_getFloatingJointValues(swigCPtr, StringVector.getCPtr(joint_names)), true);
+    var result = TesseractNativePINVOKE.SceneState_getFloatingJointValues(swigCPtr, StringVector.getCPtr(joint_names));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+    return new TransformMap(result);
   }
 
   public SceneState() : this(TesseractNativePINVOKE.new_SceneState(), true) {

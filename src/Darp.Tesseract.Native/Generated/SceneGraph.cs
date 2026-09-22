@@ -165,10 +165,14 @@ public class SceneGraph : global::System.IDisposable {
     return ret;
   }
 
-  public bool changeJointOrigin(string name, Isometry3d new_origin) {
-    bool ret = TesseractNativePINVOKE.SceneGraph_changeJointOrigin(swigCPtr, name, Isometry3d.getCPtr(new_origin));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public bool changeJointOrigin(string name, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D new_origin) {
+    using (var new_origin_arg = new TensorArgument(new_origin.AsReadOnlyMatrix())) {
+    {
+      bool ret = TesseractNativePINVOKE.SceneGraph_changeJointOrigin(swigCPtr, name, new_origin_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
   }
 
   public bool changeJointLimits(string name, JointLimits limits) {

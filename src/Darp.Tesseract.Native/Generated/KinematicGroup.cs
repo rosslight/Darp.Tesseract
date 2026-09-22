@@ -36,15 +36,27 @@ public class KinematicGroup : JointGroup {
     }
   }
 
-  public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, VectorXd seed) {
-    IKSolutions ret = new IKSolutions(TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_0(swigCPtr, KinGroupIKInput.getCPtr(tip_link_pose), VectorXd.getCPtr(seed)), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD seed) {
+    using (var seed_arg = new TensorArgument(seed.AsReadOnlyMatrix())) {
+    {
+      var result = TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_0(swigCPtr, KinGroupIKInput.getCPtr(tip_link_pose), seed_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return new IKSolutions(result);
+    }
+    }
   }
 
-  public void calcInvKin(IKSolutions solutions, KinGroupIKInput tip_link_pose, VectorXd seed) {
-    TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_1(swigCPtr, IKSolutions.getCPtr(solutions), KinGroupIKInput.getCPtr(tip_link_pose), VectorXd.getCPtr(seed));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  public void calcInvKin(ref IKSolutions solutions, KinGroupIKInput tip_link_pose, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD seed) {
+    using (var solutions_arg = new ContainerArgument(solutions.Handle)) {
+    using (var seed_arg = new TensorArgument(seed.AsReadOnlyMatrix())) {
+    try {
+      TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_1(swigCPtr, solutions_arg.Handle, KinGroupIKInput.getCPtr(tip_link_pose), seed_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } finally {
+      if (solutions_arg.HasOutput) solutions = new IKSolutions(solutions_arg.Take());
+    }
+    }
+    }
   }
 
   public StringVector getAllValidWorkingFrames() {

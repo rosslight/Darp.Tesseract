@@ -57,56 +57,68 @@ public class KinematicLimits : global::System.IDisposable {
     }
   }
 
-  public MatrixX2d joint_limits {
+  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD joint_limits {
     set {
-      TesseractNativePINVOKE.KinematicLimits_joint_limits_set(swigCPtr, MatrixX2d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.KinematicLimits_joint_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.KinematicLimits_joint_limits_get(swigCPtr);
-      MatrixX2d ret = (cPtr == global::System.IntPtr.Zero) ? null : new MatrixX2d(cPtr, false);
+      var result = TesseractNativePINVOKE.KinematicLimits_joint_limits_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Matrix(result);
+    }
+
   }
 
-  public MatrixX2d velocity_limits {
+  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD velocity_limits {
     set {
-      TesseractNativePINVOKE.KinematicLimits_velocity_limits_set(swigCPtr, MatrixX2d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.KinematicLimits_velocity_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.KinematicLimits_velocity_limits_get(swigCPtr);
-      MatrixX2d ret = (cPtr == global::System.IntPtr.Zero) ? null : new MatrixX2d(cPtr, false);
+      var result = TesseractNativePINVOKE.KinematicLimits_velocity_limits_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Matrix(result);
+    }
+
   }
 
-  public MatrixX2d acceleration_limits {
+  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD acceleration_limits {
     set {
-      TesseractNativePINVOKE.KinematicLimits_acceleration_limits_set(swigCPtr, MatrixX2d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.KinematicLimits_acceleration_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.KinematicLimits_acceleration_limits_get(swigCPtr);
-      MatrixX2d ret = (cPtr == global::System.IntPtr.Zero) ? null : new MatrixX2d(cPtr, false);
+      var result = TesseractNativePINVOKE.KinematicLimits_acceleration_limits_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Matrix(result);
+    }
+
   }
 
-  public MatrixX2d jerk_limits {
+  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD jerk_limits {
     set {
-      TesseractNativePINVOKE.KinematicLimits_jerk_limits_set(swigCPtr, MatrixX2d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.KinematicLimits_jerk_limits_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.KinematicLimits_jerk_limits_get(swigCPtr);
-      MatrixX2d ret = (cPtr == global::System.IntPtr.Zero) ? null : new MatrixX2d(cPtr, false);
+      var result = TesseractNativePINVOKE.KinematicLimits_jerk_limits_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Matrix(result);
+    }
+
   }
 
   public void resize(long size) {

@@ -123,6 +123,7 @@
 #define BOOST_CLASS_TRACKING(a,b)
 #define BOOST_SERIALIZATION_ASSUME_ABSTRACT(a)
 
+%include "geometry/mappings.i"
 %include "support/eigen.i"
 %include "support/filesystem.i"
 %include "support/containers.i"

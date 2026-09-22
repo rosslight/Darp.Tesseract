@@ -62,7 +62,6 @@ New-Item -ItemType Directory -Path $nativeOutputDir -Force | Out-Null
 New-Item -ItemType Directory -Path $managedOutputDir -Force | Out-Null
 
 Get-ChildItem -LiteralPath $managedOutputDir -Filter "*.cs" -File -ErrorAction SilentlyContinue | Remove-Item -Force
-Get-ChildItem -LiteralPath $nativeOutputDir -Filter "*_wrap.cxx" -File -ErrorAction SilentlyContinue | Remove-Item -Force
 
 $wrapperPath = Join-Path $nativeOutputDir "TesseractNative_wrap.cxx"
 $arguments = @(

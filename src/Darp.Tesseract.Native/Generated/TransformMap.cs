@@ -10,84 +10,12 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TransformMap : global::System.IDisposable {
-  private global::System.Runtime.InteropServices.HandleRef swigCPtr;
-  protected bool swigCMemOwn;
+public sealed class TransformMap : NativeMap<global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D> {
+  public TransformMap() : base(1, TensorResult.Isometry) { }
+  internal TransformMap(global::System.IntPtr handle) : base(handle, 1, TensorResult.Isometry) { }
 
-  internal TransformMap(global::System.IntPtr cPtr, bool cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TransformMap obj) {
-    return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
-  }
-
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(TransformMap obj) {
-    if (obj != null) {
-      if (!obj.swigCMemOwn)
-        throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
-      global::System.Runtime.InteropServices.HandleRef ptr = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-      obj.Dispose();
-      return ptr;
-    } else {
-      return new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-    }
-  }
-
-  ~TransformMap() {
-    Dispose(false);
-  }
-
-  public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
-    lock(this) {
-      if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_TransformMap(swigCPtr);
-        }
-        swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-      }
-    }
-  }
-
-  public TransformMap() : this(TesseractNativePINVOKE.new_TransformMap(), true) {
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public int size() {
-    int ret = TesseractNativePINVOKE.TransformMap_size(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public bool contains(string key) {
-    bool ret = TesseractNativePINVOKE.TransformMap_contains(swigCPtr, key);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void set(string key, Isometry3d value) {
-    TesseractNativePINVOKE.TransformMap_set(swigCPtr, key, Isometry3d.getCPtr(value));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
-  public Isometry3d get(string key) {
-    Isometry3d ret = new Isometry3d(TesseractNativePINVOKE.TransformMap_get(swigCPtr, key), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public void clear() {
-    TesseractNativePINVOKE.TransformMap_clear(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
+  public TransformMap(global::System.Collections.Generic.IReadOnlyDictionary<string, global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D> values)
+    : base(1, TensorResult.Isometry, values) { }
 
 }
 

@@ -61,7 +61,13 @@ public class JointState : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public JointState(StringVector joint_names, VectorXd position) : this(TesseractNativePINVOKE.new_JointState__SWIG_1(StringVector.getCPtr(joint_names), VectorXd.getCPtr(position)), true) {
+  static private global::System.IntPtr SwigConstructJointState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD position) {
+    using (var position_arg = new TensorArgument(position.AsReadOnlyMatrix())) {
+    return TesseractNativePINVOKE.new_JointState__SWIG_1(StringVector.getCPtr(joint_names), position_arg.Handle);
+    }
+  }
+
+  public JointState(StringVector joint_names, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD position) : this(JointState.SwigConstructJointState(joint_names, position), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -78,56 +84,68 @@ public class JointState : global::System.IDisposable {
     } 
   }
 
-  public VectorXd position {
+  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD position {
     set {
-      TesseractNativePINVOKE.JointState_position_set(swigCPtr, VectorXd.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.JointState_position_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.JointState_position_get(swigCPtr);
-      VectorXd ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorXd(cPtr, false);
+      var result = TesseractNativePINVOKE.JointState_position_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Vector(result);
+    }
+
   }
 
-  public VectorXd velocity {
+  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD velocity {
     set {
-      TesseractNativePINVOKE.JointState_velocity_set(swigCPtr, VectorXd.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.JointState_velocity_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.JointState_velocity_get(swigCPtr);
-      VectorXd ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorXd(cPtr, false);
+      var result = TesseractNativePINVOKE.JointState_velocity_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Vector(result);
+    }
+
   }
 
-  public VectorXd acceleration {
+  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD acceleration {
     set {
-      TesseractNativePINVOKE.JointState_acceleration_set(swigCPtr, VectorXd.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.JointState_acceleration_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.JointState_acceleration_get(swigCPtr);
-      VectorXd ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorXd(cPtr, false);
+      var result = TesseractNativePINVOKE.JointState_acceleration_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Vector(result);
+    }
+
   }
 
-  public VectorXd effort {
+  public global::Darp.Geometry.Tensor2.ReadOnlyVectorXD effort {
     set {
-      TesseractNativePINVOKE.JointState_effort_set(swigCPtr, VectorXd.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.JointState_effort_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.JointState_effort_get(swigCPtr);
-      VectorXd ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorXd(cPtr, false);
+      var result = TesseractNativePINVOKE.JointState_effort_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Vector(result);
+    }
+
   }
 
   public double time {

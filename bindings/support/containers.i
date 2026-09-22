@@ -4,12 +4,6 @@
     new global::System.Span<double>((void*)dataAddress(), checked((int)Count));
 %}
 
-%typemap(cscode) tesseract::kinematics::IKSolutions %{
-  /// <summary>Views one native IK solution without copying it.</summary>
-  public unsafe global::System.ReadOnlySpan<double> GetSolutionSpan(int index) =>
-    new global::System.ReadOnlySpan<double>((void*)solutionDataAddress(index), solutionSize(index));
-%}
-
 /* Eigen::Index is a signed 64-bit integer, but its native spelling differs:
  * long long on Windows and long on LP64 platforms. Keep the STL helpers tied
  * to Eigen::Index instead of SWIG's generation-host integer spelling. */
@@ -49,79 +43,10 @@ class VectorIsometry3d {};
 }
 }
 
-%extend tesseract::common::TransformMap
-{
-  TransformMap()
-  {
-    return new tesseract::common::TransformMap();
-  }
-
-  int size() const
-  {
-    return static_cast<int>($self->size());
-  }
-
-  bool contains(const std::string& key) const
-  {
-    return $self->find(key) != $self->end();
-  }
-
-  void set(const std::string& key, const Eigen::Isometry3d& value)
-  {
-    $self->insert_or_assign(key, value);
-  }
-
-  Eigen::Isometry3d get(const std::string& key) const
-  {
-    return $self->at(key);
-  }
-
-  void clear()
-  {
-    $self->clear();
-  }
-}
-
-%extend tesseract::common::VectorIsometry3d
-{
-  int size() const { return static_cast<int>($self->size()); }
-
-  Eigen::Isometry3d get(int index) const
-  {
-    if (index < 0 || index >= static_cast<int>($self->size()))
-      throw std::out_of_range("Transform index is out of range.");
-    return (*$self)[static_cast<std::size_t>(index)];
-  }
-}
-
-/*
- * IKSolutions owns the outer vector and every Eigen row. GetSolutionSpan views
- * the existing native row directly, avoiding a second native allocation/copy.
- */
 namespace tesseract
 {
 namespace kinematics
 {
 class IKSolutions {};
 }
-}
-
-%extend tesseract::kinematics::IKSolutions
-{
-  int size() const { return static_cast<int>($self->size()); }
-
-  int solutionSize(int index) const
-  {
-    if (index < 0 || index >= static_cast<int>($self->size()))
-      throw std::out_of_range("IK solution index is out of range.");
-    return static_cast<int>((*$self)[static_cast<std::size_t>(index)].size());
-  }
-
-  unsigned long long solutionDataAddress(int index) const
-  {
-    if (index < 0 || index >= static_cast<int>($self->size()))
-      throw std::out_of_range("IK solution index is out of range.");
-    return static_cast<unsigned long long>(reinterpret_cast<std::uintptr_t>(
-      (*$self)[static_cast<std::size_t>(index)].data()));
-  }
 }

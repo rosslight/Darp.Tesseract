@@ -44,26 +44,50 @@ public class ForwardKinematics : global::System.IDisposable {
     }
   }
 
-  public TransformMap calcFwdKin(VectorXd joint_angles) {
-    TransformMap ret = new TransformMap(TesseractNativePINVOKE.ForwardKinematics_calcFwdKin__SWIG_0(swigCPtr, VectorXd.getCPtr(joint_angles)), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public TransformMap calcFwdKin(global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_angles) {
+    using (var joint_angles_arg = new TensorArgument(joint_angles.AsReadOnlyMatrix())) {
+    {
+      var result = TesseractNativePINVOKE.ForwardKinematics_calcFwdKin__SWIG_0(swigCPtr, joint_angles_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return new TransformMap(result);
+    }
+    }
   }
 
-  public MatrixXd calcJacobian(VectorXd joint_angles, string link_name) {
-    MatrixXd ret = new MatrixXd(TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_0(swigCPtr, VectorXd.getCPtr(joint_angles), link_name), true);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  public global::Darp.Geometry.Tensor2.ReadOnlyMatrixXD calcJacobian(global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_angles, string link_name) {
+    using (var joint_angles_arg = new TensorArgument(joint_angles.AsReadOnlyMatrix())) {
+    {
+      var result = TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_0(swigCPtr, joint_angles_arg.Handle, link_name);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return TensorResult.Matrix(result);
+    }
+    }
   }
 
-  public virtual void calcFwdKin(TransformMap transforms, VectorXd joint_angles) {
-    TesseractNativePINVOKE.ForwardKinematics_calcFwdKin__SWIG_1(swigCPtr, TransformMap.getCPtr(transforms), VectorXd.getCPtr(joint_angles));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  public virtual void calcFwdKin(ref TransformMap transforms, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_angles) {
+    using (var transforms_arg = new ContainerArgument(transforms.Handle)) {
+    using (var joint_angles_arg = new TensorArgument(joint_angles.AsReadOnlyMatrix())) {
+    try {
+      TesseractNativePINVOKE.ForwardKinematics_calcFwdKin__SWIG_1(swigCPtr, transforms_arg.Handle, joint_angles_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } finally {
+      if (transforms_arg.HasOutput) transforms = new TransformMap(transforms_arg.Take());
+    }
+    }
+    }
   }
 
-  public virtual void calcJacobian(MatrixXd jacobian, VectorXd joint_angles, string link_name) {
-    TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_1(swigCPtr, MatrixXd.getCPtr(jacobian), VectorXd.getCPtr(joint_angles), link_name);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  public virtual void calcJacobian(global::Darp.Geometry.Tensor2.MatrixXD jacobian, global::Darp.Geometry.Tensor2.ReadOnlyVectorXD joint_angles, string link_name) {
+    using (var jacobian_arg = new TensorArgument(jacobian.AsReadOnlyMatrix())) {
+    using (var joint_angles_arg = new TensorArgument(joint_angles.AsReadOnlyMatrix())) {
+    try {
+      TesseractNativePINVOKE.ForwardKinematics_calcJacobian__SWIG_1(swigCPtr, jacobian_arg.Handle, joint_angles_arg.Handle, link_name);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } finally {
+      if (jacobian_arg.HasOutput) jacobian_arg.CopyBack(jacobian.AsMatrix());
+    }
+    }
+    }
   }
 
   public virtual string getBaseLinkName() {

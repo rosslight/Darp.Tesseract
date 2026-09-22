@@ -57,7 +57,13 @@ public class KinGroupIKInput : global::System.IDisposable {
     }
   }
 
-  public KinGroupIKInput(Isometry3d p, string wf, string tl) : this(TesseractNativePINVOKE.new_KinGroupIKInput__SWIG_0(Isometry3d.getCPtr(p), wf, tl), true) {
+  static private global::System.IntPtr SwigConstructKinGroupIKInput(global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D p, string wf, string tl) {
+    using (var p_arg = new TensorArgument(p.AsReadOnlyMatrix())) {
+    return TesseractNativePINVOKE.new_KinGroupIKInput__SWIG_0(p_arg.Handle, wf, tl);
+    }
+  }
+
+  public KinGroupIKInput(global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D p, string wf, string tl) : this(KinGroupIKInput.SwigConstructKinGroupIKInput(p, wf, tl), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -65,17 +71,20 @@ public class KinGroupIKInput : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public Isometry3d pose {
+  public global::Darp.Geometry.Tensor2.ReadOnlyIsometry3D pose {
     set {
-      TesseractNativePINVOKE.KinGroupIKInput_pose_set(swigCPtr, Isometry3d.getCPtr(value));
+      using (var value_arg = new TensorArgument(value.AsReadOnlyMatrix())) {
+        TesseractNativePINVOKE.KinGroupIKInput_pose_set(swigCPtr, value_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
+      }
+    }
+
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.KinGroupIKInput_pose_get(swigCPtr);
-      Isometry3d ret = (cPtr == global::System.IntPtr.Zero) ? null : new Isometry3d(cPtr, false);
+      var result = TesseractNativePINVOKE.KinGroupIKInput_pose_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+      return TensorResult.Isometry(result);
+    }
+
   }
 
   public string working_frame {

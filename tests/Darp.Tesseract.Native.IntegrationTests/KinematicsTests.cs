@@ -1,3 +1,4 @@
+using Darp.Geometry.Tensor2;
 using Shouldly;
 using System.Runtime.InteropServices;
 using Xunit;
@@ -89,35 +90,32 @@ public sealed class KinematicsTests
         var tipLink = activeLinks[^1];
         tipLink.ShouldBe("tool0");
 
-        using var seed = new VectorXd(checked((int)group.numJoints()));
-        seed.AsSpan().Clear();
+        var seed = new VectorXD(checked((int)group.numJoints()));
 
-        using var transforms = group.calcFwdKin(seed);
-        transforms.contains(tipLink).ShouldBeTrue();
-        using var target = transforms.get(tipLink);
+        var transforms = group.calcFwdKin(seed);
+        transforms.ContainsKey(tipLink).ShouldBeTrue();
+        var target = transforms[tipLink];
 
-        using var jacobian = group.calcJacobian(seed, tipLink);
-        jacobian.rows().ShouldBe(6);
-        jacobian.columns().ShouldBe(6);
-        foreach (var value in jacobian.AsSpan())
+        var jacobian = group.calcJacobian(seed, tipLink);
+        jacobian.Rows.ShouldBe(6);
+        jacobian.Columns.ShouldBe(6);
+        foreach (var value in jacobian.ToArray())
             double.IsFinite(value).ShouldBeTrue();
 
         using var input = new KinGroupIKInput(target, group.getBaseLinkName(), tipLink);
-        using var solutions = group.calcInvKin(input, seed);
-        solutions.size().ShouldBeGreaterThan(0);
+        var solutions = group.calcInvKin(input, seed);
+        solutions.Count.ShouldBeGreaterThan(0);
 
         var roundTripMatched = false;
-        using var candidate = new VectorXd(checked((int)group.numJoints()));
-        for (var index = 0; index < solutions.size(); index++)
+        for (var index = 0; index < solutions.Count; index++)
         {
-            var solution = solutions.GetSolutionSpan(index);
-            solution.Length.ShouldBe(candidate.size());
-            foreach (var joint in solution)
+            var solution = solutions[index];
+            solution.Count.ShouldBe(seed.Count);
+            foreach (var joint in solution.ToArray())
                 double.IsFinite(joint).ShouldBeTrue();
 
-            solution.CopyTo(candidate.AsSpan());
-            using var candidateTransforms = group.calcFwdKin(candidate);
-            using var candidatePose = candidateTransforms.get(tipLink);
+            var candidateTransforms = group.calcFwdKin(solution);
+            var candidatePose = candidateTransforms[tipLink];
             if (PosesApproximatelyEqual(target, candidatePose, 1e-6))
             {
                 roundTripMatched = true;
@@ -169,17 +167,6 @@ public sealed class KinematicsTests
     }
 
     [Fact]
-    public void GeneratedNativeViewsValidateBoundsWithoutManagedArrays()
-    {
-        using var vector = new VectorXd(6);
-        vector.AsSpan().Fill(0.25);
-
-        vector.get(0).ShouldBe(0.25);
-        vector.get(5).ShouldBe(0.25);
-        Should.Throw<IndexOutOfRangeException>(() => vector.get(6));
-    }
-
-    [Fact]
     public void EnvironmentSupportsSingleAndBatchCommands()
     {
         using var environment = CreateEnvironment();
@@ -198,20 +185,97 @@ public sealed class KinematicsTests
         environment.getLink("fixture").ShouldBeNull();
     }
 
-    private static bool PosesApproximatelyEqual(Isometry3d expected, Isometry3d actual, double tolerance)
+    private static bool PosesApproximatelyEqual(ReadOnlyIsometry3D expected, ReadOnlyIsometry3D actual, double tolerance)
     {
-        var translationMatches =
-            Math.Abs(expected.translationX() - actual.translationX()) <= tolerance &&
-            Math.Abs(expected.translationY() - actual.translationY()) <= tolerance &&
-            Math.Abs(expected.translationZ() - actual.translationZ()) <= tolerance;
+        var a = expected.AsReadOnlyMatrix();
+        var b = actual.AsReadOnlyMatrix();
+        for (int row = 0; row < 4; row++)
+            for (int column = 0; column < 4; column++)
+                if (Math.Abs(a[row, column] - b[row, column]) > tolerance) return false;
+        return true;
+    }
 
-        var quaternionDot =
-            expected.quaternionX() * actual.quaternionX() +
-            expected.quaternionY() * actual.quaternionY() +
-            expected.quaternionZ() * actual.quaternionZ() +
-            expected.quaternionW() * actual.quaternionW();
+    [Fact]
+    public void StridedJointInputAndRefOutputsMatchValueOverloads()
+    {
+        using var environment = CreateEnvironment();
+        using var group = environment.getKinematicGroup("manipulator");
+        var joints = new VectorXD(0.1, -0.2, 0.3, 0.1, 0.2, -0.1);
+        var storage = new double[12];
+        var strided = VectorXD.Map(storage, 6, 2);
+        for (int i = 0; i < 6; i++) { strided[i] = joints[i]; storage[i * 2 + 1] = 99; }
+        var expected = group.calcFwdKin(joints)["tool0"];
+        var poses = group.calcFwdKin(new VectorXD(6));
+        var earlier = poses["tool0"];
+        var earlierCopy = earlier.AsReadOnlyMatrix().ToArray();
+        group.calcFwdKin(ref poses, strided);
+        PosesApproximatelyEqual(expected, poses["tool0"], 1e-10).ShouldBeTrue();
+        earlier.AsReadOnlyMatrix().ToArray().ShouldBe(earlierCopy);
+        for (int i = 0; i < 6; i++) storage[i * 2 + 1].ShouldBe(99);
+    }
 
-        return translationMatches && Math.Abs(Math.Abs(quaternionDot) - 1) <= tolerance;
+    [Fact]
+    public void MatrixPropertiesPreserveRowMajorLayoutAndRejectWrongShape()
+    {
+        using var limits = new KinematicLimits();
+        var matrix = MatrixXD.Map(new double[] { -1, 1, -2, 2, -3, 3 }, 3, 2, columnStride: 1, rowStride: 2);
+        limits.joint_limits = matrix;
+        var saved = limits.joint_limits;
+        saved.Rows.ShouldBe(3);
+        saved.Columns.ShouldBe(2);
+        for (int row = 0; row < 3; row++)
+            for (int column = 0; column < 2; column++)
+                saved[row, column].ShouldBe(matrix[row, column]);
+        Should.Throw<ArgumentException>(() => limits.joint_limits = new MatrixXD(3, 3));
+        limits.joint_limits[2, 1].ShouldBe(3);
+        saved[0, 0].ShouldBe(-1);
+    }
+
+    [Fact]
+    public void JointStateSnapshotsSurviveMutationDisposalAndCollection()
+    {
+        var snapshot = CreateJointSnapshot();
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        snapshot.ToArray().ShouldBe(new double[] { 1, 2, 3 });
+        snapshot.Norm().ShouldBe(Math.Sqrt(14), 1e-12);
+    }
+
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    private static ReadOnlyVectorXD CreateJointSnapshot()
+    {
+        using var names = new StringVector { "a", "b", "c" };
+        using var state = new JointState(names, new VectorXD(1.0, 2.0, 3.0));
+        state.velocity.Count.ShouldBe(0);
+        state.velocity = new VectorXD(0);
+        state.velocity.Count.ShouldBe(0);
+        var saved = state.position;
+        state.position = new VectorXD(4.0, 5.0, 6.0);
+        state.position.ToArray().ShouldBe(new double[] { 4, 5, 6 });
+        return saved;
+    }
+
+    [Fact]
+    public void ContainerElementRetainsNativeStorageAfterContainerCollection()
+    {
+        var pose = CreateDetachedPose();
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        pose.Translation.X.ShouldBe(1);
+        pose.Translation.Y.ShouldBe(2);
+        pose.Translation.Z.ShouldBe(3);
+    }
+
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    private static ReadOnlyIsometry3D CreateDetachedPose()
+    {
+        var pose = Isometry3D.Identity;
+        var translation = pose.Translation;
+        translation.X = 1; translation.Y = 2; translation.Z = 3;
+        var map = new TransformMap(new Dictionary<string, ReadOnlyIsometry3D> { ["pose"] = pose });
+        return map["pose"];
     }
 
     private static TesseractEnvironment CreateEnvironment()

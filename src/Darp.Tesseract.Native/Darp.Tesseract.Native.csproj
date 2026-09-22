@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net10.0;netstandard2.1</TargetFrameworks>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <EnablePackageValidation>true</EnablePackageValidation>
         <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
 
+        <NativeRuntimeRoot Condition="'$(NativeRuntimeRoot)' == ''">$(MSBuildProjectDirectory)/../../artifacts/native</NativeRuntimeRoot>
         <PackageId>Darp.Tesseract.Native</PackageId>
         <Title>Darp Tesseract Native Bindings</Title>
         <Description>SWIG-generated .NET bindings for Tesseract Robotics with prebuilt native runtimes.</Description>
@@ -21,6 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="../Darp.Geometry/Darp.Geometry.csproj" />
         <Compile Update="Generated/**/*.cs">
             <Nullable>disable</Nullable>
         </Compile>
@@ -31,8 +33,8 @@
         <None Include="../../native/boost_plugin_loader/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/boost_plugin_loader/" />
         <None Include="../../native/opw_kinematics/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/opw_kinematics/" />
         <None Include="../../artifacts/notices/**/*" Pack="true" Visible="false" PackagePath="licenses/" />
-        <None Include="../../artifacts/native/**/*.*"
-              Condition="Exists('../../artifacts/native')"
+        <None Include="$(NativeRuntimeRoot)/**/*.*"
+              Condition="Exists('$(NativeRuntimeRoot)')"
               Pack="true"
               Visible="false"
               PackagePath="runtimes/%(RecursiveDir)native/%(Filename)%(Extension)"
