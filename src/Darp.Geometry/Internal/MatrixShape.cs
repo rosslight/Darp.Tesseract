@@ -7,8 +7,13 @@ internal static class MatrixShape
 {
     public static void RequireMatrix(ReadOnlyTensorSpan<double> matrix)
     {
-        if (matrix.Rank != 2 || matrix.Lengths[0] < 0 || matrix.Lengths[1] < 0 ||
-            matrix.Lengths[0] > int.MaxValue || matrix.Lengths[1] > int.MaxValue)
+        if (
+            matrix.Rank != 2
+            || matrix.Lengths[0] < 0
+            || matrix.Lengths[1] < 0
+            || matrix.Lengths[0] > int.MaxValue
+            || matrix.Lengths[1] > int.MaxValue
+        )
             throw new ArgumentException("Expected a rank-two matrix with Int32 dimensions.", nameof(matrix));
     }
 

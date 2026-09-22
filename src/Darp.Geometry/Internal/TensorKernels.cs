@@ -9,19 +9,21 @@ internal static class TensorKernels
     public static double Norm(ReadOnlyTensorSpan<double> matrix)
     {
         MatrixShape.RequireMatrix(matrix);
-        if (matrix.Lengths[0] == 0 || matrix.Lengths[1] == 0) return 0;
+        if (matrix.Lengths[0] == 0 || matrix.Lengths[1] == 0)
+            return 0;
         double scale = 0;
         for (int c = 0; c < matrix.Lengths[1]; c++)
-            for (int r = 0; r < matrix.Lengths[0]; r++)
-                scale = Math.Max(scale, Math.Abs(matrix[r, c]));
-        if (scale == 0 || !double.IsFinite(scale)) return scale;
+        for (int r = 0; r < matrix.Lengths[0]; r++)
+            scale = Math.Max(scale, Math.Abs(matrix[r, c]));
+        if (scale == 0 || !double.IsFinite(scale))
+            return scale;
         double sum = 0;
         for (int c = 0; c < matrix.Lengths[1]; c++)
-            for (int r = 0; r < matrix.Lengths[0]; r++)
-            {
-                double x = matrix[r, c] / scale;
-                sum += x * x;
-            }
+        for (int r = 0; r < matrix.Lengths[0]; r++)
+        {
+            double x = matrix[r, c] / scale;
+            sum += x * x;
+        }
         return scale * Math.Sqrt(sum);
     }
 
@@ -41,7 +43,8 @@ internal static class TensorKernels
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
                 sum += TensorPrimitives.Dot(a, b);
             else
-                for (int r = 0; r < left.Lengths[0]; r++) sum += left[r, c] * right[r, c];
+                for (int r = 0; r < left.Lengths[0]; r++)
+                    sum += left[r, c] * right[r, c];
         }
         return sum;
     }
@@ -71,7 +74,8 @@ internal static class TensorKernels
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
                 TensorPrimitives.Add(a, b, destination.GetSpan([0, c], result.Rows));
             else
-                for (int r = 0; r < left.Lengths[0]; r++) destination[r, c] = left[r, c] + right[r, c];
+                for (int r = 0; r < left.Lengths[0]; r++)
+                    destination[r, c] = left[r, c] + right[r, c];
         }
         return result;
     }
@@ -86,7 +90,8 @@ internal static class TensorKernels
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
                 TensorPrimitives.Subtract(a, b, destination.GetSpan([0, c], result.Rows));
             else
-                for (int r = 0; r < left.Lengths[0]; r++) destination[r, c] = left[r, c] - right[r, c];
+                for (int r = 0; r < left.Lengths[0]; r++)
+                    destination[r, c] = left[r, c] - right[r, c];
         }
         return result;
     }
@@ -98,9 +103,9 @@ internal static class TensorKernels
         var result = new MatrixXD((int)left.Lengths[0], (int)right.Lengths[1]);
         TensorSpan<double> destination = result.AsTensorSpan();
         for (int c = 0; c < right.Lengths[1]; c++)
-            for (int k = 0; k < left.Lengths[1]; k++)
-                for (int r = 0; r < left.Lengths[0]; r++)
-                    destination[r, c] += left[r, k] * right[k, c];
+        for (int k = 0; k < left.Lengths[1]; k++)
+        for (int r = 0; r < left.Lengths[0]; r++)
+            destination[r, c] += left[r, k] * right[k, c];
         return result;
     }
 
@@ -114,7 +119,8 @@ internal static class TensorKernels
             if (TryGetContiguousColumn(matrix, c, out var column))
                 TensorPrimitives.Multiply(column, scalar, destination.GetSpan([0, c], result.Rows));
             else
-                for (int r = 0; r < matrix.Lengths[0]; r++) destination[r, c] = matrix[r, c] * scalar;
+                for (int r = 0; r < matrix.Lengths[0]; r++)
+                    destination[r, c] = matrix[r, c] * scalar;
         }
         return result;
     }
@@ -125,7 +131,8 @@ internal static class TensorKernels
         var result = new MatrixXD((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
         TensorSpan<double> destination = result.AsTensorSpan();
         for (int c = 0; c < matrix.Lengths[1]; c++)
-            for (int r = 0; r < matrix.Lengths[0]; r++) destination[r, c] = matrix[r, c] / scalar;
+        for (int r = 0; r < matrix.Lengths[0]; r++)
+            destination[r, c] = matrix[r, c] / scalar;
         return result;
     }
 
@@ -135,8 +142,8 @@ internal static class TensorKernels
         var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
         TensorSpan<double> destination = result.AsTensorSpan();
         for (int c = 0; c < left.Lengths[1]; c++)
-            for (int r = 0; r < left.Lengths[0]; r++)
-                destination[r, c] = (1 - amount) * left[r, c] + amount * right[r, c];
+        for (int r = 0; r < left.Lengths[0]; r++)
+            destination[r, c] = (1 - amount) * left[r, c] + amount * right[r, c];
         return result;
     }
 
@@ -146,7 +153,8 @@ internal static class TensorKernels
         return new(
             left[1, 0] * right[2, 0] - left[2, 0] * right[1, 0],
             left[2, 0] * right[0, 0] - left[0, 0] * right[2, 0],
-            left[0, 0] * right[1, 0] - left[1, 0] * right[0, 0]);
+            left[0, 0] * right[1, 0] - left[1, 0] * right[0, 0]
+        );
     }
 
     /// <summary>Determinant specialized to 3 by 3 matrices.</summary>
@@ -158,7 +166,11 @@ internal static class TensorKernels
             + matrix[0, 2] * (matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0]);
     }
 
-    private static bool TryGetContiguousColumn(ReadOnlyTensorSpan<double> matrix, int column, out ReadOnlySpan<double> values)
+    private static bool TryGetContiguousColumn(
+        ReadOnlyTensorSpan<double> matrix,
+        int column,
+        out ReadOnlySpan<double> values
+    )
     {
         if (matrix.Lengths[0] > 0 && (matrix.Lengths[0] == 1 || matrix.Strides[0] == 1))
             return matrix.TryGetSpan([0, column], (int)matrix.Lengths[0], out values);

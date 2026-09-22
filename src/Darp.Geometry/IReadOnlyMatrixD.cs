@@ -11,6 +11,7 @@ public interface IReadOnlyMatrixD : IDisposable
     int RowStride { get; }
     int ColumnStride { get; }
     double this[int row, int column] { get; }
+
     /// <summary>Keep this object alive and undisposed until the span's last use.</summary>
     ReadOnlyTensorSpan<double> AsReadOnlyTensorSpan();
     MemoryHandle Pin();

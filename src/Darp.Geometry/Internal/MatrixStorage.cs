@@ -14,7 +14,8 @@ internal sealed class MatrixStorage(Memory<double> memory, IDisposable? owner)
         while (count != 0)
         {
             int observed = Interlocked.CompareExchange(ref _references, checked(count + 1), count);
-            if (observed == count) return;
+            if (observed == count)
+                return;
             count = observed;
         }
         throw new ObjectDisposedException(nameof(MatrixStorage));
@@ -22,7 +23,8 @@ internal sealed class MatrixStorage(Memory<double> memory, IDisposable? owner)
 
     internal void Release()
     {
-        if (Interlocked.Decrement(ref _references) != 0) return;
+        if (Interlocked.Decrement(ref _references) != 0)
+            return;
         var owner = _owner;
         _owner = null;
         Memory = default;

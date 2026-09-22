@@ -10,7 +10,8 @@ internal readonly record struct MatrixLayout(int Rows, int Columns, int RowStrid
         return this;
     }
 
-    public int Extent => Rows == 0 || Columns == 0 ? 0 : checked((Rows - 1) * RowStride + (Columns - 1) * ColumnStride + 1);
+    public int Extent =>
+        Rows == 0 || Columns == 0 ? 0 : checked((Rows - 1) * RowStride + (Columns - 1) * ColumnStride + 1);
 
     public static MatrixLayout Create(int rows, int columns, int rowStride, int columnStride)
     {

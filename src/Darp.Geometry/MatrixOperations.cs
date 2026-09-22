@@ -3,7 +3,6 @@ namespace Darp.Geometry;
 /// <summary>Shared operations retaining each input allocation until its tensor kernel finishes.</summary>
 public static class MatrixOperations
 {
-
     public static double Norm(IReadOnlyMatrixD matrix)
     {
         using var view = matrix.AsReadOnlyMatrix();
@@ -89,4 +88,3 @@ public static class MatrixOperations
         return TensorKernels.Determinant3x3(view.AsReadOnlyTensorSpan());
     }
 }
-
