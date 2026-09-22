@@ -67,35 +67,35 @@ internal static class TensorResult
     }
     internal static IReadOnlyMatrixD Matrix(IntPtr pointer)
     {
-        using var matrix = MutableMatrix(pointer);
+        var matrix = MutableMatrix(pointer);
         return matrix.AsReadOnly();
     }
     internal static IReadOnlyVectorXD Vector(IntPtr pointer)
     {
-        using var matrix = MutableMatrix(pointer);
-        using var vector = matrix.AsVector();
+        var matrix = MutableMatrix(pointer);
+        var vector = matrix.AsVector();
         return vector.AsReadOnly();
     }
     internal static IReadOnlyVector3D Vector3(IntPtr pointer)
     {
-        using var matrix = MutableMatrix(pointer);
-        using var vector = Vector3D.FromMatrix(matrix);
+        var matrix = MutableMatrix(pointer);
+        var vector = Vector3D.FromMatrix(matrix);
         return vector.AsReadOnly();
     }
     internal static IReadOnlyIsometry3D Isometry(IntPtr pointer)
     {
-        using var matrix = MutableMatrix(pointer);
-        using var transform = Isometry3D.View(matrix);
+        var matrix = MutableMatrix(pointer);
+        var transform = Isometry3D.View(matrix);
         return transform.AsReadOnly();
     }
     internal static IReadOnlyQuaternionD Quaternion(IntPtr pointer)
     {
-        using var quaternion = MutableQuaternion(pointer);
+        var quaternion = MutableQuaternion(pointer);
         return quaternion.AsReadOnly();
     }
     internal static QuaternionD MutableQuaternion(IntPtr pointer)
     {
-        using var matrix = MutableMatrix(pointer);
+        var matrix = MutableMatrix(pointer);
         return QuaternionD.FromMatrix(matrix);
     }
 }

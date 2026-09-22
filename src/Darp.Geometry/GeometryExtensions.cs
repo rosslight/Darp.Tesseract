@@ -1,6 +1,6 @@
 namespace Darp.Geometry;
 
-/// <summary>Geometry operations returning independent, disposable results.</summary>
+/// <summary>Geometry operations returning independent results.</summary>
 public static partial class GeometryExtensions
 {
     public static double[] ToArray(this IReadOnlyVectorXD vector)
@@ -22,16 +22,16 @@ public static partial class GeometryExtensions
     public static Isometry3D Clone(this IReadOnlyIsometry3D value) => Isometry3D.FromMatrix(value);
 
     public static VectorXD Normalized(this IReadOnlyVectorXD value) =>
-        VectorXD.FromOwnedMatrix(MatrixExtensions.Normalized(value));
+        VectorXD.FromMatrix(MatrixExtensions.Normalized(value));
 
     public static Vector3D Normalized(this IReadOnlyVector3D value) =>
-        Vector3D.FromOwnedMatrix(MatrixExtensions.Normalized(value));
+        Vector3D.FromMatrix(MatrixExtensions.Normalized(value));
 
     public static Matrix3D Normalized(this IReadOnlyMatrix3D value) =>
-        Matrix3D.FromOwnedMatrix(MatrixExtensions.Normalized(value));
+        Matrix3D.FromMatrix(MatrixExtensions.Normalized(value));
 
     public static QuaternionD Normalized(this IReadOnlyQuaternionD value) =>
-        QuaternionD.FromOwnedMatrix(MatrixExtensions.Normalized(value));
+        QuaternionD.FromMatrix(MatrixExtensions.Normalized(value));
 
     public static Vector3D Cross(this IReadOnlyVector3D value, IReadOnlyVector3D other) =>
         MatrixExtensions.Cross(value, other);
@@ -41,10 +41,10 @@ public static partial class GeometryExtensions
     public static QuaternionD ToQuaternion(this IReadOnlyMatrix3D value) => QuaternionD.FromRotationMatrix(value);
 
     public static Vector3D Multiply(this IReadOnlyMatrix3D matrix, IReadOnlyVector3D vector) =>
-        Vector3D.FromOwnedMatrix(matrix.Multiply((IReadOnlyMatrixD)vector));
+        Vector3D.FromMatrix(matrix.Multiply((IReadOnlyMatrixD)vector));
 
     public static Matrix3D Multiply(this IReadOnlyMatrix3D left, IReadOnlyMatrix3D right) =>
-        Matrix3D.FromOwnedMatrix(left.Multiply((IReadOnlyMatrixD)right));
+        Matrix3D.FromMatrix(left.Multiply((IReadOnlyMatrixD)right));
 
     public static double Dot(this IReadOnlyVectorXD left, IReadOnlyVectorXD right) => MatrixExtensions.Dot(left, right);
 
@@ -52,44 +52,44 @@ public static partial class GeometryExtensions
         MatrixExtensions.Dot(left, right);
 
     public static VectorXD Add(this IReadOnlyVectorXD left, IReadOnlyVectorXD right) =>
-        VectorXD.FromOwnedMatrix(MatrixExtensions.Add(left, right));
+        VectorXD.FromMatrix(MatrixExtensions.Add(left, right));
 
     public static VectorXD Subtract(this IReadOnlyVectorXD left, IReadOnlyVectorXD right) =>
-        VectorXD.FromOwnedMatrix(MatrixExtensions.Subtract(left, right));
+        VectorXD.FromMatrix(MatrixExtensions.Subtract(left, right));
 
     public static VectorXD Scale(this IReadOnlyVectorXD value, double scalar) =>
-        VectorXD.FromOwnedMatrix(MatrixExtensions.Scale(value, scalar));
+        VectorXD.FromMatrix(MatrixExtensions.Scale(value, scalar));
 
     public static VectorXD Divide(this IReadOnlyVectorXD value, double scalar) =>
-        VectorXD.FromOwnedMatrix(MatrixExtensions.Divide(value, scalar));
+        VectorXD.FromMatrix(MatrixExtensions.Divide(value, scalar));
 
     public static VectorXD Lerp(this IReadOnlyVectorXD left, IReadOnlyVectorXD right, double amount) =>
-        VectorXD.FromOwnedMatrix(MatrixExtensions.Lerp(left, right, amount));
+        VectorXD.FromMatrix(MatrixExtensions.Lerp(left, right, amount));
 
     public static Vector3D Add(this IReadOnlyVector3D left, IReadOnlyVector3D right) =>
-        Vector3D.FromOwnedMatrix(MatrixExtensions.Add(left, right));
+        Vector3D.FromMatrix(MatrixExtensions.Add(left, right));
 
     public static Vector3D Subtract(this IReadOnlyVector3D left, IReadOnlyVector3D right) =>
-        Vector3D.FromOwnedMatrix(MatrixExtensions.Subtract(left, right));
+        Vector3D.FromMatrix(MatrixExtensions.Subtract(left, right));
 
     public static Vector3D Scale(this IReadOnlyVector3D value, double scalar) =>
-        Vector3D.FromOwnedMatrix(MatrixExtensions.Scale(value, scalar));
+        Vector3D.FromMatrix(MatrixExtensions.Scale(value, scalar));
 
     public static Vector3D Divide(this IReadOnlyVector3D value, double scalar) =>
-        Vector3D.FromOwnedMatrix(MatrixExtensions.Divide(value, scalar));
+        Vector3D.FromMatrix(MatrixExtensions.Divide(value, scalar));
 
     public static Vector3D Lerp(this IReadOnlyVector3D left, IReadOnlyVector3D right, double amount) =>
-        Vector3D.FromOwnedMatrix(MatrixExtensions.Lerp(left, right, amount));
+        Vector3D.FromMatrix(MatrixExtensions.Lerp(left, right, amount));
 
     public static Matrix3D Add(this IReadOnlyMatrix3D left, IReadOnlyMatrix3D right) =>
-        Matrix3D.FromOwnedMatrix(MatrixExtensions.Add(left, right));
+        Matrix3D.FromMatrix(MatrixExtensions.Add(left, right));
 
     public static Matrix3D Subtract(this IReadOnlyMatrix3D left, IReadOnlyMatrix3D right) =>
-        Matrix3D.FromOwnedMatrix(MatrixExtensions.Subtract(left, right));
+        Matrix3D.FromMatrix(MatrixExtensions.Subtract(left, right));
 
     public static Matrix3D Scale(this IReadOnlyMatrix3D value, double scalar) =>
-        Matrix3D.FromOwnedMatrix(MatrixExtensions.Scale(value, scalar));
+        Matrix3D.FromMatrix(MatrixExtensions.Scale(value, scalar));
 
     public static Matrix3D Divide(this IReadOnlyMatrix3D value, double scalar) =>
-        Matrix3D.FromOwnedMatrix(MatrixExtensions.Divide(value, scalar));
+        Matrix3D.FromMatrix(MatrixExtensions.Divide(value, scalar));
 }

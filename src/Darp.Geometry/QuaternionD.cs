@@ -20,12 +20,6 @@ public sealed class QuaternionD : GeometryObject, IMatrixD, IReadOnlyQuaternionD
         W = w;
     }
 
-    internal static QuaternionD FromOwnedMatrix(MatrixXD matrix)
-    {
-        using (matrix)
-            return new(matrix.Storage, matrix.Layout.Require(4, 1), matrix.Offset);
-    }
-
     public static QuaternionD Identity => new(0, 0, 0, 1);
 
     public static QuaternionD CreateFromMemory(Memory<double> memory, int stride = 1) =>
@@ -59,9 +53,9 @@ public sealed class QuaternionD : GeometryObject, IMatrixD, IReadOnlyQuaternionD
 
     public IReadOnlyQuaternionD AsReadOnly() => new ReadOnlyQuaternionD(Storage, Layout, Offset);
 
-    public MatrixXD AsMatrix() => RetainMatrix();
+    public MatrixXD AsMatrix() => ViewMatrix();
 
-    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => AcquireWritableTensorSpan(out span);
 
     public static QuaternionD FromAxisAngle(IReadOnlyVector3D axis, double angle) =>
         QuaternionMath.FromAxisAngle(axis, angle);

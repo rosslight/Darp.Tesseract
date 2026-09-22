@@ -2,7 +2,7 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>Mutable geometry owning one reference to its coefficient storage.</summary>
+/// <summary>Mutable geometry sharing its coefficient storage with derived views.</summary>
 public sealed class VectorXD : GeometryObject, IMatrixD, IReadOnlyVectorXD
 {
     internal VectorXD(MatrixStorage storage, MatrixLayout layout, int offset = 0)
@@ -11,20 +11,14 @@ public sealed class VectorXD : GeometryObject, IMatrixD, IReadOnlyVectorXD
     private VectorXD(Memory<double> memory, MatrixLayout layout)
         : base(memory, layout) { }
 
-    internal static VectorXD FromOwnedMatrix(MatrixXD matrix)
-    {
-        using (matrix)
-            return new(matrix.Storage, matrix.Layout.Require(null, 1), matrix.Offset);
-    }
-
     public static VectorXD FromMatrix(MatrixXD matrix) =>
         new(matrix.Storage, matrix.Layout.Require(null, 1), matrix.Offset);
 
     public IReadOnlyVectorXD AsReadOnly() => new ReadOnlyVectorXD(Storage, Layout, Offset);
 
-    public MatrixXD AsMatrix() => RetainMatrix();
+    public MatrixXD AsMatrix() => ViewMatrix();
 
-    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => AcquireWritableTensorSpan(out span);
 
     public VectorXD(int count)
         : base(count, 1) { }

@@ -38,16 +38,16 @@ if (!environment.init(sceneGraph, srdf))
     throw new InvalidOperationException("Could not initialize the robot.");
 
 using var group = environment.getKinematicGroup("manipulator");
-using var seed = new VectorXD(checked((int)group.numJoints()));
+var seed = new VectorXD(checked((int)group.numJoints()));
 using var poses = group.calcFwdKin(seed);
 using var tool = poses["tool0"];
 using var position = tool.Translation;
-using var jacobian = group.calcJacobian(seed, "tool0");
+var jacobian = group.calcJacobian(seed, "tool0");
 
 Console.WriteLine(position);
 Console.WriteLine($"Jacobian: {jacobian.Rows} by {jacobian.Columns}");
 
-using var target = new KinGroupIKInput(
+var target = new KinGroupIKInput(
     tool, group.getBaseLinkName(), "tool0");
 using var solutions = group.calcInvKin(target, seed);
 foreach (var solution in solutions)
@@ -73,9 +73,9 @@ Results use the matching read-only interfaces, such as `IReadOnlyVectorXD`,
 Results own a reference to native storage and remain usable after the originating
 proxy is disposed.
 
-Transform maps and geometry sequences are disposable too. Each lookup or
-enumeration produces an independently retained element. Dispose both the
-collection and the elements you take from it, as in the example above.
+Transform maps and geometry sequences remain disposable. Their geometry elements
+are ordinary non-disposable objects that keep the shared native storage alive.
+Dispose the collection; its elements remain usable and are reclaimed through GC.
 
 ## What copies, and what shares memory?
 
@@ -89,14 +89,13 @@ collection and the elements you take from it, as in the example above.
 | Writable `Eigen::Ref` | Copies back into the supplied mutable object after success. The shape stays fixed. |
 | Writable `T&` | Uses a managed `ref` parameter and replaces the result object, allowing its shape to change. |
 
-A `ref` replacement does not dispose the previous managed object. Keep a separate
-reference to the old value if you need to dispose it after the call. Existing
-aliases remain valid.
+A `ref` replacement leaves existing aliases valid. Geometry results need no
+disposal; native collections still do.
 
 Creating native containers from managed dictionaries or lists copies their
 elements. Empty vectors, matrices and containers are supported.
 
-Do not dispose or mutate an input concurrently with a native call. Raw tensor
+Do not mutate input coefficients concurrently with a native call. Raw tensor
 spans follow the [geometry lifetime rules](../Darp.Geometry/README.md#tensor-spans).
 
 ## Change or extend a binding

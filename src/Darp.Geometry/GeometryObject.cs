@@ -3,10 +3,10 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>A disposable geometry view retaining shared coefficient storage.</summary>
+/// <summary>A geometry object sharing its coefficient storage with derived views.</summary>
 public abstract class GeometryObject : IReadOnlyMatrixD
 {
-    private MatrixStorage? _storage;
+    internal readonly MatrixStorage Storage;
     internal readonly MatrixLayout Layout;
     internal readonly int Offset;
 
@@ -26,7 +26,7 @@ public abstract class GeometryObject : IReadOnlyMatrixD
                 [layout.Rows, layout.Columns],
                 [layout.Rows <= 1 ? 0 : layout.RowStride, layout.Columns <= 1 ? 0 : layout.ColumnStride]
             );
-            _storage = new MatrixStorage(memory, owner);
+            Storage = new MatrixStorage(memory, owner);
             Layout = layout;
         }
         catch
@@ -38,49 +38,20 @@ public abstract class GeometryObject : IReadOnlyMatrixD
 
     private protected GeometryObject(MatrixStorage storage, MatrixLayout layout, int offset = 0)
     {
-        storage.Retain();
-        _storage = storage;
+        Storage = storage;
         Layout = layout;
         Offset = offset;
     }
 
-    public int Rows
-    {
-        get
-        {
-            ThrowIfDisposed();
-            return Layout.Rows;
-        }
-    }
-    public int Columns
-    {
-        get
-        {
-            ThrowIfDisposed();
-            return Layout.Columns;
-        }
-    }
-    public int RowStride
-    {
-        get
-        {
-            ThrowIfDisposed();
-            return Layout.RowStride;
-        }
-    }
-    public int ColumnStride
-    {
-        get
-        {
-            ThrowIfDisposed();
-            return Layout.ColumnStride;
-        }
-    }
+    public int Rows => Layout.Rows;
+    public int Columns => Layout.Columns;
+    public int RowStride => Layout.RowStride;
+    public int ColumnStride => Layout.ColumnStride;
     public double this[int row, int column] => Get(row, column);
 
     public IReadOnlyMatrixD AsReadOnlyMatrix() => new ReadOnlyMatrix(Storage, Layout, Offset);
 
-    protected MatrixXD RetainMatrix() => new(Storage, Layout, Offset);
+    protected MatrixXD ViewMatrix() => new(Storage, Layout, Offset);
 
     IReadOnlyMatrixD IReadOnlyMatrixD.Transposed() => new ReadOnlyMatrix(Storage, Layout.Transposed(), Offset);
 
@@ -96,96 +67,47 @@ public abstract class GeometryObject : IReadOnlyMatrixD
         );
     }
 
-    internal MatrixStorage Storage => Volatile.Read(ref _storage) ?? throw new ObjectDisposedException("Geometry view");
-
-    internal void ThrowIfDisposed() => _ = Storage;
-
-    internal MatrixStorage Acquire()
-    {
-        var storage = Storage;
-        storage.Retain();
-        return storage;
-    }
-
     internal double Get(int row, int column)
     {
-        var storage = Acquire();
-        try
-        {
-            return storage.Memory.Span[checked(Offset + Layout.Offset(row, column))];
-        }
-        finally
-        {
-            storage.Release();
-        }
+        using var lease = MatrixMarshal.GetReadOnlyTensorSpan(this, out var values);
+        return values[row, column];
     }
 
     protected void SetValue(int row, int column, double value)
     {
-        var storage = Acquire();
-        try
-        {
-            storage.Memory.Span[checked(Offset + Layout.Offset(row, column))] = value;
-        }
-        finally
-        {
-            storage.Release();
-        }
+        using var lease = AcquireWritableTensorSpan(out var values);
+        values[row, column] = value;
     }
 
-    public ReadOnlyTensorSpan<double> AsReadOnlyTensorSpan()
+    TensorSpanLease IReadOnlyMatrixD.AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span)
     {
+        var lease = new TensorSpanLease(Storage);
         var memory = Storage.Memory.Slice(Offset, Layout.Extent);
-        return new(
-            memory.IsEmpty ? Array.Empty<double>().AsSpan() : memory.Span,
+        span = new ReadOnlyTensorSpan<double>(
+            memory.IsEmpty ? [] : memory.Span,
             [Layout.Rows, Layout.Columns],
-            [Layout.Rows <= 1 ? 0 : Layout.RowStride, Layout.Columns <= 1 ? 0 : Layout.ColumnStride]
-        );
+            [Layout.Rows <= 1 ? 0 : Layout.RowStride, Layout.Columns <= 1 ? 0 : Layout.ColumnStride]);
+        return lease;
     }
 
-    protected TensorSpan<double> WritableSpan()
+    private protected TensorSpanLease AcquireWritableTensorSpan(out TensorSpan<double> span)
     {
+        var lease = new TensorSpanLease(Storage);
         var memory = Storage.Memory.Slice(Offset, Layout.Extent);
-        return new(
-            memory.IsEmpty ? Array.Empty<double>().AsSpan() : memory.Span,
+        span = new TensorSpan<double>(
+            memory.IsEmpty ? [] : memory.Span,
             [Layout.Rows, Layout.Columns],
-            [Layout.Rows <= 1 ? 0 : Layout.RowStride, Layout.Columns <= 1 ? 0 : Layout.ColumnStride]
-        );
+            [Layout.Rows <= 1 ? 0 : Layout.RowStride, Layout.Columns <= 1 ? 0 : Layout.ColumnStride]);
+        return lease;
     }
 
-    public unsafe MemoryHandle Pin()
+    unsafe MemoryHandle IReadOnlyMatrixD.Pin()
     {
-        var storage = Acquire();
-        try
-        {
-            var pin = storage.Memory.Slice(Offset, Layout.Extent).Pin();
-            var lease = new StoragePin(storage, pin);
-            return new MemoryHandle(pin.Pointer, default, lease);
-        }
-        catch
-        {
-            storage.Release();
-            throw;
-        }
+        var pin = Storage.Memory.Slice(Offset, Layout.Extent).Pin();
+        return new MemoryHandle(pin.Pointer, default, new StoragePin(Storage, pin));
     }
 
     public override string ToString() => MatrixExtensions.Format(this);
-
-    public void Dispose()
-    {
-        Interlocked.Exchange(ref _storage, null)?.Release();
-        GC.SuppressFinalize(this);
-    }
-
-    ~GeometryObject()
-    {
-        // A transferred owner's Dispose may throw; finalizers cannot propagate it.
-        try
-        {
-            Interlocked.Exchange(ref _storage, null)?.Release();
-        }
-        catch { }
-    }
 
     private sealed class StoragePin(MatrixStorage storage, MemoryHandle pin) : IPinnable
     {
@@ -196,32 +118,10 @@ public abstract class GeometryObject : IReadOnlyMatrixD
 
         public void Unpin()
         {
-            Release();
-            GC.SuppressFinalize(this);
-        }
-
-        ~StoragePin()
-        {
-            try
-            {
-                Release();
-            }
-            catch { }
-        }
-
-        private void Release()
-        {
-            var retained = Interlocked.Exchange(ref _storage, null);
-            if (retained is null)
-                return;
-            try
-            {
-                _pin.Dispose();
-            }
-            finally
-            {
-                retained.Release();
-            }
+            var storage = Interlocked.Exchange(ref _storage, null);
+            if (storage is null) return;
+            try { _pin.Dispose(); }
+            finally { GC.KeepAlive(storage); }
         }
     }
 }

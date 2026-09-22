@@ -1,6 +1,6 @@
 namespace Darp.Geometry;
 
-/// <summary>Read-only access to independently retained geometry storage. Dispose each acquired view.</summary>
+/// <summary>Read-only access to shared geometry storage; other aliases may mutate it.</summary>
 public interface IReadOnlyVectorXD : IReadOnlyMatrixD
 {
     int Count { get; }

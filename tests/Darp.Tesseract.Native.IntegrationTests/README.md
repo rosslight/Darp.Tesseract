@@ -25,12 +25,12 @@ their robot files from `Assets/`, which the test project also copies to its outp
 
 | File | Checks |
 | --- | --- |
-| [GeometryOwnershipTests.cs](GeometryOwnershipTests.cs) | Shared storage release, retained views and pins, read-only access, nested layouts, transform algebra, empty shapes and stable normalization |
+| [GeometryOwnershipTests.cs](GeometryOwnershipTests.cs) | Shared storage, scoped tensor access and pins, read-only access, nested layouts, transform algebra, empty shapes and stable normalization |
 | [KinematicsTests.cs](KinematicsTests.cs) | ABB robot loading, FK/Jacobian/IK round trips, collision and OPW plugins, environment commands, strided inputs, shape checks, output replacement and native result lifetimes |
 
 The ABB IRB 2400 fixture and its plugin configuration live under
-[Assets/darp_test](Assets/darp_test). Lifetime tests include explicit disposal and
-forced collection to check that retained results stay usable. They do not measure
+[Assets/darp_test](Assets/darp_test). Native lifetime tests include collection disposal and
+forced GC to check that retained results stay usable. They do not measure
 native leaks or establish thread safety.
 
 ## Run against local packages

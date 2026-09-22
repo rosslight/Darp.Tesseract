@@ -2,7 +2,7 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>Mutable geometry owning one reference to its coefficient storage.</summary>
+/// <summary>Mutable geometry sharing its coefficient storage with derived views.</summary>
 public sealed class Matrix3D : GeometryObject, IMatrixD, IReadOnlyMatrix3D
 {
     internal Matrix3D(MatrixStorage storage, MatrixLayout layout, int offset = 0)
@@ -11,20 +11,14 @@ public sealed class Matrix3D : GeometryObject, IMatrixD, IReadOnlyMatrix3D
     private Matrix3D(Memory<double> memory, MatrixLayout layout)
         : base(memory, layout) { }
 
-    internal static Matrix3D FromOwnedMatrix(MatrixXD matrix)
-    {
-        using (matrix)
-            return new(matrix.Storage, matrix.Layout.Require(3, 3), matrix.Offset);
-    }
-
     public static Matrix3D FromMatrix(MatrixXD matrix) =>
         new(matrix.Storage, matrix.Layout.Require(3, 3), matrix.Offset);
 
     public IReadOnlyMatrix3D AsReadOnly() => new ReadOnlyMatrix3D(Storage, Layout, Offset);
 
-    public MatrixXD AsMatrix() => RetainMatrix();
+    public MatrixXD AsMatrix() => ViewMatrix();
 
-    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => AcquireWritableTensorSpan(out span);
 
     public Matrix3D()
         : base(3, 3) { }
@@ -40,7 +34,7 @@ public sealed class Matrix3D : GeometryObject, IMatrixD, IReadOnlyMatrix3D
         }
     }
 
-    public static Matrix3D FromArray(double[,] values) => FromOwnedMatrix(MatrixXD.FromArray(values));
+    public static Matrix3D FromArray(double[,] values) => FromMatrix(MatrixXD.FromArray(values));
 
     public static Matrix3D CreateFromMemory(Memory<double> memory, int columnStride = 3, int rowStride = 1) =>
         new(memory, MatrixLayout.Create(3, 3, rowStride, columnStride));

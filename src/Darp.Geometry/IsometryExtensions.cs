@@ -22,11 +22,11 @@ public static partial class GeometryExtensions
 
     public static Isometry3D Inverse(this IReadOnlyIsometry3D transform)
     {
-        using var originalRotation = transform.RotationMatrix;
-        using var rotation = originalRotation.Transposed();
-        using var translation = transform.Translation;
-        using var rotated = rotation.Multiply(translation);
-        using var inverseTranslation = -rotated;
+        var originalRotation = transform.RotationMatrix;
+        var rotation = originalRotation.Transposed();
+        var translation = transform.Translation;
+        var rotated = rotation.Multiply(translation);
+        var inverseTranslation = -rotated;
         var result = new Isometry3D();
         result.SetRotationMatrix(rotation);
         result.SetTranslation(inverseTranslation);
@@ -35,5 +35,5 @@ public static partial class GeometryExtensions
 
     /// <summary>Applies right first, then left. The result has independent storage.</summary>
     public static Isometry3D Multiply(this IReadOnlyIsometry3D left, IReadOnlyIsometry3D right) =>
-        Isometry3D.FromOwnedMatrix(left.Multiply((IReadOnlyMatrixD)right));
+        Isometry3D.View(left.Multiply((IReadOnlyMatrixD)right));
 }

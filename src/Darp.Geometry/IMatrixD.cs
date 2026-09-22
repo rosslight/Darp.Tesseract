@@ -5,5 +5,5 @@ namespace Darp.Geometry;
 public interface IMatrixD : IReadOnlyMatrixD
 {
     MatrixXD AsMatrix();
-    TensorSpan<double> AsTensorSpan();
+    internal TensorSpanLease AcquireTensorSpan(out TensorSpan<double> span);
 }

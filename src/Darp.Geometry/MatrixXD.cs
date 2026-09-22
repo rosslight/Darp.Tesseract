@@ -3,7 +3,7 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>Disposable mutable matrix. Views retain shared storage; Clone and arithmetic create independent results.</summary>
+/// <summary>Mutable matrix with shared storage views. Clone and arithmetic create independent results.</summary>
 public sealed class MatrixXD : GeometryObject, IMatrixD
 {
     internal MatrixXD(MatrixStorage storage, MatrixLayout layout, int offset = 0)
@@ -33,7 +33,7 @@ public sealed class MatrixXD : GeometryObject, IMatrixD
         return new MatrixXD(memory, layout);
     }
 
-    /// <summary>Transfers a storage owner's disposal to the shared matrix storage. The last view or pin releases it.</summary>
+    /// <summary>Transfers ownership to shared storage. The owner is released when the storage is collected.</summary>
     /// <remarks>Do not dispose the transferred owner separately. Failed construction also disposes the owner.</remarks>
     public static MatrixXD CreateFromMemoryWithOwner(
         Memory<double> memory,
@@ -127,9 +127,9 @@ public sealed class MatrixXD : GeometryObject, IMatrixD
     public static MatrixXD operator -(MatrixXD a) => a.Scale(-1);
 
     /// <summary>Keep this object alive and undisposed until the span's last use.</summary>
-    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => AcquireWritableTensorSpan(out span);
 
-    public MatrixXD AsMatrix() => RetainMatrix();
+    public MatrixXD AsMatrix() => ViewMatrix();
 
     public override string ToString() => MatrixExtensions.Format(this);
 }

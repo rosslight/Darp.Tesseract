@@ -90,13 +90,13 @@ public sealed class KinematicsTests
         var tipLink = activeLinks[^1];
         tipLink.ShouldBe("tool0");
 
-        using var seed = new VectorXD(checked((int)group.numJoints()));
+        var seed = new VectorXD(checked((int)group.numJoints()));
 
         using var transforms = group.calcFwdKin(seed);
         transforms.ContainsKey(tipLink).ShouldBeTrue();
-        using var target = transforms[tipLink];
+        var target = transforms[tipLink];
 
-        using var jacobian = group.calcJacobian(seed, tipLink);
+        var jacobian = group.calcJacobian(seed, tipLink);
         jacobian.Rows.ShouldBe(6);
         jacobian.Columns.ShouldBe(6);
         foreach (var value in jacobian.ToArray())
@@ -109,13 +109,13 @@ public sealed class KinematicsTests
         var roundTripMatched = false;
         for (var index = 0; index < solutions.Count; index++)
         {
-            using var solution = solutions[index];
+            var solution = solutions[index];
             solution.Count.ShouldBe(seed.Count);
             foreach (var joint in solution.ToArray())
                 double.IsFinite(joint).ShouldBeTrue();
 
             using var candidateTransforms = group.calcFwdKin(solution);
-            using var candidatePose = candidateTransforms[tipLink];
+            var candidatePose = candidateTransforms[tipLink];
             if (PosesApproximatelyEqual(target, candidatePose, 1e-6))
             {
                 roundTripMatched = true;
@@ -187,8 +187,8 @@ public sealed class KinematicsTests
 
     private static bool PosesApproximatelyEqual(IReadOnlyIsometry3D expected, IReadOnlyIsometry3D actual, double tolerance)
     {
-        using var a = expected.AsReadOnlyMatrix();
-        using var b = actual.AsReadOnlyMatrix();
+        var a = expected.AsReadOnlyMatrix();
+        var b = actual.AsReadOnlyMatrix();
         for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                 if (Math.Abs(a[row, column] - b[row, column]) > tolerance) return false;
@@ -200,22 +200,22 @@ public sealed class KinematicsTests
     {
         using var environment = CreateEnvironment();
         using var group = environment.getKinematicGroup("manipulator");
-        using var joints = new VectorXD(0.1, -0.2, 0.3, 0.1, 0.2, -0.1);
+        var joints = new VectorXD(0.1, -0.2, 0.3, 0.1, 0.2, -0.1);
         var storage = new double[12];
-        using var strided = VectorXD.CreateFromMemory(storage, 6, 2);
+        var strided = VectorXD.CreateFromMemory(storage, 6, 2);
         for (int i = 0; i < 6; i++) { strided[i] = joints[i]; storage[i * 2 + 1] = 99; }
         using var expectedPoses = group.calcFwdKin(joints);
-        using var expected = expectedPoses["tool0"];
-        using var zero = new VectorXD(6);
+        var expected = expectedPoses["tool0"];
+        var zero = new VectorXD(6);
         using var originalPoses = group.calcFwdKin(zero);
         var poses = originalPoses;
-        using var earlier = poses["tool0"];
-        using var earlierMatrix = earlier.AsReadOnlyMatrix();
+        var earlier = poses["tool0"];
+        var earlierMatrix = earlier.AsReadOnlyMatrix();
         var earlierCopy = earlierMatrix.ToArray();
         group.calcFwdKin(ref poses, strided);
         using var updatedPoses = poses;
         originalPoses.Dispose();
-        using var updated = poses["tool0"];
+        var updated = poses["tool0"];
         PosesApproximatelyEqual(expected, updated, 1e-10).ShouldBeTrue();
         earlierMatrix.ToArray().ShouldBe(earlierCopy);
         for (int i = 0; i < 6; i++) storage[i * 2 + 1].ShouldBe(99);
@@ -225,19 +225,19 @@ public sealed class KinematicsTests
     public void MatrixPropertiesPreserveRowMajorLayoutAndRejectWrongShape()
     {
         using var limits = new KinematicLimits();
-        using var matrix = MatrixXD.CreateFromMemory(new double[] { -1, 1, -2, 2, -3, 3 }, 3, 2, columnStride: 1, rowStride: 2);
-        using var readable = matrix.AsReadOnly();
+        var matrix = MatrixXD.CreateFromMemory(new double[] { -1, 1, -2, 2, -3, 3 }, 3, 2, columnStride: 1, rowStride: 2);
+        var readable = matrix.AsReadOnly();
         limits.joint_limits = readable;
-        using var saved = limits.joint_limits;
+        var saved = limits.joint_limits;
         saved.Rows.ShouldBe(3);
         saved.Columns.ShouldBe(2);
         for (int row = 0; row < 3; row++)
             for (int column = 0; column < 2; column++)
                 saved[row, column].ShouldBe(matrix[row, column]);
-        using var wrongShape = new MatrixXD(3, 3);
-        using var wrongShapeView = wrongShape.AsReadOnly();
+        var wrongShape = new MatrixXD(3, 3);
+        var wrongShapeView = wrongShape.AsReadOnly();
         Should.Throw<ArgumentException>(() => limits.joint_limits = wrongShapeView);
-        using var current = limits.joint_limits;
+        var current = limits.joint_limits;
         current[2, 1].ShouldBe(3);
         saved[0, 0].ShouldBe(-1);
     }
@@ -245,7 +245,7 @@ public sealed class KinematicsTests
     [Fact]
     public void JointStateSnapshotsSurviveMutationDisposalAndCollection()
     {
-        using var snapshot = CreateJointSnapshot();
+        var snapshot = CreateJointSnapshot();
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
@@ -257,20 +257,20 @@ public sealed class KinematicsTests
     private static IReadOnlyVectorXD CreateJointSnapshot()
     {
         using var names = new StringVector { "a", "b", "c" };
-        using var initial = new VectorXD(1.0, 2.0, 3.0);
+        var initial = new VectorXD(1.0, 2.0, 3.0);
         using var state = new JointState(names, initial);
-        using var velocity = state.velocity;
+        var velocity = state.velocity;
         velocity.Count.ShouldBe(0);
-        using var empty = new VectorXD(0);
-        using var emptyView = empty.AsReadOnly();
+        var empty = new VectorXD(0);
+        var emptyView = empty.AsReadOnly();
         state.velocity = emptyView;
-        using var updatedVelocity = state.velocity;
+        var updatedVelocity = state.velocity;
         updatedVelocity.Count.ShouldBe(0);
         var saved = state.position;
-        using var replacement = new VectorXD(4.0, 5.0, 6.0);
-        using var replacementView = replacement.AsReadOnly();
+        var replacement = new VectorXD(4.0, 5.0, 6.0);
+        var replacementView = replacement.AsReadOnly();
         state.position = replacementView;
-        using var current = state.position;
+        var current = state.position;
         current.ToArray().ShouldBe(new double[] { 4, 5, 6 });
         return saved;
     }
@@ -278,11 +278,11 @@ public sealed class KinematicsTests
     [Fact]
     public void ContainerElementRetainsNativeStorageAfterContainerDisposalAndCollection()
     {
-        using var pose = CreateDetachedPose();
+        var pose = CreateDetachedPose();
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
-        using var translation = pose.Translation;
+        var translation = pose.Translation;
         translation.X.ShouldBe(1);
         translation.Y.ShouldBe(2);
         translation.Z.ShouldBe(3);
@@ -291,10 +291,10 @@ public sealed class KinematicsTests
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
     private static IReadOnlyIsometry3D CreateDetachedPose()
     {
-        using var pose = Isometry3D.Identity;
-        using var translation = pose.Translation;
+        var pose = Isometry3D.Identity;
+        var translation = pose.Translation;
         translation.X = 1; translation.Y = 2; translation.Z = 3;
-        using var readable = pose.AsReadOnly();
+        var readable = pose.AsReadOnly();
         using var map = new TransformMap(new Dictionary<string, IReadOnlyIsometry3D> { ["pose"] = readable });
         return map["pose"];
     }

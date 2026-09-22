@@ -21,22 +21,8 @@ public sealed class Isometry3D : GeometryObject, IMatrixD, IReadOnlyIsometry3D
     public Isometry3D(IReadOnlyQuaternionD rotation, IReadOnlyVector3D translation)
         : this()
     {
-        try
-        {
-            SetRotation(rotation);
-            SetTranslation(translation);
-        }
-        catch
-        {
-            Dispose();
-            throw;
-        }
-    }
-
-    internal static Isometry3D FromOwnedMatrix(MatrixXD matrix)
-    {
-        using (matrix)
-            return new(matrix.Storage, matrix.Layout.Require(4, 4), matrix.Offset);
+        SetRotation(rotation);
+        SetTranslation(translation);
     }
 
     public static Isometry3D Identity => new();
@@ -44,23 +30,24 @@ public sealed class Isometry3D : GeometryObject, IMatrixD, IReadOnlyIsometry3D
     public static Isometry3D CreateFromMemory(Memory<double> memory, int columnStride = 4) =>
         new(memory, MatrixLayout.Create(4, 4, 1, columnStride));
 
-    /// <summary>Retains an independent view of a matrix known by the caller to represent a rigid transform.</summary>
+    /// <summary>Creates a shared view of a matrix known by the caller to represent a rigid transform.</summary>
     public static Isometry3D View(MatrixXD matrix) => new(matrix.Storage, matrix.Layout.Require(4, 4), matrix.Offset);
 
     /// <summary>Copies a matrix known by the caller to represent a rigid transform.</summary>
     public static Isometry3D FromMatrix(IReadOnlyMatrixD matrix)
     {
-        MatrixShape.RequireSize(matrix.AsReadOnlyTensorSpan(), 4, 4);
-        return FromOwnedMatrix(matrix.Clone());
+        using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
+        MatrixShape.RequireSize(matrixSpan, 4, 4);
+        return View(matrix.Clone());
     }
 
     public IReadOnlyIsometry3D AsReadOnly() => new ReadOnlyIsometry3D(Storage, Layout, Offset);
 
-    public MatrixXD AsMatrix() => RetainMatrix();
+    public MatrixXD AsMatrix() => ViewMatrix();
 
-    public MatrixXD Matrix => RetainMatrix();
+    public MatrixXD Matrix => ViewMatrix();
 
-    public TensorSpan<double> AsTensorSpan() => WritableSpan();
+    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => AcquireWritableTensorSpan(out span);
 
     public Vector3D Translation
     {
@@ -86,7 +73,7 @@ public sealed class Isometry3D : GeometryObject, IMatrixD, IReadOnlyIsometry3D
     {
         get
         {
-            using var matrix = RotationMatrix;
+            var matrix = RotationMatrix;
             return matrix.ToQuaternion();
         }
         set => SetRotation(value);
@@ -104,7 +91,7 @@ public sealed class Isometry3D : GeometryObject, IMatrixD, IReadOnlyIsometry3D
 
     public void SetRotation(IReadOnlyQuaternionD value)
     {
-        using var rotation = value.ToRotationMatrix();
+        var rotation = value.ToRotationMatrix();
         SetRotationMatrix(rotation);
     }
 

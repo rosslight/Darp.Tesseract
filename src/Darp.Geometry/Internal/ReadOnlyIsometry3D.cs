@@ -13,7 +13,7 @@ internal sealed class ReadOnlyIsometry3D : GeometryObject, IReadOnlyIsometry3D
     {
         get
         {
-            using var matrix = RotationMatrix;
+            var matrix = RotationMatrix;
             return matrix.ToQuaternion();
         }
     }

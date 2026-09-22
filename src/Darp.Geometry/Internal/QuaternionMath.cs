@@ -6,17 +6,15 @@ internal static class QuaternionMath
     {
         if (!double.IsFinite(angle))
             throw new ArgumentOutOfRangeException(nameof(angle));
-        using var view = axis.AsReadOnlyMatrix();
-        MatrixShape.RequireSize(view.AsReadOnlyTensorSpan(), 3, 1);
-        using var unit = view.Normalized();
+        var unit = axis.Normalized();
         double sine = Math.Sin(angle / 2);
         return new(unit[0, 0] * sine, unit[1, 0] * sine, unit[2, 0] * sine, Math.Cos(angle / 2));
     }
 
     public static QuaternionD FromRotationMatrix(IReadOnlyMatrix3D value)
     {
-        using var matrix = value.AsReadOnlyMatrix();
-        MatrixShape.RequireSize(matrix.AsReadOnlyTensorSpan(), 3, 3);
+        using var lease = value.GetReadOnlyTensorSpan(out var matrix);
+        MatrixShape.RequireSize(matrix, 3, 3);
         double trace = matrix[0, 0] + matrix[1, 1] + matrix[2, 2];
         QuaternionD result;
         if (trace > 0)
@@ -59,16 +57,15 @@ internal static class QuaternionMath
                 (matrix[1, 0] - matrix[0, 1]) / s
             );
         }
-        using (result)
-            return result.Normalized();
+        return result.Normalized();
     }
 
     public static QuaternionD Slerp(IReadOnlyQuaternionD a, IReadOnlyQuaternionD b, double amount)
     {
         if (!double.IsFinite(amount))
             throw new ArgumentOutOfRangeException(nameof(amount));
-        using var unitA = a.Normalized();
-        using var unitB = b.Normalized();
+        var unitA = a.Normalized();
+        var unitB = b.Normalized();
         double dot = unitA.Dot(unitB);
         double sign = dot < 0 ? -1 : 1;
         dot = Math.Clamp(Math.Abs(dot), 0, 1);
@@ -82,7 +79,7 @@ internal static class QuaternionMath
             weightB = Math.Sin(amount * angle) / denominator;
         }
         weightB *= sign;
-        using var result = new QuaternionD(
+        var result = new QuaternionD(
             unitA.X * weightA + unitB.X * weightB,
             unitA.Y * weightA + unitB.Y * weightB,
             unitA.Z * weightA + unitB.Z * weightB,

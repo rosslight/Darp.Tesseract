@@ -68,7 +68,7 @@ internal static class TensorKernels
     {
         MatrixShape.RequireSameShape(left, right);
         var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
-        TensorSpan<double> destination = result.AsTensorSpan();
+        using var destinationLease = result.GetTensorSpan(out var destination);
         for (int c = 0; c < left.Lengths[1]; c++)
         {
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
@@ -84,7 +84,7 @@ internal static class TensorKernels
     {
         MatrixShape.RequireSameShape(left, right);
         var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
-        TensorSpan<double> destination = result.AsTensorSpan();
+        using var destinationLease = result.GetTensorSpan(out var destination);
         for (int c = 0; c < left.Lengths[1]; c++)
         {
             if (TryGetContiguousColumn(left, c, out var a) && TryGetContiguousColumn(right, c, out var b))
@@ -101,7 +101,7 @@ internal static class TensorKernels
     {
         MatrixShape.RequireProduct(left, right);
         var result = new MatrixXD((int)left.Lengths[0], (int)right.Lengths[1]);
-        TensorSpan<double> destination = result.AsTensorSpan();
+        using var destinationLease = result.GetTensorSpan(out var destination);
         for (int c = 0; c < right.Lengths[1]; c++)
         for (int k = 0; k < left.Lengths[1]; k++)
         for (int r = 0; r < left.Lengths[0]; r++)
@@ -113,7 +113,7 @@ internal static class TensorKernels
     {
         MatrixShape.RequireMatrix(matrix);
         var result = new MatrixXD((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
-        TensorSpan<double> destination = result.AsTensorSpan();
+        using var destinationLease = result.GetTensorSpan(out var destination);
         for (int c = 0; c < matrix.Lengths[1]; c++)
         {
             if (TryGetContiguousColumn(matrix, c, out var column))
@@ -129,7 +129,7 @@ internal static class TensorKernels
     {
         MatrixShape.RequireMatrix(matrix);
         var result = new MatrixXD((int)matrix.Lengths[0], (int)matrix.Lengths[1]);
-        TensorSpan<double> destination = result.AsTensorSpan();
+        using var destinationLease = result.GetTensorSpan(out var destination);
         for (int c = 0; c < matrix.Lengths[1]; c++)
         for (int r = 0; r < matrix.Lengths[0]; r++)
             destination[r, c] = matrix[r, c] / scalar;
@@ -140,7 +140,7 @@ internal static class TensorKernels
     {
         MatrixShape.RequireSameShape(left, right);
         var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
-        TensorSpan<double> destination = result.AsTensorSpan();
+        using var destinationLease = result.GetTensorSpan(out var destination);
         for (int c = 0; c < left.Lengths[1]; c++)
         for (int r = 0; r < left.Lengths[0]; r++)
             destination[r, c] = (1 - amount) * left[r, c] + amount * right[r, c];

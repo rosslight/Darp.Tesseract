@@ -18,7 +18,7 @@ public static partial class GeometryExtensions
     /// <summary>Returns an angle in [0, pi]. Identity uses UnitX as its arbitrary axis.</summary>
     public static (Vector3D Axis, double Angle) ToAxisAngle(this IReadOnlyQuaternionD value)
     {
-        using var q = value.Normalized();
+        var q = value.Normalized();
         double sign = q.W < 0 ? -1 : 1;
         double sine = Math.Sqrt(q.X * q.X + q.Y * q.Y + q.Z * q.Z);
         if (sine < 1e-15)
@@ -28,7 +28,7 @@ public static partial class GeometryExtensions
 
     public static Vector3D Rotate(this IReadOnlyQuaternionD value, IReadOnlyVector3D vector)
     {
-        using var q = value.Normalized();
+        var q = value.Normalized();
         double x = vector.X,
             y = vector.Y,
             z = vector.Z;
@@ -44,7 +44,7 @@ public static partial class GeometryExtensions
 
     public static Matrix3D ToRotationMatrix(this IReadOnlyQuaternionD value)
     {
-        using var q = value.Normalized();
+        var q = value.Normalized();
         double x = q.X,
             y = q.Y,
             z = q.Z,
