@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.3.0+tesseract.0.35.0...v0.4.0+tesseract.0.35.0) (2026-09-23)
+
+
+### Features
+
+* Migrate Darp.Tesseract.Native to Aardvark.Base LA lib ([b70f8a5](https://github.com/rosslight/Darp.Tesseract/commit/b70f8a5fc862abb11711aa9a5eb4c6da6613abb8))
+
+
+### Bug Fixes
+
+* Pass geometry and integration tests ([405af58](https://github.com/rosslight/Darp.Tesseract/commit/405af583d0c3f722730e73e889409de2814c9452))
+* Undo make classes Disposable and ensure span access is safe instead ([67445af](https://github.com/rosslight/Darp.Tesseract/commit/67445af45e7c4001f5da4b96d4c2a2a2916bc3de))
+
 ## [0.3.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.2.0+tesseract.0.35.0...v0.3.0+tesseract.0.35.0) (2026-09-22)
 
 
