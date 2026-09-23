@@ -1,4 +1,3 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
@@ -54,15 +53,15 @@ public readonly partial struct Matrix3D : IMatrixD<Matrix3D>
     /// <inheritdoc/>
     public double this[int row, int column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     /// <inheritdoc/>
     public double this[Index row, Index column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     /// <summary>Returns a writable view of the selected rows and columns.</summary>
@@ -70,7 +69,7 @@ public readonly partial struct Matrix3D : IMatrixD<Matrix3D>
     /// <param name="rows">The rows to include.</param>
     /// <param name="columns">The columns to include.</param>
     /// <returns>A view that shares coefficients with this matrix.</returns>
-    public MatrixXD this[Range rows, Range columns] => new(Data[rows, columns]);
+    public MatrixXD this[Range rows, Range columns] => new(Data.Get(rows, columns));
 
     public ReadOnlyVector3D AsVector() => new(Data.AsVectorLayout());
 

@@ -23,8 +23,8 @@ public readonly partial struct ReadOnlyIsometry3D : IReadOnlyMatrixD<ReadOnlyIso
 
     static ReadOnlyIsometry3D IReadOnlyMatrixD<ReadOnlyIsometry3D>.Create(in MatrixData data) => new(data);
 
-    public double this[int row, int column] => Data[row, column];
-    public double this[Index row, Index column] => Data[row, column];
+    public double this[int row, int column] => Data.Get(row, column);
+    public double this[Index row, Index column] => Data.Get(row, column);
 
     public override string ToString() => Matrix.Format(this);
 

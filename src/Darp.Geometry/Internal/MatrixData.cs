@@ -62,7 +62,7 @@ internal readonly struct MatrixData
         return new MatrixData(Storage, layout);
     }
 
-    private double Get(int row, int column)
+    public double Get(int row, int column)
     {
         try
         {
@@ -74,7 +74,17 @@ internal readonly struct MatrixData
         }
     }
 
-    private void Set(int row, int column, double value)
+    public double Get(Index row, Index column) => Get(row.GetOffset(Rows), column.GetOffset(Columns));
+
+    public MatrixData Get(Range rows, Range columns)
+    {
+        (int row, int rowCount) = rows.GetOffsetAndLength(Rows);
+        (int column, int columnCount) = columns.GetOffsetAndLength(Columns);
+
+        return Slice(row, column, rowCount, columnCount);
+    }
+
+    public void Set(int row, int column, double value)
     {
         Storage.RequireWritable();
         try
@@ -87,28 +97,7 @@ internal readonly struct MatrixData
         }
     }
 
-    public double this[int row, int column]
-    {
-        get => Get(row, column);
-        set => Set(row, column, value);
-    }
-
-    public double this[Index row, Index column]
-    {
-        get => Get(row.GetOffset(Rows), column.GetOffset(Columns));
-        set => Set(row.GetOffset(Rows), column.GetOffset(Columns), value);
-    }
-
-    public MatrixData this[Range rows, Range columns]
-    {
-        get
-        {
-            var (row, rowCount) = rows.GetOffsetAndLength(Rows);
-            var (column, columnCount) = columns.GetOffsetAndLength(Columns);
-
-            return Slice(row, column, rowCount, columnCount);
-        }
-    }
+    public void Set(Index row, Index column, double value) => Set(row.GetOffset(Rows), column.GetOffset(Columns), value);
 
     internal TensorSpanLease AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span)
     {

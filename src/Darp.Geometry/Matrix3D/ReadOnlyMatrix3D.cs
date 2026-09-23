@@ -1,4 +1,3 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
@@ -32,17 +31,17 @@ public readonly partial struct ReadOnlyMatrix3D : IReadOnlyMatrixD<ReadOnlyMatri
         Data.AcquireReadOnlyTensorSpan(out span);
 
     /// <inheritdoc/>
-    public double this[int row, int column] => Data[row, column];
+    public double this[int row, int column] => Data.Get(row, column);
 
     /// <inheritdoc/>
-    public double this[Index row, Index column] => Data[row, column];
+    public double this[Index row, Index column] => Data.Get(row, column);
 
     /// <summary>Returns a read-only view of the selected rows and columns.</summary>
     /// <remarks>Changes through a writable alias are visible through the view.</remarks>
     /// <param name="rows">The rows to include.</param>
     /// <param name="columns">The columns to include.</param>
     /// <returns>A view that shares coefficients with this matrix.</returns>
-    public ReadOnlyMatrixXD this[Range rows, Range columns] => new(Data[rows, columns]);
+    public ReadOnlyMatrixXD this[Range rows, Range columns] => new(Data.Get(rows, columns));
 
     public ReadOnlyMatrix3D Transposed() => new(Data.Storage, Data.Layout.Transposed());
 

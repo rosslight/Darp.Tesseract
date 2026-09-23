@@ -148,15 +148,15 @@ public readonly partial struct MatrixXD : IMatrixD<MatrixXD>
     /// <inheritdoc/>
     public double this[int row, int column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     /// <inheritdoc/>
     public double this[Index row, Index column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     /// <summary>Returns a writable view of the selected rows and columns.</summary>
@@ -164,7 +164,7 @@ public readonly partial struct MatrixXD : IMatrixD<MatrixXD>
     /// <param name="rows">The rows to include.</param>
     /// <param name="columns">The columns to include.</param>
     /// <returns>A view that shares coefficients with this matrix.</returns>
-    public MatrixXD this[Range rows, Range columns] => new(Data[rows, columns]);
+    public MatrixXD this[Range rows, Range columns] => new(Data.Get(rows, columns));
 
     /// <summary>Returns a writable view of one row.</summary>
     /// <remarks>Changes through the view are visible through this matrix.</remarks>
@@ -176,7 +176,7 @@ public readonly partial struct MatrixXD : IMatrixD<MatrixXD>
     /// <remarks>Changes through the view are visible through this matrix.</remarks>
     /// <param name="column">The column index.</param>
     /// <returns>A vector that shares coefficients with this matrix.</returns>
-    public VectorXD SliceColumn(int column) => new(Data[.., column..(column + 1)].Require(null, 1));
+    public VectorXD SliceColumn(int column) => new(Data.Get(.., column..(column + 1)).Require(null, 1));
 
     /// <summary>Returns a writable transposed view of this matrix.</summary>
     /// <remarks>Changes through the view are visible through this matrix.</remarks>

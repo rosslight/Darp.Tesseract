@@ -30,10 +30,10 @@ public readonly partial struct ReadOnlyMatrixXD : IReadOnlyMatrixD<ReadOnlyMatri
     public int ColumnStride => Data.ColumnStride;
 
     /// <inheritdoc/>
-    public double this[int row, int column] => Data[row, column];
+    public double this[int row, int column] => Data.Get(row, column);
 
     /// <inheritdoc/>
-    public double this[Index row, Index column] => Data[row, column];
+    public double this[Index row, Index column] => Data.Get(row, column);
 
     public TensorSpanLease GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
@@ -45,7 +45,19 @@ public readonly partial struct ReadOnlyMatrixXD : IReadOnlyMatrixD<ReadOnlyMatri
     /// <param name="rows">The rows to include.</param>
     /// <param name="columns">The columns to include.</param>
     /// <returns>A view that shares coefficients with this matrix.</returns>
-    public ReadOnlyMatrixXD this[Range rows, Range columns] => new(Data[rows, columns]);
+    public ReadOnlyMatrixXD this[Range rows, Range columns] => new(Data.Get(rows, columns));
+
+    /// <summary>Returns a writable view of one row.</summary>
+    /// <remarks>Changes through the view are visible through this matrix.</remarks>
+    /// <param name="row">The row index.</param>
+    /// <returns>A one-row matrix that shares coefficients with this matrix.</returns>
+    public ReadOnlyMatrixXD SliceRow(int row) => this[row..(row + 1), ..];
+
+    /// <summary>Returns a writable view of one column.</summary>
+    /// <remarks>Changes through the view are visible through this matrix.</remarks>
+    /// <param name="column">The column index.</param>
+    /// <returns>A vector that shares coefficients with this matrix.</returns>
+    public ReadOnlyVectorXD SliceColumn(int column) => new(Data.Get(.., column..(column + 1)).Require(null, 1));
 
     /// <summary>Returns a transposed read-only view of this matrix.</summary>
     /// <remarks>Changes through a writable alias are visible through the view.</remarks>

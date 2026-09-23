@@ -1,4 +1,5 @@
 using System.Buffers;
+using System.Numerics.Tensors;
 using Darp.Geometry;
 using Shouldly;
 using Xunit;
@@ -12,16 +13,16 @@ public sealed class GeometryOwnershipTests
     {
         Vector3D vector = default;
         vector.Count.ShouldBe(3);
-        vector.ToArray().ShouldBe(new double[] { 0, 0, 0 });
-        using (vector.GetReadOnlyTensorSpan(out var values))
+        vector.ToArray().ShouldBe([0, 0, 0]);
+        using (MatrixMarshal.GetReadOnlyTensorSpan(vector, out ReadOnlyTensorSpan<double> values))
             values[2, 0].ShouldBe(0);
         Should.Throw<InvalidOperationException>(() => vector.X = 1);
         Should.Throw<InvalidOperationException>(() =>
         {
-            using var lease = vector.AsMatrix().GetTensorSpan(out var values);
+            using TensorSpanLease lease = MatrixMarshal.GetReadOnlyTensorSpan(vector, out _);
         });
 
-        default(Matrix3D).SquaredNorm().ShouldBe(0);
+        Matrix.SquaredNorm(default(Matrix3D)).ShouldBe(0);
         default(QuaternionD).W.ShouldBe(0);
         default(Isometry3D)[3, 3].ShouldBe(0);
         default(VectorXD).Count.ShouldBe(0);
@@ -38,7 +39,7 @@ public sealed class GeometryOwnershipTests
         var alias = vector;
         alias.X = 4;
         vector.X.ShouldBe(4);
-        var clone = default(Vector3D).Clone();
+        var clone = GeometryExtensions.Clone(default(Vector3D));
         clone.X = 5;
         default(Vector3D).X.ShouldBe(0);
         new Isometry3D()[3, 3].ShouldBe(1);
@@ -51,7 +52,7 @@ public sealed class GeometryOwnershipTests
         var matrix = MatrixXD.CreateFromMemoryWithOwner(owner.Memory, owner, 2, 2);
         var column = matrix.SliceColumn(0);
         var readOnly = matrix.AsReadOnly();
-        using (matrix.GetTensorSpan(out var values))
+        using (MatrixMarshal.GetTensorSpan(matrix, out TensorSpan<double> values))
         {
             values[1, 1] = 9;
             owner.PinCount.ShouldBe(0);
@@ -60,7 +61,7 @@ public sealed class GeometryOwnershipTests
         readOnly[0, 0].ShouldBe(7);
         readOnly[1, 1].ShouldBe(9);
         owner.DisposeCount.ShouldBe(0);
-        using var pin = matrix.Pin();
+        using var pin = MatrixMarshal.Pin(matrix);
         owner.PinCount.ShouldBe(1);
     }
 
@@ -75,7 +76,7 @@ public sealed class GeometryOwnershipTests
         alias.X.ShouldBe(8);
         readOnly.X.ShouldBe(8);
         snapshot.X.ShouldBe(1);
-        using var lease = readOnly.GetReadOnlyTensorSpan(out var values);
+        using var lease = MatrixMarshal.GetReadOnlyTensorSpan(readOnly, out ReadOnlyTensorSpan<double> values);
         values[0, 0].ShouldBe(8);
     }
 
@@ -87,12 +88,12 @@ public sealed class GeometryOwnershipTests
         var readOnly = matrix.AsReadOnly();
         var block = readOnly[1..2, 1..3];
         var transpose = block.Transposed();
-        var column = transpose.Column(1);
+        var column = transpose.SliceColumn(1);
 
         column.ToArray().ShouldBe(new double[] { 21, 22, 23 });
         values[10] = 222;
         column[1].ShouldBe(222);
-        using var lease = column.GetReadOnlyTensorSpan(out var span);
+        using var lease = MatrixMarshal.GetReadOnlyTensorSpan(column, out var span);
         span[0, 0].ShouldBe(21);
         span[1, 0].ShouldBe(222);
         span[2, 0].ShouldBe(23);
@@ -105,7 +106,9 @@ public sealed class GeometryOwnershipTests
         Should.Throw<ArgumentException>(() => MatrixXD.CreateFromMemoryWithOwner(owner.Memory[..1], owner, 2, 2));
         owner.DisposeCount.ShouldBe(1);
         var invalidShapeOwner = new CountingOwner();
-        Should.Throw<ArgumentOutOfRangeException>(() => MatrixXD.CreateFromMemoryWithOwner(invalidShapeOwner.Memory, invalidShapeOwner, -1, 2));
+        Should.Throw<ArgumentOutOfRangeException>(() =>
+            MatrixXD.CreateFromMemoryWithOwner(invalidShapeOwner.Memory, invalidShapeOwner, -1, 2)
+        );
         invalidShapeOwner.DisposeCount.ShouldBe(1);
     }
 
@@ -114,7 +117,7 @@ public sealed class GeometryOwnershipTests
     {
         var x = Vector3D.UnitX;
         var z = Vector3D.UnitZ;
-        var cross = z.Cross(x);
+        var cross = Matrix.Cross(z, x);
         cross.Y.ShouldBe(1);
         var rotation = QuaternionD.FromAxisAngle(z, Math.PI / 2);
         var offset = new Vector3D(1, 2, 3);
@@ -123,18 +126,18 @@ public sealed class GeometryOwnershipTests
         world.X.ShouldBe(1, 1e-12);
         world.Y.ShouldBe(3, 1e-12);
         world.Z.ShouldBe(3, 1e-12);
-        var inverse = pose.Inverse();
+        var inverse = GeometryExtensions.Inverse(pose);
         var roundTrip = inverse * world;
         roundTrip.X.ShouldBe(1, 1e-12);
         roundTrip.Y.ShouldBe(0, 1e-12);
         roundTrip.Z.ShouldBe(0, 1e-12);
-        var matrix = rotation.ToRotationMatrix();
-        matrix.Determinant().ShouldBe(1, 1e-12);
+        var matrix = GeometryExtensions.ToRotationMatrix(rotation);
+        GeometryExtensions.Determinant(matrix).ShouldBe(1, 1e-12);
         var transposed = matrix.Transposed();
-        var product = Matrix.Multiply(matrix, (IReadOnlyMatrixD)transposed);
+        var product = Matrix.Multiply(matrix, transposed);
         for (int row = 0; row < 3; row++)
-            for (int column = 0; column < 3; column++)
-                product[row, column].ShouldBe(row == column ? 1 : 0, 1e-12);
+        for (int column = 0; column < 3; column++)
+            product[row, column].ShouldBe(row == column ? 1 : 0, 1e-12);
         world.Y.ShouldBe(3, 1e-12);
     }
 
@@ -142,8 +145,8 @@ public sealed class GeometryOwnershipTests
     public void EmptyAlgebraPreservesShapesAndProducesZeroInnerProducts()
     {
         var empty = new VectorXD(0);
-        empty.Norm().ShouldBe(0);
-        empty.Dot(empty).ShouldBe(0);
+        Matrix.Norm(empty).ShouldBe(0);
+        Matrix.Dot(empty, empty).ShouldBe(0);
         var sum = empty + empty;
         sum.Count.ShouldBe(0);
         var left = new MatrixXD(2, 0);
@@ -151,7 +154,7 @@ public sealed class GeometryOwnershipTests
         var product = left * right;
         product.Rows.ShouldBe(2);
         product.Columns.ShouldBe(3);
-        product.Norm().ShouldBe(0);
+        Matrix.Norm(product).ShouldBe(0);
     }
 
     [Theory]
@@ -161,10 +164,10 @@ public sealed class GeometryOwnershipTests
     {
         var contiguous = new VectorXD(magnitude, magnitude);
         var strided = VectorXD.CreateFromMemory(new double[] { magnitude, 99, magnitude }, 2, 2);
-        (contiguous.Norm() / magnitude).ShouldBe(Math.Sqrt(2), 1e-12);
-        (strided.Norm() / magnitude).ShouldBe(Math.Sqrt(2), 1e-12);
-        var unit = contiguous.Normalized();
-        var stridedUnit = strided.Normalized();
+        (Matrix.Norm(contiguous) / magnitude).ShouldBe(Math.Sqrt(2), 1e-12);
+        (Matrix.Norm(strided) / magnitude).ShouldBe(Math.Sqrt(2), 1e-12);
+        var unit = Matrix.Normalized<VectorXD, VectorXD>(contiguous);
+        var stridedUnit = Matrix.Normalized<VectorXD, VectorXD>(strided);
         for (int index = 0; index < 2; index++)
         {
             unit[index].ShouldBe(Math.Sqrt(0.5), 1e-12);
@@ -177,17 +180,21 @@ public sealed class GeometryOwnershipTests
         public int DisposeCount { get; private set; }
         public int PinCount { get; private set; }
         private readonly double[] _values = [1, 2, 3, 4];
+
         public override Span<double> GetSpan()
         {
             ObjectDisposedException.ThrowIf(DisposeCount != 0, this);
             return _values;
         }
+
         public override MemoryHandle Pin(int elementIndex = 0)
         {
             PinCount++;
             return _values.AsMemory(elementIndex).Pin();
         }
+
         public override void Unpin() { }
+
         protected override void Dispose(bool disposing) => DisposeCount++;
     }
 }

@@ -1,21 +1,22 @@
 /* Concrete geometry mappings. Conversion and ownership rules are shared in typemaps.i. */
 %include "geometry/typemaps.i"
-DARP_TENSOR(Eigen::Vector2d, IReadOnlyVectorXD, Vector, VectorXD, TakeVectorXD)
-DARP_TENSOR(Eigen::Vector3d, IReadOnlyVector3D, Vector3, Vector3D, TakeVector3D)
-DARP_TENSOR(Eigen::Vector4d, IReadOnlyVectorXD, Vector, VectorXD, TakeVectorXD)
-DARP_TENSOR(Eigen::VectorXd, IReadOnlyVectorXD, Vector, VectorXD, TakeVectorXD)
-DARP_TENSOR(Eigen::MatrixXd, IReadOnlyMatrixD, Matrix, MatrixXD, TakeMatrixXD)
-DARP_TENSOR(Eigen::MatrixX2d, IReadOnlyMatrixD, Matrix, MatrixXD, TakeMatrixXD)
-DARP_TENSOR(Eigen::Quaterniond, IReadOnlyQuaternionD, Quaternion, QuaternionD, TakeQuaternionD)
-DARP_TENSOR(Eigen::Isometry3d, IReadOnlyIsometry3D, Isometry, Isometry3D, TakeIsometry3D)
-DARP_TENSOR_REF(Eigen::VectorXd, IReadOnlyVectorXD, VectorXD)
-DARP_TENSOR_REF(Eigen::MatrixXd, IReadOnlyMatrixD, MatrixXD)
+%define DARP_MATRIX_ARRAY double[,] %enddef
+DARP_TENSOR(Eigen::Vector2d, global::Aardvark.Base.V2d, Vector2, global::Aardvark.Base.V2d, TakeVector2)
+DARP_TENSOR(Eigen::Vector3d, global::Aardvark.Base.V3d, Vector3, global::Aardvark.Base.V3d, TakeVector3)
+DARP_TENSOR(Eigen::Vector4d, global::Aardvark.Base.V4d, Vector4, global::Aardvark.Base.V4d, TakeVector4)
+DARP_TENSOR(Eigen::VectorXd, double[], Vector, double[], TakeVector)
+DARP_TENSOR(Eigen::MatrixXd, DARP_MATRIX_ARRAY, Matrix, DARP_MATRIX_ARRAY, TakeMatrix)
+DARP_TENSOR(Eigen::MatrixX2d, DARP_MATRIX_ARRAY, Matrix, DARP_MATRIX_ARRAY, TakeMatrix)
+DARP_TENSOR(Eigen::Quaterniond, global::Aardvark.Base.QuaternionD, Quaternion, global::Aardvark.Base.QuaternionD, TakeQuaternion)
+DARP_TENSOR(Eigen::Isometry3d, global::Aardvark.Base.Euclidean3d, Isometry, global::Aardvark.Base.Euclidean3d, TakeIsometry)
+DARP_TENSOR_REF(Eigen::VectorXd, double[], double[])
+DARP_TENSOR_REF(Eigen::MatrixXd, DARP_MATRIX_ARRAY, DARP_MATRIX_ARRAY)
 DARP_CONTAINER(tesseract::common::TransformMap, TransformMap)
-DARP_MAP_PROXY(tesseract::common::TransformMap, TransformMap, IReadOnlyIsometry3D, 1, Isometry)
+DARP_MAP_PROXY(tesseract::common::TransformMap, TransformMap, global::Aardvark.Base.Euclidean3d, 1, Isometry)
 DARP_CONTAINER(tesseract::common::VectorIsometry3d, VectorIsometry3d)
-DARP_LIST_PROXY(tesseract::common::VectorIsometry3d, VectorIsometry3d, IReadOnlyIsometry3D, 2, Isometry)
+DARP_LIST_PROXY(tesseract::common::VectorIsometry3d, VectorIsometry3d, global::Aardvark.Base.Euclidean3d, 2, Isometry)
 DARP_CONTAINER(tesseract::kinematics::IKSolutions, IKSolutions)
-DARP_LIST_PROXY(tesseract::kinematics::IKSolutions, IKSolutions, IReadOnlyVectorXD, 3, Vector)
+DARP_LIST_PROXY(tesseract::kinematics::IKSolutions, IKSolutions, double[], 3, Vector)
 %typemap(csclassmodifiers) DarpGeometryInterop "internal class";
 %nodefaultctor DarpGeometryInterop;
 %nodefaultdtor DarpGeometryInterop;

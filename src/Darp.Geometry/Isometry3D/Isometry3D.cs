@@ -28,14 +28,14 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
 
     public double this[int row, int column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public double this[Index row, Index column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public override string ToString() => Matrix.Format(this);
@@ -50,7 +50,7 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
         : this(new MatrixData(4, 4))
     {
         for (int i = 0; i < 4; i++)
-            Data[i, i] = 1;
+            Data.Set(i, i, 1);
     }
 
     public Isometry3D(ReadOnlyQuaternionD rotation, ReadOnlyVector3D translation)

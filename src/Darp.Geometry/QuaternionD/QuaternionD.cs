@@ -26,14 +26,14 @@ public readonly partial struct QuaternionD : IMatrixD<QuaternionD>
 
     public double this[int row, int column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public double this[Index row, Index column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public MatrixXD Transposed() => new(Data.AsTransposedLayout());
@@ -73,29 +73,29 @@ public readonly partial struct QuaternionD : IMatrixD<QuaternionD>
 
     public double X
     {
-        get => Data[0, 0];
-        set => Data[0, 0] = value;
+        get => this[0, 0];
+        set => this[0, 0] = value;
     }
     public double Y
     {
-        get => Data[1, 0];
-        set => Data[1, 0] = value;
+        get => this[1, 0];
+        set => this[1, 0] = value;
     }
     public double Z
     {
-        get => Data[2, 0];
-        set => Data[2, 0] = value;
+        get => this[2, 0];
+        set => this[2, 0] = value;
     }
     public double W
     {
-        get => Data[3, 0];
-        set => Data[3, 0] = value;
+        get => this[3, 0];
+        set => this[3, 0] = value;
     }
     public int Count => 4;
     public double this[int index]
     {
-        get => Data[index, 0];
-        set => Data[index, 0] = value;
+        get => this[index, 0];
+        set => this[index, 0] = value;
     }
     public VectorXD Coefficients => new(Data);
 

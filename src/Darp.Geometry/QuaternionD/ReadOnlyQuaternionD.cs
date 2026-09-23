@@ -19,24 +19,25 @@ public readonly partial struct ReadOnlyQuaternionD : IReadOnlyMatrixD<ReadOnlyQu
     public int RowStride => Data.RowStride;
     public int ColumnStride => Data.ColumnStride;
 
-    public double X => Data[0, 0];
-    public double Y => Data[1, 0];
-    public double Z => Data[2, 0];
-    public double W => Data[3, 0];
+    public double X => Data.Get(0, 0);
+    public double Y => Data.Get(1, 0);
+    public double Z => Data.Get(2, 0);
+    public double W => Data.Get(3, 0);
     public int Count => 4;
     public ReadOnlyVectorXD Coefficients => new(Data);
 
     public ReadOnlyMatrixXD AsMatrix() => new(Data);
-    public double this[int index] => Data[index, 0];
 
-    public double this[Index row, Index column] => Data[row, column];
+    public double this[int index] => Data.Get(index, 0);
+
+    public double this[Index row, Index column] => Data.Get(row, column);
 
     TensorSpanLease IReadOnlyMatrixD<ReadOnlyQuaternionD>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
 
     static ReadOnlyQuaternionD IReadOnlyMatrixD<ReadOnlyQuaternionD>.Create(in MatrixData data) => new(data);
 
-    public double this[int row, int column] => Data[row, column];
+    public double this[int row, int column] => Data.Get(row, column);
 
     public ReadOnlyMatrixXD Transposed() => new(Data.AsTransposedLayout());
 

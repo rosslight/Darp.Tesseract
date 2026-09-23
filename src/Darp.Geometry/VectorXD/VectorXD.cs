@@ -28,14 +28,14 @@ public readonly partial struct VectorXD : IMatrixD<VectorXD>
 
     public double this[int row, int column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public double this[Index row, Index column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public VectorXD()
@@ -71,8 +71,8 @@ public readonly partial struct VectorXD : IMatrixD<VectorXD>
     public int Count => Rows;
     public double this[int index]
     {
-        get => Data[index, 0];
-        set => Data[index, 0] = value;
+        get => this[index, 0];
+        set => this[index, 0] = value;
     }
 
     public VectorXD Slice(int start, int count)

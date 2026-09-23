@@ -6,6 +6,8 @@ public static partial class GeometryExtensions
 
     public static Vector3D Clone(this ReadOnlyVector3D vector) => new(vector.X, vector.Y, vector.Z);
 
+    public static Vector3D Clone(this Vector3D vector) => new(vector.X, vector.Y, vector.Z);
+
     public static Vector3D Normalized(this in ReadOnlyVector3D value) =>
         Matrix.Normalized<ReadOnlyVector3D, Vector3D>(value);
 

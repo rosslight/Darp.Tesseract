@@ -37,14 +37,14 @@ public readonly partial struct Vector3D : IMatrixD<Vector3D>
 
     public double this[int row, int column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public double this[Index row, Index column]
     {
-        get => Data[row, column];
-        set => Data[row, column] = value;
+        get => Data.Get(row, column);
+        set => Data.Set(row, column, value);
     }
 
     public static Vector3D FromMatrix(in MatrixXD matrix) => new(matrix.Data.Require(3, 1));
@@ -68,23 +68,23 @@ public readonly partial struct Vector3D : IMatrixD<Vector3D>
     public int Count => Rows;
     public double X
     {
-        get => Data[0, 0];
-        set => Data[0, 0] = value;
+        get => this[0, 0];
+        set => this[0, 0] = value;
     }
     public double Y
     {
-        get => Data[1, 0];
-        set => Data[1, 0] = value;
+        get => this[1, 0];
+        set => this[1, 0] = value;
     }
     public double Z
     {
-        get => Data[2, 0];
-        set => Data[2, 0] = value;
+        get => this[2, 0];
+        set => this[2, 0] = value;
     }
     public double this[int index]
     {
-        get => Data[index, 0];
-        set => Data[index, 0] = value;
+        get => this[index, 0];
+        set => this[index, 0] = value;
     }
 
     public VectorXD AsVector() => new(Storage, Layout);

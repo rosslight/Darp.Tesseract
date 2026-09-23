@@ -24,8 +24,8 @@ public readonly partial struct ReadOnlyVectorXD : IReadOnlyMatrixD<ReadOnlyVecto
 
     static ReadOnlyVectorXD IReadOnlyMatrixD<ReadOnlyVectorXD>.Create(in MatrixData data) => new(data);
 
-    public double this[int row, int column] => Data[row, column];
-    public double this[Index row, Index column] => Data[row, column];
+    public double this[int row, int column] => Data.Get(row, column);
+    public double this[Index row, Index column] => Data.Get(row, column);
 
     public ReadOnlyMatrixXD Transposed() => new(Data.AsTransposedLayout());
 
@@ -35,7 +35,7 @@ public readonly partial struct ReadOnlyVectorXD : IReadOnlyMatrixD<ReadOnlyVecto
         : this(new MatrixData(storage, layout)) { }
 
     public int Count => Rows;
-    public double this[int index] => Data[index, 0];
+    public double this[int index] => this[index, 0];
 
     public ReadOnlyVectorXD Slice(int start, int count) => new(Storage, Layout.Block(start, 0, count, 1));
 
