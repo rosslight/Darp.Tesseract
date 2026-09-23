@@ -36,7 +36,7 @@ public class KinematicGroup : JointGroup {
     }
   }
 
-  public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+  public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, double[] seed) {
     using (var seed_arg = new TensorArgument(seed)) {
     {
       var result = TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_0(swigCPtr, KinGroupIKInput.getCPtr(tip_link_pose), seed_arg.Handle);
@@ -46,7 +46,7 @@ public class KinematicGroup : JointGroup {
     }
   }
 
-  public void calcInvKin(ref IKSolutions solutions, KinGroupIKInput tip_link_pose, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+  public void calcInvKin(ref IKSolutions solutions, KinGroupIKInput tip_link_pose, double[] seed) {
     using (var solutions_arg = new ContainerArgument(solutions.Owner)) {
     using (var seed_arg = new TensorArgument(seed)) {
     try {

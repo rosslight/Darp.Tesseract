@@ -1,57 +1,80 @@
-using System.Buffers;
 using System.Runtime.InteropServices;
-using Darp.Geometry;
+using Aardvark.Base;
 
 namespace Darp.Tesseract.Native;
 
-/// <summary>Call-scoped pinning and ownership transfer shared by generated typemaps.</summary>
-internal sealed unsafe class TensorArgument : IDisposable
+// A call owns one managed column-major copy. Eigen never receives a pointer into a public value.
+internal sealed class TensorArgument : IDisposable
 {
-    private MemoryHandle _pin;
+    private readonly GCHandle _pin;
     private readonly NativeOwner _owner;
-    internal TensorArgument(IReadOnlyMatrixD input)
+
+    private TensorArgument(double[] coefficients, int rows, int columns)
     {
-        var matrix = input;
-        _pin = matrix.Pin();
+        _pin = GCHandle.Alloc(coefficients, GCHandleType.Pinned);
         try
         {
-            _owner = new NativeOwner(DarpGeometryInterop.tensor((ulong)_pin.Pointer,
-                matrix.Rows, matrix.Columns, matrix.RowStride, matrix.ColumnStride));
+            _owner = new NativeOwner(DarpGeometryInterop.tensor(
+                (ulong)_pin.AddrOfPinnedObject(), rows, columns, 1, Math.Max(1, rows)));
         }
-        catch { _pin.Dispose(); throw; }
+        catch { _pin.Free(); throw; }
     }
+
+    internal TensorArgument(double[] vector) : this((double[])vector.Clone(), vector.Length, 1) { }
+    internal TensorArgument(V2d vector) : this([vector.X, vector.Y], 2, 1) { }
+    internal TensorArgument(V3d vector) : this([vector.X, vector.Y, vector.Z], 3, 1) { }
+    internal TensorArgument(V4d vector) : this([vector.X, vector.Y, vector.Z, vector.W], 4, 1) { }
+    internal TensorArgument(QuaternionD quaternion) : this([quaternion.X, quaternion.Y, quaternion.Z, quaternion.W], 4, 1) { }
+    internal TensorArgument(Euclidean3d transform) : this(Pack((M44d)transform), 4, 4) { }
+    internal TensorArgument(double[,] matrix) : this(Pack(matrix), matrix.GetLength(0), matrix.GetLength(1)) { }
+
+    private static double[] Pack(double[,] matrix)
+    {
+        int rows = matrix.GetLength(0), columns = matrix.GetLength(1);
+        var result = new double[checked(rows * columns)];
+        for (int column = 0; column < columns; column++)
+        for (int row = 0; row < rows; row++)
+            result[column * rows + row] = matrix[row, column];
+        return result;
+    }
+
+    private static double[] Pack(M44d matrix)
+    {
+        var result = new double[16];
+        for (int column = 0; column < 4; column++)
+        for (int row = 0; row < 4; row++)
+            result[column * 4 + row] = matrix[row, column];
+        return result;
+    }
+
     internal HandleRef Handle => _owner.Handle;
     internal bool HasOutput => DarpGeometryInterop.changed(Handle);
-    internal MatrixXD TakeMatrixXD() => TensorResult.MutableMatrix(_owner.Take());
-    internal VectorXD TakeVectorXD()
+    internal double[] TakeVector() => TensorResult.Vector(_owner.Take());
+    internal V2d TakeVector2() => TensorResult.Vector2(_owner.Take());
+    internal V3d TakeVector3() => TensorResult.Vector3(_owner.Take());
+    internal V4d TakeVector4() => TensorResult.Vector4(_owner.Take());
+    internal double[,] TakeMatrix() => TensorResult.Matrix(_owner.Take());
+    internal QuaternionD TakeQuaternion() => TensorResult.Quaternion(_owner.Take());
+    internal Euclidean3d TakeIsometry() => TensorResult.Isometry(_owner.Take());
+
+    internal void CopyBack(double[] destination)
     {
-        var matrix = TakeMatrixXD();
-        return matrix.AsVector();
+        var source = TakeVector();
+        if (source.Length != destination.Length)
+            throw new InvalidOperationException("A native Eigen::Ref output cannot resize its destination.");
+        source.CopyTo(destination, 0);
     }
-    internal Vector3D TakeVector3D()
+    internal void CopyBack(double[,] destination)
     {
-        var matrix = TakeMatrixXD();
-        return Vector3D.FromMatrix(matrix);
-    }
-    internal Isometry3D TakeIsometry3D()
-    {
-        var matrix = TakeMatrixXD();
-        return Isometry3D.View(matrix);
-    }
-    internal QuaternionD TakeQuaternionD() => TensorResult.MutableQuaternion(_owner.Take());
-    internal void CopyBack(IMatrixD destination)
-    {
-        var source = TakeMatrixXD();
-        var target = destination.AsMatrix();
-        if (source.Rows != target.Rows || source.Columns != target.Columns)
-            throw new InvalidOperationException("A native Eigen::Ref output cannot resize the destination.");
-        for (int c = 0; c < source.Columns; c++)
-            for (int r = 0; r < source.Rows; r++) target[r, c] = source[r, c];
+        var source = TakeMatrix();
+        if (source.GetLength(0) != destination.GetLength(0) || source.GetLength(1) != destination.GetLength(1))
+            throw new InvalidOperationException("A native Eigen::Ref output cannot resize its destination.");
+        Array.Copy(source, destination, source.Length);
     }
     public void Dispose()
     {
         try { _owner.Dispose(); }
-        finally { _pin.Dispose(); }
+        finally { _pin.Free(); }
     }
 }
 

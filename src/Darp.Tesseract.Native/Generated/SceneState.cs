@@ -84,7 +84,7 @@ public class SceneState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyVectorXD getJointValues(StringVector joint_names) {
+  public double[] getJointValues(StringVector joint_names) {
     var result = TesseractNativePINVOKE.SceneState_getJointValues(swigCPtr, StringVector.getCPtr(joint_names));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);

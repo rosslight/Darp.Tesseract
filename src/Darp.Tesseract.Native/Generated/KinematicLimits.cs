@@ -57,7 +57,7 @@ public class KinematicLimits : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD joint_limits {
+  public double[,]  joint_limits {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_joint_limits_set(swigCPtr, value_arg.Handle);
@@ -73,7 +73,7 @@ public class KinematicLimits : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD velocity_limits {
+  public double[,]  velocity_limits {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_velocity_limits_set(swigCPtr, value_arg.Handle);
@@ -89,7 +89,7 @@ public class KinematicLimits : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD acceleration_limits {
+  public double[,]  acceleration_limits {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_acceleration_limits_set(swigCPtr, value_arg.Handle);
@@ -105,7 +105,7 @@ public class KinematicLimits : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD jerk_limits {
+  public double[,]  jerk_limits {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.KinematicLimits_jerk_limits_set(swigCPtr, value_arg.Handle);

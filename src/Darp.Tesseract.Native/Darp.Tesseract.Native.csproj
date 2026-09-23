@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="../Darp.Geometry/Darp.Geometry.csproj" />
+        <PackageReference Include="Aardvark.Base" Version="5.3.27" />
         <Compile Update="Generated/**/*.cs">
             <Nullable>disable</Nullable>
         </Compile>

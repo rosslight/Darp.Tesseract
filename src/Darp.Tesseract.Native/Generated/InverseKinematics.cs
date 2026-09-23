@@ -44,7 +44,7 @@ public class InverseKinematics : global::System.IDisposable {
     }
   }
 
-  public IKSolutions calcInvKin(TransformMap tip_link_poses, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+  public IKSolutions calcInvKin(TransformMap tip_link_poses, double[] seed) {
     using (var tip_link_poses_arg = new ContainerArgument(tip_link_poses.Owner)) {
     using (var seed_arg = new TensorArgument(seed)) {
     {
@@ -56,7 +56,7 @@ public class InverseKinematics : global::System.IDisposable {
     }
   }
 
-  public virtual void calcInvKin(ref IKSolutions solutions, TransformMap tip_link_poses, global::Darp.Geometry.IReadOnlyMatrixD seed) {
+  public virtual void calcInvKin(ref IKSolutions solutions, TransformMap tip_link_poses, double[] seed) {
     using (var solutions_arg = new ContainerArgument(solutions.Owner)) {
     using (var tip_link_poses_arg = new ContainerArgument(tip_link_poses.Owner)) {
     using (var seed_arg = new TensorArgument(seed)) {

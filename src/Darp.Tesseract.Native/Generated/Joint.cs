@@ -70,7 +70,7 @@ public class Joint : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.IReadOnlyVector3D axis {
+  public global::Aardvark.Base.V3d axis {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Joint_axis_set(swigCPtr, value_arg.Handle);
@@ -110,7 +110,7 @@ public class Joint : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.IReadOnlyIsometry3D parent_to_joint_origin_transform {
+  public global::Aardvark.Base.Euclidean3d parent_to_joint_origin_transform {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Joint_parent_to_joint_origin_transform_set(swigCPtr, value_arg.Handle);

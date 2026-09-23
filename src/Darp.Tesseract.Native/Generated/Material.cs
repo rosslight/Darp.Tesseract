@@ -81,7 +81,7 @@ public class Material : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.IReadOnlyVectorXD color {
+  public global::Aardvark.Base.V4d color {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.Material_color_set(swigCPtr, value_arg.Handle);
@@ -92,7 +92,7 @@ public class Material : global::System.IDisposable {
     get {
       var result = TesseractNativePINVOKE.Material_color_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return TensorResult.Vector(result);
+      return TensorResult.Vector4(result);
     }
 
   }

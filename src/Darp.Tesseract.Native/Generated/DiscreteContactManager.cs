@@ -89,7 +89,7 @@ public class DiscreteContactManager : global::System.IDisposable {
     return ret;
   }
 
-  public virtual void setCollisionObjectsTransform(string name, global::Darp.Geometry.IReadOnlyMatrixD pose) {
+  public virtual void setCollisionObjectsTransform(string name, global::Aardvark.Base.Euclidean3d pose) {
     using (var pose_arg = new TensorArgument(pose)) {
     {
       TesseractNativePINVOKE.DiscreteContactManager_setCollisionObjectsTransform__SWIG_0(swigCPtr, name, pose_arg.Handle);

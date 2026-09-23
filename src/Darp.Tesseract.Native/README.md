@@ -1,8 +1,7 @@
 # Darp.Tesseract.Native
 
 Generated .NET 10 bindings for Tesseract Robotics. The package includes the native
-runtime and depends on [Darp.Geometry](../Darp.Geometry/README.md) for vectors,
-matrices, quaternions and transforms.
+runtime and uses `Aardvark.Base` for fixed-size vectors, quaternions and transforms.
 
 Method names follow Tesseract's C++ API. Look in [Generated](Generated) for the
 available C# signatures. For build prerequisites and platform support, see the
@@ -14,7 +13,7 @@ This example uses the ABB robot fixture included in the repository. Run it from
 the repository root in an application referencing the binding package or project.
 
 ```csharp
-using Darp.Geometry;
+using Aardvark.Base;
 using Darp.Tesseract.Native;
 using TesseractEnvironment = Darp.Tesseract.Native.Environment;
 
@@ -38,23 +37,20 @@ if (!environment.init(sceneGraph, srdf))
     throw new InvalidOperationException("Could not initialize the robot.");
 
 using var group = environment.getKinematicGroup("manipulator");
-var seed = new VectorXD(checked((int)group.numJoints()));
+var seed = new double[checked((int)group.numJoints())];
 using var poses = group.calcFwdKin(seed);
-using var tool = poses["tool0"];
-using var position = tool.Translation;
+var tool = poses["tool0"];
+var position = tool.Trans;
 var jacobian = group.calcJacobian(seed, "tool0");
 
 Console.WriteLine(position);
-Console.WriteLine($"Jacobian: {jacobian.Rows} by {jacobian.Columns}");
+Console.WriteLine($"Jacobian: {jacobian.GetLength(0)} by {jacobian.GetLength(1)}");
 
 var target = new KinGroupIKInput(
     tool, group.getBaseLinkName(), "tool0");
 using var solutions = group.calcInvKin(target, seed);
 foreach (var solution in solutions)
-{
-    using (solution)
-        Console.WriteLine(solution);
-}
+    Console.WriteLine(string.Join(", ", solution));
 ```
 
 For your robot, change the URDF, SRDF, resource path, group name and tip link.
@@ -64,39 +60,31 @@ also show collision-manager setup, environment commands and joint-state access.
 
 ## Geometry inputs and results
 
-Generated geometry inputs accept `IReadOnlyMatrixD` where the native signature
-allows read-only access. The binding checks the required shape. You can supply
-a geometry object backed by managed memory or a result from an earlier native call.
+Fixed-size Eigen values map to Aardvark.Base values: `V2d`, `V3d`, `V4d`,
+`QuaternionD`, and `Euclidean3d` for rigid transforms. Dynamic vectors use `double[]`;
+dynamic matrices use `double[,]` with `[row, column]` indexing. The API checks
+native shapes when converting results and inputs.
 
-Results use the matching read-only interfaces, such as `IReadOnlyVectorXD`,
-`IReadOnlyMatrixD` and `IReadOnlyIsometry3D`. Call `Clone()` for a writable copy.
-Results own a reference to native storage and remain usable after the originating
-proxy is disposed.
+Every call copies geometry inputs into a temporary column-major buffer. Every
+result copies coefficients out of native memory before returning. You can keep a
+result after disposing its native collection. Changing a returned array does not
+change Tesseract state or other results.
 
-Transform maps and geometry sequences remain disposable. Their geometry elements
-are ordinary non-disposable objects that keep the shared native storage alive.
-Dispose the collection; its elements remain usable and are reclaimed through GC.
+```csharp
+var poses = group.calcFwdKin(seed);
+Euclidean3d tool = poses["tool0"];  // Native coefficients have already been copied.
+poses.Dispose();
+Console.WriteLine(tool.Trans.X); // Translation X remains available.
+```
 
-## What copies, and what shares memory?
+Native collections such as `TransformMap` and `IKSolutions` still own native
+resources and must be disposed. Their elements are managed copies. Writable
+`ref T` outputs replace the caller's value after the call. Writable `Eigen::Ref`
+outputs copy into an existing `double[]` or `double[,]` and cannot resize it.
 
-| Native signature or result | Binding behavior |
-| --- | --- |
-| `const Eigen::Ref` input | Pins compatible inner-contiguous memory. Packs other layouts into a temporary native value. |
-| Eigen value or `const T&` input | Creates a native value from the supplied coefficients. |
-| Eigen value result | Moves the result into owned native storage and returns a read-only view. |
-| Reference or pointer getter | Returns an independent snapshot, so later proxy changes do not invalidate it. |
-| Element of a returned geometry map or sequence | Shares the collection's native allocation without copying coefficients. |
-| Writable `Eigen::Ref` | Copies back into the supplied mutable object after success. The shape stays fixed. |
-| Writable `T&` | Uses a managed `ref` parameter and replaces the result object, allowing its shape to change. |
-
-A `ref` replacement leaves existing aliases valid. Geometry results need no
-disposal; native collections still do.
-
-Creating native containers from managed dictionaries or lists copies their
-elements. Empty vectors, matrices and containers are supported.
-
-Do not mutate input coefficients concurrently with a native call. Raw tensor
-spans follow the [geometry lifetime rules](../Darp.Geometry/README.md#tensor-spans).
+Aardvark's structs have writable fields, and arrays are mutable. They provide
+read-only *native access* here: mutations to a returned value never write back
+to Tesseract. For transform inputs, use `Euclidean3d` to represent rotation and translation directly.
 
 ## Change or extend a binding
 
@@ -117,7 +105,7 @@ when a change alters the generated interop signatures.
 | Add an Eigen type or geometry container mapping | [mappings.i](../../bindings/geometry/mappings.i) |
 | Change generated C# conversion or ownership code | [typemaps.i](../../bindings/geometry/typemaps.i) |
 | Change native Eigen conversion behavior | [runtime.h](../../bindings/geometry/runtime.h) |
-| Change managed pinning, memory ownership or containers | [Runtime](Runtime) |
+| Change managed copying or containers | [Runtime](Runtime) |
 | Change shared SWIG behavior for other C++ types | [bindings/support](../../bindings/support) |
 
 SWIG writes C# files to `src/Darp.Tesseract.Native/Generated/` and the C++ wrapper

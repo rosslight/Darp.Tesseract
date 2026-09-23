@@ -10,12 +10,12 @@
 
 namespace Darp.Tesseract.Native {
 
-public sealed class VectorIsometry3d : NativeList<global::Darp.Geometry.IReadOnlyIsometry3D> {
+public sealed class VectorIsometry3d : NativeList<global::Aardvark.Base.Euclidean3d> {
   public VectorIsometry3d() : base(2, TensorResult.Isometry) { }
   internal VectorIsometry3d(global::System.IntPtr handle) : base(handle, 2, TensorResult.Isometry) { }
 
-  public VectorIsometry3d(global::System.Collections.Generic.IReadOnlyList<global::Darp.Geometry.IReadOnlyIsometry3D> values)
-    : base(2, TensorResult.Isometry, values) { }
+  public VectorIsometry3d(global::System.Collections.Generic.IReadOnlyList<global::Aardvark.Base.Euclidean3d> values)
+    : base(2, TensorResult.Isometry, values, static value => new TensorArgument(value)) { }
 
 }
 

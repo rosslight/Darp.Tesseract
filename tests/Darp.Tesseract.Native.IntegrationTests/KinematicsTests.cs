@@ -1,4 +1,4 @@
-using Darp.Geometry;
+using Aardvark.Base;
 using Shouldly;
 using System.Runtime.InteropServices;
 using Xunit;
@@ -90,16 +90,16 @@ public sealed class KinematicsTests
         var tipLink = activeLinks[^1];
         tipLink.ShouldBe("tool0");
 
-        var seed = new VectorXD(checked((int)group.numJoints()));
+        var seed = new double[checked((int)group.numJoints())];
 
         using var transforms = group.calcFwdKin(seed);
         transforms.ContainsKey(tipLink).ShouldBeTrue();
         var target = transforms[tipLink];
 
         var jacobian = group.calcJacobian(seed, tipLink);
-        jacobian.Rows.ShouldBe(6);
-        jacobian.Columns.ShouldBe(6);
-        foreach (var value in jacobian.ToArray())
+        jacobian.GetLength(0).ShouldBe(6);
+        jacobian.GetLength(1).ShouldBe(6);
+        foreach (var value in jacobian)
             double.IsFinite(value).ShouldBeTrue();
 
         using var input = new KinGroupIKInput(target, group.getBaseLinkName(), tipLink);
@@ -110,8 +110,8 @@ public sealed class KinematicsTests
         for (var index = 0; index < solutions.Count; index++)
         {
             var solution = solutions[index];
-            solution.Count.ShouldBe(seed.Count);
-            foreach (var joint in solution.ToArray())
+            solution.Length.ShouldBe(seed.Length);
+            foreach (var joint in solution)
                 double.IsFinite(joint).ShouldBeTrue();
 
             using var candidateTransforms = group.calcFwdKin(solution);
@@ -185,10 +185,10 @@ public sealed class KinematicsTests
         environment.getLink("fixture").ShouldBeNull();
     }
 
-    private static bool PosesApproximatelyEqual(IReadOnlyIsometry3D expected, IReadOnlyIsometry3D actual, double tolerance)
+    private static bool PosesApproximatelyEqual(Euclidean3d expected, Euclidean3d actual, double tolerance)
     {
-        var a = expected.AsReadOnlyMatrix();
-        var b = actual.AsReadOnlyMatrix();
+        var a = (M44d)expected;
+        var b = (M44d)actual;
         for (int row = 0; row < 4; row++)
             for (int column = 0; column < 4; column++)
                 if (Math.Abs(a[row, column] - b[row, column]) > tolerance) return false;
@@ -196,50 +196,36 @@ public sealed class KinematicsTests
     }
 
     [Fact]
-    public void StridedJointInputAndRefOutputsMatchValueOverloads()
+    public void CopiedJointInputAndRefOutputsMatchValueOverloads()
     {
         using var environment = CreateEnvironment();
         using var group = environment.getKinematicGroup("manipulator");
-        var joints = new VectorXD(0.1, -0.2, 0.3, 0.1, 0.2, -0.1);
-        var storage = new double[12];
-        var strided = VectorXD.CreateFromMemory(storage, 6, 2);
-        for (int i = 0; i < 6; i++) { strided[i] = joints[i]; storage[i * 2 + 1] = 99; }
+        double[] joints = [0.1, -0.2, 0.3, 0.1, 0.2, -0.1];
         using var expectedPoses = group.calcFwdKin(joints);
         var expected = expectedPoses["tool0"];
-        var zero = new VectorXD(6);
-        using var originalPoses = group.calcFwdKin(zero);
+        using var originalPoses = group.calcFwdKin(new double[6]);
         var poses = originalPoses;
         var earlier = poses["tool0"];
-        var earlierMatrix = earlier.AsReadOnlyMatrix();
-        var earlierCopy = earlierMatrix.ToArray();
-        group.calcFwdKin(ref poses, strided);
+        group.calcFwdKin(ref poses, joints);
         using var updatedPoses = poses;
         originalPoses.Dispose();
-        var updated = poses["tool0"];
-        PosesApproximatelyEqual(expected, updated, 1e-10).ShouldBeTrue();
-        earlierMatrix.ToArray().ShouldBe(earlierCopy);
-        for (int i = 0; i < 6; i++) storage[i * 2 + 1].ShouldBe(99);
+        PosesApproximatelyEqual(expected, poses["tool0"], 1e-10).ShouldBeTrue();
+        earlier.Trans.X.ShouldBe(0);
     }
 
     [Fact]
-    public void MatrixPropertiesPreserveRowMajorLayoutAndRejectWrongShape()
+    public void MatrixPropertiesCopyRowMajorInputsAndRejectWrongShape()
     {
         using var limits = new KinematicLimits();
-        var matrix = MatrixXD.CreateFromMemory(new double[] { -1, 1, -2, 2, -3, 3 }, 3, 2, columnStride: 1, rowStride: 2);
-        var readable = matrix.AsReadOnly();
-        limits.joint_limits = readable;
+        double[,] matrix = { { -1, 1 }, { -2, 2 }, { -3, 3 } };
+        limits.joint_limits = matrix;
+        matrix[0, 0] = 99;
         var saved = limits.joint_limits;
-        saved.Rows.ShouldBe(3);
-        saved.Columns.ShouldBe(2);
-        for (int row = 0; row < 3; row++)
-            for (int column = 0; column < 2; column++)
-                saved[row, column].ShouldBe(matrix[row, column]);
-        var wrongShape = new MatrixXD(3, 3);
-        var wrongShapeView = wrongShape.AsReadOnly();
-        Should.Throw<ArgumentException>(() => limits.joint_limits = wrongShapeView);
-        var current = limits.joint_limits;
-        current[2, 1].ShouldBe(3);
+        saved.GetLength(0).ShouldBe(3);
+        saved.GetLength(1).ShouldBe(2);
         saved[0, 0].ShouldBe(-1);
+        saved[2, 1].ShouldBe(3);
+        Should.Throw<ArgumentException>(() => limits.joint_limits = new double[3, 3]);
     }
 
     [Fact]
@@ -249,29 +235,25 @@ public sealed class KinematicsTests
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
-        snapshot.ToArray().ShouldBe(new double[] { 1, 2, 3 });
-        snapshot.Norm().ShouldBe(Math.Sqrt(14), 1e-12);
+        snapshot.ShouldBe(new double[] { 1, 2, 3 });
+        Math.Sqrt(snapshot.Sum(value => value * value)).ShouldBe(Math.Sqrt(14), 1e-12);
     }
 
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-    private static IReadOnlyVectorXD CreateJointSnapshot()
+    private static double[] CreateJointSnapshot()
     {
         using var names = new StringVector { "a", "b", "c" };
-        var initial = new VectorXD(1.0, 2.0, 3.0);
+        double[] initial = [1.0, 2.0, 3.0];
         using var state = new JointState(names, initial);
         var velocity = state.velocity;
-        velocity.Count.ShouldBe(0);
-        var empty = new VectorXD(0);
-        var emptyView = empty.AsReadOnly();
-        state.velocity = emptyView;
+        velocity.Length.ShouldBe(0);
+        state.velocity = [];
         var updatedVelocity = state.velocity;
-        updatedVelocity.Count.ShouldBe(0);
+        updatedVelocity.Length.ShouldBe(0);
         var saved = state.position;
-        var replacement = new VectorXD(4.0, 5.0, 6.0);
-        var replacementView = replacement.AsReadOnly();
-        state.position = replacementView;
+        state.position = [4.0, 5.0, 6.0];
         var current = state.position;
-        current.ToArray().ShouldBe(new double[] { 4, 5, 6 });
+        current.ShouldBe(new double[] { 4, 5, 6 });
         return saved;
     }
 
@@ -282,20 +264,16 @@ public sealed class KinematicsTests
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
-        var translation = pose.Translation;
-        translation.X.ShouldBe(1);
-        translation.Y.ShouldBe(2);
-        translation.Z.ShouldBe(3);
+        pose.Trans.X.ShouldBe(1);
+        pose.Trans.Y.ShouldBe(2);
+        pose.Trans.Z.ShouldBe(3);
     }
 
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-    private static IReadOnlyIsometry3D CreateDetachedPose()
+    private static Euclidean3d CreateDetachedPose()
     {
-        var pose = Isometry3D.Identity;
-        var translation = pose.Translation;
-        translation.X = 1; translation.Y = 2; translation.Z = 3;
-        var readable = pose.AsReadOnly();
-        using var map = new TransformMap(new Dictionary<string, IReadOnlyIsometry3D> { ["pose"] = readable });
+        var pose = new Euclidean3d(Rot3d.Identity, new V3d(1, 2, 3));
+        using var map = new TransformMap(new Dictionary<string, Euclidean3d> { ["pose"] = pose });
         return map["pose"];
     }
 

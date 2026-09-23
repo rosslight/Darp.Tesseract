@@ -89,7 +89,7 @@ public class ContinuousContactManager : global::System.IDisposable {
     return ret;
   }
 
-  public virtual void setCollisionObjectsTransform(string name, global::Darp.Geometry.IReadOnlyMatrixD pose) {
+  public virtual void setCollisionObjectsTransform(string name, global::Aardvark.Base.Euclidean3d pose) {
     using (var pose_arg = new TensorArgument(pose)) {
     {
       TesseractNativePINVOKE.ContinuousContactManager_setCollisionObjectsTransform__SWIG_0(swigCPtr, name, pose_arg.Handle);
@@ -116,7 +116,7 @@ public class ContinuousContactManager : global::System.IDisposable {
     }
   }
 
-  public virtual void setCollisionObjectsTransform(string name, global::Darp.Geometry.IReadOnlyMatrixD pose1, global::Darp.Geometry.IReadOnlyMatrixD pose2) {
+  public virtual void setCollisionObjectsTransform(string name, global::Aardvark.Base.Euclidean3d pose1, global::Aardvark.Base.Euclidean3d pose2) {
     using (var pose1_arg = new TensorArgument(pose1)) {
     using (var pose2_arg = new TensorArgument(pose2)) {
     {

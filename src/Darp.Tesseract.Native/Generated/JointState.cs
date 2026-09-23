@@ -61,13 +61,13 @@ public class JointState : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  static private global::System.IntPtr SwigConstructJointState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD position) {
+  static private global::System.IntPtr SwigConstructJointState(StringVector joint_names, double[] position) {
     using (var position_arg = new TensorArgument(position)) {
     return TesseractNativePINVOKE.new_JointState__SWIG_1(StringVector.getCPtr(joint_names), position_arg.Handle);
     }
   }
 
-  public JointState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD position) : this(JointState.SwigConstructJointState(joint_names, position), true) {
+  public JointState(StringVector joint_names, double[] position) : this(JointState.SwigConstructJointState(joint_names, position), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -84,7 +84,7 @@ public class JointState : global::System.IDisposable {
     } 
   }
 
-  public global::Darp.Geometry.IReadOnlyVectorXD position {
+  public double[] position {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_position_set(swigCPtr, value_arg.Handle);
@@ -100,7 +100,7 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyVectorXD velocity {
+  public double[] velocity {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_velocity_set(swigCPtr, value_arg.Handle);
@@ -116,7 +116,7 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyVectorXD acceleration {
+  public double[] acceleration {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_acceleration_set(swigCPtr, value_arg.Handle);
@@ -132,7 +132,7 @@ public class JointState : global::System.IDisposable {
 
   }
 
-  public global::Darp.Geometry.IReadOnlyVectorXD effort {
+  public double[] effort {
     set {
       using (var value_arg = new TensorArgument(value)) {
         TesseractNativePINVOKE.JointState_effort_set(swigCPtr, value_arg.Handle);

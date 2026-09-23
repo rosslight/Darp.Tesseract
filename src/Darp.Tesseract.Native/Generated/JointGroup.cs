@@ -55,7 +55,7 @@ public class JointGroup : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public TransformMap calcFwdKin(global::Darp.Geometry.IReadOnlyMatrixD joint_angles) {
+  public TransformMap calcFwdKin(double[] joint_angles) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     {
       var result = TesseractNativePINVOKE.JointGroup_calcFwdKin__SWIG_0(swigCPtr, joint_angles_arg.Handle);
@@ -65,7 +65,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public void calcFwdKin(ref TransformMap transforms, global::Darp.Geometry.IReadOnlyMatrixD joint_angles) {
+  public void calcFwdKin(ref TransformMap transforms, double[] joint_angles) {
     using (var transforms_arg = new ContainerArgument(transforms.Owner)) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     try {
@@ -78,7 +78,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name) {
+  public double[,]  calcJacobian(double[] joint_angles, string link_name) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     {
       var result = TesseractNativePINVOKE.JointGroup_calcJacobian__SWIG_0(swigCPtr, joint_angles_arg.Handle, link_name);
@@ -88,7 +88,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string link_name, global::Darp.Geometry.IReadOnlyMatrixD link_point) {
+  public double[,]  calcJacobian(double[] joint_angles, string link_name, global::Aardvark.Base.V3d link_point) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     using (var link_point_arg = new TensorArgument(link_point)) {
     {
@@ -100,7 +100,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string base_link_name, string link_name) {
+  public double[,]  calcJacobian(double[] joint_angles, string base_link_name, string link_name) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     {
       var result = TesseractNativePINVOKE.JointGroup_calcJacobian__SWIG_2(swigCPtr, joint_angles_arg.Handle, base_link_name, link_name);
@@ -110,7 +110,7 @@ public class JointGroup : global::System.IDisposable {
     }
   }
 
-  public global::Darp.Geometry.IReadOnlyMatrixD calcJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_angles, string base_link_name, string link_name, global::Darp.Geometry.IReadOnlyMatrixD link_point) {
+  public double[,]  calcJacobian(double[] joint_angles, string base_link_name, string link_name, global::Aardvark.Base.V3d link_point) {
     using (var joint_angles_arg = new TensorArgument(joint_angles)) {
     using (var link_point_arg = new TensorArgument(link_point)) {
     {
@@ -193,7 +193,7 @@ public class JointGroup : global::System.IDisposable {
     return ret;
   }
 
-  public bool checkJoints(global::Darp.Geometry.IReadOnlyMatrixD vec) {
+  public bool checkJoints(double[] vec) {
     using (var vec_arg = new TensorArgument(vec)) {
     {
       bool ret = TesseractNativePINVOKE.JointGroup_checkJoints(swigCPtr, vec_arg.Handle);

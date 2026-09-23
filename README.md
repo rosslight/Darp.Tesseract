@@ -6,7 +6,7 @@ kinematics, and work with collision managers.
 
 The C# API follows the upstream C++ API, including names such as `calcFwdKin` and
 `getKinematicGroup`. SWIG generates the bindings. This repository also contains
-`Darp.Geometry`, the managed vector, matrix and transform library used by those bindings.
+`Darp.Geometry`, an independent managed vector, matrix and transform library.
 
 ## Where to start
 
@@ -17,9 +17,10 @@ The C# API follows the upstream C++ API, including names such as `calcFwdKin` an
 | Run tests against source or a NuGet package | [Test instructions](tests/Darp.Tesseract.Native.IntegrationTests/README.md) |
 | Build or change the bindings | The instructions below |
 
-`Darp.Tesseract.Native` depends on `Darp.Geometry` and packages the native wrapper
-and its runtime dependencies. Applications consuming the package do not need Pixi,
-SWIG or a C++ build environment. Geometry can also be used on its own.
+`Darp.Tesseract.Native` uses `Aardvark.Base` for fixed-size geometry and packages
+the native wrapper and its runtime dependencies. Applications consuming the
+package do not need Pixi, SWIG or a C++ build environment. `Darp.Geometry` can
+be used independently.
 
 ## Supported platforms and scope
 
@@ -86,7 +87,7 @@ dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesserac
 | --- | --- |
 | `src/Darp.Geometry/` | Managed geometry types, interface extensions and tensor kernels |
 | `src/Darp.Tesseract.Native/Generated/` | SWIG-generated C# API |
-| `src/Darp.Tesseract.Native/Runtime/` | Managed native-memory and container support |
+| `src/Darp.Tesseract.Native/Runtime/` | Managed geometry copying and native container support |
 | `bindings/components/` | Upstream headers to expose and signatures to exclude |
 | `bindings/geometry/` | Eigen mappings, collection mappings and native conversion code |
 | `bindings/support/` | Shared SWIG rules for ownership, exceptions and other C++ types |

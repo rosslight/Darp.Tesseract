@@ -184,7 +184,7 @@ public class KinematicsInformation : global::System.IDisposable {
     return ret;
   }
 
-  public void addGroupTCP(string group_name, string tcp_name, global::Darp.Geometry.IReadOnlyMatrixD tcp) {
+  public void addGroupTCP(string group_name, string tcp_name, global::Aardvark.Base.Euclidean3d tcp) {
     using (var tcp_arg = new TensorArgument(tcp)) {
     {
       TesseractNativePINVOKE.KinematicsInformation_addGroupTCP(swigCPtr, group_name, tcp_name, tcp_arg.Handle);

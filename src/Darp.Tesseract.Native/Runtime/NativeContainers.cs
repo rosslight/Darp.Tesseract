@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using Darp.Geometry;
 
 namespace Darp.Tesseract.Native;
 
-/// <summary>Immutable native map. Retrieved geometry keeps its storage alive independently of this container.</summary>
-public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable where T : IReadOnlyMatrixD
+/// <summary>Immutable native map. Retrieved elements are managed copies independent of this container.</summary>
+public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable
 {
     private readonly NativeOwner _owner;
     private readonly int _kind;
@@ -15,13 +14,13 @@ public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable
     { _owner = new NativeOwner(pointer); _kind = kind; _wrap = wrap; }
     private protected NativeMap(int kind, Func<IntPtr, T> wrap)
         : this(DarpGeometryInterop.create(kind), kind, wrap) { }
-    private protected NativeMap(int kind, Func<IntPtr, T> wrap, IReadOnlyDictionary<string, T> values) : this(kind, wrap)
+    private protected NativeMap(int kind, Func<IntPtr, T> wrap, IReadOnlyDictionary<string, T> values, Func<T, TensorArgument> argument) : this(kind, wrap)
     {
         try
         {
             foreach (var pair in values)
             {
-                using var input = new TensorArgument(pair.Value);
+                using var input = argument(pair.Value);
                 DarpGeometryInterop.add(_owner.Handle, kind, pair.Key, input.Handle);
             }
         }
@@ -77,8 +76,8 @@ public abstract class NativeMap<T> : IReadOnlyDictionary<string, T>, IDisposable
     public void Dispose() => _owner.Dispose();
 }
 
-/// <summary>Immutable native sequence. Retrieved geometry keeps its storage alive independently of this container.</summary>
-public abstract class NativeList<T> : IReadOnlyList<T>, IDisposable where T : IReadOnlyMatrixD
+/// <summary>Immutable native sequence. Retrieved elements are managed copies independent of this container.</summary>
+public abstract class NativeList<T> : IReadOnlyList<T>, IDisposable
 {
     private readonly NativeOwner _owner;
     private readonly int _kind;
@@ -88,13 +87,13 @@ public abstract class NativeList<T> : IReadOnlyList<T>, IDisposable where T : IR
     { _owner = new NativeOwner(pointer); _kind = kind; _wrap = wrap; }
     private protected NativeList(int kind, Func<IntPtr, T> wrap)
         : this(DarpGeometryInterop.create(kind), kind, wrap) { }
-    private protected NativeList(int kind, Func<IntPtr, T> wrap, IReadOnlyList<T> values) : this(kind, wrap)
+    private protected NativeList(int kind, Func<IntPtr, T> wrap, IReadOnlyList<T> values, Func<T, TensorArgument> argument) : this(kind, wrap)
     {
         try
         {
             foreach (var value in values)
             {
-                using var input = new TensorArgument(value);
+                using var input = argument(value);
                 DarpGeometryInterop.add(_owner.Handle, kind, "", input.Handle);
             }
         }

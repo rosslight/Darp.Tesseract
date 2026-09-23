@@ -53,7 +53,7 @@ public class StateSolver : global::System.IDisposable {
     return ret;
   }
 
-  public virtual void setState(global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joint_values) {
+  public virtual void setState(double[] joint_values, TransformMap floating_joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
@@ -64,7 +64,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual void setState(global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+  public virtual void setState(double[] joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       TesseractNativePINVOKE.StateSolver_setState__SWIG_1(swigCPtr, joint_values_arg.Handle);
@@ -87,7 +87,7 @@ public class StateSolver : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public virtual void setState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joint_values) {
+  public virtual void setState(StringVector joint_names, double[] joint_values, TransformMap floating_joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
@@ -98,7 +98,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual void setState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+  public virtual void setState(StringVector joint_names, double[] joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       TesseractNativePINVOKE.StateSolver_setState__SWIG_5(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle);
@@ -116,7 +116,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual SceneState getState(global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joint_values) {
+  public virtual SceneState getState(double[] joint_values, TransformMap floating_joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
@@ -128,7 +128,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual SceneState getState(global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+  public virtual SceneState getState(double[] joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       SceneState ret = new SceneState(TesseractNativePINVOKE.StateSolver_getState__SWIG_1(swigCPtr, joint_values_arg.Handle), true);
@@ -154,7 +154,7 @@ public class StateSolver : global::System.IDisposable {
     return ret;
   }
 
-  public virtual SceneState getState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joint_values) {
+  public virtual SceneState getState(StringVector joint_names, double[] joint_values, TransformMap floating_joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
@@ -166,7 +166,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual SceneState getState(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+  public virtual SceneState getState(StringVector joint_names, double[] joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       SceneState ret = new SceneState(TesseractNativePINVOKE.StateSolver_getState__SWIG_5(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle), true);
@@ -186,7 +186,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, TransformMap floating_joint_values) {
+  public virtual void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, double[] joint_values, TransformMap floating_joint_values) {
     using (var link_transforms_arg = new ContainerArgument(link_transforms.Owner)) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
@@ -201,7 +201,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values) {
+  public virtual void getLinkTransforms(ref TransformMap link_transforms, StringVector joint_names, double[] joint_values) {
     using (var link_transforms_arg = new ContainerArgument(link_transforms.Owner)) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     try {
@@ -220,7 +220,7 @@ public class StateSolver : global::System.IDisposable {
     return ret;
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyMatrixD getJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_values, string link_name, TransformMap floating_joint_values) {
+  public virtual double[,]  getJacobian(double[] joint_values, string link_name, TransformMap floating_joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
@@ -232,7 +232,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyMatrixD getJacobian(global::Darp.Geometry.IReadOnlyMatrixD joint_values, string link_name) {
+  public virtual double[,]  getJacobian(double[] joint_values, string link_name) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       var result = TesseractNativePINVOKE.StateSolver_getJacobian__SWIG_1(swigCPtr, joint_values_arg.Handle, link_name);
@@ -242,7 +242,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyMatrixD getJacobian(StringDoubleMap joint_values, string link_name, TransformMap floating_joint_values) {
+  public virtual double[,]  getJacobian(StringDoubleMap joint_values, string link_name, TransformMap floating_joint_values) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
       var result = TesseractNativePINVOKE.StateSolver_getJacobian__SWIG_2(swigCPtr, StringDoubleMap.getCPtr(joint_values), link_name, floating_joint_values_arg.Handle);
@@ -252,13 +252,13 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyMatrixD getJacobian(StringDoubleMap joint_values, string link_name) {
+  public virtual double[,]  getJacobian(StringDoubleMap joint_values, string link_name) {
     var result = TesseractNativePINVOKE.StateSolver_getJacobian__SWIG_3(swigCPtr, StringDoubleMap.getCPtr(joint_values), link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Matrix(result);
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyMatrixD getJacobian(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, string link_name, TransformMap floating_joint_values) {
+  public virtual double[,]  getJacobian(StringVector joint_names, double[] joint_values, string link_name, TransformMap floating_joint_values) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     using (var floating_joint_values_arg = new ContainerArgument(floating_joint_values.Owner)) {
     {
@@ -270,7 +270,7 @@ public class StateSolver : global::System.IDisposable {
     }
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyMatrixD getJacobian(StringVector joint_names, global::Darp.Geometry.IReadOnlyMatrixD joint_values, string link_name) {
+  public virtual double[,]  getJacobian(StringVector joint_names, double[] joint_values, string link_name) {
     using (var joint_values_arg = new TensorArgument(joint_values)) {
     {
       var result = TesseractNativePINVOKE.StateSolver_getJacobian__SWIG_5(swigCPtr, StringVector.getCPtr(joint_names), joint_values_arg.Handle, link_name);
@@ -346,13 +346,13 @@ public class StateSolver : global::System.IDisposable {
     return new VectorIsometry3d(result);
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyIsometry3D getLinkTransform(string link_name) {
+  public virtual global::Aardvark.Base.Euclidean3d getLinkTransform(string link_name) {
     var result = TesseractNativePINVOKE.StateSolver_getLinkTransform(swigCPtr, link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);
   }
 
-  public virtual global::Darp.Geometry.IReadOnlyIsometry3D getRelativeLinkTransform(string from_link_name, string to_link_name) {
+  public virtual global::Aardvark.Base.Euclidean3d getRelativeLinkTransform(string from_link_name, string to_link_name) {
     var result = TesseractNativePINVOKE.StateSolver_getRelativeLinkTransform(swigCPtr, from_link_name, to_link_name);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);

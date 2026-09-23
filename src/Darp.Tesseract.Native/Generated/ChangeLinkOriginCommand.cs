@@ -40,13 +40,13 @@ public class ChangeLinkOriginCommand : Command {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  static private global::System.IntPtr SwigConstructChangeLinkOriginCommand(string link_name, global::Darp.Geometry.IReadOnlyMatrixD origin) {
+  static private global::System.IntPtr SwigConstructChangeLinkOriginCommand(string link_name, global::Aardvark.Base.Euclidean3d origin) {
     using (var origin_arg = new TensorArgument(origin)) {
     return TesseractNativePINVOKE.new_ChangeLinkOriginCommand__SWIG_1(link_name, origin_arg.Handle);
     }
   }
 
-  public ChangeLinkOriginCommand(string link_name, global::Darp.Geometry.IReadOnlyMatrixD origin) : this(ChangeLinkOriginCommand.SwigConstructChangeLinkOriginCommand(link_name, origin), true) {
+  public ChangeLinkOriginCommand(string link_name, global::Aardvark.Base.Euclidean3d origin) : this(ChangeLinkOriginCommand.SwigConstructChangeLinkOriginCommand(link_name, origin), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -56,7 +56,7 @@ public class ChangeLinkOriginCommand : Command {
     return ret;
   }
 
-  public global::Darp.Geometry.IReadOnlyIsometry3D getOrigin() {
+  public global::Aardvark.Base.Euclidean3d getOrigin() {
     var result = TesseractNativePINVOKE.ChangeLinkOriginCommand_getOrigin(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Isometry(result);
