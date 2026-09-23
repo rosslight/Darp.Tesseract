@@ -2,7 +2,7 @@ namespace Darp.Geometry;
 
 public static partial class GeometryExtensions
 {
-    public static QuaternionD Slerp(this IReadOnlyQuaternionD left, IReadOnlyQuaternionD right, double amount) =>
+    public static QuaternionD Slerp(this ReadOnlyQuaternionD left, ReadOnlyQuaternionD right, double amount) =>
         QuaternionMath.Slerp(left, right, amount);
 
     public static QuaternionD Conjugate(this IReadOnlyQuaternionD value) => new(-value.X, -value.Y, -value.Z, value.W);
@@ -42,7 +42,7 @@ public static partial class GeometryExtensions
         );
     }
 
-    public static Matrix3D ToRotationMatrix(this IReadOnlyQuaternionD value)
+    public static Matrix3D ToRotationMatrix(this in ReadOnlyQuaternionD value)
     {
         var q = value.Normalized();
         double x = q.X,

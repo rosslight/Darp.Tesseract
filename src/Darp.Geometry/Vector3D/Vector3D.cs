@@ -6,11 +6,19 @@ namespace Darp.Geometry;
 /// <summary>Mutable geometry sharing its coefficient storage with derived views.</summary>
 public readonly partial struct Vector3D : IMatrixD<Vector3D>
 {
-    private readonly MatrixData _data;
-    internal static readonly MatrixData ZeroData = MatrixData.ReadOnlyZero(3, 1);
-    private MatrixData Data => _data.Storage is null ? ZeroData : _data;
+    internal static readonly MatrixData s_zeroData = MatrixData.ReadOnlyZero(3, 1);
+    private MatrixData Data => field.Storage is null ? s_zeroData : field;
 
-    internal Vector3D(MatrixData data) => _data = data;
+    internal Vector3D(MatrixData data) => Data = data;
+
+    public Vector3D()
+        : this(new MatrixData(3, 1)) { }
+
+    internal Vector3D(MatrixStorage storage, in MatrixLayout layout)
+        : this(new MatrixData(storage, layout)) { }
+
+    private Vector3D(Memory<double> memory, in MatrixLayout layout)
+        : this(new MatrixData(memory, layout)) { }
 
     internal MatrixStorage Storage => Data.Storage;
     internal MatrixLayout Layout => Data.Layout;
@@ -18,8 +26,6 @@ public readonly partial struct Vector3D : IMatrixD<Vector3D>
     public int Columns => Data.Columns;
     public int RowStride => Data.RowStride;
     public int ColumnStride => Data.ColumnStride;
-
-    public ReadOnlyMatrixXD AsReadOnlyMatrix() => Data.AsReadOnlyMatrix();
 
     TensorSpanLease IReadOnlyMatrixD.AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
@@ -32,15 +38,6 @@ public readonly partial struct Vector3D : IMatrixD<Vector3D>
         Data.BlockReadOnly(row, column, rows, columns);
 
     ReadOnlyMatrixXD IReadOnlyMatrixD.Transposed() => Data.AsTransposedLayout();
-
-    public Vector3D()
-        : this(new MatrixData(3, 1)) { }
-
-    internal Vector3D(MatrixStorage storage, in MatrixLayout layout)
-        : this(new MatrixData(storage, layout)) { }
-
-    private Vector3D(Memory<double> memory, in MatrixLayout layout)
-        : this(new MatrixData(memory, layout)) { }
 
     public static Vector3D FromMatrix(MatrixXD matrix) => new(matrix.Data.Require(3, 1));
 
