@@ -1,16 +1,15 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>A read-only view of shared coefficients. Other aliases may change them.</summary>
-public readonly struct ReadOnlyIsometry3D : IReadOnlyMatrixD<ReadOnlyIsometry3D>
+/// <summary>A read-only rigid-transform view over shared matrix storage.</summary>
+/// <remarks>This view shares coefficients with its source. A writable alias can still change them. The default value is a zero matrix, not an identity transform.</remarks>
+public readonly partial struct ReadOnlyIsometry3D : IReadOnlyMatrixD<ReadOnlyIsometry3D>
 {
-    private readonly MatrixData _data;
-    private static readonly MatrixData ZeroData = Isometry3D.ZeroData;
-    private MatrixData Data => _data.Storage is null ? ZeroData : _data;
+    private static readonly MatrixData s_zeroData = Isometry3D.s_zeroData;
+    private MatrixData Data => field.Storage is null ? s_zeroData : field;
 
-    private ReadOnlyIsometry3D(MatrixData data) => _data = data;
+    internal ReadOnlyIsometry3D(in MatrixData data) => Data = data.Require(4, 4);
 
     internal MatrixStorage Storage => Data.Storage;
     internal MatrixLayout Layout => Data.Layout;
@@ -19,29 +18,22 @@ public readonly struct ReadOnlyIsometry3D : IReadOnlyMatrixD<ReadOnlyIsometry3D>
     public int RowStride => Data.RowStride;
     public int ColumnStride => Data.ColumnStride;
 
-    public ReadOnlyMatrixXD AsReadOnlyMatrix() => Data.AsReadOnlyMatrix();
-
-    TensorSpanLease IReadOnlyMatrixD.AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
+    TensorSpanLease IReadOnlyMatrixD<ReadOnlyIsometry3D>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
 
-    MemoryHandle IReadOnlyMatrixD.Pin() => Data.Pin();
+    static ReadOnlyIsometry3D IReadOnlyMatrixD<ReadOnlyIsometry3D>.Create(in MatrixData data) => new(data);
 
     public double this[int row, int column] => Data[row, column];
-
-    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) =>
-        Data.BlockReadOnly(row, column, rows, columns);
-
-    public ReadOnlyMatrixXD Transposed() => Data.AsTransposedLayout();
-
-    public ReadOnlyVectorXD AsVector() => Data.AsVectorLayout();
+    public double this[Index row, Index column] => Data[row, column];
 
     public override string ToString() => Matrix.Format(this);
 
-    internal ReadOnlyIsometry3D(MatrixStorage storage, MatrixLayout layout)
-        : this(new MatrixData(storage, layout)) { }
+    public ReadOnlyMatrixXD AsMatrix() => new(Data);
 
-    public ReadOnlyVector3D Translation => new ReadOnlyVector3D(Storage, Layout.Block(0, 3, 3, 1));
-    public ReadOnlyMatrix3D RotationMatrix => new(Storage, Layout.Block(0, 0, 3, 3));
+    public ReadOnlyMatrixXD Transposed() => new(Data.AsTransposedLayout());
+
+    public ReadOnlyVector3D Translation => new(Data.Slice(0, 3, 3, 1));
+    public ReadOnlyMatrix3D RotationMatrix => new(Data.Slice(0, 0, 3, 3));
 
     public QuaternionD Rotation
     {

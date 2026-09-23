@@ -1,16 +1,15 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>A mutable rigid transform. The caller preserves a proper rotation and last row [0,0,0,1].</summary>
+/// <summary>A writable rigid-transform view over shared matrix storage.</summary>
+/// <remarks>Copying an isometry copies its view, not its coefficients. The default value is a zero, read-only matrix and is not an identity transform.</remarks>
 public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
 {
-    private readonly MatrixData _data;
-    internal static readonly MatrixData ZeroData = MatrixData.ReadOnlyZero(4, 4);
-    private MatrixData Data => _data.Storage is null ? ZeroData : _data;
+    internal static readonly MatrixData s_zeroData = MatrixData.ReadOnlyZero(4, 4);
+    private MatrixData Data => field.Storage is null ? s_zeroData : field;
 
-    private Isometry3D(MatrixData data) => _data = data;
+    internal Isometry3D(in MatrixData data) => Data = data.Require(4, 4);
 
     internal MatrixStorage Storage => Data.Storage;
     internal MatrixLayout Layout => Data.Layout;
@@ -19,23 +18,27 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
     public int RowStride => Data.RowStride;
     public int ColumnStride => Data.ColumnStride;
 
-    public ReadOnlyMatrixXD AsReadOnlyMatrix() => Data.AsReadOnlyMatrix();
-
-    TensorSpanLease IReadOnlyMatrixD.AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
+    TensorSpanLease IReadOnlyMatrixD<Isometry3D>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
 
-    MemoryHandle IReadOnlyMatrixD.Pin() => Data.Pin();
+    static Isometry3D IReadOnlyMatrixD<Isometry3D>.Create(in MatrixData data) => new(data);
 
-    public double this[int row, int column] => Data[row, column];
+    TensorSpanLease IMatrixD<Isometry3D>.GetTensorSpan(out TensorSpan<double> span) =>
+        Data.AcquireWritableTensorSpan(out span);
 
-    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) =>
-        Data.BlockReadOnly(row, column, rows, columns);
+    public double this[int row, int column]
+    {
+        get => Data[row, column];
+        set => Data[row, column] = value;
+    }
 
-    public ReadOnlyMatrixXD Transposed() => Data.AsTransposedLayout();
+    public double this[Index row, Index column]
+    {
+        get => Data[row, column];
+        set => Data[row, column] = value;
+    }
 
-    public ReadOnlyVectorXD AsVector() => Data.AsVectorLayout();
-
-    public override string ToString() => Geometry.Matrix.Format(this);
+    public override string ToString() => Matrix.Format(this);
 
     internal Isometry3D(MatrixStorage storage, MatrixLayout layout)
         : this(new MatrixData(storage, layout)) { }
@@ -47,10 +50,10 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
         : this(new MatrixData(4, 4))
     {
         for (int i = 0; i < 4; i++)
-            Data.Set(i, i, 1);
+            Data[i, i] = 1;
     }
 
-    public Isometry3D(IReadOnlyQuaternionD rotation, IReadOnlyVector3D translation)
+    public Isometry3D(ReadOnlyQuaternionD rotation, ReadOnlyVector3D translation)
         : this()
     {
         SetRotation(rotation);
@@ -63,41 +66,34 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
         new(memory, MatrixLayout.Create(4, 4, 1, columnStride));
 
     /// <summary>Creates a shared view of a matrix known by the caller to represent a rigid transform.</summary>
-    public static Isometry3D View(MatrixXD matrix) => new(matrix.Storage, matrix.Layout.Require(4, 4));
+    public static Isometry3D View(in MatrixXD matrix) => new(matrix.Data.Require(4, 4));
 
     /// <summary>Copies a matrix known by the caller to represent a rigid transform.</summary>
-    public static Isometry3D FromMatrix(IReadOnlyMatrixD matrix)
+    public static Isometry3D FromMatrix<TM>(in TM matrix)
+        where TM : IReadOnlyMatrixD<TM>
     {
         using var matrixLease = matrix.GetReadOnlyTensorSpan(out var matrixSpan);
         MatrixShape.RequireSize(matrixSpan, 4, 4);
-        return View(matrix.Clone());
+        var copy = new MatrixXD(4, 4);
+        for (int r = 0; r < 4; r++)
+        for (int c = 0; c < 4; c++)
+            copy[r, c] = matrix[r, c];
+        return View(copy);
     }
 
-    public ReadOnlyIsometry3D AsReadOnly() => new ReadOnlyIsometry3D(Storage, Layout);
+    public ReadOnlyIsometry3D AsReadOnly() => new(Data);
 
-    public MatrixXD AsMatrix() => Data.AsMatrix();
-
-    public MatrixXD Matrix => Data.AsMatrix();
-
-    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => Data.AcquireWritableTensorSpan(out span);
+    public MatrixXD AsMatrix() => new(Data);
 
     public Vector3D Translation
     {
         get => new(Storage, Layout.Block(0, 3, 3, 1));
         set => SetTranslation(value);
     }
-    ReadOnlyVector3D IReadOnlyIsometry3D.Translation
-    {
-        get => new ReadOnlyVector3D(Storage, Layout.Block(0, 3, 3, 1));
-    }
     public Matrix3D RotationMatrix
     {
         get => new(Storage, Layout.Block(0, 0, 3, 3));
         set => SetRotationMatrix(value);
-    }
-    ReadOnlyMatrix3D IReadOnlyIsometry3D.RotationMatrix
-    {
-        get => new ReadOnlyMatrix3D(Storage, Layout.Block(0, 0, 3, 3));
     }
 
     /// <summary>The getter computes an independent quaternion; assigning it updates the matrix.</summary>
@@ -106,28 +102,25 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
         get
         {
             var matrix = RotationMatrix;
-            return matrix.ToQuaternion();
+            return matrix.AsReadOnly().ToQuaternion();
         }
         set => SetRotation(value);
     }
 
-    public void SetTranslation(IReadOnlyVector3D value)
+    public void SetTranslation(ReadOnlyVector3D value)
     {
-        double x = value.X,
-            y = value.Y,
-            z = value.Z;
-        Data.Set(0, 3, x);
-        Data.Set(1, 3, y);
-        Data.Set(2, 3, z);
+        this[0, 3] = value.X;
+        this[1, 3] = value.Y;
+        this[2, 3] = value.Z;
     }
 
-    public void SetRotation(IReadOnlyQuaternionD value)
+    public void SetRotation(ReadOnlyQuaternionD value)
     {
         var rotation = value.ToRotationMatrix();
         SetRotationMatrix(rotation);
     }
 
-    public void SetRotationMatrix(IReadOnlyMatrix3D value)
+    public void SetRotationMatrix(ReadOnlyMatrix3D value)
     {
         // Snapshot first so overlapping transpose views are safe.
         Span<double> copy = stackalloc double[9];
@@ -136,6 +129,6 @@ public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
             copy[c * 3 + r] = value[r, c];
         for (int c = 0; c < 3; c++)
         for (int r = 0; r < 3; r++)
-            Data.Set(r, c, copy[c * 3 + r]);
+            this[r, c] = copy[c * 3 + r];
     }
 }

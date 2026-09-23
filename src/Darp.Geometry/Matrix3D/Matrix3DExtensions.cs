@@ -3,7 +3,7 @@ namespace Darp.Geometry;
 /// <summary>Operations for fixed-size 3 by 3 matrices.</summary>
 public static partial class GeometryExtensions
 {
-    public static Matrix3D Clone(this ReadOnlyMatrix3D matrix) => Matrix3D.FromArray(matrix.Data.Clone());
+    public static Matrix3D Clone(this ReadOnlyMatrix3D matrix) => Matrix3D.FromArray(Matrix.ToArray(matrix));
 
     public static Matrix3D Normalized(this in ReadOnlyMatrix3D value) =>
         Matrix.Normalized<ReadOnlyMatrix3D, Matrix3D>(value);

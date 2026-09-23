@@ -8,12 +8,12 @@ public static class MatrixMarshal
 {
     /// <summary>Acquires read access. Keep the returned lease alive and undisposed through the span's last use.</summary>
     public static TensorSpanLease GetReadOnlyTensorSpan<TM>(in TM matrix, out ReadOnlyTensorSpan<double> span)
-        where TM : IReadOnlyMatrixD =>
+        where TM : IReadOnlyMatrixD<TM> =>
         matrix.GetReadOnlyTensorSpan(out span);
 
     /// <summary>Acquires write access. Keep the returned lease alive and undisposed through the span's last use.</summary>
     public static TensorSpanLease GetTensorSpan<TM>(in TM matrix, out TensorSpan<double> span)
-        where TM : IMatrixD =>
+        where TM : IMatrixD<TM> =>
         matrix.GetTensorSpan(out span);
 
     /// <summary>Pins coefficients for read-only native pointer access until the returned handle is disposed.</summary>

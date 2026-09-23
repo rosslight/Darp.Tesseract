@@ -2,13 +2,14 @@ using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>A read-only view of shared coefficients. Other aliases may change them.</summary>
+/// <summary>A read-only quaternion view over shared X, Y, Z, W coefficient storage.</summary>
+/// <remarks>This view shares coefficients with its source. A writable alias can still change them. The default value is zero.</remarks>
 public readonly partial struct ReadOnlyQuaternionD : IReadOnlyMatrixD<ReadOnlyQuaternionD>
 {
     private static readonly MatrixData s_zeroData = QuaternionD.s_zeroData;
     private MatrixData Data => field.Storage is null ? s_zeroData : field;
 
-    internal ReadOnlyQuaternionD(in MatrixData data) => Data = data;
+    internal ReadOnlyQuaternionD(in MatrixData data) => Data = data.Require(4, 1);
 
     internal ReadOnlyQuaternionD(MatrixStorage storage, in MatrixLayout layout)
         : this(new MatrixData(storage, layout)) { }
@@ -22,9 +23,13 @@ public readonly partial struct ReadOnlyQuaternionD : IReadOnlyMatrixD<ReadOnlyQu
     public double Y => Data[1, 0];
     public double Z => Data[2, 0];
     public double W => Data[3, 0];
+    public int Count => 4;
     public ReadOnlyVectorXD Coefficients => new(Data);
 
-    public double this[Index row, Index column] => throw new NotImplementedException();
+    public ReadOnlyMatrixXD AsMatrix() => new(Data);
+    public double this[int index] => Data[index, 0];
+
+    public double this[Index row, Index column] => Data[row, column];
 
     TensorSpanLease IReadOnlyMatrixD<ReadOnlyQuaternionD>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);

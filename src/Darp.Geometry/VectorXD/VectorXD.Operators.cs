@@ -11,6 +11,6 @@ public readonly partial struct VectorXD
     public static VectorXD operator *(double scalar, VectorXD value) => value * scalar;
     public static VectorXD operator /(VectorXD value, double scalar) => GeometryExtensions.Divide(value, scalar);
     public static implicit operator ReadOnlyVectorXD(VectorXD value) => value.AsReadOnly();
-    public static implicit operator MatrixXD(VectorXD value) => value.Data.AsMatrix();
-    public static implicit operator ReadOnlyMatrixXD(VectorXD value) => value.Data.AsReadOnlyMatrix();
+    public static implicit operator MatrixXD(VectorXD value) => new(value.Data);
+    public static implicit operator ReadOnlyMatrixXD(VectorXD value) => new(value.Data);
 }

@@ -13,7 +13,7 @@ internal static class QuaternionMath
 
     public static QuaternionD FromRotationMatrix(in ReadOnlyMatrix3D value)
     {
-        using var lease = value.GetReadOnlyTensorSpan(out var matrix);
+        using var lease = MatrixMarshal.GetReadOnlyTensorSpan(in value, out var matrix);
         MatrixShape.RequireSize(matrix, 3, 3);
         double trace = matrix[0, 0] + matrix[1, 1] + matrix[2, 2];
         QuaternionD result;
@@ -66,7 +66,7 @@ internal static class QuaternionMath
             throw new ArgumentOutOfRangeException(nameof(amount));
         var unitA = a.Normalized();
         var unitB = b.Normalized();
-        double dot = unitA.Dot(unitB);
+        double dot = unitA.AsReadOnly().Dot(unitB.AsReadOnly());
         double sign = dot < 0 ? -1 : 1;
         dot = Math.Clamp(Math.Abs(dot), 0, 1);
         double weightA = 1 - amount;

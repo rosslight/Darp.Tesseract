@@ -1,16 +1,15 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>Mutable geometry sharing its coefficient storage with derived views.</summary>
-public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
+/// <summary>A writable vector view over shared coefficient storage.</summary>
+/// <remarks>Copying a vector copies its view, not its coefficients. The default value is an empty, read-only vector.</remarks>
+public readonly partial struct VectorXD : IMatrixD<VectorXD>
 {
-    private readonly MatrixData _data;
-    internal static readonly MatrixData ZeroData = MatrixData.ReadOnlyZero(0, 1);
-    private MatrixData Data => _data.Storage is null ? ZeroData : _data;
+    internal static readonly MatrixData s_zeroData = MatrixData.ReadOnlyZero(0, 1);
+    internal MatrixData Data => field.Storage is null ? s_zeroData : field;
 
-    internal VectorXD(MatrixData data) => _data = data;
+    internal VectorXD(in MatrixData data) => Data = data.Require(null, 1);
 
     internal MatrixStorage Storage => Data.Storage;
     internal MatrixLayout Layout => Data.Layout;
@@ -19,20 +18,25 @@ public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
     public int RowStride => Data.RowStride;
     public int ColumnStride => Data.ColumnStride;
 
-    public ReadOnlyMatrixXD AsReadOnlyMatrix() => Data.AsReadOnlyMatrix();
-
-    TensorSpanLease IReadOnlyMatrixD.AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
+    TensorSpanLease IReadOnlyMatrixD<VectorXD>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
 
-    MemoryHandle IReadOnlyMatrixD.Pin() => Data.Pin();
+    static VectorXD IReadOnlyMatrixD<VectorXD>.Create(in MatrixData data) => new(data);
 
-    public double this[int row, int column] => Data[row, column];
+    TensorSpanLease IMatrixD<VectorXD>.GetTensorSpan(out TensorSpan<double> span) =>
+        Data.AcquireWritableTensorSpan(out span);
 
-    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) => Data.BlockReadOnly(row, column, rows, columns);
+    public double this[int row, int column]
+    {
+        get => Data[row, column];
+        set => Data[row, column] = value;
+    }
 
-    ReadOnlyMatrixXD IReadOnlyMatrixD.Transposed() => Data.AsTransposedLayout();
-
-    public ReadOnlyVectorXD AsVector() => Data.AsVectorLayout();
+    public double this[Index row, Index column]
+    {
+        get => Data[row, column];
+        set => Data[row, column] = value;
+    }
 
     public VectorXD()
         : this(new MatrixData(0, 1)) { }
@@ -43,15 +47,13 @@ public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
     private VectorXD(Memory<double> memory, MatrixLayout layout)
         : this(new MatrixData(memory, layout)) { }
 
-    public static VectorXD FromMatrix(MatrixXD matrix) =>
-        new(matrix.Storage, matrix.Layout.Require(null, 1));
+    public static VectorXD FromMatrix(in MatrixXD matrix) => new(matrix.Data.Require(null, 1));
 
-    public ReadOnlyVectorXD AsReadOnly() => new ReadOnlyVectorXD(Storage, Layout);
+    public ReadOnlyVectorXD AsReadOnly() => new(Data);
 
-    public MatrixXD AsMatrix() => Data.AsMatrix();
+    public MatrixXD AsMatrix() => new(Data);
 
-    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => Data.AcquireWritableTensorSpan(out span);
-
+    /// <summary>Creates a zero-filled vector with the specified number of elements.</summary>
     public VectorXD(int count)
         : this(new MatrixData(count, 1)) { }
 
@@ -62,6 +64,7 @@ public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
             this[i] = values[i];
     }
 
+    /// <summary>Maps caller-owned memory without copying it. The caller keeps the memory valid while this vector is in use.</summary>
     public static VectorXD CreateFromMemory(Memory<double> memory, int count, int stride = 1) =>
         new(memory, MatrixLayout.Create(count, 1, stride, Math.Max(1, checked(count * stride))));
 
@@ -69,7 +72,7 @@ public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
     public double this[int index]
     {
         get => Data[index, 0];
-        set => Data.Set(index, 0, value);
+        set => Data[index, 0] = value;
     }
 
     public VectorXD Slice(int start, int count)
@@ -77,12 +80,6 @@ public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
         var layout = Layout.Block(start, 0, count, 1);
         return new(Storage, layout);
     }
-
-    ReadOnlyVectorXD IReadOnlyVectorXD.Slice(int start, int count) =>
-        new ReadOnlyVectorXD(
-            Storage,
-            Layout.Block(start, 0, count, 1)
-        );
 
     public MatrixXD Transposed() => new(Storage, Layout.Transposed());
 

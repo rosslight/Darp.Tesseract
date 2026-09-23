@@ -1,15 +1,15 @@
-using System.Buffers;
 using System.Numerics.Tensors;
 
 namespace Darp.Geometry;
 
-/// <summary>Mutable geometry sharing its coefficient storage with derived views.</summary>
+/// <summary>A writable three-dimensional vector view over shared coefficient storage.</summary>
+/// <remarks>Copying a vector copies its view, not its coefficients. The default value is a zero, read-only vector.</remarks>
 public readonly partial struct Vector3D : IMatrixD<Vector3D>
 {
     internal static readonly MatrixData s_zeroData = MatrixData.ReadOnlyZero(3, 1);
     private MatrixData Data => field.Storage is null ? s_zeroData : field;
 
-    internal Vector3D(MatrixData data) => Data = data;
+    internal Vector3D(in MatrixData data) => Data = data.Require(3, 1);
 
     public Vector3D()
         : this(new MatrixData(3, 1)) { }
@@ -27,21 +27,27 @@ public readonly partial struct Vector3D : IMatrixD<Vector3D>
     public int RowStride => Data.RowStride;
     public int ColumnStride => Data.ColumnStride;
 
-    TensorSpanLease IReadOnlyMatrixD.AcquireReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
+    TensorSpanLease IReadOnlyMatrixD<Vector3D>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
 
-    MemoryHandle IReadOnlyMatrixD.Pin() => Data.Pin();
+    static Vector3D IReadOnlyMatrixD<Vector3D>.Create(in MatrixData data) => new(data);
 
-    public double this[int row, int column] => Data[row, column];
+    TensorSpanLease IMatrixD<Vector3D>.GetTensorSpan(out TensorSpan<double> span) =>
+        Data.AcquireWritableTensorSpan(out span);
 
-    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) =>
-        Data.BlockReadOnly(row, column, rows, columns);
+    public double this[int row, int column]
+    {
+        get => Data[row, column];
+        set => Data[row, column] = value;
+    }
 
-    ReadOnlyMatrixXD IReadOnlyMatrixD.Transposed() => Data.AsTransposedLayout();
+    public double this[Index row, Index column]
+    {
+        get => Data[row, column];
+        set => Data[row, column] = value;
+    }
 
-    public static Vector3D FromMatrix(MatrixXD matrix) => new(matrix.Data.Require(3, 1));
-
-    TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => Data.AcquireWritableTensorSpan(out span);
+    public static Vector3D FromMatrix(in MatrixXD matrix) => new(matrix.Data.Require(3, 1));
 
     public Vector3D(double x, double y, double z)
         : this(new MatrixData(3, 1))
@@ -63,32 +69,31 @@ public readonly partial struct Vector3D : IMatrixD<Vector3D>
     public double X
     {
         get => Data[0, 0];
-        set => Data.Set(0, 0, value);
+        set => Data[0, 0] = value;
     }
     public double Y
     {
         get => Data[1, 0];
-        set => Data.Set(1, 0, value);
+        set => Data[1, 0] = value;
     }
     public double Z
     {
         get => Data[2, 0];
-        set => Data.Set(2, 0, value);
+        set => Data[2, 0] = value;
     }
     public double this[int index]
     {
         get => Data[index, 0];
-        set => Data.Set(index, 0, value);
+        set => Data[index, 0] = value;
     }
 
     public VectorXD AsVector() => new(Storage, Layout);
 
-    ReadOnlyVectorXD IReadOnlyMatrixD.AsVector() => new ReadOnlyVectorXD(Storage, Layout);
+    public ReadOnlyVector3D AsReadOnly() => new(Data);
+
+    public MatrixXD AsMatrix() => new(Data);
 
     public VectorXD Slice(int start, int count) => new(Storage, Layout.Block(start, 0, count, 1));
-
-    ReadOnlyVectorXD IReadOnlyVectorXD.Slice(int start, int count) =>
-        new ReadOnlyVectorXD(Storage, Layout.Block(start, 0, count, 1));
 
     public MatrixXD Transposed() => new(Storage, Layout.Transposed());
 

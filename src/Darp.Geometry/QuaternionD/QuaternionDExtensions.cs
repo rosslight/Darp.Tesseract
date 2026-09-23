@@ -2,21 +2,28 @@ namespace Darp.Geometry;
 
 public static partial class GeometryExtensions
 {
-    public static QuaternionD Slerp(this ReadOnlyQuaternionD left, ReadOnlyQuaternionD right, double amount) =>
+    public static QuaternionD Clone(this ReadOnlyQuaternionD value) => new(value.X, value.Y, value.Z, value.W);
+
+    public static QuaternionD Normalized(this in ReadOnlyQuaternionD value) =>
+        Matrix.Normalized<ReadOnlyQuaternionD, QuaternionD>(value);
+
+    public static double Dot(this in ReadOnlyQuaternionD left, in ReadOnlyQuaternionD right) => Matrix.Dot(left, right);
+
+    public static QuaternionD Slerp(this in ReadOnlyQuaternionD left, in ReadOnlyQuaternionD right, double amount) =>
         QuaternionMath.Slerp(left, right, amount);
 
-    public static QuaternionD Conjugate(this IReadOnlyQuaternionD value) => new(-value.X, -value.Y, -value.Z, value.W);
+    public static QuaternionD Conjugate(this in ReadOnlyQuaternionD value) => new(-value.X, -value.Y, -value.Z, value.W);
 
-    public static QuaternionD Inverse(this IReadOnlyQuaternionD value)
+    public static QuaternionD Inverse(this in ReadOnlyQuaternionD value)
     {
-        double norm = value.Norm();
+        double norm = Matrix.Norm(value);
         if (!(norm > 0) || !double.IsFinite(norm))
             throw new InvalidOperationException("A finite nonzero quaternion is required.");
         return new(-value.X / norm / norm, -value.Y / norm / norm, -value.Z / norm / norm, value.W / norm / norm);
     }
 
     /// <summary>Returns an angle in [0, pi]. Identity uses UnitX as its arbitrary axis.</summary>
-    public static (Vector3D Axis, double Angle) ToAxisAngle(this IReadOnlyQuaternionD value)
+    public static (Vector3D Axis, double Angle) ToAxisAngle(this in ReadOnlyQuaternionD value)
     {
         var q = value.Normalized();
         double sign = q.W < 0 ? -1 : 1;
@@ -49,14 +56,17 @@ public static partial class GeometryExtensions
             y = q.Y,
             z = q.Z,
             w = q.W;
-        return Matrix3D.FromArray(
-            new double[,]
-            {
-                { 1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w) },
-                { 2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w) },
-                { 2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y) },
-            }
-        );
+        var result = new Matrix3D();
+        result[0, 0] = 1 - 2 * (y * y + z * z);
+        result[0, 1] = 2 * (x * y - z * w);
+        result[0, 2] = 2 * (x * z + y * w);
+        result[1, 0] = 2 * (x * y + z * w);
+        result[1, 1] = 1 - 2 * (x * x + z * z);
+        result[1, 2] = 2 * (y * z - x * w);
+        result[2, 0] = 2 * (x * z - y * w);
+        result[2, 1] = 2 * (y * z + x * w);
+        result[2, 2] = 1 - 2 * (x * x + y * y);
+        return result;
     }
 
     /// <summary>Hamilton product: for rotations, apply right first, then left.</summary>
