@@ -104,7 +104,7 @@ internal readonly struct MatrixData
         var lease = new TensorSpanLease(Storage);
         var memory = Storage.Memory.Slice(Layout.Offset, Layout.Extent);
         span = new ReadOnlyTensorSpan<double>(
-            memory.IsEmpty ? [] : memory.Span,
+            memory.IsEmpty ? Array.Empty<double>().AsSpan() : memory.Span,
             [Layout.Rows, Layout.Columns],
             [Layout.Rows <= 1 ? 0 : Layout.RowStride, Layout.Columns <= 1 ? 0 : Layout.ColumnStride]
         );
@@ -117,7 +117,7 @@ internal readonly struct MatrixData
         var lease = new TensorSpanLease(Storage);
         var memory = Storage.Memory.Slice(Layout.Offset, Layout.Extent);
         span = new TensorSpan<double>(
-            memory.IsEmpty ? [] : memory.Span,
+            memory.IsEmpty ? Array.Empty<double>().AsSpan() : memory.Span,
             [Layout.Rows, Layout.Columns],
             [Layout.Rows <= 1 ? 0 : Layout.RowStride, Layout.Columns <= 1 ? 0 : Layout.ColumnStride]
         );

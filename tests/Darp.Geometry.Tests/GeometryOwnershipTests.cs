@@ -19,7 +19,7 @@ public sealed class GeometryOwnershipTests
         Should.Throw<InvalidOperationException>(() => vector.X = 1);
         Should.Throw<InvalidOperationException>(() =>
         {
-            using TensorSpanLease lease = MatrixMarshal.GetReadOnlyTensorSpan(vector, out _);
+            using TensorSpanLease lease = MatrixMarshal.GetTensorSpan(vector, out _);
         });
 
         Matrix.SquaredNorm(default(Matrix3D)).ShouldBe(0);
@@ -86,7 +86,7 @@ public sealed class GeometryOwnershipTests
         double[] values = [0, 1, 2, 3, 10, 11, 12, 13, 20, 21, 22, 23];
         var matrix = MatrixXD.CreateFromMemory(values, 3, 4, columnStride: 1, rowStride: 4);
         var readOnly = matrix.AsReadOnly();
-        var block = readOnly[1..2, 1..3];
+        var block = readOnly[1..3, 1..4];
         var transpose = block.Transposed();
         var column = transpose.SliceColumn(1);
 

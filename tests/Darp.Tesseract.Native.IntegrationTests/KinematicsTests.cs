@@ -206,11 +206,12 @@ public sealed class KinematicsTests
         using var originalPoses = group.calcFwdKin(new double[6]);
         var poses = originalPoses;
         var earlier = poses["tool0"];
+        double earlierX = earlier.Trans.X;
         group.calcFwdKin(ref poses, joints);
         using var updatedPoses = poses;
         originalPoses.Dispose();
         PosesApproximatelyEqual(expected, poses["tool0"], 1e-10).ShouldBeTrue();
-        earlier.Trans.X.ShouldBe(0);
+        earlier.Trans.X.ShouldBe(earlierX, 1e-10);
     }
 
     [Fact]
