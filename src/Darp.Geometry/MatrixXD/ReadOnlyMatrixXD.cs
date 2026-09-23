@@ -6,7 +6,7 @@ namespace Darp.Geometry;
 /// <remarks>
 /// This view shares coefficients with its source. A writable alias can still change them. The default value is empty.
 /// </remarks>
-public readonly struct ReadOnlyMatrixXD : IReadOnlyMatrixD<ReadOnlyMatrixXD>
+public readonly partial struct ReadOnlyMatrixXD : IReadOnlyMatrixD<ReadOnlyMatrixXD>
 {
     private static readonly MatrixData s_zeroData = MatrixXD.s_zeroData;
 
@@ -35,7 +35,8 @@ public readonly struct ReadOnlyMatrixXD : IReadOnlyMatrixD<ReadOnlyMatrixXD>
     /// <inheritdoc/>
     public double this[Index row, Index column] => Data[row, column];
 
-    public TensorSpanLease GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) => Data.AcquireReadOnlyTensorSpan(out span);
+    public TensorSpanLease GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
+        Data.AcquireReadOnlyTensorSpan(out span);
 
     static ReadOnlyMatrixXD IReadOnlyMatrixD<ReadOnlyMatrixXD>.Create(in MatrixData data) => new(data);
 
@@ -57,20 +58,6 @@ public readonly struct ReadOnlyMatrixXD : IReadOnlyMatrixD<ReadOnlyMatrixXD>
     /// <exception cref="ArgumentException">This matrix does not have exactly one column.</exception>
     public ReadOnlyVectorXD AsVector() => new(Data.AsVectorLayout());
 
-    public static ReadOnlyMatrixXD operator +(ReadOnlyMatrixXD a, ReadOnlyMatrixXD b) => MatrixExtensions.Add(a, b);
-
-    public static ReadOnlyMatrixXD operator -(ReadOnlyMatrixXD a, ReadOnlyMatrixXD b) => MatrixExtensions.Subtract(a, b);
-
-    public static ReadOnlyMatrixXD operator *(ReadOnlyMatrixXD a, ReadOnlyMatrixXD b) => MatrixExtensions.Multiply(a, b);
-
-    public static ReadOnlyMatrixXD operator *(ReadOnlyMatrixXD a, double scalar) => a.Scale(scalar);
-
-    public static ReadOnlyMatrixXD operator *(double scalar, ReadOnlyMatrixXD a) => a * scalar;
-
-    public static ReadOnlyMatrixXD operator /(ReadOnlyMatrixXD a, double scalar) => a.Divide(scalar);
-
-    public static ReadOnlyMatrixXD operator -(ReadOnlyMatrixXD a) => a.Scale(-1);
-
     /// <inheritdoc/>
-    public override string ToString() => MatrixExtensions.Format(this);
+    public override string ToString() => Matrix.Format(this);
 }

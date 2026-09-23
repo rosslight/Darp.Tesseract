@@ -4,7 +4,7 @@ using System.Numerics.Tensors;
 namespace Darp.Geometry;
 
 /// <summary>A read-only view of shared coefficients. Other aliases may change them.</summary>
-public readonly struct ReadOnlyVector3D : IReadOnlyVector3D
+public readonly struct ReadOnlyVector3D : IReadOnlyMatrixD<ReadOnlyVector3D>
 {
     private static readonly MatrixData s_zeroData = Vector3D.ZeroData;
     private MatrixData Data => field.Storage is null ? s_zeroData : field;
@@ -27,7 +27,8 @@ public readonly struct ReadOnlyVector3D : IReadOnlyVector3D
 
     public double this[int row, int column] => Data[row, column];
 
-    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) => Data.BlockReadOnly(row, column, rows, columns);
+    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) =>
+        Data.BlockReadOnly(row, column, rows, columns);
 
     public ReadOnlyMatrixXD Transposed() => Data.AsTransposedLayout();
 
@@ -38,10 +39,7 @@ public readonly struct ReadOnlyVector3D : IReadOnlyVector3D
     public double this[int index] => Data[index, 0];
 
     public ReadOnlyVectorXD Slice(int start, int count) =>
-        new ReadOnlyVectorXD(
-            Storage,
-            Layout.Block(start, 0, count, 1)
-        );
+        new ReadOnlyVectorXD(Storage, Layout.Block(start, 0, count, 1));
 
     public double X => Data[0, 0];
     public double Y => Data[1, 0];

@@ -55,7 +55,7 @@ internal static class TensorKernels
         return InnerProduct(left, right);
     }
 
-    public static MatrixXD Normalized(ReadOnlyTensorSpan<double> matrix)
+    public static MatrixData Normalized(ReadOnlyTensorSpan<double> matrix)
     {
         MatrixShape.RequireMatrix(matrix);
         double norm = Norm(matrix);
@@ -136,11 +136,11 @@ internal static class TensorKernels
         return result;
     }
 
-    public static MatrixXD Lerp(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right, double amount)
+    public static MatrixData Lerp(ReadOnlyTensorSpan<double> left, ReadOnlyTensorSpan<double> right, double amount)
     {
         MatrixShape.RequireSameShape(left, right);
-        var result = new MatrixXD((int)left.Lengths[0], (int)left.Lengths[1]);
-        using var destinationLease = result.GetTensorSpan(out var destination);
+        var result = new MatrixData((int)left.Lengths[0], (int)left.Lengths[1]);
+        using var destinationLease = result.AcquireWritableTensorSpan(out var destination);
         for (int c = 0; c < left.Lengths[1]; c++)
         for (int r = 0; r < left.Lengths[0]; r++)
             destination[r, c] = (1 - amount) * left[r, c] + amount * right[r, c];

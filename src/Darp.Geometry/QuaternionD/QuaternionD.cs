@@ -4,7 +4,7 @@ using System.Numerics.Tensors;
 namespace Darp.Geometry;
 
 /// <summary>A mutable X,Y,Z,W quaternion sharing its coefficient storage.</summary>
-public readonly struct QuaternionD : IMatrixD, IReadOnlyQuaternionD
+public readonly partial struct QuaternionD : IMatrixD, IReadOnlyQuaternionD
 {
     private readonly MatrixData _data;
     internal static readonly MatrixData ZeroData = MatrixData.ReadOnlyZero(4, 1);
@@ -94,15 +94,6 @@ public readonly struct QuaternionD : IMatrixD, IReadOnlyQuaternionD
     public MatrixXD AsMatrix() => Data.AsMatrix();
 
     TensorSpanLease IMatrixD.AcquireTensorSpan(out TensorSpan<double> span) => Data.AcquireWritableTensorSpan(out span);
-
-    public static QuaternionD operator *(QuaternionD a, ReadOnlyQuaternionD b) => GeometryExtensions.Multiply(a, b);
-
-    public static Vector3D operator *(QuaternionD rotation, ReadOnlyVector3D vector) =>
-        GeometryExtensions.Rotate(rotation, vector);
-
-    public static QuaternionD operator -(QuaternionD value) => new(-value.X, -value.Y, -value.Z, -value.W);
-
-    public static implicit operator ReadOnlyQuaternionD(QuaternionD value) => value.AsReadOnly();
 
     public override string ToString() => $"(X={X}, Y={Y}, Z={Z}, W={W})";
 }

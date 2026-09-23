@@ -8,7 +8,7 @@ namespace Darp.Geometry;
 /// Copying a matrix copies its view, not its coefficients. Cloning creates independent storage.
 /// The default value is an empty, read-only matrix. Construct a matrix to get writable storage.
 /// </remarks>
-public readonly struct MatrixXD : IMatrixD<MatrixXD>
+public readonly partial struct MatrixXD : IMatrixD<MatrixXD>
 {
     internal static readonly MatrixData s_zeroData = MatrixData.ReadOnlyZero(0, 0);
     internal MatrixData Data => field.Storage is null ? s_zeroData : field;
@@ -25,7 +25,7 @@ public readonly struct MatrixXD : IMatrixD<MatrixXD>
     /// <inheritdoc/>
     public int ColumnStride => Data.ColumnStride;
 
-    private MatrixXD(in MatrixData data) => Data = data;
+    internal MatrixXD(in MatrixData data) => Data = data;
 
     internal MatrixXD(MatrixStorage storage, in MatrixLayout layout)
         : this(new MatrixData(storage, layout)) { }
@@ -48,7 +48,8 @@ public readonly struct MatrixXD : IMatrixD<MatrixXD>
     TensorSpanLease IReadOnlyMatrixD<MatrixXD>.GetReadOnlyTensorSpan(out ReadOnlyTensorSpan<double> span) =>
         Data.AcquireReadOnlyTensorSpan(out span);
 
-    TensorSpanLease IMatrixD<MatrixXD>.GetTensorSpan(out TensorSpan<double> span) => Data.AcquireWritableTensorSpan(out span);
+    TensorSpanLease IMatrixD<MatrixXD>.GetTensorSpan(out TensorSpan<double> span) =>
+        Data.AcquireWritableTensorSpan(out span);
 
     /// <summary>Maps caller-owned memory without copying it.</summary>
     /// <remarks>
@@ -192,24 +193,6 @@ public readonly struct MatrixXD : IMatrixD<MatrixXD>
     /// <returns>A view that shares coefficients with this matrix.</returns>
     public ReadOnlyMatrixXD AsReadOnly() => new(Data);
 
-    public static MatrixXD operator +(MatrixXD a, ReadOnlyMatrixXD b) => MatrixExtensions.Add(a, b);
-
-    public static MatrixXD operator -(MatrixXD a, ReadOnlyMatrixXD b) => MatrixExtensions.Subtract(a, b);
-
-    public static MatrixXD operator *(MatrixXD a, ReadOnlyMatrixXD b) => MatrixExtensions.Multiply(a, b);
-
-    public static MatrixXD operator *(MatrixXD a, double scalar) => a.Scale(scalar);
-
-    public static MatrixXD operator *(double scalar, MatrixXD a) => a * scalar;
-
-    public static MatrixXD operator /(MatrixXD a, double scalar) => a.Divide(scalar);
-
-    public static MatrixXD operator -(MatrixXD a) => a.Scale(-1);
-
-    /// <summary>Creates a read-only view that shares coefficients with <paramref name="value"/>.</summary>
-    /// <param name="value">The matrix to view.</param>
-    public static implicit operator ReadOnlyMatrixXD(MatrixXD value) => new(value.Data);
-
     /// <inheritdoc/>
-    public override string ToString() => MatrixExtensions.Format(this);
+    public override string ToString() => Matrix.Format(this);
 }

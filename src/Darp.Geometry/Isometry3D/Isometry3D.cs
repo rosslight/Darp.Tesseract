@@ -4,7 +4,7 @@ using System.Numerics.Tensors;
 namespace Darp.Geometry;
 
 /// <summary>A mutable rigid transform. The caller preserves a proper rotation and last row [0,0,0,1].</summary>
-public readonly struct Isometry3D : IMatrixD, IReadOnlyIsometry3D
+public readonly partial struct Isometry3D : IMatrixD<Isometry3D>
 {
     private readonly MatrixData _data;
     internal static readonly MatrixData ZeroData = MatrixData.ReadOnlyZero(4, 4);
@@ -28,13 +28,14 @@ public readonly struct Isometry3D : IMatrixD, IReadOnlyIsometry3D
 
     public double this[int row, int column] => Data[row, column];
 
-    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) => Data.BlockReadOnly(row, column, rows, columns);
+    public ReadOnlyMatrixXD Block(int row, int column, int rows, int columns) =>
+        Data.BlockReadOnly(row, column, rows, columns);
 
     public ReadOnlyMatrixXD Transposed() => Data.AsTransposedLayout();
 
     public ReadOnlyVectorXD AsVector() => Data.AsVectorLayout();
 
-    public override string ToString() => MatrixExtensions.Format(this);
+    public override string ToString() => Geometry.Matrix.Format(this);
 
     internal Isometry3D(MatrixStorage storage, MatrixLayout layout)
         : this(new MatrixData(storage, layout)) { }
@@ -137,8 +138,4 @@ public readonly struct Isometry3D : IMatrixD, IReadOnlyIsometry3D
         for (int r = 0; r < 3; r++)
             Data.Set(r, c, copy[c * 3 + r]);
     }
-
-    public static Isometry3D operator *(Isometry3D left, IReadOnlyIsometry3D right) => left.Multiply(right);
-
-    public static Vector3D operator *(Isometry3D transform, IReadOnlyVector3D point) => transform.TransformPoint(point);
 }

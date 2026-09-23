@@ -4,7 +4,7 @@ using System.Numerics.Tensors;
 namespace Darp.Geometry;
 
 /// <summary>Mutable geometry sharing its coefficient storage with derived views.</summary>
-public readonly struct VectorXD : IMatrixD, IReadOnlyVectorXD
+public readonly partial struct VectorXD : IMatrixD, IReadOnlyVectorXD
 {
     private readonly MatrixData _data;
     internal static readonly MatrixData ZeroData = MatrixData.ReadOnlyZero(0, 1);
@@ -85,28 +85,6 @@ public readonly struct VectorXD : IMatrixD, IReadOnlyVectorXD
         );
 
     public MatrixXD Transposed() => new(Storage, Layout.Transposed());
-
-    public static VectorXD operator +(VectorXD a, VectorXD b) => GeometryExtensions.Add(a, b);
-
-    public static VectorXD operator +(VectorXD a, ReadOnlyVectorXD b) => GeometryExtensions.Add(a, b);
-
-    public static VectorXD operator -(VectorXD a, VectorXD b) => GeometryExtensions.Subtract(a, b);
-
-    public static VectorXD operator -(VectorXD a, ReadOnlyVectorXD b) => GeometryExtensions.Subtract(a, b);
-
-    public static VectorXD operator -(VectorXD value) => GeometryExtensions.Scale(value, -1);
-
-    public static VectorXD operator *(VectorXD value, double scalar) => GeometryExtensions.Scale(value, scalar);
-
-    public static VectorXD operator *(double scalar, VectorXD value) => value * scalar;
-
-    public static VectorXD operator /(VectorXD value, double scalar) => GeometryExtensions.Divide(value, scalar);
-
-    public static implicit operator ReadOnlyVectorXD(VectorXD value) => value.AsReadOnly();
-
-    public static implicit operator MatrixXD(VectorXD value) => value.Data.AsMatrix();
-
-    public static implicit operator ReadOnlyMatrixXD(VectorXD value) => value.Data.AsReadOnlyMatrix();
 
     public override string ToString() => $"[{string.Join(", ", this.ToArray())}]";
 }
