@@ -47,6 +47,22 @@ class AnyPoly {};
 %ignore tesseract::command_language::StateWaypointPoly::getVelocity;
 %ignore tesseract::command_language::StateWaypointPoly::getAcceleration;
 %ignore tesseract::command_language::StateWaypointPoly::getEffort;
+%ignore tesseract::command_language::JointWaypoint::clone;
+%ignore tesseract::command_language::JointWaypoint::JointWaypoint(std::initializer_list<std::string>, std::initializer_list<double>);
+%ignore tesseract::command_language::JointWaypoint::JointWaypoint(std::initializer_list<std::string>, std::initializer_list<double>, bool);
+%ignore tesseract::command_language::JointWaypoint::JointWaypoint(std::initializer_list<std::string>, std::initializer_list<double>, std::initializer_list<double>, std::initializer_list<double>);
+%ignore tesseract::command_language::JointWaypoint::getPosition;
+%ignore tesseract::command_language::JointWaypoint::getUpperTolerance;
+%ignore tesseract::command_language::JointWaypoint::getLowerTolerance;
+%ignore tesseract::command_language::JointWaypointInterface::clone;
+%ignore tesseract::command_language::JointWaypointInterface::getPosition;
+%ignore tesseract::command_language::JointWaypointInterface::getUpperTolerance;
+%ignore tesseract::command_language::JointWaypointInterface::getLowerTolerance;
+%ignore tesseract::command_language::JointWaypointPoly::clone;
+%ignore tesseract::command_language::JointWaypointPoly::getType;
+%ignore tesseract::command_language::JointWaypointPoly::getPosition;
+%ignore tesseract::command_language::JointWaypointPoly::getUpperTolerance;
+%ignore tesseract::command_language::JointWaypointPoly::getLowerTolerance;
 %ignore tesseract::command_language::MoveInstruction::clone;
 %ignore tesseract::command_language::MoveInstruction::getUUID;
 %ignore tesseract::command_language::MoveInstruction::setUUID;
@@ -96,10 +112,12 @@ class AnyPoly {};
 %include <tesseract/command_language/types.h>
 %include <tesseract/command_language/instruction_type.h>
 %include <tesseract/command_language/poly/waypoint_poly.h>
+%include <tesseract/command_language/poly/joint_waypoint_poly.h>
 %include <tesseract/command_language/poly/state_waypoint_poly.h>
 %include <tesseract/command_language/poly/instruction_poly.h>
 %include <tesseract/command_language/poly/move_instruction_poly.h>
 %include <tesseract/command_language/cartesian_waypoint.h>
+%include <tesseract/command_language/joint_waypoint.h>
 %include <tesseract/command_language/state_waypoint.h>
 %include <tesseract/command_language/move_instruction.h>
 %include <tesseract/command_language/composite_instruction.h>
@@ -121,7 +139,6 @@ class AnyPoly {};
 %ignore tesseract::task_composer::TaskComposerContext::name;
 %ignore tesseract::task_composer::TaskComposerContext::dotgraph;
 %ignore tesseract::task_composer::TaskComposerContext::data_storage;
-%ignore tesseract::task_composer::TaskComposerContext::task_infos;
 %ignore tesseract::task_composer::TaskComposerContext::abort;
 %ignore tesseract::task_composer::TaskComposerContext::operator==;
 %ignore tesseract::task_composer::TaskComposerContext::operator!=;
@@ -179,6 +196,37 @@ class AnyPoly {};
 %ignore tesseract::task_composer::TaskComposerPluginFactory::createTaskComposerExecutor(std::string const &, tesseract::common::PluginInfo const &) const;
 %ignore tesseract::task_composer::TaskComposerPluginFactory::createTaskComposerNode(std::string const &, tesseract::common::PluginInfo const &) const;
 
+%ignore tesseract::task_composer::TaskComposerNodeInfo::TaskComposerNodeInfo(const TaskComposerNode&);
+%ignore tesseract::task_composer::TaskComposerNodeInfo::uuid;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::root_uuid;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::parent_uuid;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::type;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::type_hash_code;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::conditional;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::inbound_edges;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::outbound_edges;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::input_keys;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::output_keys;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::terminals;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::start_time;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::data_storage;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::operator==;
+%ignore tesseract::task_composer::TaskComposerNodeInfo::operator!=;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::getInfo;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::find;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::getInfoMap;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::insertInfoMap;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::mergeInfoMap;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::setRootNode;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::getRootNode;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::setAborted;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::getAbortingNode;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::prune;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::operator==;
+%ignore tesseract::task_composer::TaskComposerNodeInfoContainer::operator!=;
+
+%shared_ptr(tesseract::task_composer::TaskComposerNodeInfo)
+%shared_ptr(tesseract::task_composer::TaskComposerNodeInfoContainer)
 %shared_ptr(tesseract::task_composer::TaskComposerContext)
 %shared_ptr(tesseract::task_composer::TaskComposerDataStorage)
 %shared_ptr(tesseract::task_composer::TaskComposerExecutor)
@@ -192,6 +240,8 @@ DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerNode)
 %include <tesseract/task_composer/task_composer_keys.h>
 %template(get) tesseract::task_composer::TaskComposerKeys::get<std::string>;
 %include <tesseract/task_composer/task_composer_data_storage.h>
+%include <tesseract/task_composer/task_composer_node_info.h>
+%template(TaskComposerNodeInfoVector) std::vector<tesseract::task_composer::TaskComposerNodeInfo>;
 %include <tesseract/task_composer/task_composer_context.h>
 %include <tesseract/task_composer/task_composer_node.h>
 %include <tesseract/task_composer/task_composer_future.h>
@@ -237,9 +287,40 @@ tesseract::command_language::StateWaypointPoly asStateWaypoint(
   return waypoint.as<tesseract::command_language::StateWaypointPoly>();
 }
 
+tesseract::command_language::JointWaypointPoly asJointWaypoint(
+    tesseract::command_language::WaypointPoly& waypoint)
+{
+  return waypoint.as<tesseract::command_language::JointWaypointPoly>();
+}
+
 Eigen::VectorXd statePosition(const tesseract::command_language::StateWaypointPoly& waypoint)
 {
   return waypoint.getPosition();
+}
+
+Eigen::VectorXd jointPosition(const tesseract::command_language::JointWaypointPoly& waypoint)
+{
+  return waypoint.getPosition();
+}
+
+Eigen::VectorXd jointLowerTolerance(const tesseract::command_language::JointWaypointPoly& waypoint)
+{
+  return waypoint.getLowerTolerance();
+}
+
+Eigen::VectorXd jointUpperTolerance(const tesseract::command_language::JointWaypointPoly& waypoint)
+{
+  return waypoint.getUpperTolerance();
+}
+
+Eigen::VectorXd stateVelocity(const tesseract::command_language::StateWaypointPoly& waypoint)
+{
+  return waypoint.getVelocity();
+}
+
+Eigen::VectorXd stateAcceleration(const tesseract::command_language::StateWaypointPoly& waypoint)
+{
+  return waypoint.getAcceleration();
 }
 
 std::string uuidString(const tesseract::command_language::MoveInstructionPoly& instruction)
@@ -314,6 +395,42 @@ std::shared_ptr<tesseract::task_composer::TaskComposerContext> createTaskCompose
     throw std::invalid_argument("The task composer data storage is null.");
 
   return std::make_shared<tesseract::task_composer::TaskComposerContext>(name, storage);
+}
+
+std::vector<tesseract::task_composer::TaskComposerNodeInfo> getTaskComposerNodeInfos(
+    const tesseract::task_composer::TaskComposerNodeInfoContainer& task_infos)
+{
+  const auto info_map = task_infos.getInfoMap();
+  std::vector<tesseract::task_composer::TaskComposerNodeInfo> result;
+  result.reserve(info_map.size());
+  for (const auto& entry : info_map)
+    result.push_back(entry.second);
+  return result;
+}
+
+std::shared_ptr<tesseract::task_composer::TaskComposerNodeInfo> getAbortingTaskComposerNodeInfo(
+    const tesseract::task_composer::TaskComposerNodeInfoContainer& task_infos)
+{
+  const auto aborting_node = task_infos.getAbortingNode();
+  if (aborting_node.is_nil())
+    return nullptr;
+
+  const auto info = task_infos.getInfo(aborting_node);
+  if (!info.has_value())
+    return nullptr;
+
+  return std::make_shared<tesseract::task_composer::TaskComposerNodeInfo>(*info);
+}
+
+std::vector<std::string> getConfiguredTaskComposerNodeNames(
+    const tesseract::task_composer::TaskComposerPluginFactory& factory)
+{
+  const auto plugins = factory.getTaskComposerNodePlugins();
+  std::vector<std::string> result;
+  result.reserve(plugins.size());
+  for (const auto& entry : plugins)
+    result.push_back(entry.first);
+  return result;
 }
 
 tesseract::common::AnyPoly getContextData(

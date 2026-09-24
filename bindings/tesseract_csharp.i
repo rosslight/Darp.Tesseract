@@ -110,10 +110,12 @@
 #include <tesseract/command_language/cartesian_waypoint.h>
 #include <tesseract/command_language/composite_instruction.h>
 #include <tesseract/command_language/instruction_type.h>
+#include <tesseract/command_language/joint_waypoint.h>
 #include <tesseract/command_language/move_instruction.h>
 #include <tesseract/command_language/state_waypoint.h>
 #include <tesseract/command_language/utils.h>
 #include <tesseract/command_language/poly/instruction_poly.h>
+#include <tesseract/command_language/poly/joint_waypoint_poly.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/command_language/poly/waypoint_poly.h>
@@ -128,6 +130,7 @@
 #include <tesseract/task_composer/task_composer_future.h>
 #include <tesseract/task_composer/task_composer_keys.h>
 #include <tesseract/task_composer/task_composer_node.h>
+#include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 
 %}

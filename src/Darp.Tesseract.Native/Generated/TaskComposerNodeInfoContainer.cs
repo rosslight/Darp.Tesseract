@@ -10,20 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TaskComposerContext : global::System.IDisposable {
+public class TaskComposerNodeInfoContainer : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnBase;
 
-  internal TaskComposerContext(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal TaskComposerNodeInfoContainer(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwnBase = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TaskComposerContext obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TaskComposerNodeInfoContainer obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~TaskComposerContext() {
+  ~TaskComposerNodeInfoContainer() {
     Dispose(false);
   }
 
@@ -37,36 +37,29 @@ public class TaskComposerContext : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnBase) {
           swigCMemOwnBase = false;
-          TesseractNativePINVOKE.delete_TaskComposerContext(swigCPtr);
+          TesseractNativePINVOKE.delete_TaskComposerNodeInfoContainer(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public TaskComposerNodeInfoContainer task_infos {
-    set {
-      TesseractNativePINVOKE.TaskComposerContext_task_infos_set(swigCPtr, TaskComposerNodeInfoContainer.getCPtr(value));
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
-    get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TaskComposerContext_task_infos_get(swigCPtr);
-      TaskComposerNodeInfoContainer ret = (cPtr == global::System.IntPtr.Zero) ? null : new TaskComposerNodeInfoContainer(cPtr, true);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+  public TaskComposerNodeInfoContainer() : this(TesseractNativePINVOKE.new_TaskComposerNodeInfoContainer__SWIG_0(), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public bool isAborted() {
-    bool ret = TesseractNativePINVOKE.TaskComposerContext_isAborted(swigCPtr);
+  public TaskComposerNodeInfoContainer(TaskComposerNodeInfoContainer arg0) : this(TesseractNativePINVOKE.new_TaskComposerNodeInfoContainer__SWIG_1(TaskComposerNodeInfoContainer.getCPtr(arg0)), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
   }
 
-  public bool isSuccessful() {
-    bool ret = TesseractNativePINVOKE.TaskComposerContext_isSuccessful(swigCPtr);
+  public void addInfo(TaskComposerNodeInfo info) {
+    TesseractNativePINVOKE.TaskComposerNodeInfoContainer_addInfo(swigCPtr, TaskComposerNodeInfo.getCPtr(info));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
+  }
+
+  public void clear() {
+    TesseractNativePINVOKE.TaskComposerNodeInfoContainer_clear(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
 }
