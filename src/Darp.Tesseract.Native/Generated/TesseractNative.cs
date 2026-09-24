@@ -125,8 +125,44 @@ public class TesseractNative {
     return ret;
   }
 
+  public static JointWaypointPoly asJointWaypoint(WaypointPoly waypoint) {
+    JointWaypointPoly ret = new JointWaypointPoly(TesseractNativePINVOKE.asJointWaypoint(WaypointPoly.getCPtr(waypoint)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static double[] statePosition(StateWaypointPoly waypoint) {
     var result = TesseractNativePINVOKE.statePosition(StateWaypointPoly.getCPtr(waypoint));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector(result);
+  }
+
+  public static double[] jointPosition(JointWaypointPoly waypoint) {
+    var result = TesseractNativePINVOKE.jointPosition(JointWaypointPoly.getCPtr(waypoint));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector(result);
+  }
+
+  public static double[] jointLowerTolerance(JointWaypointPoly waypoint) {
+    var result = TesseractNativePINVOKE.jointLowerTolerance(JointWaypointPoly.getCPtr(waypoint));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector(result);
+  }
+
+  public static double[] jointUpperTolerance(JointWaypointPoly waypoint) {
+    var result = TesseractNativePINVOKE.jointUpperTolerance(JointWaypointPoly.getCPtr(waypoint));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector(result);
+  }
+
+  public static double[] stateVelocity(StateWaypointPoly waypoint) {
+    var result = TesseractNativePINVOKE.stateVelocity(StateWaypointPoly.getCPtr(waypoint));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector(result);
+  }
+
+  public static double[] stateAcceleration(StateWaypointPoly waypoint) {
+    var result = TesseractNativePINVOKE.stateAcceleration(StateWaypointPoly.getCPtr(waypoint));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return TensorResult.Vector(result);
   }
@@ -194,6 +230,25 @@ public class TesseractNative {
   public static TaskComposerContext createTaskComposerContext(string name, TaskComposerDataStorage storage) {
     global::System.IntPtr cPtr = TesseractNativePINVOKE.createTaskComposerContext(name, TaskComposerDataStorage.getCPtr(storage));
     TaskComposerContext ret = (cPtr == global::System.IntPtr.Zero) ? null : new TaskComposerContext(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static TaskComposerNodeInfoVector getTaskComposerNodeInfos(TaskComposerNodeInfoContainer task_infos) {
+    TaskComposerNodeInfoVector ret = new TaskComposerNodeInfoVector(TesseractNativePINVOKE.getTaskComposerNodeInfos(TaskComposerNodeInfoContainer.getCPtr(task_infos)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static TaskComposerNodeInfo getAbortingTaskComposerNodeInfo(TaskComposerNodeInfoContainer task_infos) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.getAbortingTaskComposerNodeInfo(TaskComposerNodeInfoContainer.getCPtr(task_infos));
+    TaskComposerNodeInfo ret = (cPtr == global::System.IntPtr.Zero) ? null : new TaskComposerNodeInfo(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static StringVector getConfiguredTaskComposerNodeNames(TaskComposerPluginFactory factory) {
+    StringVector ret = new StringVector(TesseractNativePINVOKE.getConfiguredTaskComposerNodeNames(TaskComposerPluginFactory.getCPtr(factory)), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

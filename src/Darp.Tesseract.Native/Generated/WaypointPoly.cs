@@ -73,7 +73,7 @@ public class WaypointPoly : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public WaypointPoly(SWIGTYPE_p_tesseract__command_language__JointWaypointInterface impl) : this(TesseractNativePINVOKE.new_WaypointPoly__SWIG_5(SWIGTYPE_p_tesseract__command_language__JointWaypointInterface.getCPtr(impl)), true) {
+  public WaypointPoly(JointWaypointInterface impl) : this(TesseractNativePINVOKE.new_WaypointPoly__SWIG_5(JointWaypointInterface.getCPtr(impl)), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 

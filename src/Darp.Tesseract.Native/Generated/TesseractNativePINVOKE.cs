@@ -3471,6 +3471,96 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_WaypointPoly___")]
   public static extern void delete_WaypointPoly(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_JointWaypointInterface___")]
+  public static extern void delete_JointWaypointInterface(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_setName___")]
+  public static extern void JointWaypointInterface_setName(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_getName___")]
+  public static extern string JointWaypointInterface_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_print__SWIG_0___")]
+  public static extern void JointWaypointInterface_print__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_print__SWIG_1___")]
+  public static extern void JointWaypointInterface_print__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_setNames___")]
+  public static extern void JointWaypointInterface_setNames(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_getNames__SWIG_0___")]
+  public static extern global::System.IntPtr JointWaypointInterface_getNames__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_setPosition___")]
+  public static extern void JointWaypointInterface_setPosition(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_setUpperTolerance___")]
+  public static extern void JointWaypointInterface_setUpperTolerance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_setLowerTolerance___")]
+  public static extern void JointWaypointInterface_setLowerTolerance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_setIsConstrained___")]
+  public static extern void JointWaypointInterface_setIsConstrained(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointInterface_isConstrained___")]
+  public static extern bool JointWaypointInterface_isConstrained(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypointPoly__SWIG_0___")]
+  public static extern global::System.IntPtr new_JointWaypointPoly__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypointPoly__SWIG_1___")]
+  public static extern global::System.IntPtr new_JointWaypointPoly__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypointPoly__SWIG_3___")]
+  public static extern global::System.IntPtr new_JointWaypointPoly__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_setName___")]
+  public static extern void JointWaypointPoly_setName(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_getName___")]
+  public static extern string JointWaypointPoly_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_print__SWIG_0___")]
+  public static extern void JointWaypointPoly_print__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_print__SWIG_1___")]
+  public static extern void JointWaypointPoly_print__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_setNames___")]
+  public static extern void JointWaypointPoly_setNames(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_getNames__SWIG_0___")]
+  public static extern global::System.IntPtr JointWaypointPoly_getNames__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_setPosition___")]
+  public static extern void JointWaypointPoly_setPosition(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_setUpperTolerance___")]
+  public static extern void JointWaypointPoly_setUpperTolerance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_setLowerTolerance___")]
+  public static extern void JointWaypointPoly_setLowerTolerance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_setIsConstrained___")]
+  public static extern void JointWaypointPoly_setIsConstrained(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_isConstrained___")]
+  public static extern bool JointWaypointPoly_isConstrained(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_isToleranced___")]
+  public static extern bool JointWaypointPoly_isToleranced(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_isNull___")]
+  public static extern bool JointWaypointPoly_isNull(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_getJointWaypoint__SWIG_0___")]
+  public static extern global::System.IntPtr JointWaypointPoly_getJointWaypoint__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_JointWaypointPoly___")]
+  public static extern void delete_JointWaypointPoly(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_StateWaypointInterface___")]
   public static extern void delete_StateWaypointInterface(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -3876,6 +3966,54 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_CartesianWaypoint___")]
   public static extern void delete_CartesianWaypoint(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_0___")]
+  public static extern global::System.IntPtr new_JointWaypoint__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_1___")]
+  public static extern global::System.IntPtr new_JointWaypoint__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, bool jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_2___")]
+  public static extern global::System.IntPtr new_JointWaypoint__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_3___")]
+  public static extern global::System.IntPtr new_JointWaypoint__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_setName___")]
+  public static extern void JointWaypoint_setName(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_getName___")]
+  public static extern string JointWaypoint_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_print__SWIG_0___")]
+  public static extern void JointWaypoint_print__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_print__SWIG_1___")]
+  public static extern void JointWaypoint_print__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_setNames___")]
+  public static extern void JointWaypoint_setNames(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_getNames__SWIG_0___")]
+  public static extern global::System.IntPtr JointWaypoint_getNames__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_setPosition___")]
+  public static extern void JointWaypoint_setPosition(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_setUpperTolerance___")]
+  public static extern void JointWaypoint_setUpperTolerance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_setLowerTolerance___")]
+  public static extern void JointWaypoint_setLowerTolerance(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_setIsConstrained___")]
+  public static extern void JointWaypoint_setIsConstrained(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_isConstrained___")]
+  public static extern bool JointWaypoint_isConstrained(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_JointWaypoint___")]
+  public static extern void delete_JointWaypoint(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_StateWaypoint__SWIG_0___")]
   public static extern global::System.IntPtr new_StateWaypoint__SWIG_0();
 
@@ -4254,8 +4392,167 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerDataStorage_removeData___")]
   public static extern void TaskComposerDataStorage_removeData(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfo__SWIG_0___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfo__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TaskComposerNodeInfo___")]
+  public static extern void delete_TaskComposerNodeInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfo__SWIG_1___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfo__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_name_set___")]
+  public static extern void TaskComposerNodeInfo_name_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_name_get___")]
+  public static extern string TaskComposerNodeInfo_name_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_ns_set___")]
+  public static extern void TaskComposerNodeInfo_ns_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_ns_get___")]
+  public static extern string TaskComposerNodeInfo_ns_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_triggers_abort_set___")]
+  public static extern void TaskComposerNodeInfo_triggers_abort_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_triggers_abort_get___")]
+  public static extern bool TaskComposerNodeInfo_triggers_abort_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_return_value_set___")]
+  public static extern void TaskComposerNodeInfo_return_value_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_return_value_get___")]
+  public static extern int TaskComposerNodeInfo_return_value_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_code_set___")]
+  public static extern void TaskComposerNodeInfo_status_code_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_code_get___")]
+  public static extern int TaskComposerNodeInfo_status_code_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_message_set___")]
+  public static extern void TaskComposerNodeInfo_status_message_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_message_get___")]
+  public static extern string TaskComposerNodeInfo_status_message_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_elapsed_time_set___")]
+  public static extern void TaskComposerNodeInfo_elapsed_time_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_elapsed_time_get___")]
+  public static extern double TaskComposerNodeInfo_elapsed_time_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_color_set___")]
+  public static extern void TaskComposerNodeInfo_color_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_color_get___")]
+  public static extern string TaskComposerNodeInfo_color_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_dotgraph_set___")]
+  public static extern void TaskComposerNodeInfo_dotgraph_set(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_dotgraph_get___")]
+  public static extern string TaskComposerNodeInfo_dotgraph_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_aborted_set___")]
+  public static extern void TaskComposerNodeInfo_aborted_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_aborted_get___")]
+  public static extern bool TaskComposerNodeInfo_aborted_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoContainer__SWIG_0___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfoContainer__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TaskComposerNodeInfoContainer___")]
+  public static extern void delete_TaskComposerNodeInfoContainer(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoContainer__SWIG_1___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfoContainer__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoContainer_addInfo___")]
+  public static extern void TaskComposerNodeInfoContainer_addInfo(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoContainer_clear___")]
+  public static extern void TaskComposerNodeInfoContainer_clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoVector__SWIG_0___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfoVector__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoVector__SWIG_1___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfoVector__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Clear___")]
+  public static extern void TaskComposerNodeInfoVector_Clear(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Add___")]
+  public static extern void TaskComposerNodeInfoVector_Add(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_size___")]
+  public static extern uint TaskComposerNodeInfoVector_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_empty___")]
+  public static extern bool TaskComposerNodeInfoVector_empty(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_capacity___")]
+  public static extern uint TaskComposerNodeInfoVector_capacity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_reserve___")]
+  public static extern void TaskComposerNodeInfoVector_reserve(global::System.Runtime.InteropServices.HandleRef jarg1, uint jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoVector__SWIG_2___")]
+  public static extern global::System.IntPtr new_TaskComposerNodeInfoVector__SWIG_2(int jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_getitemcopy___")]
+  public static extern global::System.IntPtr TaskComposerNodeInfoVector_getitemcopy(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_getitem___")]
+  public static extern global::System.IntPtr TaskComposerNodeInfoVector_getitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_setitem___")]
+  public static extern void TaskComposerNodeInfoVector_setitem(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_AddRange___")]
+  public static extern void TaskComposerNodeInfoVector_AddRange(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_GetRange___")]
+  public static extern global::System.IntPtr TaskComposerNodeInfoVector_GetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Insert___")]
+  public static extern void TaskComposerNodeInfoVector_Insert(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_InsertRange___")]
+  public static extern void TaskComposerNodeInfoVector_InsertRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_RemoveAt___")]
+  public static extern void TaskComposerNodeInfoVector_RemoveAt(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_RemoveRange___")]
+  public static extern void TaskComposerNodeInfoVector_RemoveRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Repeat___")]
+  public static extern global::System.IntPtr TaskComposerNodeInfoVector_Repeat(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Reverse__SWIG_0___")]
+  public static extern void TaskComposerNodeInfoVector_Reverse__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Reverse__SWIG_1___")]
+  public static extern void TaskComposerNodeInfoVector_Reverse__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, int jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_SetRange___")]
+  public static extern void TaskComposerNodeInfoVector_SetRange(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TaskComposerNodeInfoVector___")]
+  public static extern void delete_TaskComposerNodeInfoVector(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TaskComposerContext___")]
   public static extern void delete_TaskComposerContext(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerContext_task_infos_set___")]
+  public static extern void TaskComposerContext_task_infos_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerContext_task_infos_get___")]
+  public static extern global::System.IntPtr TaskComposerContext_task_infos_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerContext_isAborted___")]
   public static extern bool TaskComposerContext_isAborted(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4383,8 +4680,26 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_asStateWaypoint___")]
   public static extern global::System.IntPtr asStateWaypoint(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_asJointWaypoint___")]
+  public static extern global::System.IntPtr asJointWaypoint(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_statePosition___")]
   public static extern global::System.IntPtr statePosition(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_jointPosition___")]
+  public static extern global::System.IntPtr jointPosition(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_jointLowerTolerance___")]
+  public static extern global::System.IntPtr jointLowerTolerance(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_jointUpperTolerance___")]
+  public static extern global::System.IntPtr jointUpperTolerance(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_stateVelocity___")]
+  public static extern global::System.IntPtr stateVelocity(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_stateAcceleration___")]
+  public static extern global::System.IntPtr stateAcceleration(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_uuidString__SWIG_0___")]
   public static extern string uuidString__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -4418,6 +4733,15 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_createTaskComposerContext___")]
   public static extern global::System.IntPtr createTaskComposerContext(string jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_getTaskComposerNodeInfos___")]
+  public static extern global::System.IntPtr getTaskComposerNodeInfos(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_getAbortingTaskComposerNodeInfo___")]
+  public static extern global::System.IntPtr getAbortingTaskComposerNodeInfo(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_getConfiguredTaskComposerNodeNames___")]
+  public static extern global::System.IntPtr getConfiguredTaskComposerNodeNames(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_getContextData___")]
   public static extern global::System.IntPtr getContextData(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
@@ -4551,11 +4875,17 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_SetActiveDiscreteContactManagerCommand_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr SetActiveDiscreteContactManagerCommand_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypointPoly_SWIGUpcast___")]
+  public static extern global::System.IntPtr JointWaypointPoly_SWIGUpcast(global::System.IntPtr jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_StateWaypointPoly_SWIGUpcast___")]
   public static extern global::System.IntPtr StateWaypointPoly_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_MoveInstructionPoly_SWIGUpcast___")]
   public static extern global::System.IntPtr MoveInstructionPoly_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_JointWaypoint_SWIGUpcast___")]
+  public static extern global::System.IntPtr JointWaypoint_SWIGUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_StateWaypoint_SWIGUpcast___")]
   public static extern global::System.IntPtr StateWaypoint_SWIGUpcast(global::System.IntPtr jarg1);

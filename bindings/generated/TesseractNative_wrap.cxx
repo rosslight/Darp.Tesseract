@@ -532,10 +532,12 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <tesseract/command_language/cartesian_waypoint.h>
 #include <tesseract/command_language/composite_instruction.h>
 #include <tesseract/command_language/instruction_type.h>
+#include <tesseract/command_language/joint_waypoint.h>
 #include <tesseract/command_language/move_instruction.h>
 #include <tesseract/command_language/state_waypoint.h>
 #include <tesseract/command_language/utils.h>
 #include <tesseract/command_language/poly/instruction_poly.h>
+#include <tesseract/command_language/poly/joint_waypoint_poly.h>
 #include <tesseract/command_language/poly/move_instruction_poly.h>
 #include <tesseract/command_language/poly/state_waypoint_poly.h>
 #include <tesseract/command_language/poly/waypoint_poly.h>
@@ -550,6 +552,7 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <tesseract/task_composer/task_composer_future.h>
 #include <tesseract/task_composer/task_composer_keys.h>
 #include <tesseract/task_composer/task_composer_node.h>
+#include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 
 
@@ -1341,6 +1344,97 @@ SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_environment_Command_SS
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+SWIGINTERN std::vector< tesseract::task_composer::TaskComposerNodeInfo > *new_std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg___SWIG_2(int capacity){
+        std::vector< tesseract::task_composer::TaskComposerNodeInfo >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< tesseract::task_composer::TaskComposerNodeInfo >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN tesseract::task_composer::TaskComposerNodeInfo std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__getitemcopy(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< tesseract::task_composer::TaskComposerNodeInfo >::value_type const &std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__getitem(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__setitem(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,tesseract::task_composer::TaskComposerNodeInfo const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__AddRange(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< tesseract::task_composer::TaskComposerNodeInfo > *std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__GetRange(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< tesseract::task_composer::TaskComposerNodeInfo >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Insert(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,tesseract::task_composer::TaskComposerNodeInfo const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__InsertRange(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__RemoveAt(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__RemoveRange(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< tesseract::task_composer::TaskComposerNodeInfo > *std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Repeat(tesseract::task_composer::TaskComposerNodeInfo const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< tesseract::task_composer::TaskComposerNodeInfo >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Reverse__SWIG_0(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Reverse__SWIG_1(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__SetRange(std::vector< tesseract::task_composer::TaskComposerNodeInfo > *self,int index,std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
 
 namespace darp_tesseract_bindings
 {
@@ -1380,9 +1474,40 @@ tesseract::command_language::StateWaypointPoly asStateWaypoint(
   return waypoint.as<tesseract::command_language::StateWaypointPoly>();
 }
 
+tesseract::command_language::JointWaypointPoly asJointWaypoint(
+    tesseract::command_language::WaypointPoly& waypoint)
+{
+  return waypoint.as<tesseract::command_language::JointWaypointPoly>();
+}
+
 Eigen::VectorXd statePosition(const tesseract::command_language::StateWaypointPoly& waypoint)
 {
   return waypoint.getPosition();
+}
+
+Eigen::VectorXd jointPosition(const tesseract::command_language::JointWaypointPoly& waypoint)
+{
+  return waypoint.getPosition();
+}
+
+Eigen::VectorXd jointLowerTolerance(const tesseract::command_language::JointWaypointPoly& waypoint)
+{
+  return waypoint.getLowerTolerance();
+}
+
+Eigen::VectorXd jointUpperTolerance(const tesseract::command_language::JointWaypointPoly& waypoint)
+{
+  return waypoint.getUpperTolerance();
+}
+
+Eigen::VectorXd stateVelocity(const tesseract::command_language::StateWaypointPoly& waypoint)
+{
+  return waypoint.getVelocity();
+}
+
+Eigen::VectorXd stateAcceleration(const tesseract::command_language::StateWaypointPoly& waypoint)
+{
+  return waypoint.getAcceleration();
 }
 
 std::string uuidString(const tesseract::command_language::MoveInstructionPoly& instruction)
@@ -1457,6 +1582,42 @@ std::shared_ptr<tesseract::task_composer::TaskComposerContext> createTaskCompose
     throw std::invalid_argument("The task composer data storage is null.");
 
   return std::make_shared<tesseract::task_composer::TaskComposerContext>(name, storage);
+}
+
+std::vector<tesseract::task_composer::TaskComposerNodeInfo> getTaskComposerNodeInfos(
+    const tesseract::task_composer::TaskComposerNodeInfoContainer& task_infos)
+{
+  const auto info_map = task_infos.getInfoMap();
+  std::vector<tesseract::task_composer::TaskComposerNodeInfo> result;
+  result.reserve(info_map.size());
+  for (const auto& entry : info_map)
+    result.push_back(entry.second);
+  return result;
+}
+
+std::shared_ptr<tesseract::task_composer::TaskComposerNodeInfo> getAbortingTaskComposerNodeInfo(
+    const tesseract::task_composer::TaskComposerNodeInfoContainer& task_infos)
+{
+  const auto aborting_node = task_infos.getAbortingNode();
+  if (aborting_node.is_nil())
+    return nullptr;
+
+  const auto info = task_infos.getInfo(aborting_node);
+  if (!info.has_value())
+    return nullptr;
+
+  return std::make_shared<tesseract::task_composer::TaskComposerNodeInfo>(*info);
+}
+
+std::vector<std::string> getConfiguredTaskComposerNodeNames(
+    const tesseract::task_composer::TaskComposerPluginFactory& factory)
+{
+  const auto plugins = factory.getTaskComposerNodePlugins();
+  std::vector<std::string> result;
+  result.reserve(plugins.size());
+  for (const auto& entry : plugins)
+    result.push_back(entry.first);
+  return result;
 }
 
 tesseract::common::AnyPoly getContextData(
@@ -10878,7 +11039,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointState__SWIG_
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -10942,7 +11103,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_position_set
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -10963,7 +11124,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_position_g
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -10983,7 +11144,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_velocity_set
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11004,7 +11165,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_velocity_g
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -11024,7 +11185,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_acceleration
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11045,7 +11206,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_accelerati
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -11065,7 +11226,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_effort_set__
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11086,7 +11247,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointState_effort_get
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -11789,7 +11950,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_joint_l
     try {
       local2 = darp_geometry::read<Eigen::MatrixX2d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11810,7 +11971,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_joint
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixX2d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -11830,7 +11991,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_velocit
     try {
       local2 = darp_geometry::read<Eigen::MatrixX2d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11851,7 +12012,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_veloc
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixX2d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -11871,7 +12032,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_acceler
     try {
       local2 = darp_geometry::read<Eigen::MatrixX2d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11892,7 +12053,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_accel
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixX2d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -11912,7 +12073,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_jerk_li
     try {
       local2 = darp_geometry::read<Eigen::MatrixX2d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -11933,7 +12094,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicLimits_jerk_
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixX2d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -15721,7 +15882,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Joint_axis_set___(void 
     try {
       local2 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -15745,7 +15906,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Joint_axis_get___(voi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Vector3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -15834,7 +15995,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Joint_parent_to_joint_o
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -15858,7 +16019,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Joint_parent_to_joint
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -16376,7 +16537,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Material_color_set___(v
     try {
       local2 = darp_geometry::read<Eigen::Vector4d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -16400,7 +16561,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Material_color_get___
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Vector4d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -16556,7 +16717,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Inertial_origin_set___(
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -16580,7 +16741,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Inertial_origin_get__
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -16932,7 +17093,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Visual_origin_set___(vo
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -16956,7 +17117,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Visual_origin_get___(
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -17203,7 +17364,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Collision_origin_set___
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -17227,7 +17388,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Collision_origin_get_
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -18734,7 +18895,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneGraph_chan
     try {
       local3 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -18766,7 +18927,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneGraph_chan
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -19807,7 +19968,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_floating_joi
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -19831,7 +19992,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_floating_j
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -19853,7 +20014,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_link_transfo
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -19877,7 +20038,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_link_trans
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -19899,7 +20060,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_joint_transf
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -19923,7 +20084,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_joint_tran
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -19973,7 +20134,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_getJointVa
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -20023,7 +20184,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_SceneState_getFloatin
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -20926,7 +21087,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicsInformation_a
     try {
       local4 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -20957,7 +21118,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicsInformation_a
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21537,7 +21698,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21547,7 +21708,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21578,7 +21739,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21600,7 +21761,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21648,7 +21809,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21679,7 +21840,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21745,7 +21906,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21755,7 +21916,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       arg4 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21786,7 +21947,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21814,7 +21975,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21856,7 +22017,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21887,7 +22048,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -21912,7 +22073,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -21922,7 +22083,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -21954,7 +22115,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -21979,7 +22140,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22031,7 +22192,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22063,7 +22224,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22136,7 +22297,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22146,7 +22307,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       arg4 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22178,7 +22339,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22209,7 +22370,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22255,7 +22416,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22287,7 +22448,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22314,7 +22475,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       local2 = darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22329,7 +22490,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       local4.emplace(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22339,7 +22500,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       arg5 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22370,7 +22531,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22380,7 +22541,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       *static_cast<darp_geometry::Value*>(jarg5) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22405,7 +22566,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       local2 = darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22420,7 +22581,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       local4.emplace(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22451,7 +22612,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTran
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -22512,7 +22673,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22528,7 +22689,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       arg4 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22559,7 +22720,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22569,7 +22730,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22595,7 +22756,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22632,7 +22793,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22669,7 +22830,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       arg4 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22700,7 +22861,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22710,7 +22871,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22767,7 +22928,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22800,7 +22961,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22816,7 +22977,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       arg5 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22847,7 +23008,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22857,7 +23018,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       *static_cast<darp_geometry::Value*>(jarg5) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22889,7 +23050,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -22926,7 +23087,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -23334,7 +23495,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTr
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::VectorIsometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -23385,7 +23546,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getLinkTr
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -23443,7 +23604,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateSolver_getRelati
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -23875,7 +24036,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_MutableStateSol
     try {
       local3 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -23907,7 +24068,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_MutableStateSol
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -24536,7 +24697,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try {
       local3 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -24567,7 +24728,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -24594,7 +24755,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try {
       arg3 = &darp_geometry::container<tesseract::common::VectorIsometry3d>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -24625,7 +24786,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::VectorIsometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -24646,7 +24807,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -24677,7 +24838,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25242,7 +25403,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       local3 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25273,7 +25434,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25300,7 +25461,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       arg3 = &darp_geometry::container<tesseract::common::VectorIsometry3d>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25331,7 +25492,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::VectorIsometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25352,7 +25513,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25383,7 +25544,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25414,7 +25575,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       local3 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25424,7 +25585,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       local4 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25455,7 +25616,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25465,7 +25626,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25493,7 +25654,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       arg3 = &darp_geometry::container<tesseract::common::VectorIsometry3d>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25503,7 +25664,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       arg4 = &darp_geometry::container<tesseract::common::VectorIsometry3d>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25534,7 +25695,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::VectorIsometry3d>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25544,7 +25705,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::VectorIsometry3d>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25566,7 +25727,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25576,7 +25737,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25607,7 +25768,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -25617,7 +25778,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26124,7 +26285,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_cal
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26155,7 +26316,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_cal
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26181,7 +26342,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_cal
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26218,7 +26379,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_cal
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26243,7 +26404,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_calcF
     try {
       local2 = darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26253,7 +26414,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_calcF
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26284,7 +26445,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_calcF
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26310,7 +26471,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_calcJ
     try {
       local2 = darp_geometry::read<Eigen::MatrixXd>(static_cast<darp_geometry::Value*>(jarg2)); ref2.emplace(local2); arg2 = *ref2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26320,7 +26481,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_calcJ
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26357,7 +26518,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ForwardKinematics_calcJ
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::MatrixXd>(Eigen::MatrixXd(*(&arg2))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26588,7 +26749,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_cal
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26598,7 +26759,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_cal
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26629,7 +26790,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_cal
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::kinematics::IKSolutions>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26639,7 +26800,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_cal
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -26665,7 +26826,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_calcI
     try {
       local2 = darp_geometry::container<tesseract::kinematics::IKSolutions>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26675,7 +26836,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_calcI
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26685,7 +26846,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_calcI
     try {
       local4.emplace(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26716,7 +26877,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_calcI
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::kinematics::IKSolutions>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -26726,7 +26887,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_InverseKinematics_calcI
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -27090,7 +27251,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcFwdKin
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27121,7 +27282,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcFwdKin
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27146,7 +27307,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcFwdKin__
     try {
       local2 = darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -27156,7 +27317,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcFwdKin__
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -27187,7 +27348,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcFwdKin__
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -27212,7 +27373,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27249,7 +27410,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27277,7 +27438,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27293,7 +27454,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       local4 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27324,7 +27485,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27334,7 +27495,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::Vector3d>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27361,7 +27522,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27404,7 +27565,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27433,7 +27594,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27455,7 +27616,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       local5 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg5)); arg5 = &local5; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27486,7 +27647,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27496,7 +27657,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_calcJacobi
     try {
       *static_cast<darp_geometry::Value*>(jarg5) = darp_geometry::owned_tensor<Eigen::Vector3d>(std::move(*arg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -27957,7 +28118,7 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_JointGroup_chec
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -28001,7 +28162,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_KinGroupIKInput__
     try {
       local1 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg1)); arg1 = &local1; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -28043,7 +28204,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_KinGroupIKInput__
     try {
       *static_cast<darp_geometry::Value*>(jarg1) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg1)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -28093,7 +28254,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinGroupIKInput_pose_se
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -28114,7 +28275,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinGroupIKInput_pose_
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -28258,7 +28419,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicGroup_calcIn
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -28289,7 +28450,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicGroup_calcIn
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::kinematics::IKSolutions>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -28315,7 +28476,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicGroup_calcInvK
     try {
       local2 = darp_geometry::container<tesseract::kinematics::IKSolutions>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -28330,7 +28491,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicGroup_calcInvK
     try {
       local4.emplace(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -28361,7 +28522,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KinematicGroup_calcInvK
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::kinematics::IKSolutions>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -31318,7 +31479,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ChangeJointOrigin
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -31352,7 +31513,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ChangeJointOrigin
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -31431,7 +31592,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ChangeJointOriginComm
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -32051,7 +32212,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ChangeLinkOriginC
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -32085,7 +32246,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ChangeLinkOriginC
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -32164,7 +32325,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ChangeLinkOriginComma
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -34479,7 +34640,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_findTCPOf
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -34712,7 +34873,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34743,7 +34904,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34809,7 +34970,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34819,7 +34980,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       arg4 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34850,7 +35011,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34878,7 +35039,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34920,7 +35081,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34951,7 +35112,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_setState__S
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -34980,7 +35141,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       arg3 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35012,7 +35173,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35085,7 +35246,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35095,7 +35256,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       arg4 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35127,7 +35288,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35158,7 +35319,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       local3.emplace(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35204,7 +35365,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       arg2 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35236,7 +35397,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getState_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35298,7 +35459,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       local2 = darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35313,7 +35474,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       local4.emplace(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35323,7 +35484,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       arg5 = &darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35354,7 +35515,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35364,7 +35525,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       *static_cast<darp_geometry::Value*>(jarg5) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg5)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35389,7 +35550,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       local2 = darp_geometry::container<tesseract::common::TransformMap>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35404,7 +35565,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       local4.emplace(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35435,7 +35596,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTran
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_container<tesseract::common::TransformMap>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -35793,7 +35954,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getCurren
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35843,7 +36004,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getCurren
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35887,7 +36048,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getCurren
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -35937,7 +36098,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getCurren
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::TransformMap>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -36203,7 +36364,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTr
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_container<tesseract::common::VectorIsometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -36254,7 +36415,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getLinkTr
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -36312,7 +36473,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Environment_getRelati
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -38188,6 +38349,1076 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_WaypointPoly___(
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_JointWaypointInterface___(void * jarg1) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_setName___(void * jarg1, const char * jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      (arg1)->setName((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_getName___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  std::string *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try
+    {
+      result = (std::string *) &((tesseract::command_language::JointWaypointInterface const *)arg1)->getName();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_print__SWIG_0___(void * jarg1, const char * jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      ((tesseract::command_language::JointWaypointInterface const *)arg1)->print((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_print__SWIG_1___(void * jarg1) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try
+    {
+      ((tesseract::command_language::JointWaypointInterface const *)arg1)->print();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_setNames___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setNames((std::vector< std::string > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_getNames__SWIG_0___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &(arg1)->getNames();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_setPosition___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setPosition((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_setUpperTolerance___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setUpperTolerance((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_setLowerTolerance___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setLowerTolerance((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_setIsConstrained___(void * jarg1, unsigned int jarg2) {
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  {
+    try
+    {
+      (arg1)->setIsConstrained(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointInterface_isConstrained___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((tesseract::command_language::JointWaypointInterface const *)arg1)->isConstrained();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypointPoly__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypointPoly *)new tesseract::command_language::JointWaypointPoly();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypointPoly__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  tesseract::command_language::JointWaypointPoly *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::JointWaypointPoly const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypointPoly *)new tesseract::command_language::JointWaypointPoly((tesseract::command_language::JointWaypointPoly const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypointPoly__SWIG_3___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointInterface *arg1 = 0 ;
+  tesseract::command_language::JointWaypointPoly *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointInterface *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::JointWaypointInterface const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypointPoly *)new tesseract::command_language::JointWaypointPoly((tesseract::command_language::JointWaypointInterface const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_setName___(void * jarg1, const char * jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      (arg1)->setName((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_getName___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  std::string *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      result = (std::string *) &((tesseract::command_language::JointWaypointPoly const *)arg1)->getName();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_print__SWIG_0___(void * jarg1, const char * jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      ((tesseract::command_language::JointWaypointPoly const *)arg1)->print((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_print__SWIG_1___(void * jarg1) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      ((tesseract::command_language::JointWaypointPoly const *)arg1)->print();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_setNames___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setNames((std::vector< std::string > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_getNames__SWIG_0___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &(arg1)->getNames();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_setPosition___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setPosition((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_setUpperTolerance___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setUpperTolerance((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_setLowerTolerance___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setLowerTolerance((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_setIsConstrained___(void * jarg1, unsigned int jarg2) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  {
+    try
+    {
+      (arg1)->setIsConstrained(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_isConstrained___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((tesseract::command_language::JointWaypointPoly const *)arg1)->isConstrained();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_isToleranced___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((tesseract::command_language::JointWaypointPoly const *)arg1)->isToleranced();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_isNull___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((tesseract::command_language::JointWaypointPoly const *)arg1)->isNull();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_getJointWaypoint__SWIG_0___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  tesseract::command_language::JointWaypointInterface *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypointInterface *) &(arg1)->getJointWaypoint();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_JointWaypointPoly___(void * jarg1) {
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_StateWaypointInterface___(void * jarg1) {
   tesseract::command_language::StateWaypointInterface *arg1 = 0 ;
   
@@ -38454,7 +39685,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38485,7 +39716,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38504,7 +39735,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38535,7 +39766,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38554,7 +39785,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38585,7 +39816,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38604,7 +39835,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -38635,7 +39866,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointInterface_
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39046,7 +40277,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setPo
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39077,7 +40308,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setPo
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39096,7 +40327,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setVe
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39127,7 +40358,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setVe
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39146,7 +40377,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setAc
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39177,7 +40408,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setAc
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39196,7 +40427,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setEf
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -39227,7 +40458,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_setEf
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42354,7 +43585,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       local1 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg1)); arg1 = &local1; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42386,7 +43617,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       *static_cast<darp_geometry::Value*>(jarg1) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg1)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42410,7 +43641,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       local1 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg1)); arg1 = &local1; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42420,7 +43651,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42430,7 +43661,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42462,7 +43693,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       *static_cast<darp_geometry::Value*>(jarg1) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg1)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42472,7 +43703,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42482,7 +43713,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CartesianWaypoint
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42632,7 +43863,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CartesianWaypoint_setTr
     try {
       local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42663,7 +43894,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CartesianWaypoint_setTr
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42682,7 +43913,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CartesianWaypoint_setUp
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42713,7 +43944,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CartesianWaypoint_setUp
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42732,7 +43963,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CartesianWaypoint_setLo
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42763,7 +43994,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CartesianWaypoint_setLo
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -42866,6 +44097,698 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_CartesianWaypoin
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypoint *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypoint *)new tesseract::command_language::JointWaypoint();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_1___(void * jarg1, void * jarg2, unsigned int jarg3) {
+  void * jresult = 0 ;
+  std::vector< std::string > arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  bool arg3 ;
+  std::vector< std::string > *argp1 ;
+  Eigen::VectorXd local2 ;
+  tesseract::command_language::JointWaypoint *result = 0 ;
+  
+  argp1 = (std::vector< std::string > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< std::string >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  arg3 = jarg3 ? true : false; 
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypoint *)new tesseract::command_language::JointWaypoint(SWIG_STD_MOVE(*(&arg1)),(Eigen::VectorXd const &)*arg2,arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_2___(void * jarg1, void * jarg2) {
+  void * jresult = 0 ;
+  std::vector< std::string > arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  std::vector< std::string > *argp1 ;
+  Eigen::VectorXd local2 ;
+  tesseract::command_language::JointWaypoint *result = 0 ;
+  
+  argp1 = (std::vector< std::string > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< std::string >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypoint *)new tesseract::command_language::JointWaypoint(SWIG_STD_MOVE(*(&arg1)),(Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_JointWaypoint__SWIG_3___(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  void * jresult = 0 ;
+  std::vector< std::string > arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd *arg3 = 0 ;
+  Eigen::VectorXd *arg4 = 0 ;
+  std::vector< std::string > *argp1 ;
+  Eigen::VectorXd local2 ;
+  Eigen::VectorXd local3 ;
+  Eigen::VectorXd local4 ;
+  tesseract::command_language::JointWaypoint *result = 0 ;
+  
+  argp1 = (std::vector< std::string > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< std::string >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local4 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      result = (tesseract::command_language::JointWaypoint *)new tesseract::command_language::JointWaypoint(SWIG_STD_MOVE(*(&arg1)),(Eigen::VectorXd const &)*arg2,(Eigen::VectorXd const &)*arg3,(Eigen::VectorXd const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg4)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_setName___(void * jarg1, const char * jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      (arg1)->setName((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_getName___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  std::string *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try
+    {
+      result = (std::string *) &((tesseract::command_language::JointWaypoint const *)arg1)->getName();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_print__SWIG_0___(void * jarg1, const char * jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      ((tesseract::command_language::JointWaypoint const *)arg1)->print((std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_print__SWIG_1___(void * jarg1) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try
+    {
+      ((tesseract::command_language::JointWaypoint const *)arg1)->print();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_setNames___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  arg2 = (std::vector< std::string > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::string > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->setNames((std::vector< std::string > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_getNames__SWIG_0___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try
+    {
+      result = (std::vector< std::string > *) &(arg1)->getNames();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_setPosition___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setPosition((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_setUpperTolerance___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setUpperTolerance((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_setLowerTolerance___(void * jarg1, void * jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->setLowerTolerance((Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_setIsConstrained___(void * jarg1, unsigned int jarg2) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  {
+    try
+    {
+      (arg1)->setIsConstrained(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_isConstrained___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((tesseract::command_language::JointWaypoint const *)arg1)->isConstrained();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_JointWaypoint___(void * jarg1) {
+  tesseract::command_language::JointWaypoint *arg1 = 0 ;
+  
+  arg1 = (tesseract::command_language::JointWaypoint *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SWIG_0___() {
   void * jresult = 0 ;
   tesseract::command_language::StateWaypoint *result = 0 ;
@@ -42914,7 +44837,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       local2.emplace(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2->ref.value(); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42967,7 +44890,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42977,7 +44900,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -42987,7 +44910,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       local4 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -43020,7 +44943,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -43030,7 +44953,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -43040,7 +44963,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StateWaypoint__SW
     try {
       *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg4)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -43330,7 +45253,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setPositi
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43361,7 +45284,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setPositi
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43380,7 +45303,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setVeloci
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43411,7 +45334,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setVeloci
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43430,7 +45353,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setAccele
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43461,7 +45384,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setAccele
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43480,7 +45403,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setEffort
     try {
       local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -43511,7 +45434,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_setEffort
     try {
       *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -45459,7 +47382,7 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMovePro
     try {
       local2 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return ;
     }
@@ -45483,7 +47406,7 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveP
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Vector3d>(*result)); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -46767,6 +48690,1413 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerDataStorage
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfo__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::task_composer::TaskComposerNodeInfo *)new tesseract::task_composer::TaskComposerNodeInfo();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TaskComposerNodeInfo___(void * jarg1) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfo__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *result = 0 ;
+  
+  
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg1) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfo const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::task_composer::TaskComposerNodeInfo *)new tesseract::task_composer::TaskComposerNodeInfo((tesseract::task_composer::TaskComposerNodeInfo const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_name_set___(void * jarg1, const char * jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->name = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_name_get___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  std::string *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::string *) & ((arg1)->name);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_ns_set___(void * jarg1, const char * jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->ns = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_ns_get___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  std::string *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::string *) & ((arg1)->ns);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_triggers_abort_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->triggers_abort = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_triggers_abort_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->triggers_abort);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_return_value_set___(void * jarg1, int jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->return_value = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_return_value_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  int result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (int) ((arg1)->return_value);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_code_set___(void * jarg1, int jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->status_code = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_code_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  int result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (int) ((arg1)->status_code);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_message_set___(void * jarg1, const char * jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->status_message = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_status_message_get___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  std::string *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::string *) & ((arg1)->status_message);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_elapsed_time_set___(void * jarg1, double jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->elapsed_time = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_elapsed_time_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->elapsed_time);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_color_set___(void * jarg1, const char * jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->color = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_color_get___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  std::string *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::string *) & ((arg1)->color);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_dotgraph_set___(void * jarg1, const char * jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->dotgraph = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_dotgraph_get___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  std::string *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::string *) & ((arg1)->dotgraph);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_aborted_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->aborted = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfo_aborted_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->aborted);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoContainer__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfoContainer *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::task_composer::TaskComposerNodeInfoContainer *)new tesseract::task_composer::TaskComposerNodeInfoContainer();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfoContainer >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TaskComposerNodeInfoContainer___(void * jarg1) {
+  tesseract::task_composer::TaskComposerNodeInfoContainer *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfoContainer *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoContainer__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfoContainer *arg1 = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfoContainer *result = 0 ;
+  
+  
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfoContainer *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfoContainer const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::task_composer::TaskComposerNodeInfoContainer *)new tesseract::task_composer::TaskComposerNodeInfoContainer((tesseract::task_composer::TaskComposerNodeInfoContainer const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfoContainer >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoContainer_addInfo___(void * jarg1, void * jarg2) {
+  tesseract::task_composer::TaskComposerNodeInfoContainer *arg1 = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfoContainer *)(smartarg1 ? smartarg1->get() : 0); 
+  
+  arg2 = (tesseract::task_composer::TaskComposerNodeInfo *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg2) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg2)->get() : 0);
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfo const & reference is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->addInfo((tesseract::task_composer::TaskComposerNodeInfo const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoContainer_clear___(void * jarg1) {
+  tesseract::task_composer::TaskComposerNodeInfoContainer *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfoContainer *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoVector__SWIG_0___() {
+  void * jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)new std::vector< tesseract::task_composer::TaskComposerNodeInfo >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoVector__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::task_composer::TaskComposerNodeInfo > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)new std::vector< tesseract::task_composer::TaskComposerNodeInfo >((std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Clear___(void * jarg1) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Add___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  
+  arg2 = (tesseract::task_composer::TaskComposerNodeInfo *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg2) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg2)->get() : 0);
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfo const & reference is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->push_back((tesseract::task_composer::TaskComposerNodeInfo const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo >::size_type result;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::task_composer::TaskComposerNodeInfo > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::vector< tesseract::task_composer::TaskComposerNodeInfo > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_capacity___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo >::size_type result;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::task_composer::TaskComposerNodeInfo > const *)arg1)->capacity();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_reserve___(void * jarg1, unsigned int jarg2) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo >::size_type arg2 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo >::size_type)jarg2; 
+  {
+    try
+    {
+      (arg1)->reserve(SWIG_STD_MOVE(*(&arg2)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TaskComposerNodeInfoVector__SWIG_2___(int jarg1) {
+  void * jresult = 0 ;
+  int arg1 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)new_std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::task_composer::TaskComposerNodeInfo result;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::shared_ptr<  tesseract::task_composer::TaskComposerNodeInfo >(new tesseract::task_composer::TaskComposerNodeInfo(result)); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::task_composer::TaskComposerNodeInfo >::value_type *) &std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo >(result SWIG_NO_NULL_DELETER_0); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  
+  arg3 = (tesseract::task_composer::TaskComposerNodeInfo *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg3) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg3)->get() : 0);
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfo const & reference is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__setitem(arg1,arg2,(tesseract::task_composer::TaskComposerNodeInfo const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_AddRange___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::task_composer::TaskComposerNodeInfo > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__AddRange(arg1,(std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_GetRange___(void * jarg1, int jarg2, int jarg3) {
+  void * jresult = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Insert___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  
+  arg3 = (tesseract::task_composer::TaskComposerNodeInfo *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg3) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg3)->get() : 0);
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfo const & reference is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Insert(arg1,arg2,(tesseract::task_composer::TaskComposerNodeInfo const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::task_composer::TaskComposerNodeInfo > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__InsertRange(arg1,arg2,(std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_RemoveAt___(void * jarg1, int jarg2) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_RemoveRange___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Repeat___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfo *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *result = 0 ;
+  
+  
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfo *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg1) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfo > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfo const & reference is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Repeat((tesseract::task_composer::TaskComposerNodeInfo const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Reverse__SWIG_0___(void * jarg1) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerNodeInfoVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::task_composer::TaskComposerNodeInfo > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_task_composer_TaskComposerNodeInfo_Sg__SetRange(arg1,arg2,(std::vector< tesseract::task_composer::TaskComposerNodeInfo > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TaskComposerNodeInfoVector___(void * jarg1) {
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::task_composer::TaskComposerNodeInfo > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TaskComposerContext___(void * jarg1) {
   tesseract::task_composer::TaskComposerContext *arg1 = 0 ;
   std::shared_ptr< tesseract::task_composer::TaskComposerContext > *smartarg1 = 0 ;
@@ -46795,6 +50125,35 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TaskComposerCont
       return ;
     }
   }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerContext_task_infos_set___(void * jarg1, void * jarg2) {
+  tesseract::task_composer::TaskComposerContext *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerContext > *smartarg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > tempnull2 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerContext > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerContext *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? (std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg2 : &tempnull2; 
+  if (arg1) (arg1)->task_infos = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerContext_task_infos_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerContext *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerContext > *smartarg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::TaskComposerContext > *)jarg1;
+  arg1 = (tesseract::task_composer::TaskComposerContext *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer > *) & ((arg1)->task_infos);
+  jresult = *result ? new std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfoContainer >(*result) : 0; 
+  return jresult;
 }
 
 
@@ -48341,6 +51700,42 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_asStateWaypoint___(vo
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_asJointWaypoint___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::WaypointPoly *arg1 = 0 ;
+  tesseract::command_language::JointWaypointPoly result;
+  
+  arg1 = (tesseract::command_language::WaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::WaypointPoly & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::asJointWaypoint(*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::command_language::JointWaypointPoly(result); 
+  return jresult;
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_statePosition___(void * jarg1) {
   void * jresult = 0 ;
   tesseract::command_language::StateWaypointPoly *arg1 = 0 ;
@@ -48376,7 +51771,232 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_statePosition___(void
     try {
       jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
     }
-    /*@SWIG:C:\Users\OleRosskamp\dev\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_jointPosition___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::JointWaypointPoly const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::jointPosition((tesseract::command_language::JointWaypointPoly const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_jointLowerTolerance___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::JointWaypointPoly const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::jointLowerTolerance((tesseract::command_language::JointWaypointPoly const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_jointUpperTolerance___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::JointWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::JointWaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::JointWaypointPoly const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::jointUpperTolerance((tesseract::command_language::JointWaypointPoly const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_stateVelocity___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::StateWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::StateWaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::StateWaypointPoly const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::stateVelocity((tesseract::command_language::StateWaypointPoly const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_stateAcceleration___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::command_language::StateWaypointPoly *arg1 = 0 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::StateWaypointPoly *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::StateWaypointPoly const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::stateAcceleration((tesseract::command_language::StateWaypointPoly const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
       SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
       return 0;
     }
@@ -48800,6 +52420,117 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_createTaskComposerCon
     }
   }
   jresult = result ? new std::shared_ptr< tesseract::task_composer::TaskComposerContext >(result) : 0; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_getTaskComposerNodeInfos___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfoContainer *arg1 = 0 ;
+  std::vector< tesseract::task_composer::TaskComposerNodeInfo > result;
+  
+  
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfoContainer *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfoContainer const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::getTaskComposerNodeInfos((tesseract::task_composer::TaskComposerNodeInfoContainer const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::vector< tesseract::task_composer::TaskComposerNodeInfo >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_getAbortingTaskComposerNodeInfo___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerNodeInfoContainer *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo > result;
+  
+  
+  arg1 = (tesseract::task_composer::TaskComposerNodeInfoContainer *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerNodeInfoContainer > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerNodeInfoContainer const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::getAbortingTaskComposerNodeInfo((tesseract::task_composer::TaskComposerNodeInfoContainer const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result ? new std::shared_ptr< tesseract::task_composer::TaskComposerNodeInfo >(result) : 0; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_getConfiguredTaskComposerNodeNames___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::TaskComposerPluginFactory *arg1 = 0 ;
+  std::vector< std::string > result;
+  
+  
+  arg1 = (tesseract::task_composer::TaskComposerPluginFactory *)(((std::shared_ptr< const tesseract::task_composer::TaskComposerPluginFactory > *)jarg1) ? ((std::shared_ptr< const tesseract::task_composer::TaskComposerPluginFactory > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::task_composer::TaskComposerPluginFactory const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::getConfiguredTaskComposerNodeNames((tesseract::task_composer::TaskComposerPluginFactory const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::vector< std::string >(result); 
   return jresult;
 }
 
@@ -49431,12 +53162,20 @@ SWIGEXPORT std::shared_ptr< tesseract::environment::Command > * SWIGSTDCALL CSha
     return jarg1 ? new std::shared_ptr< tesseract::environment::Command >(*jarg1) : 0;
 }
 
+SWIGEXPORT tesseract::command_language::WaypointInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypointPoly_SWIGUpcast___(tesseract::command_language::JointWaypointPoly *jarg1) {
+    return (tesseract::command_language::WaypointInterface *)jarg1;
+}
+
 SWIGEXPORT tesseract::command_language::WaypointInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypointPoly_SWIGUpcast___(tesseract::command_language::StateWaypointPoly *jarg1) {
     return (tesseract::command_language::WaypointInterface *)jarg1;
 }
 
 SWIGEXPORT tesseract::command_language::InstructionInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_MoveInstructionPoly_SWIGUpcast___(tesseract::command_language::MoveInstructionPoly *jarg1) {
     return (tesseract::command_language::InstructionInterface *)jarg1;
+}
+
+SWIGEXPORT tesseract::command_language::JointWaypointInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_JointWaypoint_SWIGUpcast___(tesseract::command_language::JointWaypoint *jarg1) {
+    return (tesseract::command_language::JointWaypointInterface *)jarg1;
 }
 
 SWIGEXPORT tesseract::command_language::StateWaypointInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_StateWaypoint_SWIGUpcast___(tesseract::command_language::StateWaypoint *jarg1) {
