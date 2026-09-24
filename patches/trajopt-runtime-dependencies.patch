@@ -19,3 +19,12 @@ index 8579801..791d23a 100644
  endif()
 +@TRAJOPT_SCO_OSQP_DEPENDENCY@
  find_dependency(OpenMP)
+diff --git a/trajopt_common/include/trajopt_common/macros.h b/trajopt_common/include/trajopt_common/macros.h
+--- a/trajopt_common/include/trajopt_common/macros.h
++++ b/trajopt_common/include/trajopt_common/macros.h
+@@ -76,4 +76,2 @@
+-#define TRAJOPT_DLL
+-
+ #ifdef TRAJOPT_DLL          // defined if TRAJOPT is compiled as a DLL
+ #ifdef TRAJOPT_DLL_EXPORTS  // defined if we are building the TRAJOPT DLL (instead of using it)
+ #define TRAJOPT_API TRAJOPT_HELPER_DLL_EXPORT
