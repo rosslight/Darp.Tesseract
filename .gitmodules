@@ -13,3 +13,6 @@
 [submodule "native/tesseract_planning"]
 	path = native/tesseract_planning
 	url = https://github.com/tesseract-robotics/tesseract_planning.git
+[submodule "native/trajopt"]
+	path = native/trajopt
+	url = https://github.com/tesseract-robotics/trajopt.git

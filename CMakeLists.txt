@@ -16,10 +16,12 @@ endif()
 
 set(darp_tesseract_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/tesseract")
 set(darp_tesseract_planning_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/tesseract_planning")
+set(darp_trajopt_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/trajopt")
 set(darp_boost_plugin_loader_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/boost_plugin_loader")
 set(darp_ros_cmake_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/ros_industrial_cmake_boilerplate")
 set(darp_opw_kinematics_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/opw_kinematics")
 set(darp_tesseract_patch "${CMAKE_CURRENT_SOURCE_DIR}/patches/tesseract-runtime-dependencies.patch")
+set(darp_trajopt_patch "${CMAKE_CURRENT_SOURCE_DIR}/patches/trajopt-runtime-dependencies.patch")
 set(darp_ros_cmake_build "${CMAKE_BINARY_DIR}/ros-cmake-build")
 set(darp_ros_cmake_install "${CMAKE_BINARY_DIR}/ros-cmake-install")
 set(darp_boost_plugin_loader_build "${CMAKE_BINARY_DIR}/boost-plugin-loader-build")
@@ -29,6 +31,11 @@ set(darp_opw_kinematics_install "${CMAKE_BINARY_DIR}/opw-kinematics-install")
 set(darp_tesseract_source "${CMAKE_BINARY_DIR}/source/tesseract")
 set(darp_tesseract_build "${CMAKE_BINARY_DIR}/tesseract-build")
 set(darp_tesseract_install "${CMAKE_BINARY_DIR}/tesseract-install")
+set(darp_trajopt_source "${CMAKE_BINARY_DIR}/source/trajopt")
+set(darp_trajopt_common_build "${CMAKE_BINARY_DIR}/trajopt-common-build")
+set(darp_trajopt_sco_build "${CMAKE_BINARY_DIR}/trajopt-sco-build")
+set(darp_trajopt_build "${CMAKE_BINARY_DIR}/trajopt-build")
+set(darp_trajopt_install "${CMAKE_BINARY_DIR}/trajopt-install")
 set(darp_tesseract_planning_build "${CMAKE_BINARY_DIR}/tesseract-planning-build")
 set(darp_tesseract_planning_install "${CMAKE_BINARY_DIR}/tesseract-planning-install")
 set(darp_wrapper_build "${CMAKE_BINARY_DIR}/wrapper-build")
@@ -40,6 +47,9 @@ endif()
 if(NOT EXISTS "${darp_tesseract_planning_checkout}/package.xml")
   message(FATAL_ERROR
     "The Tesseract Planning submodule is missing. Run 'git submodule update --init native/tesseract_planning'.")
+endif()
+if(NOT EXISTS "${darp_trajopt_checkout}/trajopt/package.xml")
+  message(FATAL_ERROR "The TrajOpt submodule is missing. Run 'git submodule update --init native/trajopt'.")
 endif()
 if(NOT EXISTS "${darp_boost_plugin_loader_checkout}/package.xml")
   message(FATAL_ERROR
@@ -55,6 +65,9 @@ if(NOT EXISTS "${darp_opw_kinematics_checkout}/package.xml")
 endif()
 if(NOT EXISTS "${darp_tesseract_patch}")
   message(FATAL_ERROR "The required Tesseract patch is missing: ${darp_tesseract_patch}")
+endif()
+if(NOT EXISTS "${darp_trajopt_patch}")
+  message(FATAL_ERROR "The required TrajOpt patch is missing: ${darp_trajopt_patch}")
 endif()
 
 # Configure from a disposable source tree. The pinned checkout remains pristine.
@@ -75,6 +88,27 @@ endif()
 execute_process(
   COMMAND git apply --ignore-space-change --ignore-whitespace --unsafe-paths
           --directory=${darp_staged_source_relative} "${darp_tesseract_patch}"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  COMMAND_ERROR_IS_FATAL ANY)
+
+file(REMOVE_RECURSE "${darp_trajopt_source}")
+file(MAKE_DIRECTORY "${darp_trajopt_source}")
+file(COPY "${darp_trajopt_checkout}/" DESTINATION "${darp_trajopt_source}" PATTERN ".git" EXCLUDE)
+file(RELATIVE_PATH darp_staged_trajopt_relative "${CMAKE_CURRENT_SOURCE_DIR}" "${darp_trajopt_source}")
+execute_process(
+  COMMAND git apply --check --ignore-space-change --ignore-whitespace --unsafe-paths
+          --directory=${darp_staged_trajopt_relative} "${darp_trajopt_patch}"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  RESULT_VARIABLE darp_trajopt_patch_check_result
+  OUTPUT_VARIABLE darp_trajopt_patch_check_output
+  ERROR_VARIABLE darp_trajopt_patch_check_error)
+if(NOT darp_trajopt_patch_check_result EQUAL 0)
+  message(FATAL_ERROR
+    "The TrajOpt runtime dependency patch does not apply cleanly:\n${darp_trajopt_patch_check_output}${darp_trajopt_patch_check_error}")
+endif()
+execute_process(
+  COMMAND git apply --ignore-space-change --ignore-whitespace --unsafe-paths
+          --directory=${darp_staged_trajopt_relative} "${darp_trajopt_patch}"
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   COMMAND_ERROR_IS_FATAL ANY)
 
@@ -205,11 +239,72 @@ ExternalProject_Add(
   BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
-set(darp_tesseract_planning_prefix_path
+set(darp_trajopt_prefix_path
   "${darp_kdl_prefix}${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
 ExternalProject_Add(
-  tesseract_planning_upstream
+  trajopt_common_upstream
   DEPENDS tesseract_upstream
+  SOURCE_DIR "${darp_trajopt_source}/trajopt_common"
+  BINARY_DIR "${darp_trajopt_common_build}"
+  DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
+  UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
+  PATCH_COMMAND "${CMAKE_COMMAND}" -E true
+  LIST_SEPARATOR "|"
+  CMAKE_ARGS
+    ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_trajopt_prefix_path}
+    -DCMAKE_INSTALL_PREFIX=${darp_trajopt_install}
+    -DBUILD_SHARED_LIBS=OFF
+    -DTRAJOPT_ENABLE_TESTING=OFF
+    -DTRAJOPT_ENABLE_BENCHMARKING=OFF
+  BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+  INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
+
+set(darp_trajopt_sco_prefix_path "${darp_trajopt_install}|${darp_trajopt_prefix_path}")
+ExternalProject_Add(
+  trajopt_sco_upstream
+  DEPENDS trajopt_common_upstream
+  SOURCE_DIR "${darp_trajopt_source}/trajopt_sco"
+  BINARY_DIR "${darp_trajopt_sco_build}"
+  DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
+  UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
+  PATCH_COMMAND "${CMAKE_COMMAND}" -E true
+  LIST_SEPARATOR "|"
+  CMAKE_ARGS
+    ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_trajopt_sco_prefix_path}
+    -DCMAKE_INSTALL_PREFIX=${darp_trajopt_install}
+    -DBUILD_SHARED_LIBS=OFF
+    -DTRAJOPT_BUILD_qpOASES=OFF
+    -DTRAJOPT_ENABLE_TESTING=OFF
+    -DTRAJOPT_ENABLE_BENCHMARKING=OFF
+  BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+  INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
+
+ExternalProject_Add(
+  trajopt_upstream
+  DEPENDS trajopt_sco_upstream
+  SOURCE_DIR "${darp_trajopt_source}/trajopt"
+  BINARY_DIR "${darp_trajopt_build}"
+  DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
+  UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
+  PATCH_COMMAND "${CMAKE_COMMAND}" -E true
+  LIST_SEPARATOR "|"
+  CMAKE_ARGS
+    ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_trajopt_sco_prefix_path}
+    -DCMAKE_INSTALL_PREFIX=${darp_trajopt_install}
+    -DBUILD_SHARED_LIBS=OFF
+    -DTRAJOPT_ENABLE_TESTING=OFF
+    -DTRAJOPT_ENABLE_BENCHMARKING=OFF
+  BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+  INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
+
+set(darp_tesseract_planning_prefix_path
+  "${darp_trajopt_install}|${darp_trajopt_prefix_path}")
+ExternalProject_Add(
+  tesseract_planning_upstream
+  DEPENDS trajopt_upstream
   SOURCE_DIR "${darp_tesseract_planning_checkout}"
   BINARY_DIR "${darp_tesseract_planning_build}"
   DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
@@ -239,7 +334,7 @@ ExternalProject_Add(
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
 set(darp_wrapper_prefix_path
-  "${darp_kdl_prefix}${darp_tesseract_planning_install}|${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
+  "${darp_tesseract_planning_install}|${darp_trajopt_install}|${darp_trajopt_prefix_path}")
 ExternalProject_Add(
   tesseract_wrapper
   DEPENDS tesseract_planning_upstream

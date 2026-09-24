@@ -1,0 +1,21 @@
+diff --git a/trajopt_sco/CMakeLists.txt b/trajopt_sco/CMakeLists.txt
+index 663f3e5..c9a403e 100644
+--- a/trajopt_sco/CMakeLists.txt
++++ b/trajopt_sco/CMakeLists.txt
+@@ -14,5 +14,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
+ find_package(GUROBI QUIET)
+ find_package(osqp QUIET)
++if(osqp_FOUND)
++  set(TRAJOPT_SCO_OSQP_DEPENDENCY "find_dependency(osqp)")
++endif()
+ find_package(Eigen3 REQUIRED)
+ find_package(trajopt_common REQUIRED)
+ if(NOT TARGET JsonCpp::JsonCpp)
+diff --git a/trajopt_sco/cmake/trajopt_sco-config.cmake.in b/trajopt_sco/cmake/trajopt_sco-config.cmake.in
+index 8579801..791d23a 100644
+--- a/trajopt_sco/cmake/trajopt_sco-config.cmake.in
++++ b/trajopt_sco/cmake/trajopt_sco-config.cmake.in
+@@ -22,2 +22,3 @@ else()
+ endif()
++@TRAJOPT_SCO_OSQP_DEPENDENCY@
+ find_dependency(OpenMP)
