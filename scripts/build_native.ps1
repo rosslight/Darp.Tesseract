@@ -181,8 +181,11 @@ if ($LASTEXITCODE -ne 0) { throw "Native runtime collection failed with exit cod
 
 $packagedLibraries = Get-ChildItem -LiteralPath $outputDir -File | Select-Object -ExpandProperty FullName
 if ($IsMacOS) {
+  foreach ($packagedLibrary in $packagedLibraries) {
+    Set-PortableWrapperRuntimePath -libraryPath $packagedLibrary
+  }
+
   $packagedWrapperPath = Join-Path $outputDir ([System.IO.Path]::GetFileName($libraryPath))
-  Set-PortableWrapperRuntimePath -libraryPath $packagedWrapperPath
   Assert-PortableRuntimePaths -libraryPaths @($packagedWrapperPath) -RequireWrapperRelativePath
 }
 Assert-PortableRuntimePaths -libraryPaths $packagedLibraries

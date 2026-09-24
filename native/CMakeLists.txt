@@ -90,39 +90,60 @@ add_library(
   "${TESSERACT_SOURCE_DIR}/kinematics/opw/src/opw_factory.cpp"
   "${TESSERACT_SOURCE_DIR}/kinematics/ur/src/ur_factory.cpp")
 
-target_link_libraries(
-  tesseract_csharp
-  PRIVATE
-    tesseract::common
-    tesseract::geometry
-    tesseract::scene_graph
-    tesseract::srdf
-    tesseract::urdf
-    tesseract::state_solver_kdl
-    tesseract::state_solver_ofkt
-    tesseract::kinematics
-    tesseract::kinematics_kdl
-    tesseract::kinematics_opw
-    tesseract::kinematics_ur
-    tesseract::environment
-    tesseract::collision
-    tesseract::collision_bullet
-    tesseract::collision_fcl
-    tesseract::command_language
-    tesseract::motion_planners
-    tesseract::motion_planners_simple
-    tesseract::motion_planners_descartes
-    tesseract::motion_planners_trajopt
-    tesseract::task_composer
-    tesseract::task_composer_nodes
-    tesseract::task_composer_planning_nodes
-    tesseract::task_composer_taskflow
-    tesseract::time_parameterization
-    tesseract::time_parameterization_isp
-    "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_factories}>"
-    "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_planning_factories}>"
-    "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_taskflow_factories}>"
-    console_bridge::console_bridge)
+set(darp_tesseract_libraries
+  tesseract::common
+  tesseract::geometry
+  tesseract::scene_graph
+  tesseract::srdf
+  tesseract::urdf
+  tesseract::state_solver_kdl
+  tesseract::state_solver_ofkt
+  tesseract::state_solver
+  tesseract::kinematics
+  tesseract::kinematics_kdl
+  tesseract::kinematics_opw
+  tesseract::kinematics_ur
+  tesseract::environment
+  tesseract::collision
+  tesseract::collision_bullet
+  tesseract::collision_fcl
+  tesseract::command_language
+  tesseract::motion_planners
+  tesseract::motion_planners_simple
+  tesseract::motion_planners_descartes
+  descartes::descartes_light
+  tesseract::motion_planners_trajopt
+  trajopt::trajopt
+  trajopt::trajopt_common
+  trajopt::trajopt_sco
+  tesseract::visualization
+  tesseract::task_composer
+  tesseract::task_composer_nodes
+  tesseract::task_composer_planning_nodes
+  tesseract::task_composer_taskflow
+  tesseract::time_parameterization
+  tesseract::time_parameterization_isp
+  console_bridge::console_bridge)
+set(darp_task_composer_factory_libraries
+  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_factories}>"
+  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_planning_factories}>"
+  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_taskflow_factories}>")
+
+if(UNIX AND NOT APPLE)
+  # GNU ld only visits a static archive once. Tesseract core and planning have
+  # circular references, so rescan them until all symbols are resolved.
+  target_link_libraries(
+    tesseract_csharp
+    PRIVATE
+      ${darp_task_composer_factory_libraries}
+      "$<LINK_GROUP:RESCAN,${darp_tesseract_libraries}>")
+else()
+  target_link_libraries(
+    tesseract_csharp
+    PRIVATE
+      ${darp_tesseract_libraries}
+      ${darp_task_composer_factory_libraries})
+endif()
 
 if(MSVC)
   target_compile_definitions(tesseract_csharp PRIVATE NOMINMAX _USE_MATH_DEFINES)
