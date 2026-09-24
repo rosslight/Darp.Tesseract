@@ -54,6 +54,216 @@ public class TesseractNative {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public static bool isSetAnalogInstruction(InstructionPoly instruction) {
+    bool ret = TesseractNativePINVOKE.isSetAnalogInstruction(InstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static bool isSetDigitalInstruction(InstructionPoly instruction) {
+    bool ret = TesseractNativePINVOKE.isSetDigitalInstruction(InstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static bool isSetToolInstruction(InstructionPoly instruction) {
+    bool ret = TesseractNativePINVOKE.isSetToolInstruction(InstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static bool isTimerInstruction(InstructionPoly instruction) {
+    bool ret = TesseractNativePINVOKE.isTimerInstruction(InstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static bool isWaitInstruction(InstructionPoly instruction) {
+    bool ret = TesseractNativePINVOKE.isWaitInstruction(InstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static bool moveFilter(InstructionPoly instruction, CompositeInstruction composite) {
+    bool ret = TesseractNativePINVOKE.moveFilter(InstructionPoly.getCPtr(instruction), CompositeInstruction.getCPtr(composite));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static WaypointPoly wrapCartesianWaypoint(CartesianWaypoint waypoint) {
+    WaypointPoly ret = new WaypointPoly(TesseractNativePINVOKE.wrapCartesianWaypoint(CartesianWaypoint.getCPtr(waypoint)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static void appendMoveInstruction(CompositeInstruction program, MoveInstruction instruction) {
+    TesseractNativePINVOKE.appendMoveInstruction(CompositeInstruction.getCPtr(program), MoveInstruction.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public static uint instructionCount(CompositeInstruction program) {
+    uint ret = TesseractNativePINVOKE.instructionCount(CompositeInstruction.getCPtr(program));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static InstructionPoly instructionAt(CompositeInstruction program, uint index) {
+    InstructionPoly ret = new InstructionPoly(TesseractNativePINVOKE.instructionAt(CompositeInstruction.getCPtr(program), index), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MoveInstructionPoly asMoveInstruction(InstructionPoly instruction) {
+    MoveInstructionPoly ret = new MoveInstructionPoly(TesseractNativePINVOKE.asMoveInstruction(InstructionPoly.getCPtr(instruction)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static StateWaypointPoly asStateWaypoint(WaypointPoly waypoint) {
+    StateWaypointPoly ret = new StateWaypointPoly(TesseractNativePINVOKE.asStateWaypoint(WaypointPoly.getCPtr(waypoint)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static double[] statePosition(StateWaypointPoly waypoint) {
+    var result = TesseractNativePINVOKE.statePosition(StateWaypointPoly.getCPtr(waypoint));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector(result);
+  }
+
+  public static string uuidString(MoveInstructionPoly instruction) {
+    string ret = TesseractNativePINVOKE.uuidString__SWIG_0(MoveInstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static string uuidString(MoveInstruction instruction) {
+    string ret = TesseractNativePINVOKE.uuidString__SWIG_1(MoveInstruction.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static string parentUuidString(MoveInstructionPoly instruction) {
+    string ret = TesseractNativePINVOKE.parentUuidString(MoveInstructionPoly.getCPtr(instruction));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static AnyPoly wrapCompositeInstruction(CompositeInstruction program) {
+    AnyPoly ret = new AnyPoly(TesseractNativePINVOKE.wrapCompositeInstruction(CompositeInstruction.getCPtr(program)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static AnyPoly wrapEnvironment(Environment environment) {
+    AnyPoly ret = new AnyPoly(TesseractNativePINVOKE.wrapEnvironment(Environment.getCPtr(environment)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static AnyPoly wrapProfileDictionary(ProfileDictionary profiles) {
+    AnyPoly ret = new AnyPoly(TesseractNativePINVOKE.wrapProfileDictionary(ProfileDictionary.getCPtr(profiles)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static CompositeInstruction asCompositeInstruction(AnyPoly value) {
+    CompositeInstruction ret = new CompositeInstruction(TesseractNativePINVOKE.asCompositeInstruction(AnyPoly.getCPtr(value)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static void setData(TaskComposerDataStorage storage, string key, AnyPoly value) {
+    TesseractNativePINVOKE.setData(TaskComposerDataStorage.getCPtr(storage), key, AnyPoly.getCPtr(value));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public static AnyPoly getData(TaskComposerDataStorage storage, string key) {
+    AnyPoly ret = new AnyPoly(TesseractNativePINVOKE.getData(TaskComposerDataStorage.getCPtr(storage), key), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static TaskComposerPluginFactory createTaskComposerPluginFactory(string config, ResourceLocator locator) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.createTaskComposerPluginFactory(config, ResourceLocator.getCPtr(locator));
+    TaskComposerPluginFactory ret = (cPtr == global::System.IntPtr.Zero) ? null : new TaskComposerPluginFactory(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static TaskComposerContext createTaskComposerContext(string name, TaskComposerDataStorage storage) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.createTaskComposerContext(name, TaskComposerDataStorage.getCPtr(storage));
+    TaskComposerContext ret = (cPtr == global::System.IntPtr.Zero) ? null : new TaskComposerContext(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static AnyPoly getContextData(TaskComposerContext context, string key) {
+    AnyPoly ret = new AnyPoly(TesseractNativePINVOKE.getContextData(TaskComposerContext.getCPtr(context), key), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Profile asProfile(DescartesDefaultMoveProfileD profile) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asProfile__SWIG_0(DescartesDefaultMoveProfileD.getCPtr(profile));
+    Profile ret = (cPtr == global::System.IntPtr.Zero) ? null : new Profile(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Profile asProfile(DescartesLadderGraphSolverProfileD profile) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asProfile__SWIG_1(DescartesLadderGraphSolverProfileD.getCPtr(profile));
+    Profile ret = (cPtr == global::System.IntPtr.Zero) ? null : new Profile(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static void addProfile(ProfileDictionary profiles, string profile_namespace, string profile_name, Profile profile) {
+    TesseractNativePINVOKE.addProfile(ProfileDictionary.getCPtr(profiles), profile_namespace, profile_name, Profile.getCPtr(profile));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public static SWIGTYPE_p_tesseract__common__Toolpath toToolpath(InstructionPoly instruction, Environment env) {
+    SWIGTYPE_p_tesseract__common__Toolpath ret = new SWIGTYPE_p_tesseract__common__Toolpath(TesseractNativePINVOKE.toToolpath__SWIG_0(InstructionPoly.getCPtr(instruction), Environment.getCPtr(env)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SWIGTYPE_p_tesseract__common__Toolpath toToolpath(CompositeInstruction ci, Environment env) {
+    SWIGTYPE_p_tesseract__common__Toolpath ret = new SWIGTYPE_p_tesseract__common__Toolpath(TesseractNativePINVOKE.toToolpath__SWIG_1(CompositeInstruction.getCPtr(ci), Environment.getCPtr(env)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SWIGTYPE_p_tesseract__common__Toolpath toToolpath(MoveInstructionPoly mi, Environment env) {
+    SWIGTYPE_p_tesseract__common__Toolpath ret = new SWIGTYPE_p_tesseract__common__Toolpath(TesseractNativePINVOKE.toToolpath__SWIG_2(MoveInstructionPoly.getCPtr(mi), Environment.getCPtr(env)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static void assignCurrentStateAsSeed(CompositeInstruction composite_instructions, Environment env) {
+    TesseractNativePINVOKE.assignCurrentStateAsSeed(CompositeInstruction.getCPtr(composite_instructions), Environment.getCPtr(env));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public static bool formatProgram(CompositeInstruction composite_instructions, Environment env) {
+    bool ret = TesseractNativePINVOKE.formatProgram(CompositeInstruction.getCPtr(composite_instructions), Environment.getCPtr(env));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults contactCheckProgram(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t contacts, ContinuousContactManager manager, StateSolver state_solver, CompositeInstruction program, SWIGTYPE_p_tesseract__collision__CollisionCheckConfig config) {
+    SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults ret = new SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults(TesseractNativePINVOKE.contactCheckProgram__SWIG_0(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t.getCPtr(contacts), ContinuousContactManager.getCPtr(manager), StateSolver.getCPtr(state_solver), CompositeInstruction.getCPtr(program), SWIGTYPE_p_tesseract__collision__CollisionCheckConfig.getCPtr(config)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults contactCheckProgram(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t contacts, DiscreteContactManager manager, StateSolver state_solver, CompositeInstruction program, SWIGTYPE_p_tesseract__collision__CollisionCheckConfig config) {
+    SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults ret = new SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults(TesseractNativePINVOKE.contactCheckProgram__SWIG_1(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t.getCPtr(contacts), DiscreteContactManager.getCPtr(manager), StateSolver.getCPtr(state_solver), CompositeInstruction.getCPtr(program), SWIGTYPE_p_tesseract__collision__CollisionCheckConfig.getCPtr(config)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

@@ -15,6 +15,7 @@ if("$ENV{CONDA_PREFIX}" STREQUAL "")
 endif()
 
 set(darp_tesseract_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/tesseract")
+set(darp_tesseract_planning_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/tesseract_planning")
 set(darp_boost_plugin_loader_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/boost_plugin_loader")
 set(darp_ros_cmake_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/ros_industrial_cmake_boilerplate")
 set(darp_opw_kinematics_checkout "${CMAKE_CURRENT_SOURCE_DIR}/native/opw_kinematics")
@@ -28,11 +29,17 @@ set(darp_opw_kinematics_install "${CMAKE_BINARY_DIR}/opw-kinematics-install")
 set(darp_tesseract_source "${CMAKE_BINARY_DIR}/source/tesseract")
 set(darp_tesseract_build "${CMAKE_BINARY_DIR}/tesseract-build")
 set(darp_tesseract_install "${CMAKE_BINARY_DIR}/tesseract-install")
+set(darp_tesseract_planning_build "${CMAKE_BINARY_DIR}/tesseract-planning-build")
+set(darp_tesseract_planning_install "${CMAKE_BINARY_DIR}/tesseract-planning-install")
 set(darp_wrapper_build "${CMAKE_BINARY_DIR}/wrapper-build")
 set(darp_wrapper_install "${CMAKE_BINARY_DIR}/wrapper-install")
 
 if(NOT EXISTS "${darp_tesseract_checkout}/package.xml")
   message(FATAL_ERROR "The Tesseract submodule is missing. Run 'git submodule update --init native/tesseract'.")
+endif()
+if(NOT EXISTS "${darp_tesseract_planning_checkout}/package.xml")
+  message(FATAL_ERROR
+    "The Tesseract Planning submodule is missing. Run 'git submodule update --init native/tesseract_planning'.")
 endif()
 if(NOT EXISTS "${darp_boost_plugin_loader_checkout}/package.xml")
   message(FATAL_ERROR
@@ -198,11 +205,44 @@ ExternalProject_Add(
   BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 
-set(darp_wrapper_prefix_path
+set(darp_tesseract_planning_prefix_path
   "${darp_kdl_prefix}${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
 ExternalProject_Add(
-  tesseract_wrapper
+  tesseract_planning_upstream
   DEPENDS tesseract_upstream
+  SOURCE_DIR "${darp_tesseract_planning_checkout}"
+  BINARY_DIR "${darp_tesseract_planning_build}"
+  DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
+  UPDATE_COMMAND "${CMAKE_COMMAND}" -E true
+  PATCH_COMMAND "${CMAKE_COMMAND}" -E true
+  LIST_SEPARATOR "|"
+  CMAKE_ARGS
+    ${darp_common_cmake_args}
+    -DCMAKE_PREFIX_PATH=${darp_tesseract_planning_prefix_path}
+    -DCMAKE_INSTALL_PREFIX=${darp_tesseract_planning_install}
+    -DBUILD_SHARED_LIBS=OFF
+    -DTESSERACT_ENABLE_TESTING=OFF
+    -DTESSERACT_ENABLE_EXAMPLES=OFF
+    -DTESSERACT_ENABLE_BENCHMARKING=OFF
+    -DTESSERACT_ENABLE_CODE_COVERAGE=OFF
+    -DTESSERACT_BUILD_OMPL=OFF
+    -DTESSERACT_BUILD_DESCARTES=ON
+    -DTESSERACT_BUILD_TRAJOPT=ON
+    -DTESSERACT_BUILD_TRAJOPT_IFOPT=OFF
+    -DTESSERACT_BUILD_ISP=ON
+    -DTESSERACT_BUILD_KDL=OFF
+    -DTESSERACT_BUILD_TOTG=OFF
+    -DTESSERACT_BUILD_RUCKIG=OFF
+    -DTESSERACT_BUILD_TASK_COMPOSER_PLANNING=ON
+    -DTESSERACT_BUILD_TASK_COMPOSER_TASKFLOW=ON
+  BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
+  INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
+
+set(darp_wrapper_prefix_path
+  "${darp_kdl_prefix}${darp_tesseract_planning_install}|${darp_tesseract_install}|${darp_boost_plugin_loader_install}|${darp_opw_kinematics_install}|${darp_ros_cmake_install}|${darp_dependency_prefix}")
+ExternalProject_Add(
+  tesseract_wrapper
+  DEPENDS tesseract_planning_upstream
   SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/native"
   BINARY_DIR "${darp_wrapper_build}"
   DOWNLOAD_COMMAND "${CMAKE_COMMAND}" -E true
@@ -215,6 +255,7 @@ ExternalProject_Add(
     -DCMAKE_INSTALL_PREFIX=${darp_wrapper_install}
     -DTESSERACT_CPP_PREFIX=${darp_tesseract_install}
     -DTESSERACT_SOURCE_DIR=${darp_tesseract_source}
+    -DTESSERACT_PLANNING_PREFIX=${darp_tesseract_planning_install}
   BUILD_COMMAND "${CMAKE_COMMAND}" --build <BINARY_DIR> --config Release --parallel
   INSTALL_COMMAND "${CMAKE_COMMAND}" --install <BINARY_DIR> --config Release)
 

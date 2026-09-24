@@ -1,0 +1,351 @@
+/* Upstream Tesseract Planning types used by the high-level C# API. The small
+ * helpers below are the same type-erasure bridge required by the official
+ * Python bindings; planning remains implemented by Tesseract itself. */
+
+%ignore tesseract::common::Profile::getKey;
+%ignore tesseract::common::ProfileDictionary::getProfile;
+%ignore tesseract::common::ProfileDictionary::getProfileEntry;
+%ignore tesseract::common::ProfileDictionary::getAllProfileEntries;
+%shared_ptr(tesseract::common::Profile)
+%shared_ptr(tesseract::common::ProfileDictionary)
+%include <tesseract/common/profile.h>
+%include <tesseract/common/profile_dictionary.h>
+
+namespace tesseract::common
+{
+class AnyPoly {};
+}
+
+%ignore tesseract::command_language::WaypointPoly::getType;
+%ignore tesseract::command_language::WaypointPoly::getTypeErased;
+%ignore tesseract::command_language::InstructionPoly::getType;
+%ignore tesseract::command_language::InstructionPoly::getTypeErased;
+%ignore tesseract::command_language::MoveInstructionPoly::getType;
+%ignore tesseract::command_language::MoveInstructionPoly::getTypeErased;
+%ignore tesseract::command_language::MoveInstructionPoly::createCartesianWaypoint;
+%ignore tesseract::command_language::MoveInstructionPoly::createJointWaypoint;
+%ignore tesseract::command_language::MoveInstructionPoly::createStateWaypoint;
+%ignore tesseract::command_language::MoveInstructionInterface::createCartesianWaypoint;
+%ignore tesseract::command_language::MoveInstructionInterface::createJointWaypoint;
+%ignore tesseract::command_language::MoveInstructionInterface::createStateWaypoint;
+%ignore tesseract::command_language::StateWaypointPoly::getType;
+%ignore tesseract::command_language::StateWaypointPoly::getTypeErased;
+%ignore tesseract::command_language::CartesianWaypoint::clone;
+%ignore tesseract::command_language::CartesianWaypoint::getTransform;
+%ignore tesseract::command_language::CartesianWaypoint::getUpperTolerance;
+%ignore tesseract::command_language::CartesianWaypoint::getLowerTolerance;
+%ignore tesseract::command_language::StateWaypoint::clone;
+%ignore tesseract::command_language::StateWaypoint::getPosition;
+%ignore tesseract::command_language::StateWaypoint::getVelocity;
+%ignore tesseract::command_language::StateWaypoint::getAcceleration;
+%ignore tesseract::command_language::StateWaypoint::getEffort;
+%ignore tesseract::command_language::StateWaypointInterface::getPosition;
+%ignore tesseract::command_language::StateWaypointInterface::getVelocity;
+%ignore tesseract::command_language::StateWaypointInterface::getAcceleration;
+%ignore tesseract::command_language::StateWaypointInterface::getEffort;
+%ignore tesseract::command_language::StateWaypointPoly::getPosition;
+%ignore tesseract::command_language::StateWaypointPoly::getVelocity;
+%ignore tesseract::command_language::StateWaypointPoly::getAcceleration;
+%ignore tesseract::command_language::StateWaypointPoly::getEffort;
+%ignore tesseract::command_language::MoveInstruction::clone;
+%ignore tesseract::command_language::MoveInstruction::getUUID;
+%ignore tesseract::command_language::MoveInstruction::setUUID;
+%ignore tesseract::command_language::MoveInstruction::getParentUUID;
+%ignore tesseract::command_language::MoveInstruction::setParentUUID;
+%ignore tesseract::command_language::MoveInstruction::getProfileOverrides;
+%ignore tesseract::command_language::MoveInstruction::setProfileOverrides;
+%ignore tesseract::command_language::MoveInstruction::getPathProfileOverrides;
+%ignore tesseract::command_language::MoveInstruction::setPathProfileOverrides;
+%ignore tesseract::command_language::MoveInstruction::createCartesianWaypoint;
+%ignore tesseract::command_language::MoveInstruction::createJointWaypoint;
+%ignore tesseract::command_language::MoveInstruction::createStateWaypoint;
+%ignore tesseract::command_language::CompositeInstruction::clone;
+%ignore tesseract::command_language::CompositeInstruction::getUUID;
+%ignore tesseract::command_language::CompositeInstruction::setUUID;
+%ignore tesseract::command_language::CompositeInstruction::getParentUUID;
+%ignore tesseract::command_language::CompositeInstruction::setParentUUID;
+%ignore tesseract::command_language::CompositeInstruction::getProfileOverrides;
+%ignore tesseract::command_language::CompositeInstruction::setProfileOverrides;
+%ignore tesseract::command_language::CompositeInstruction::getUserData;
+%ignore tesseract::command_language::CompositeInstruction::flatten;
+%ignore tesseract::command_language::CompositeInstruction::getFirstInstruction;
+%ignore tesseract::command_language::CompositeInstruction::getLastInstruction;
+%ignore tesseract::command_language::CompositeInstruction::getInstructionCount;
+%ignore tesseract::command_language::CompositeInstruction::insert;
+%ignore tesseract::command_language::CompositeInstruction::emplace;
+%ignore tesseract::command_language::CompositeInstruction::emplace_back;
+%ignore tesseract::command_language::CompositeInstruction::erase;
+%ignore tesseract::command_language::CompositeInstruction::swap;
+%ignore tesseract::command_language::CompositeInstruction::begin;
+%ignore tesseract::command_language::CompositeInstruction::end;
+%ignore tesseract::command_language::CompositeInstruction::cbegin;
+%ignore tesseract::command_language::CompositeInstruction::cend;
+%ignore tesseract::command_language::CompositeInstruction::rbegin;
+%ignore tesseract::command_language::CompositeInstruction::rend;
+%ignore tesseract::command_language::CompositeInstruction::crbegin;
+%ignore tesseract::command_language::CompositeInstruction::crend;
+%ignore tesseract::command_language::CompositeInstruction::data;
+%ignore tesseract::command_language::CompositeInstruction::operator[];
+%ignore tesseract::command_language::CompositeInstruction::front;
+%ignore tesseract::command_language::CompositeInstruction::back;
+%ignore tesseract::command_language::CompositeInstruction::at;
+%ignore tesseract::command_language::CompositeInstruction::push_back;
+%ignore tesseract::command_language::CompositeInstruction::setInstructions;
+%ignore tesseract::command_language::CompositeInstruction::getInstructions;
+
+%include <tesseract/command_language/types.h>
+%include <tesseract/command_language/instruction_type.h>
+%include <tesseract/command_language/poly/waypoint_poly.h>
+%include <tesseract/command_language/poly/state_waypoint_poly.h>
+%include <tesseract/command_language/poly/instruction_poly.h>
+%include <tesseract/command_language/poly/move_instruction_poly.h>
+%include <tesseract/command_language/cartesian_waypoint.h>
+%include <tesseract/command_language/state_waypoint.h>
+%include <tesseract/command_language/move_instruction.h>
+%include <tesseract/command_language/composite_instruction.h>
+
+%ignore tesseract::motion_planners::DescartesDefaultMoveProfile<double>::createWaypointSampler;
+%ignore tesseract::motion_planners::DescartesDefaultMoveProfile<double>::createEdgeEvaluator;
+%ignore tesseract::motion_planners::DescartesDefaultMoveProfile<double>::createStateEvaluator;
+%shared_ptr(tesseract::motion_planners::DescartesMoveProfile<double>)
+%shared_ptr(tesseract::motion_planners::DescartesDefaultMoveProfile<double>)
+%shared_ptr(tesseract::motion_planners::DescartesSolverProfile<double>)
+%shared_ptr(tesseract::motion_planners::DescartesLadderGraphSolverProfile<double>)
+%include <tesseract/motion_planners/descartes/profile/descartes_profile.h>
+%include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
+%include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+%template(DescartesDefaultMoveProfileD) tesseract::motion_planners::DescartesDefaultMoveProfile<double>;
+%template(DescartesLadderGraphSolverProfileD) tesseract::motion_planners::DescartesLadderGraphSolverProfile<double>;
+
+%ignore tesseract::task_composer::TaskComposerContext::TaskComposerContext;
+%ignore tesseract::task_composer::TaskComposerContext::name;
+%ignore tesseract::task_composer::TaskComposerContext::dotgraph;
+%ignore tesseract::task_composer::TaskComposerContext::data_storage;
+%ignore tesseract::task_composer::TaskComposerContext::task_infos;
+%ignore tesseract::task_composer::TaskComposerContext::abort;
+%ignore tesseract::task_composer::TaskComposerContext::operator==;
+%ignore tesseract::task_composer::TaskComposerContext::operator!=;
+%ignore tesseract::task_composer::TaskComposerNode::TaskComposerNode;
+%ignore tesseract::task_composer::TaskComposerNode::run;
+%ignore tesseract::task_composer::TaskComposerNode::setName;
+%ignore tesseract::task_composer::TaskComposerNode::getName;
+%ignore tesseract::task_composer::TaskComposerNode::setNamespace;
+%ignore tesseract::task_composer::TaskComposerNode::getNamespace;
+%ignore tesseract::task_composer::TaskComposerNode::getType;
+%ignore tesseract::task_composer::TaskComposerNode::getUUID;
+%ignore tesseract::task_composer::TaskComposerNode::getUUIDString;
+%ignore tesseract::task_composer::TaskComposerNode::getParentUUID;
+%ignore tesseract::task_composer::TaskComposerNode::getParentUUIDString;
+%ignore tesseract::task_composer::TaskComposerNode::isConditional;
+%ignore tesseract::task_composer::TaskComposerNode::validatePorts;
+%ignore tesseract::task_composer::TaskComposerNode::getOutboundEdges;
+%ignore tesseract::task_composer::TaskComposerNode::getInboundEdges;
+%ignore tesseract::task_composer::TaskComposerNode::setInputKeys;
+%ignore tesseract::task_composer::TaskComposerNode::setOutputKeys;
+%ignore tesseract::task_composer::TaskComposerNode::getPorts;
+%ignore tesseract::task_composer::TaskComposerNode::getDotgraph;
+%ignore tesseract::task_composer::TaskComposerNode::saveDotgraph;
+%ignore tesseract::task_composer::TaskComposerNode::getDataStorage;
+%ignore tesseract::task_composer::TaskComposerNode::setConditional;
+%ignore tesseract::task_composer::TaskComposerNode::dump;
+%ignore tesseract::task_composer::TaskComposerFuture::TaskComposerFuture;
+%ignore tesseract::task_composer::TaskComposerFuture::context;
+%ignore tesseract::task_composer::TaskComposerFuture::clear;
+%ignore tesseract::task_composer::TaskComposerFuture::valid;
+%ignore tesseract::task_composer::TaskComposerFuture::ready;
+%ignore tesseract::task_composer::TaskComposerFuture::waitFor;
+%ignore tesseract::task_composer::TaskComposerFuture::waitUntil;
+%ignore tesseract::task_composer::TaskComposerFuture::copy;
+%ignore tesseract::task_composer::TaskComposerExecutor::TaskComposerExecutor;
+%ignore tesseract::task_composer::TaskComposerExecutor::getName;
+%ignore tesseract::task_composer::TaskComposerExecutor::getWorkerCount;
+%ignore tesseract::task_composer::TaskComposerExecutor::getTaskCount;
+%ignore tesseract::task_composer::TaskComposerDataStorage::getData;
+%ignore tesseract::task_composer::TaskComposerDataStorage::copyAsInputData;
+%ignore tesseract::task_composer::TaskComposerDataStorage::copyAsOutputData;
+%ignore tesseract::task_composer::TaskComposerDataStorage::remapData;
+%ignore tesseract::task_composer::TaskComposerDataStorage::operator==;
+%ignore tesseract::task_composer::TaskComposerDataStorage::operator!=;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::TaskComposerPluginFactory;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::TaskComposerPluginFactory(YAML::Node const &, tesseract::common::ResourceLocator const &);
+%ignore tesseract::task_composer::TaskComposerPluginFactory::TaskComposerPluginFactory(std::string const &, tesseract::common::ResourceLocator const &);
+%ignore tesseract::task_composer::TaskComposerPluginFactory::TaskComposerPluginFactory(tesseract::task_composer::TaskComposerPluginFactory &&);
+%ignore tesseract::task_composer::TaskComposerPluginFactory::TaskComposerPluginFactory(TaskComposerPluginFactory &&);
+%ignore tesseract::task_composer::TaskComposerPluginFactory::loadConfig;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::getConfig;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::saveConfig;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::getTaskComposerExecutorPlugins;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::getTaskComposerNodePlugins;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::createTaskComposerExecutor(std::string const &, tesseract::common::PluginInfo const &) const;
+%ignore tesseract::task_composer::TaskComposerPluginFactory::createTaskComposerNode(std::string const &, tesseract::common::PluginInfo const &) const;
+
+%shared_ptr(tesseract::task_composer::TaskComposerContext)
+%shared_ptr(tesseract::task_composer::TaskComposerDataStorage)
+%shared_ptr(tesseract::task_composer::TaskComposerExecutor)
+%shared_ptr(tesseract::task_composer::TaskComposerFuture)
+%shared_ptr(tesseract::task_composer::TaskComposerNode)
+%shared_ptr(tesseract::task_composer::TaskComposerPluginFactory)
+DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerExecutor)
+DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerFuture)
+DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerNode)
+
+%include <tesseract/task_composer/task_composer_keys.h>
+%template(get) tesseract::task_composer::TaskComposerKeys::get<std::string>;
+%include <tesseract/task_composer/task_composer_data_storage.h>
+%include <tesseract/task_composer/task_composer_context.h>
+%include <tesseract/task_composer/task_composer_node.h>
+%include <tesseract/task_composer/task_composer_future.h>
+%include <tesseract/task_composer/task_composer_executor.h>
+%include <tesseract/task_composer/task_composer_plugin_factory.h>
+
+%inline %{
+namespace darp_tesseract_bindings
+{
+tesseract::command_language::WaypointPoly wrapCartesianWaypoint(
+    const tesseract::command_language::CartesianWaypoint& waypoint)
+{
+  return tesseract::command_language::WaypointPoly(waypoint);
+}
+
+void appendMoveInstruction(tesseract::command_language::CompositeInstruction& program,
+                           const tesseract::command_language::MoveInstruction& instruction)
+{
+  program.push_back(tesseract::command_language::InstructionPoly(instruction));
+}
+
+std::size_t instructionCount(const tesseract::command_language::CompositeInstruction& program)
+{
+  return program.size();
+}
+
+tesseract::command_language::InstructionPoly instructionAt(
+    tesseract::command_language::CompositeInstruction& program,
+    std::size_t index)
+{
+  return program.at(index);
+}
+
+tesseract::command_language::MoveInstructionPoly asMoveInstruction(
+    tesseract::command_language::InstructionPoly& instruction)
+{
+  return instruction.as<tesseract::command_language::MoveInstructionPoly>();
+}
+
+tesseract::command_language::StateWaypointPoly asStateWaypoint(
+    tesseract::command_language::WaypointPoly& waypoint)
+{
+  return waypoint.as<tesseract::command_language::StateWaypointPoly>();
+}
+
+Eigen::VectorXd statePosition(const tesseract::command_language::StateWaypointPoly& waypoint)
+{
+  return waypoint.getPosition();
+}
+
+std::string uuidString(const tesseract::command_language::MoveInstructionPoly& instruction)
+{
+  return boost::uuids::to_string(instruction.getUUID());
+}
+
+std::string uuidString(const tesseract::command_language::MoveInstruction& instruction)
+{
+  return boost::uuids::to_string(instruction.getUUID());
+}
+
+std::string parentUuidString(const tesseract::command_language::MoveInstructionPoly& instruction)
+{
+  return boost::uuids::to_string(instruction.getParentUUID());
+}
+
+tesseract::common::AnyPoly wrapCompositeInstruction(
+    const tesseract::command_language::CompositeInstruction& program)
+{
+  return tesseract::common::AnyPoly(program);
+}
+
+tesseract::common::AnyPoly wrapEnvironment(
+    const std::shared_ptr<tesseract::environment::Environment>& environment)
+{
+  std::shared_ptr<const tesseract::environment::Environment> const_environment = environment;
+  return tesseract::common::AnyPoly(const_environment);
+}
+
+tesseract::common::AnyPoly wrapProfileDictionary(
+    const std::shared_ptr<tesseract::common::ProfileDictionary>& profiles)
+{
+  return tesseract::common::AnyPoly(profiles);
+}
+
+tesseract::command_language::CompositeInstruction asCompositeInstruction(
+    tesseract::common::AnyPoly& value)
+{
+  return value.as<tesseract::command_language::CompositeInstruction>();
+}
+
+void setData(tesseract::task_composer::TaskComposerDataStorage& storage,
+             const std::string& key,
+             tesseract::common::AnyPoly value)
+{
+  storage.setData(key, std::move(value));
+}
+
+tesseract::common::AnyPoly getData(const tesseract::task_composer::TaskComposerDataStorage& storage,
+                                   const std::string& key)
+{
+  return storage.getData(key);
+}
+
+std::shared_ptr<tesseract::task_composer::TaskComposerPluginFactory> createTaskComposerPluginFactory(
+    const std::string& config,
+    const std::shared_ptr<tesseract::common::ResourceLocator>& locator)
+{
+  if (locator == nullptr)
+    throw std::invalid_argument("The resource locator is null.");
+
+  return std::make_shared<tesseract::task_composer::TaskComposerPluginFactory>(
+      std::filesystem::path(config), *locator);
+}
+
+std::shared_ptr<tesseract::task_composer::TaskComposerContext> createTaskComposerContext(
+    const std::string& name,
+    const std::shared_ptr<tesseract::task_composer::TaskComposerDataStorage>& storage)
+{
+  if (storage == nullptr)
+    throw std::invalid_argument("The task composer data storage is null.");
+
+  return std::make_shared<tesseract::task_composer::TaskComposerContext>(name, storage);
+}
+
+tesseract::common::AnyPoly getContextData(
+    const tesseract::task_composer::TaskComposerContext& context,
+    const std::string& key)
+{
+  if (context.data_storage == nullptr)
+    throw std::runtime_error("The task composer context has no data storage.");
+
+  return context.data_storage->getData(key);
+}
+
+std::shared_ptr<tesseract::common::Profile> asProfile(
+    const std::shared_ptr<tesseract::motion_planners::DescartesDefaultMoveProfile<double>>& profile)
+{
+  return profile;
+}
+
+std::shared_ptr<tesseract::common::Profile> asProfile(
+    const std::shared_ptr<tesseract::motion_planners::DescartesLadderGraphSolverProfile<double>>& profile)
+{
+  return profile;
+}
+
+void addProfile(tesseract::common::ProfileDictionary& profiles,
+                const std::string& profile_namespace,
+                const std::string& profile_name,
+                const std::shared_ptr<tesseract::common::Profile>& profile)
+{
+  profiles.addProfile(profile_namespace, profile_name, profile);
+}
+}
+%}
+
+%include <tesseract/motion_planners/utils.h>

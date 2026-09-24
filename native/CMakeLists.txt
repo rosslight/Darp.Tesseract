@@ -20,8 +20,11 @@ endif()
 if(NOT DEFINED TESSERACT_SOURCE_DIR OR NOT EXISTS "${TESSERACT_SOURCE_DIR}/package.xml")
   message(FATAL_ERROR "TESSERACT_SOURCE_DIR must point to the staged Tesseract source tree.")
 endif()
+if(NOT DEFINED TESSERACT_PLANNING_PREFIX OR NOT IS_DIRECTORY "${TESSERACT_PLANNING_PREFIX}")
+  message(FATAL_ERROR "TESSERACT_PLANNING_PREFIX must point to the private Tesseract Planning installation.")
+endif()
 
-list(PREPEND CMAKE_PREFIX_PATH "${TESSERACT_CPP_PREFIX}")
+list(PREPEND CMAKE_PREFIX_PATH "${TESSERACT_PLANNING_PREFIX}" "${TESSERACT_CPP_PREFIX}")
 if(WIN32 AND IS_DIRECTORY "$ENV{CONDA_PREFIX}/Library")
   list(APPEND CMAKE_PREFIX_PATH "$ENV{CONDA_PREFIX}/Library")
 else()
@@ -42,7 +45,39 @@ find_package(tesseract 0.35.0 REQUIRED COMPONENTS kinematics_kdl)
 find_package(tesseract 0.35.0 REQUIRED COMPONENTS kinematics_opw)
 find_package(tesseract 0.35.0 REQUIRED COMPONENTS kinematics_ur)
 find_package(tesseract 0.35.0 REQUIRED COMPONENTS environment)
+find_package(
+  tesseract_planning 0.35.0 REQUIRED
+  COMPONENTS
+    command_language
+    motion_planners
+    motion_planners_simple
+    motion_planners_descartes
+    motion_planners_trajopt
+    task_composer
+    task_composer_planning
+    task_composer_taskflow
+    time_parameterization
+    time_parameterization_isp)
 find_package(console_bridge REQUIRED)
+
+find_library(
+  task_composer_factories
+  NAMES tesseract_task_composer_factories
+  PATHS "${TESSERACT_PLANNING_PREFIX}/lib"
+  NO_DEFAULT_PATH
+  REQUIRED)
+find_library(
+  task_composer_planning_factories
+  NAMES tesseract_task_composer_planning_factories
+  PATHS "${TESSERACT_PLANNING_PREFIX}/lib"
+  NO_DEFAULT_PATH
+  REQUIRED)
+find_library(
+  task_composer_taskflow_factories
+  NAMES tesseract_task_composer_taskflow_factories
+  PATHS "${TESSERACT_PLANNING_PREFIX}/lib"
+  NO_DEFAULT_PATH
+  REQUIRED)
 
 add_library(
   tesseract_csharp
@@ -73,6 +108,20 @@ target_link_libraries(
     tesseract::collision
     tesseract::collision_bullet
     tesseract::collision_fcl
+    tesseract::command_language
+    tesseract::motion_planners
+    tesseract::motion_planners_simple
+    tesseract::motion_planners_descartes
+    tesseract::motion_planners_trajopt
+    tesseract::task_composer
+    tesseract::task_composer_nodes
+    tesseract::task_composer_planning_nodes
+    tesseract::task_composer_taskflow
+    tesseract::time_parameterization
+    tesseract::time_parameterization_isp
+    "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_factories}>"
+    "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_planning_factories}>"
+    "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_taskflow_factories}>"
     console_bridge::console_bridge)
 
 if(MSVC)
