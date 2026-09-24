@@ -85,7 +85,6 @@ jobs:
 
       - name: Pack NuGet
         run: |
-          dotnet pack src/Darp.Geometry/Darp.Geometry.csproj -c Release -o artifacts/packages
           dotnet pack src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj -c Release -o artifacts/packages
 
       - name: Upload package artifact

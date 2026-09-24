@@ -5,22 +5,19 @@ Use them to load robot descriptions, query scene graphs, compute forward and inv
 kinematics, and work with collision managers.
 
 The C# API follows the upstream C++ API, including names such as `calcFwdKin` and
-`getKinematicGroup`. SWIG generates the bindings. This repository also contains
-`Darp.Geometry`, an independent managed vector, matrix and transform library.
+`getKinematicGroup`. SWIG generates the bindings.
 
 ## Where to start
 
 | If you want to... | Read |
 | --- | --- |
 | Load a robot and call FK or IK | [Native binding usage](src/Darp.Tesseract.Native/README.md) |
-| Work with vectors, matrices, rotations or views | [Darp.Geometry](src/Darp.Geometry/README.md) |
 | Run tests against source or a NuGet package | [Test instructions](tests/Darp.Tesseract.Native.IntegrationTests/README.md) |
 | Build or change the bindings | The instructions below |
 
 `Darp.Tesseract.Native` uses `Aardvark.Base` for fixed-size geometry and packages
 the native wrapper and its runtime dependencies. Applications consuming the
-package do not need Pixi, SWIG or a C++ build environment. `Darp.Geometry` can
-be used independently.
+package do not need Pixi, SWIG or a C++ build environment.
 
 ## Supported platforms and scope
 
@@ -85,7 +82,6 @@ dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesserac
 
 | Path | Contents |
 | --- | --- |
-| `src/Darp.Geometry/` | Managed geometry types, interface extensions and tensor kernels |
 | `src/Darp.Tesseract.Native/Generated/` | SWIG-generated C# API |
 | `src/Darp.Tesseract.Native/Runtime/` | Managed geometry copying and native container support |
 | `bindings/components/` | Upstream headers to expose and signatures to exclude |
@@ -93,7 +89,7 @@ dotnet test --project tests/Darp.Tesseract.Native.IntegrationTests/Darp.Tesserac
 | `bindings/support/` | Shared SWIG rules for ownership, exceptions and other C++ types |
 | `bindings/generated/` | Generated C++ wrapper |
 | `native/` | Pinned upstream submodules |
-| `tests/Darp.Tesseract.Native.IntegrationTests/` | Geometry, native interop and package tests |
+| `tests/Darp.Tesseract.Native.IntegrationTests/` | Native interop and package tests |
 
 The root CMake build copies Tesseract into an ignored build directory and applies
 [the runtime dependency patch](patches/tesseract-runtime-dependencies.patch) there.
@@ -107,10 +103,9 @@ existing SRDF/YAML factory names and search-library entries can be used.
 
 ## Pack and release
 
-After building native assets, create both packages:
+After building native assets, create the package:
 
 ```powershell
-dotnet pack src/Darp.Geometry/Darp.Geometry.csproj -c Release -o artifacts/packages
 dotnet pack src/Darp.Tesseract.Native/Darp.Tesseract.Native.csproj -c Release -o artifacts/packages
 ```
 
@@ -122,11 +117,11 @@ build environment.
 
 [Release automation](.github/workflows/release.yml) uses conventional commits on
 `main` to maintain a release-please PR. Merging it creates a version tag, builds
-and tests the packages, publishes them to NuGet.org, and attaches package and
+and tests the package, publishes it to NuGet.org, and attaches package and
 symbol files to the GitHub release.
 
-Maintainers must configure NuGet Trusted Publishing for both `Darp.Geometry` and
-`Darp.Tesseract.Native`, using the `rosslight/Darp.Tesseract` repository and
+Maintainers must configure NuGet Trusted Publishing for `Darp.Tesseract.Native`,
+using the `rosslight/Darp.Tesseract` repository and
 `release.yml` workflow. Set the Actions secret or variable `NUGET_USER` to the
 NuGet profile username associated with that policy. GitHub Actions also needs
 permission to create release PRs.

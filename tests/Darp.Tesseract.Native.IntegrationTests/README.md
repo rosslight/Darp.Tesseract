@@ -1,6 +1,6 @@
 # Tests
 
-This project tests managed geometry and the generated bindings against the real
+This project tests the generated bindings against the real
 native wrapper. It uses xUnit v3 and Microsoft.Testing.Platform, selected by the
 repository's [global.json](../../global.json).
 
@@ -17,7 +17,7 @@ You only need to rebuild native code after changes that affect the native wrappe
 or its dependencies. See [source build setup](../../README.md#build-from-source)
 for prerequisites and submodules.
 
-The test project references the source projects by default. Native assets come
+The test project references the source project by default. Native assets come
 from `artifacts/native/<rid>/` and copy to the managed output directory. Tests load
 their robot files from `Assets/`, which the test project also copies to its output.
 
@@ -25,7 +25,6 @@ their robot files from `Assets/`, which the test project also copies to its outp
 
 | File | Checks |
 | --- | --- |
-| [GeometryOwnershipTests.cs](GeometryOwnershipTests.cs) | Shared storage, scoped tensor access and pins, read-only access, nested layouts, transform algebra, empty shapes and stable normalization |
 | [KinematicsTests.cs](KinematicsTests.cs) | ABB robot loading, FK/Jacobian/IK round trips, collision and OPW plugins, environment commands, copied inputs, shape checks, output replacement and detached result lifetimes |
 
 The ABB IRB 2400 fixture and its plugin configuration live under
@@ -35,7 +34,7 @@ native leaks or establish thread safety.
 
 ## Run against local packages
 
-Build the native assets and pack both libraries first, following the
+Build the native assets and pack the library first, following the
 [pack instructions](../../README.md#pack-and-release). Then restore and test with
 project references disabled:
 
