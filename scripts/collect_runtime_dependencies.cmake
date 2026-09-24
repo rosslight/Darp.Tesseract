@@ -37,12 +37,13 @@ set(system_dependency_names
   "ext-ms-.*"
   "^(AzureAttestManager|AzureAttestNormal|HvsiFileTrust|PdmUtilities|wpaxholder)\\.dll$")
 if(UNIX AND NOT APPLE)
-  # A standard Linux distribution supplies the platform C/C++ runtime and
-  # zlib. Package the robotics dependency graph, not a competing toolchain.
+  # Keep glibc and zlib on the host. The C++ and OpenMP runtimes must travel
+  # with the package because the pinned compiler can require a newer ABI than
+  # the consumer's distribution provides.
   list(APPEND system_dependency_names
     "^ld-linux.*\\.so.*$"
     "^lib(c|m|pthread|dl|rt)\\.so.*$"
-    "^lib(stdc\\+\\+|gcc_s|gomp|z)\\.so.*$")
+    "^libz\\.so.*$")
 endif()
 file(
   GET_RUNTIME_DEPENDENCIES
@@ -78,6 +79,16 @@ endif()
 if(unresolved_dependencies)
   list(JOIN unresolved_dependencies ", " unresolved_list)
   message(FATAL_ERROR "Native runtime dependencies could not be resolved: ${unresolved_list}")
+endif()
+
+if(UNIX AND NOT APPLE)
+  foreach(compiler_runtime libstdc++.so.6 libgcc_s.so.1 libgomp.so.1)
+    set(compiler_runtime_path "${runtime_search_directory}/${compiler_runtime}")
+    if(NOT EXISTS "${compiler_runtime_path}")
+      message(FATAL_ERROR "The pinned compiler runtime is missing: ${compiler_runtime_path}")
+    endif()
+    list(APPEND resolved_dependencies "${compiler_runtime_path}")
+  endforeach()
 endif()
 
 file(REMOVE_RECURSE "${OUTPUT_DIRECTORY}")

@@ -37,6 +37,7 @@
 #include <limits>
 #include <optional>
 #include <stdexcept>
+#include <boost/uuid/uuid_io.hpp>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
@@ -47,6 +48,9 @@
 #include <tesseract/common/joint_state.h>
 #include <tesseract/common/kinematic_limits.h>
 #include <tesseract/common/plugin_info.h>
+#include <tesseract/common/any_poly.h>
+#include <tesseract/common/profile.h>
+#include <tesseract/common/profile_dictionary.h>
 
 #include <tesseract/geometry/geometry.h>
 #include <tesseract/geometry/geometries.h>
@@ -102,6 +106,30 @@
 #include <tesseract/environment/commands/replace_joint_command.h>
 #include <tesseract/environment/commands/set_active_continuous_contact_manager_command.h>
 #include <tesseract/environment/commands/set_active_discrete_contact_manager_command.h>
+
+#include <tesseract/command_language/cartesian_waypoint.h>
+#include <tesseract/command_language/composite_instruction.h>
+#include <tesseract/command_language/instruction_type.h>
+#include <tesseract/command_language/move_instruction.h>
+#include <tesseract/command_language/state_waypoint.h>
+#include <tesseract/command_language/utils.h>
+#include <tesseract/command_language/poly/instruction_poly.h>
+#include <tesseract/command_language/poly/move_instruction_poly.h>
+#include <tesseract/command_language/poly/state_waypoint_poly.h>
+#include <tesseract/command_language/poly/waypoint_poly.h>
+
+#include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
+#include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <tesseract/motion_planners/utils.h>
+
+#include <tesseract/task_composer/task_composer_context.h>
+#include <tesseract/task_composer/task_composer_data_storage.h>
+#include <tesseract/task_composer/task_composer_executor.h>
+#include <tesseract/task_composer/task_composer_future.h>
+#include <tesseract/task_composer/task_composer_keys.h>
+#include <tesseract/task_composer/task_composer_node.h>
+#include <tesseract/task_composer/task_composer_plugin_factory.h>
+
 %}
 
 /* Export/serialization macros are irrelevant to the SWIG parser. */
@@ -114,6 +142,10 @@
 #define TESSERACT_COLLISION_PUBLIC
 #define TESSERACT_KINEMATICS_PUBLIC
 #define TESSERACT_ENVIRONMENT_PUBLIC
+#define TESSERACT_COMMAND_LANGUAGE_PUBLIC
+#define TESSERACT_MOTION_PLANNERS_CORE_PUBLIC
+#define TESSERACT_MOTION_PLANNERS_DESCARTES_PUBLIC
+#define TESSERACT_TASK_COMPOSER_PUBLIC
 #define EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 #define TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #define TESSERACT_COMMON_IGNORE_WARNINGS_POP
@@ -380,3 +412,4 @@ DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Link)
 %include "components/collision.i"
 %include "components/kinematics.i"
 %include "components/environment.i"
+%include "components/planning.i"

@@ -180,9 +180,42 @@ $collectorArgs += @("-P", $runtimeCollectorPath)
 if ($LASTEXITCODE -ne 0) { throw "Native runtime collection failed with exit code $LASTEXITCODE." }
 
 $packagedLibraries = Get-ChildItem -LiteralPath $outputDir -File | Select-Object -ExpandProperty FullName
+if ($IsLinux) {
+  # .NET may load the host C++ runtime before P/Invoke. Bind our native closure
+  # to the packaged versioned file so glibc cannot reuse an older generic SONAME.
+  $cppRuntimes = @(Get-ChildItem -LiteralPath $outputDir -File |
+    Where-Object { $_.Name -match '^libstdc\+\+\.so\.6\.\d' })
+  if ($cppRuntimes.Count -ne 1) {
+    throw "Expected one versioned libstdc++ runtime, found $($cppRuntimes.Count)."
+  }
+
+  $cppRuntime = $cppRuntimes[0]
+  & patchelf --set-soname $cppRuntime.Name $cppRuntime.FullName
+  if ($LASTEXITCODE -ne 0) {
+    throw "Could not set the packaged C++ runtime SONAME."
+  }
+
+  foreach ($packagedLibrary in $packagedLibraries) {
+    $dependencies = @(& patchelf --print-needed $packagedLibrary)
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not inspect native dependencies in '$packagedLibrary'."
+    }
+    if ($dependencies -notcontains 'libstdc++.so.6') {
+      continue
+    }
+
+    & patchelf --replace-needed 'libstdc++.so.6' $cppRuntime.Name $packagedLibrary
+    if ($LASTEXITCODE -ne 0) {
+      throw "Could not bind '$packagedLibrary' to the packaged C++ runtime."
+    }
+  }
+}
 if ($IsMacOS) {
+  foreach ($packagedLibrary in $packagedLibraries) {
+    Set-PortableWrapperRuntimePath -libraryPath $packagedLibrary
+  }
+
   $packagedWrapperPath = Join-Path $outputDir ([System.IO.Path]::GetFileName($libraryPath))
-  Set-PortableWrapperRuntimePath -libraryPath $packagedWrapperPath
   Assert-PortableRuntimePaths -libraryPaths @($packagedWrapperPath) -RequireWrapperRelativePath
 }
 Assert-PortableRuntimePaths -libraryPaths $packagedLibraries

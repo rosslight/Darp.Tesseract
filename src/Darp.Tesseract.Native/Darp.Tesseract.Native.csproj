@@ -30,6 +30,17 @@
         <None Include="../../LICENSE" Pack="true" Visible="false" PackagePath="/" />
         <None Include="../../THIRD-PARTY-NOTICES.md" Pack="true" Visible="false" PackagePath="/" />
         <None Include="../../native/tesseract/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/tesseract/" />
+        <None Include="../../native/tesseract_planning/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/tesseract_planning/" />
+        <None Include="../../native/trajopt/trajopt/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/trajopt/" />
+        <None Include="../../native/trajopt/trajopt_common/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/trajopt_common/" />
+        <None Include="../../native/trajopt/trajopt_sco/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/trajopt_sco/" />
+        <None Include="../../native/tesseract_planning/task_composer/config/task_composer_plugins.yaml"
+              Pack="true"
+              Visible="false"
+              PackagePath="contentFiles/any/any/Tesseract/task_composer_plugins.yaml"
+              TargetPath="Tesseract/task_composer_plugins.yaml"
+              CopyToOutputDirectory="PreserveNewest"
+              PackageCopyToOutput="true" />
         <None Include="../../native/boost_plugin_loader/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/boost_plugin_loader/" />
         <None Include="../../native/opw_kinematics/LICENSE*" Pack="true" Visible="false" PackagePath="licenses/upstream/opw_kinematics/" />
         <None Include="../../artifacts/notices/**/*" Pack="true" Visible="false" PackagePath="licenses/" />

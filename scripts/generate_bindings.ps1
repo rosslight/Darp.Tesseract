@@ -32,7 +32,13 @@ $includeDirs = @(
   (Join-Path $tesseractDir "state_solver/include"),
   (Join-Path $tesseractDir "collision/core/include"),
   (Join-Path $tesseractDir "kinematics/core/include"),
-  (Join-Path $tesseractDir "environment/include")
+  (Join-Path $tesseractDir "environment/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/command_language/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/motion_planners/core/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/motion_planners/descartes/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/task_composer/core/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/time_parameterization/core/include"),
+  (Join-Path $repositoryDir "native")
 )
 
 foreach ($path in @($interfacePath) + $includeDirs) {

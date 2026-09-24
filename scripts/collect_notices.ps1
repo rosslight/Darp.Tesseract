@@ -28,8 +28,17 @@ foreach ($metadataFile in Get-ChildItem "$env:CONDA_PREFIX/conda-meta" -Filter '
   $packageDir = $metadata.extracted_package_dir
   if (-not $packageDir) { $packageDir = $metadata.link.source }
   $dependencyDir = Join-Path $outputDir $metadata.name
-  # Missing original license materials fail collection rather than silently shipping without them.
-  Copy-Item -LiteralPath "$packageDir/info/licenses" -Destination $dependencyDir -Recurse
+  $licenseDirectory = "$packageDir/info/licenses"
+  if (Test-Path -LiteralPath $licenseDirectory) {
+    Copy-Item -LiteralPath $licenseDirectory -Destination $dependencyDir -Recurse
+  } else {
+    if ([string]::IsNullOrWhiteSpace($metadata.license)) {
+      throw "No license attribution found for package '$($metadata.name)'."
+    }
+    New-Item -ItemType Directory -Path $dependencyDir -Force | Out-Null
+    $metadata.license | Set-Content "$dependencyDir/LICENSE.spdx" -Encoding utf8
+    Copy-Item -LiteralPath "$packageDir/info/about.json" -Destination $dependencyDir
+  }
   if (Test-Path -LiteralPath "$packageDir/info/recipe") {
     Copy-Item -LiteralPath "$packageDir/info/recipe" -Destination "$dependencyDir/source-recipe" -Recurse
   }
@@ -51,7 +60,7 @@ foreach ($runtimeName in $runtimeNames) {
 }
 
 # Preserve copyright notices from the incorporated upstream sources.
-$copyrightLines = foreach ($source in @('tesseract', 'boost_plugin_loader', 'opw_kinematics')) {
+$copyrightLines = foreach ($source in @('tesseract', 'trajopt', 'boost_plugin_loader', 'opw_kinematics')) {
   Get-ChildItem "$repositoryDir/native/$source" -Recurse -File |
     Where-Object Extension -In '.h', '.hpp', '.cpp', '.cxx', '.inl' |
     Select-String -Pattern '(?i)copyright\s+(\(c\)|[0-9]|©)' |

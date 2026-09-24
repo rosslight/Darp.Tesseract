@@ -20,8 +20,11 @@ endif()
 if(NOT DEFINED TESSERACT_SOURCE_DIR OR NOT EXISTS "${TESSERACT_SOURCE_DIR}/package.xml")
   message(FATAL_ERROR "TESSERACT_SOURCE_DIR must point to the staged Tesseract source tree.")
 endif()
+if(NOT DEFINED TESSERACT_PLANNING_PREFIX OR NOT IS_DIRECTORY "${TESSERACT_PLANNING_PREFIX}")
+  message(FATAL_ERROR "TESSERACT_PLANNING_PREFIX must point to the private Tesseract Planning installation.")
+endif()
 
-list(PREPEND CMAKE_PREFIX_PATH "${TESSERACT_CPP_PREFIX}")
+list(PREPEND CMAKE_PREFIX_PATH "${TESSERACT_PLANNING_PREFIX}" "${TESSERACT_CPP_PREFIX}")
 if(WIN32 AND IS_DIRECTORY "$ENV{CONDA_PREFIX}/Library")
   list(APPEND CMAKE_PREFIX_PATH "$ENV{CONDA_PREFIX}/Library")
 else()
@@ -42,7 +45,39 @@ find_package(tesseract 0.35.0 REQUIRED COMPONENTS kinematics_kdl)
 find_package(tesseract 0.35.0 REQUIRED COMPONENTS kinematics_opw)
 find_package(tesseract 0.35.0 REQUIRED COMPONENTS kinematics_ur)
 find_package(tesseract 0.35.0 REQUIRED COMPONENTS environment)
+find_package(
+  tesseract_planning 0.35.0 REQUIRED
+  COMPONENTS
+    command_language
+    motion_planners
+    motion_planners_simple
+    motion_planners_descartes
+    motion_planners_trajopt
+    task_composer
+    task_composer_planning
+    task_composer_taskflow
+    time_parameterization
+    time_parameterization_isp)
 find_package(console_bridge REQUIRED)
+
+find_library(
+  task_composer_factories
+  NAMES tesseract_task_composer_factories
+  PATHS "${TESSERACT_PLANNING_PREFIX}/lib"
+  NO_DEFAULT_PATH
+  REQUIRED)
+find_library(
+  task_composer_planning_factories
+  NAMES tesseract_task_composer_planning_factories
+  PATHS "${TESSERACT_PLANNING_PREFIX}/lib"
+  NO_DEFAULT_PATH
+  REQUIRED)
+find_library(
+  task_composer_taskflow_factories
+  NAMES tesseract_task_composer_taskflow_factories
+  PATHS "${TESSERACT_PLANNING_PREFIX}/lib"
+  NO_DEFAULT_PATH
+  REQUIRED)
 
 add_library(
   tesseract_csharp
@@ -55,25 +90,60 @@ add_library(
   "${TESSERACT_SOURCE_DIR}/kinematics/opw/src/opw_factory.cpp"
   "${TESSERACT_SOURCE_DIR}/kinematics/ur/src/ur_factory.cpp")
 
-target_link_libraries(
-  tesseract_csharp
-  PRIVATE
-    tesseract::common
-    tesseract::geometry
-    tesseract::scene_graph
-    tesseract::srdf
-    tesseract::urdf
-    tesseract::state_solver_kdl
-    tesseract::state_solver_ofkt
-    tesseract::kinematics
-    tesseract::kinematics_kdl
-    tesseract::kinematics_opw
-    tesseract::kinematics_ur
-    tesseract::environment
-    tesseract::collision
-    tesseract::collision_bullet
-    tesseract::collision_fcl
-    console_bridge::console_bridge)
+set(darp_tesseract_libraries
+  tesseract::common
+  tesseract::geometry
+  tesseract::scene_graph
+  tesseract::srdf
+  tesseract::urdf
+  tesseract::state_solver_kdl
+  tesseract::state_solver_ofkt
+  tesseract::state_solver
+  tesseract::kinematics
+  tesseract::kinematics_kdl
+  tesseract::kinematics_opw
+  tesseract::kinematics_ur
+  tesseract::environment
+  tesseract::collision
+  tesseract::collision_bullet
+  tesseract::collision_fcl
+  tesseract::command_language
+  tesseract::motion_planners
+  tesseract::motion_planners_simple
+  tesseract::motion_planners_descartes
+  descartes::descartes_light
+  tesseract::motion_planners_trajopt
+  trajopt::trajopt
+  trajopt::trajopt_common
+  trajopt::trajopt_sco
+  tesseract::visualization
+  tesseract::task_composer
+  tesseract::task_composer_nodes
+  tesseract::task_composer_planning_nodes
+  tesseract::task_composer_taskflow
+  tesseract::time_parameterization
+  tesseract::time_parameterization_isp
+  console_bridge::console_bridge)
+set(darp_task_composer_factory_libraries
+  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_factories}>"
+  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_planning_factories}>"
+  "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_taskflow_factories}>")
+
+if(UNIX AND NOT APPLE)
+  # GNU ld only visits a static archive once. Tesseract core and planning have
+  # circular references, so rescan them until all symbols are resolved.
+  target_link_libraries(
+    tesseract_csharp
+    PRIVATE
+      ${darp_task_composer_factory_libraries}
+      "$<LINK_GROUP:RESCAN,${darp_tesseract_libraries}>")
+else()
+  target_link_libraries(
+    tesseract_csharp
+    PRIVATE
+      ${darp_tesseract_libraries}
+      ${darp_task_composer_factory_libraries})
+endif()
 
 if(MSVC)
   target_compile_definitions(tesseract_csharp PRIVATE NOMINMAX _USE_MATH_DEFINES)
