@@ -10,16 +10,16 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TrajOptDefaultMoveProfile : TrajOptMoveProfile {
+public class KPIECE1Configurator : OMPLPlannerConfigurator {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnDerived;
 
-  internal TrajOptDefaultMoveProfile(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.TrajOptDefaultMoveProfile_SWIGSmartPtrUpcast(cPtr), true) {
+  internal KPIECE1Configurator(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.KPIECE1Configurator_SWIGSmartPtrUpcast(cPtr), true) {
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TrajOptDefaultMoveProfile obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(KPIECE1Configurator obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class TrajOptDefaultMoveProfile : TrajOptMoveProfile {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnDerived) {
           swigCMemOwnDerived = false;
-          TesseractNativePINVOKE.delete_TrajOptDefaultMoveProfile(swigCPtr);
+          TesseractNativePINVOKE.delete_KPIECE1Configurator(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -36,60 +36,78 @@ public class TrajOptDefaultMoveProfile : TrajOptMoveProfile {
     }
   }
 
-  public TrajOptDefaultMoveProfile() : this(TesseractNativePINVOKE.new_TrajOptDefaultMoveProfile(), true) {
+  public KPIECE1Configurator() : this(TesseractNativePINVOKE.new_KPIECE1Configurator__SWIG_0(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public TrajOptCartesianWaypointConfig cartesian_cost_config {
+  public KPIECE1Configurator(KPIECE1Configurator arg0) : this(TesseractNativePINVOKE.new_KPIECE1Configurator__SWIG_1(KPIECE1Configurator.getCPtr(arg0)), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public double range {
     set {
-      TesseractNativePINVOKE.TrajOptDefaultMoveProfile_cartesian_cost_config_set(swigCPtr, TrajOptCartesianWaypointConfig.getCPtr(value));
+      TesseractNativePINVOKE.KPIECE1Configurator_range_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptDefaultMoveProfile_cartesian_cost_config_get(swigCPtr);
-      TrajOptCartesianWaypointConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajOptCartesianWaypointConfig(cPtr, false);
+      double ret = TesseractNativePINVOKE.KPIECE1Configurator_range_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public TrajOptCartesianWaypointConfig cartesian_constraint_config {
+  public double goal_bias {
     set {
-      TesseractNativePINVOKE.TrajOptDefaultMoveProfile_cartesian_constraint_config_set(swigCPtr, TrajOptCartesianWaypointConfig.getCPtr(value));
+      TesseractNativePINVOKE.KPIECE1Configurator_goal_bias_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptDefaultMoveProfile_cartesian_constraint_config_get(swigCPtr);
-      TrajOptCartesianWaypointConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajOptCartesianWaypointConfig(cPtr, false);
+      double ret = TesseractNativePINVOKE.KPIECE1Configurator_goal_bias_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public TrajOptJointWaypointConfig joint_cost_config {
+  public double border_fraction {
     set {
-      TesseractNativePINVOKE.TrajOptDefaultMoveProfile_joint_cost_config_set(swigCPtr, TrajOptJointWaypointConfig.getCPtr(value));
+      TesseractNativePINVOKE.KPIECE1Configurator_border_fraction_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptDefaultMoveProfile_joint_cost_config_get(swigCPtr);
-      TrajOptJointWaypointConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajOptJointWaypointConfig(cPtr, false);
+      double ret = TesseractNativePINVOKE.KPIECE1Configurator_border_fraction_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public TrajOptJointWaypointConfig joint_constraint_config {
+  public double failed_expansion_score_factor {
     set {
-      TesseractNativePINVOKE.TrajOptDefaultMoveProfile_joint_constraint_config_set(swigCPtr, TrajOptJointWaypointConfig.getCPtr(value));
+      TesseractNativePINVOKE.KPIECE1Configurator_failed_expansion_score_factor_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptDefaultMoveProfile_joint_constraint_config_get(swigCPtr);
-      TrajOptJointWaypointConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajOptJointWaypointConfig(cPtr, false);
+      double ret = TesseractNativePINVOKE.KPIECE1Configurator_failed_expansion_score_factor_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
+  }
+
+  public double min_valid_path_fraction {
+    set {
+      TesseractNativePINVOKE.KPIECE1Configurator_min_valid_path_fraction_set(swigCPtr, value);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      double ret = TesseractNativePINVOKE.KPIECE1Configurator_min_valid_path_fraction_get(swigCPtr);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
+  }
+
+  public override OMPLPlannerType getType() {
+    OMPLPlannerType ret = (OMPLPlannerType)TesseractNativePINVOKE.KPIECE1Configurator_getType(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

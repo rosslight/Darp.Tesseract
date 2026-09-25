@@ -73,6 +73,7 @@
 
 #include <tesseract/collision/discrete_contact_manager.h>
 #include <tesseract/collision/continuous_contact_manager.h>
+#include <tesseract/collision/types.h>
 
 #include <tesseract/kinematics/types.h>
 #include <tesseract/kinematics/forward_kinematics.h>
@@ -122,7 +123,12 @@
 
 #include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
+#include <tesseract/motion_planners/ompl/ompl_solver_config.h>
 #include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <trajopt_common/collision_types.h>
+#include <trajopt_sco/optimizers.hpp>
+#include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
@@ -156,6 +162,8 @@
 #define EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 #define TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #define TESSERACT_COMMON_IGNORE_WARNINGS_POP
+#define TRAJOPT_IGNORE_WARNINGS_PUSH
+#define TRAJOPT_IGNORE_WARNINGS_POP
 #define BOOST_CLASS_EXPORT_KEY(a)
 #define BOOST_CLASS_EXPORT_KEY2(a,b)
 #define BOOST_CLASS_VERSION(a,b)

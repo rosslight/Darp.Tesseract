@@ -148,25 +148,27 @@ public class DescartesDefaultMoveProfileD : global::System.IDisposable {
     } 
   }
 
-  public SWIGTYPE_p_tesseract__collision__ContactManagerConfig vertex_contact_manager_config {
+  public ContactManagerConfig vertex_contact_manager_config {
     set {
-      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_contact_manager_config_set(swigCPtr, SWIGTYPE_p_tesseract__collision__ContactManagerConfig.getCPtr(value));
+      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_contact_manager_config_set(swigCPtr, ContactManagerConfig.getCPtr(value));
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      SWIGTYPE_p_tesseract__collision__ContactManagerConfig ret = new SWIGTYPE_p_tesseract__collision__ContactManagerConfig(TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_contact_manager_config_get(swigCPtr), true);
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_contact_manager_config_get(swigCPtr);
+      ContactManagerConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new ContactManagerConfig(cPtr, false);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public SWIGTYPE_p_tesseract__collision__CollisionCheckConfig vertex_collision_check_config {
+  public CollisionCheckConfig vertex_collision_check_config {
     set {
-      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_collision_check_config_set(swigCPtr, SWIGTYPE_p_tesseract__collision__CollisionCheckConfig.getCPtr(value));
+      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_collision_check_config_set(swigCPtr, CollisionCheckConfig.getCPtr(value));
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      SWIGTYPE_p_tesseract__collision__CollisionCheckConfig ret = new SWIGTYPE_p_tesseract__collision__CollisionCheckConfig(TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_collision_check_config_get(swigCPtr), true);
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.DescartesDefaultMoveProfileD_vertex_collision_check_config_get(swigCPtr);
+      CollisionCheckConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new CollisionCheckConfig(cPtr, false);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
@@ -184,25 +186,27 @@ public class DescartesDefaultMoveProfileD : global::System.IDisposable {
     } 
   }
 
-  public SWIGTYPE_p_tesseract__collision__ContactManagerConfig edge_contact_manager_config {
+  public ContactManagerConfig edge_contact_manager_config {
     set {
-      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_contact_manager_config_set(swigCPtr, SWIGTYPE_p_tesseract__collision__ContactManagerConfig.getCPtr(value));
+      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_contact_manager_config_set(swigCPtr, ContactManagerConfig.getCPtr(value));
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      SWIGTYPE_p_tesseract__collision__ContactManagerConfig ret = new SWIGTYPE_p_tesseract__collision__ContactManagerConfig(TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_contact_manager_config_get(swigCPtr), true);
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_contact_manager_config_get(swigCPtr);
+      ContactManagerConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new ContactManagerConfig(cPtr, false);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public SWIGTYPE_p_tesseract__collision__CollisionCheckConfig edge_collision_check_config {
+  public CollisionCheckConfig edge_collision_check_config {
     set {
-      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_collision_check_config_set(swigCPtr, SWIGTYPE_p_tesseract__collision__CollisionCheckConfig.getCPtr(value));
+      TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_collision_check_config_set(swigCPtr, CollisionCheckConfig.getCPtr(value));
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      SWIGTYPE_p_tesseract__collision__CollisionCheckConfig ret = new SWIGTYPE_p_tesseract__collision__CollisionCheckConfig(TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_collision_check_config_get(swigCPtr), true);
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.DescartesDefaultMoveProfileD_edge_collision_check_config_get(swigCPtr);
+      CollisionCheckConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new CollisionCheckConfig(cPtr, false);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 

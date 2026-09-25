@@ -10,16 +10,16 @@
 
 namespace Darp.Tesseract.Native {
 
-public class OMPLRealVectorMoveProfile : OMPLMoveProfile {
+public class RRTstarConfigurator : OMPLPlannerConfigurator {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnDerived;
 
-  internal OMPLRealVectorMoveProfile(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.OMPLRealVectorMoveProfile_SWIGSmartPtrUpcast(cPtr), true) {
+  internal RRTstarConfigurator(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.RRTstarConfigurator_SWIGSmartPtrUpcast(cPtr), true) {
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(OMPLRealVectorMoveProfile obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(RRTstarConfigurator obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class OMPLRealVectorMoveProfile : OMPLMoveProfile {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnDerived) {
           swigCMemOwnDerived = false;
-          TesseractNativePINVOKE.delete_OMPLRealVectorMoveProfile(swigCPtr);
+          TesseractNativePINVOKE.delete_RRTstarConfigurator(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -36,46 +36,54 @@ public class OMPLRealVectorMoveProfile : OMPLMoveProfile {
     }
   }
 
-  public OMPLRealVectorMoveProfile() : this(TesseractNativePINVOKE.new_OMPLRealVectorMoveProfile(), true) {
+  public RRTstarConfigurator() : this(TesseractNativePINVOKE.new_RRTstarConfigurator__SWIG_0(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public OMPLSolverConfig solver_config {
+  public RRTstarConfigurator(RRTstarConfigurator arg0) : this(TesseractNativePINVOKE.new_RRTstarConfigurator__SWIG_1(RRTstarConfigurator.getCPtr(arg0)), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public double range {
     set {
-      TesseractNativePINVOKE.OMPLRealVectorMoveProfile_solver_config_set(swigCPtr, OMPLSolverConfig.getCPtr(value));
+      TesseractNativePINVOKE.RRTstarConfigurator_range_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      OMPLSolverConfig ret = new OMPLSolverConfig(TesseractNativePINVOKE.OMPLRealVectorMoveProfile_solver_config_get(swigCPtr), true);
+      double ret = TesseractNativePINVOKE.RRTstarConfigurator_range_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public ContactManagerConfig contact_manager_config {
+  public double goal_bias {
     set {
-      TesseractNativePINVOKE.OMPLRealVectorMoveProfile_contact_manager_config_set(swigCPtr, ContactManagerConfig.getCPtr(value));
+      TesseractNativePINVOKE.RRTstarConfigurator_goal_bias_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.OMPLRealVectorMoveProfile_contact_manager_config_get(swigCPtr);
-      ContactManagerConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new ContactManagerConfig(cPtr, false);
+      double ret = TesseractNativePINVOKE.RRTstarConfigurator_goal_bias_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public CollisionCheckConfig collision_check_config {
+  public bool delay_collision_checking {
     set {
-      TesseractNativePINVOKE.OMPLRealVectorMoveProfile_collision_check_config_set(swigCPtr, CollisionCheckConfig.getCPtr(value));
+      TesseractNativePINVOKE.RRTstarConfigurator_delay_collision_checking_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.OMPLRealVectorMoveProfile_collision_check_config_get(swigCPtr);
-      CollisionCheckConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new CollisionCheckConfig(cPtr, false);
+      bool ret = TesseractNativePINVOKE.RRTstarConfigurator_delay_collision_checking_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
+  }
+
+  public override OMPLPlannerType getType() {
+    OMPLPlannerType ret = (OMPLPlannerType)TesseractNativePINVOKE.RRTstarConfigurator_getType(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

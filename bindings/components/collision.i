@@ -1,4 +1,20 @@
 /* Keep this first collision slice to operations with stable generated shapes. */
+%ignore tesseract::collision::ContactResultValidator;
+%ignore tesseract::collision::ContactResult;
+%ignore tesseract::collision::ContactResultMap;
+%ignore tesseract::collision::ContactTestData;
+%ignore tesseract::collision::ContactTrajectorySubstepResults;
+%ignore tesseract::collision::ContactTrajectoryStepResults;
+%ignore tesseract::collision::ContactTrajectoryResults;
+%ignore tesseract::collision::ContactRequest::is_valid;
+%ignore tesseract::collision::ContactRequest::operator==;
+%ignore tesseract::collision::ContactRequest::operator!=;
+%ignore tesseract::collision::ContactManagerConfig::operator==;
+%ignore tesseract::collision::ContactManagerConfig::operator!=;
+%ignore tesseract::collision::CollisionCheckConfig::operator==;
+%ignore tesseract::collision::CollisionCheckConfig::operator!=;
+%include <tesseract/collision/types.h>
+
 %ignore tesseract::collision::DiscreteContactManager::addCollisionObject;
 %ignore tesseract::collision::DiscreteContactManager::getCollisionObjectGeometries;
 %ignore tesseract::collision::DiscreteContactManager::getCollisionObjectGeometriesTransforms;

@@ -20,6 +20,7 @@ template<> class vector<Eigen::Index>
 %template(StringVector) std::vector<std::string>;
 %template(StringSet) std::set<std::string>;
 %template(StringDoubleMap) std::unordered_map<std::string, double>;
+%template(StringBoolMap) std::unordered_map<std::string, bool>;
 %template(StringStringMap) std::unordered_map<std::string, std::string>;
 %template(StringVectorMap) std::unordered_map<std::string, std::vector<std::string>>;
 %template(DoubleVector) std::vector<double>;

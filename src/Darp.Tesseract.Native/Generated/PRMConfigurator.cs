@@ -10,16 +10,16 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TrajOptSolverProfile : Profile {
+public class PRMConfigurator : OMPLPlannerConfigurator {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnDerived;
 
-  internal TrajOptSolverProfile(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.TrajOptSolverProfile_SWIGSmartPtrUpcast(cPtr), true) {
+  internal PRMConfigurator(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.PRMConfigurator_SWIGSmartPtrUpcast(cPtr), true) {
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TrajOptSolverProfile obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PRMConfigurator obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class TrajOptSolverProfile : Profile {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnDerived) {
           swigCMemOwnDerived = false;
-          TesseractNativePINVOKE.delete_TrajOptSolverProfile(swigCPtr);
+          TesseractNativePINVOKE.delete_PRMConfigurator(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -36,17 +36,30 @@ public class TrajOptSolverProfile : Profile {
     }
   }
 
-  public BasicTrustRegionSQPParameters opt_params {
+  public PRMConfigurator() : this(TesseractNativePINVOKE.new_PRMConfigurator__SWIG_0(), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public PRMConfigurator(PRMConfigurator arg0) : this(TesseractNativePINVOKE.new_PRMConfigurator__SWIG_1(PRMConfigurator.getCPtr(arg0)), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public int max_nearest_neighbors {
     set {
-      TesseractNativePINVOKE.TrajOptSolverProfile_opt_params_set(swigCPtr, BasicTrustRegionSQPParameters.getCPtr(value));
+      TesseractNativePINVOKE.PRMConfigurator_max_nearest_neighbors_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptSolverProfile_opt_params_get(swigCPtr);
-      BasicTrustRegionSQPParameters ret = (cPtr == global::System.IntPtr.Zero) ? null : new BasicTrustRegionSQPParameters(cPtr, false);
+      int ret = TesseractNativePINVOKE.PRMConfigurator_max_nearest_neighbors_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
+  }
+
+  public override OMPLPlannerType getType() {
+    OMPLPlannerType ret = (OMPLPlannerType)TesseractNativePINVOKE.PRMConfigurator_getType(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }

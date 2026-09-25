@@ -40,6 +40,32 @@ public class TrajOptDefaultCompositeProfile : TrajOptCompositeProfile {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public TrajOptCollisionConfig collision_cost_config {
+    set {
+      TesseractNativePINVOKE.TrajOptDefaultCompositeProfile_collision_cost_config_set(swigCPtr, TrajOptCollisionConfig.getCPtr(value));
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptDefaultCompositeProfile_collision_cost_config_get(swigCPtr);
+      TrajOptCollisionConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajOptCollisionConfig(cPtr, false);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
+  }
+
+  public TrajOptCollisionConfig collision_constraint_config {
+    set {
+      TesseractNativePINVOKE.TrajOptDefaultCompositeProfile_collision_constraint_config_set(swigCPtr, TrajOptCollisionConfig.getCPtr(value));
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptDefaultCompositeProfile_collision_constraint_config_get(swigCPtr);
+      TrajOptCollisionConfig ret = (cPtr == global::System.IntPtr.Zero) ? null : new TrajOptCollisionConfig(cPtr, false);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
+  }
+
   public bool smooth_velocities {
     set {
       TesseractNativePINVOKE.TrajOptDefaultCompositeProfile_smooth_velocities_set(swigCPtr, value);

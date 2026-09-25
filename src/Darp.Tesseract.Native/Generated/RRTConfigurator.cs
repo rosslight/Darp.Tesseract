@@ -10,16 +10,16 @@
 
 namespace Darp.Tesseract.Native {
 
-public class TrajOptOSQPSolverProfile : TrajOptSolverProfile {
+public class RRTConfigurator : OMPLPlannerConfigurator {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnDerived;
 
-  internal TrajOptOSQPSolverProfile(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.TrajOptOSQPSolverProfile_SWIGSmartPtrUpcast(cPtr), true) {
+  internal RRTConfigurator(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.RRTConfigurator_SWIGSmartPtrUpcast(cPtr), true) {
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(TrajOptOSQPSolverProfile obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(RRTConfigurator obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class TrajOptOSQPSolverProfile : TrajOptSolverProfile {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnDerived) {
           swigCMemOwnDerived = false;
-          TesseractNativePINVOKE.delete_TrajOptOSQPSolverProfile(swigCPtr);
+          TesseractNativePINVOKE.delete_RRTConfigurator(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -36,33 +36,42 @@ public class TrajOptOSQPSolverProfile : TrajOptSolverProfile {
     }
   }
 
-  public TrajOptOSQPSolverProfile() : this(TesseractNativePINVOKE.new_TrajOptOSQPSolverProfile(), true) {
+  public RRTConfigurator() : this(TesseractNativePINVOKE.new_RRTConfigurator__SWIG_0(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public OSQPSettings settings {
+  public RRTConfigurator(RRTConfigurator arg0) : this(TesseractNativePINVOKE.new_RRTConfigurator__SWIG_1(RRTConfigurator.getCPtr(arg0)), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public double range {
     set {
-      TesseractNativePINVOKE.TrajOptOSQPSolverProfile_settings_set(swigCPtr, OSQPSettings.getCPtr(value));
+      TesseractNativePINVOKE.RRTConfigurator_range_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.TrajOptOSQPSolverProfile_settings_get(swigCPtr);
-      OSQPSettings ret = (cPtr == global::System.IntPtr.Zero) ? null : new OSQPSettings(cPtr, false);
+      double ret = TesseractNativePINVOKE.RRTConfigurator_range_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
   }
 
-  public bool update_workspace {
+  public double goal_bias {
     set {
-      TesseractNativePINVOKE.TrajOptOSQPSolverProfile_update_workspace_set(swigCPtr, value);
+      TesseractNativePINVOKE.RRTConfigurator_goal_bias_set(swigCPtr, value);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     } 
     get {
-      bool ret = TesseractNativePINVOKE.TrajOptOSQPSolverProfile_update_workspace_get(swigCPtr);
+      double ret = TesseractNativePINVOKE.RRTConfigurator_goal_bias_get(swigCPtr);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return ret;
     } 
+  }
+
+  public override OMPLPlannerType getType() {
+    OMPLPlannerType ret = (OMPLPlannerType)TesseractNativePINVOKE.RRTConfigurator_getType(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
 }
