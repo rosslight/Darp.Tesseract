@@ -63,6 +63,30 @@ public class TesseractNative {
     } 
   }
 
+  public static ContactResultVector flattenContactResults(ContactResultMap results) {
+    ContactResultVector ret = new ContactResultVector(TesseractNativePINVOKE.flattenContactResults(ContactResultMap.getCPtr(results)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static string trajectoryCollisionResultsTable(ContactTrajectoryResults results) {
+    string ret = TesseractNativePINVOKE.trajectoryCollisionResultsTable(ContactTrajectoryResults.getCPtr(results));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static string collisionFrequencyPerLink(ContactTrajectoryResults results) {
+    string ret = TesseractNativePINVOKE.collisionFrequencyPerLink(ContactTrajectoryResults.getCPtr(results));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static string condensedCollisionSummary(ContactTrajectoryResults results) {
+    string ret = TesseractNativePINVOKE.condensedCollisionSummary(ContactTrajectoryResults.getCPtr(results));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static bool isSetAnalogInstruction(InstructionPoly instruction) {
     bool ret = TesseractNativePINVOKE.isSetAnalogInstruction(InstructionPoly.getCPtr(instruction));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
@@ -282,6 +306,13 @@ public class TesseractNative {
     return ret;
   }
 
+  public static Profile asProfile(ContactCheckProfile profile) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asProfile__SWIG_2(ContactCheckProfile.getCPtr(profile));
+    Profile ret = (cPtr == global::System.IntPtr.Zero) ? null : new Profile(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static void addProfile(ProfileDictionary profiles, string profile_namespace, string profile_name, Profile profile) {
     TesseractNativePINVOKE.addProfile(ProfileDictionary.getCPtr(profiles), profile_namespace, profile_name, Profile.getCPtr(profile));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
@@ -316,14 +347,14 @@ public class TesseractNative {
     return ret;
   }
 
-  public static SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults contactCheckProgram(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t contacts, ContinuousContactManager manager, StateSolver state_solver, CompositeInstruction program, CollisionCheckConfig config) {
-    SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults ret = new SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults(TesseractNativePINVOKE.contactCheckProgram__SWIG_0(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t.getCPtr(contacts), ContinuousContactManager.getCPtr(manager), StateSolver.getCPtr(state_solver), CompositeInstruction.getCPtr(program), CollisionCheckConfig.getCPtr(config)), true);
+  public static ContactTrajectoryResults contactCheckProgram(ContactResultMapVector contacts, ContinuousContactManager manager, StateSolver state_solver, CompositeInstruction program, CollisionCheckConfig config) {
+    ContactTrajectoryResults ret = new ContactTrajectoryResults(TesseractNativePINVOKE.contactCheckProgram__SWIG_0(ContactResultMapVector.getCPtr(contacts), ContinuousContactManager.getCPtr(manager), StateSolver.getCPtr(state_solver), CompositeInstruction.getCPtr(program), CollisionCheckConfig.getCPtr(config)), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public static SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults contactCheckProgram(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t contacts, DiscreteContactManager manager, StateSolver state_solver, CompositeInstruction program, CollisionCheckConfig config) {
-    SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults ret = new SWIGTYPE_p_tesseract__collision__ContactTrajectoryResults(TesseractNativePINVOKE.contactCheckProgram__SWIG_1(SWIGTYPE_p_std__vectorT_tesseract__collision__ContactResultMap_t.getCPtr(contacts), DiscreteContactManager.getCPtr(manager), StateSolver.getCPtr(state_solver), CompositeInstruction.getCPtr(program), CollisionCheckConfig.getCPtr(config)), true);
+  public static ContactTrajectoryResults contactCheckProgram(ContactResultMapVector contacts, DiscreteContactManager manager, StateSolver state_solver, CompositeInstruction program, CollisionCheckConfig config) {
+    ContactTrajectoryResults ret = new ContactTrajectoryResults(TesseractNativePINVOKE.contactCheckProgram__SWIG_1(ContactResultMapVector.getCPtr(contacts), DiscreteContactManager.getCPtr(manager), StateSolver.getCPtr(state_solver), CompositeInstruction.getCPtr(program), CollisionCheckConfig.getCPtr(config)), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

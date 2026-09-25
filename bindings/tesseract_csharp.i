@@ -7,6 +7,7 @@
 
 %include <stdint.i>
 %include <std_string.i>
+%include <std_array.i>
 %include <std_vector.i>
 %include <std_set.i>
 %include <std_map.i>
@@ -142,6 +143,7 @@
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
+#include <tesseract/task_composer/planning/profiles/contact_check_profile.h>
 
 %}
 
@@ -159,6 +161,7 @@
 #define TESSERACT_MOTION_PLANNERS_CORE_PUBLIC
 #define TESSERACT_MOTION_PLANNERS_DESCARTES_PUBLIC
 #define TESSERACT_TASK_COMPOSER_PUBLIC
+#define TESSERACT_TASK_COMPOSER_PLANNING_NODES_EXPORT
 #define EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 #define TESSERACT_COMMON_IGNORE_WARNINGS_PUSH
 #define TESSERACT_COMMON_IGNORE_WARNINGS_POP
