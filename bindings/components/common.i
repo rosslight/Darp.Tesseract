@@ -1,4 +1,5 @@
 %include <tesseract/common/types.h>
+%template(ByteVector) std::vector<uint8_t>;
 %include <tesseract/common/resource_locator.h>
 %include <tesseract/common/manipulator_info.h>
 %include "support/environment_values.i"

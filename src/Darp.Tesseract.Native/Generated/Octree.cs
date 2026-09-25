@@ -10,16 +10,16 @@
 
 namespace Darp.Tesseract.Native {
 
-public class Resource : ResourceLocator {
+public class Octree : Geometry {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnDerived;
 
-  internal Resource(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.Resource_SWIGSmartPtrUpcast(cPtr), true) {
+  internal Octree(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.Octree_SWIGSmartPtrUpcast(cPtr), true) {
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Resource obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Octree obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class Resource : ResourceLocator {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnDerived) {
           swigCMemOwnDerived = false;
-          TesseractNativePINVOKE.delete_Resource(swigCPtr);
+          TesseractNativePINVOKE.delete_Octree(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -36,28 +36,46 @@ public class Resource : ResourceLocator {
     }
   }
 
-  public virtual bool isFile() {
-    bool ret = TesseractNativePINVOKE.Resource_isFile(swigCPtr);
+  public OctomapTree getOctree() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Octree_getOctree(swigCPtr);
+    OctomapTree ret = (cPtr == global::System.IntPtr.Zero) ? null : new OctomapTree(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual string getUrl() {
-    string ret = TesseractNativePINVOKE.Resource_getUrl(swigCPtr);
+  public OctreeSubType getSubType() {
+    OctreeSubType ret = (OctreeSubType)TesseractNativePINVOKE.Octree_getSubType(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual string getFilePath() {
-    string ret = TesseractNativePINVOKE.Resource_getFilePath(swigCPtr);
+  public bool getPruned() {
+    bool ret = TesseractNativePINVOKE.Octree_getPruned(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual ByteVector getResourceContents() {
-    ByteVector ret = new ByteVector(TesseractNativePINVOKE.Resource_getResourceContents(swigCPtr), true);
+  public override Geometry clone() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Octree_clone(swigCPtr);
+    Geometry ret = (cPtr == global::System.IntPtr.Zero) ? null : new Geometry(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  public void update() {
+    TesseractNativePINVOKE.Octree_update(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public int calcNumSubShapes() {
+    int ret = TesseractNativePINVOKE.Octree_calcNumSubShapes(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static void prune(OctomapTree octree) {
+    TesseractNativePINVOKE.Octree_prune(OctomapTree.getCPtr(octree));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

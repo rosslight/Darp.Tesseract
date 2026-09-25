@@ -17,6 +17,15 @@ DARP_CONTAINER(tesseract::common::VectorIsometry3d, VectorIsometry3d)
 DARP_LIST_PROXY(tesseract::common::VectorIsometry3d, VectorIsometry3d, global::Aardvark.Base.Euclidean3d, 2, Isometry)
 DARP_CONTAINER(tesseract::kinematics::IKSolutions, IKSolutions)
 DARP_LIST_PROXY(tesseract::kinematics::IKSolutions, IKSolutions, double[], 3, Vector)
+DARP_CONTAINER(tesseract::common::VectorVector2d, VectorVector2d)
+DARP_SHARED_CONTAINER_RESULT(tesseract::common::VectorVector2d, VectorVector2d)
+DARP_LIST_PROXY(tesseract::common::VectorVector2d, VectorVector2d, global::Aardvark.Base.V2d, 4, Vector2)
+DARP_CONTAINER(tesseract::common::VectorVector3d, VectorVector3d)
+DARP_SHARED_CONTAINER_RESULT(tesseract::common::VectorVector3d, VectorVector3d)
+DARP_LIST_PROXY(tesseract::common::VectorVector3d, VectorVector3d, global::Aardvark.Base.V3d, 5, Vector3)
+DARP_CONTAINER(tesseract::common::VectorVector4d, VectorVector4d)
+DARP_SHARED_CONTAINER_RESULT(tesseract::common::VectorVector4d, VectorVector4d)
+DARP_LIST_PROXY(tesseract::common::VectorVector4d, VectorVector4d, global::Aardvark.Base.V4d, 6, Vector4)
 %typemap(csclassmodifiers) DarpGeometryInterop "internal class";
 %nodefaultctor DarpGeometryInterop;
 %nodefaultdtor DarpGeometryInterop;
@@ -42,21 +51,33 @@ public:
     case 1: return new darp_geometry::Value(darp_geometry::owned_container(tesseract::common::TransformMap{}));
     case 2: return new darp_geometry::Value(darp_geometry::owned_container(tesseract::common::VectorIsometry3d{}));
     case 3: return new darp_geometry::Value(darp_geometry::owned_container(tesseract::kinematics::IKSolutions{}));
+    case 4: return new darp_geometry::Value(darp_geometry::owned_container(tesseract::common::VectorVector2d{}));
+    case 5: return new darp_geometry::Value(darp_geometry::owned_container(tesseract::common::VectorVector3d{}));
+    case 6: return new darp_geometry::Value(darp_geometry::owned_container(tesseract::common::VectorVector4d{}));
     default: throw std::invalid_argument("Unknown container kind."); } }
   static int count(darp_geometry::Value* value, int kind) { std::size_t size; switch(kind) {
     case 1: size = darp_geometry::container<tesseract::common::TransformMap>(value).size(); break;
     case 2: size = darp_geometry::container<tesseract::common::VectorIsometry3d>(value).size(); break;
     case 3: size = darp_geometry::container<tesseract::kinematics::IKSolutions>(value).size(); break;
+    case 4: size = darp_geometry::container<tesseract::common::VectorVector2d>(value).size(); break;
+    case 5: size = darp_geometry::container<tesseract::common::VectorVector3d>(value).size(); break;
+    case 6: size = darp_geometry::container<tesseract::common::VectorVector4d>(value).size(); break;
     default: throw std::invalid_argument("Unknown container kind."); } if (size > std::numeric_limits<int>::max()) throw std::overflow_error("Container size exceeds Int32."); return static_cast<int>(size); }
   static darp_geometry::Value* element(darp_geometry::Value* value, int kind, int index, const std::string& key) { switch(kind) {
     case 1: return new darp_geometry::Value(darp_geometry::view(value->owner, darp_geometry::container<tesseract::common::TransformMap>(value).at(key)));
     case 2: return new darp_geometry::Value(darp_geometry::view(value->owner, darp_geometry::container<tesseract::common::VectorIsometry3d>(value).at(static_cast<std::size_t>(index))));
     case 3: return new darp_geometry::Value(darp_geometry::view(value->owner, darp_geometry::container<tesseract::kinematics::IKSolutions>(value).at(static_cast<std::size_t>(index))));
+    case 4: return new darp_geometry::Value(darp_geometry::view(value->owner, darp_geometry::container<tesseract::common::VectorVector2d>(value).at(static_cast<std::size_t>(index))));
+    case 5: return new darp_geometry::Value(darp_geometry::view(value->owner, darp_geometry::container<tesseract::common::VectorVector3d>(value).at(static_cast<std::size_t>(index))));
+    case 6: return new darp_geometry::Value(darp_geometry::view(value->owner, darp_geometry::container<tesseract::common::VectorVector4d>(value).at(static_cast<std::size_t>(index))));
     default: throw std::invalid_argument("Unknown container kind."); } }
   static void add(darp_geometry::Value* value, int kind, const std::string& key, darp_geometry::Value* tensor) { switch(kind) {
     case 1: darp_geometry::container<tesseract::common::TransformMap>(value).insert_or_assign(key, darp_geometry::read<Eigen::Isometry3d>(tensor)); return;
     case 2: darp_geometry::container<tesseract::common::VectorIsometry3d>(value).push_back(darp_geometry::read<Eigen::Isometry3d>(tensor)); return;
     case 3: darp_geometry::container<tesseract::kinematics::IKSolutions>(value).push_back(darp_geometry::read<Eigen::VectorXd>(tensor)); return;
+    case 4: darp_geometry::container<tesseract::common::VectorVector2d>(value).push_back(darp_geometry::read<Eigen::Vector2d>(tensor)); return;
+    case 5: darp_geometry::container<tesseract::common::VectorVector3d>(value).push_back(darp_geometry::read<Eigen::Vector3d>(tensor)); return;
+    case 6: darp_geometry::container<tesseract::common::VectorVector4d>(value).push_back(darp_geometry::read<Eigen::Vector4d>(tensor)); return;
     default: throw std::invalid_argument("Unknown container kind."); } }
   static std::vector<std::string> keys(darp_geometry::Value* value, int kind) { std::vector<std::string> result; switch(kind) {
     case 1: for (const auto& entry : darp_geometry::container<tesseract::common::TransformMap>(value)) result.push_back(entry.first); return result;

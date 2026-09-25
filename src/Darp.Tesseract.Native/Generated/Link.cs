@@ -77,6 +77,19 @@ public class Link : global::System.IDisposable {
     } 
   }
 
+  public VisualVector visual {
+    set {
+      TesseractNativePINVOKE.Link_visual_set(swigCPtr, VisualVector.getCPtr(value));
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } 
+    get {
+      global::System.IntPtr cPtr = TesseractNativePINVOKE.Link_visual_get(swigCPtr);
+      VisualVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new VisualVector(cPtr, false);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    } 
+  }
+
   public bool visible {
     set {
       TesseractNativePINVOKE.Link_visible_set(swigCPtr, value);
