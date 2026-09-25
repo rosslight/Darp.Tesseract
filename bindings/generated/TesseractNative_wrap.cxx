@@ -1657,6 +1657,9 @@ SWIGINTERN std::vector< std::shared_ptr< tesseract::geometry::MeshTexture > > te
     const auto& textures = self->getTextures();
     return textures ? *textures : std::vector<std::shared_ptr<tesseract::geometry::MeshTexture>>{};
   }
+SWIGINTERN std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > > tesseract_geometry_CompoundMesh_getMeshesForBinding(tesseract::geometry::CompoundMesh const *self){
+    return self->getMeshes();
+  }
 SWIGINTERN std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > > *new_std_vector_Sl_std_shared_ptr_Sl_tesseract_geometry_PolygonMesh_Sg__Sg___SWIG_2(int capacity){
         std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > >* pv = 0;
         if (capacity >= 0) {
@@ -1801,6 +1804,9 @@ std::shared_ptr<const Octree> asOctree(const std::shared_ptr<const Geometry>& ge
 }
 }
 
+SWIGINTERN std::vector< std::shared_ptr< tesseract::scene_graph::Visual > > tesseract_scene_graph_Link_getVisualsForBinding(tesseract::scene_graph::Link const *self){
+    return self->visual;
+  }
 SWIGINTERN std::vector< std::shared_ptr< tesseract::scene_graph::Visual > > *new_std_vector_Sl_std_shared_ptr_Sl_tesseract_scene_graph_Visual_Sg__Sg___SWIG_2(int capacity){
         std::vector< std::shared_ptr< tesseract::scene_graph::Visual > >* pv = 0;
         if (capacity >= 0) {
@@ -20015,41 +20021,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_SDFMesh_clone___(void
 }
 
 
-SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_CompoundMesh_getMeshes___(void * jarg1) {
-  void * jresult = 0 ;
-  tesseract::geometry::CompoundMesh *arg1 = 0 ;
-  std::shared_ptr< tesseract::geometry::CompoundMesh const > *smartarg1 = 0 ;
-  std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > > *result = 0 ;
-  
-  
-  smartarg1 = (std::shared_ptr< const tesseract::geometry::CompoundMesh > *)jarg1;
-  arg1 = (tesseract::geometry::CompoundMesh *)(smartarg1 ? smartarg1->get() : 0); 
-  {
-    try
-    {
-      result = (std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > > *) &((tesseract::geometry::CompoundMesh const *)arg1)->getMeshes();
-    }
-    catch (const std::invalid_argument& exception)
-    {
-      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
-      return 0;
-    }
-    catch (const std::out_of_range& exception)
-    {
-      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
-      return 0;
-    }
-    catch (const std::exception& exception)
-    {
-      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
-      return 0;
-    }
-  }
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_CompoundMesh_getResource___(void * jarg1) {
   void * jresult = 0 ;
   tesseract::geometry::CompoundMesh *arg1 = 0 ;
@@ -20160,6 +20131,41 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_CompoundMesh_clone___
     }
   }
   jresult = result ? new tesseract::geometry::Geometry::Ptr(result) : 0; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_CompoundMesh_getMeshes___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::geometry::CompoundMesh *arg1 = 0 ;
+  std::shared_ptr< tesseract::geometry::CompoundMesh const > *smartarg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::geometry::CompoundMesh > *)jarg1;
+  arg1 = (tesseract::geometry::CompoundMesh *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = tesseract_geometry_CompoundMesh_getMeshesForBinding((tesseract::geometry::CompoundMesh const *)arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::vector< std::shared_ptr< tesseract::geometry::PolygonMesh > >(result); 
   return jresult;
 }
 
@@ -25053,34 +25059,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_inertial_get___(
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_visual_set___(void * jarg1, void * jarg2) {
-  tesseract::scene_graph::Link *arg1 = 0 ;
-  std::vector< tesseract::scene_graph::Visual::Ptr > *arg2 = 0 ;
-  std::shared_ptr< tesseract::scene_graph::Link > *smartarg1 = 0 ;
-  
-  
-  smartarg1 = (std::shared_ptr<  tesseract::scene_graph::Link > *)jarg1;
-  arg1 = (tesseract::scene_graph::Link *)(smartarg1 ? smartarg1->get() : 0); 
-  arg2 = (std::vector< tesseract::scene_graph::Visual::Ptr > *)jarg2; 
-  if (arg1) (arg1)->visual = *arg2;
-}
-
-
-SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_visual_get___(void * jarg1) {
-  void * jresult = 0 ;
-  tesseract::scene_graph::Link *arg1 = 0 ;
-  std::shared_ptr< tesseract::scene_graph::Link > *smartarg1 = 0 ;
-  std::vector< tesseract::scene_graph::Visual::Ptr > *result = 0 ;
-  
-  
-  smartarg1 = (std::shared_ptr<  tesseract::scene_graph::Link > *)jarg1;
-  arg1 = (tesseract::scene_graph::Link *)(smartarg1 ? smartarg1->get() : 0); 
-  result = (std::vector< tesseract::scene_graph::Visual::Ptr > *)& ((arg1)->visual);
-  jresult = (void *)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_visible_set___(void * jarg1, unsigned int jarg2) {
   tesseract::scene_graph::Link *arg1 = 0 ;
   bool arg2 ;
@@ -25245,6 +25223,41 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_clone__SWIG_1___
   {
     jresult = new std::shared_ptr<tesseract::scene_graph::Link>(new tesseract::scene_graph::Link(SWIG_STD_MOVE(*(&result))));
   }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Link_getVisuals___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::scene_graph::Link *arg1 = 0 ;
+  std::shared_ptr< tesseract::scene_graph::Link const > *smartarg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::scene_graph::Visual > > result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::scene_graph::Link > *)jarg1;
+  arg1 = (tesseract::scene_graph::Link *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = tesseract_scene_graph_Link_getVisualsForBinding((tesseract::scene_graph::Link const *)arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::vector< std::shared_ptr< tesseract::scene_graph::Visual > >(result); 
   return jresult;
 }
 

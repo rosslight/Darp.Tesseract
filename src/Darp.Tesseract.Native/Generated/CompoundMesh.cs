@@ -36,12 +36,6 @@ public class CompoundMesh : Geometry {
     }
   }
 
-  public PolygonMeshVector getMeshes() {
-    PolygonMeshVector ret = new PolygonMeshVector(TesseractNativePINVOKE.CompoundMesh_getMeshes(swigCPtr), false);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
   public Resource getResource() {
     global::System.IntPtr cPtr = TesseractNativePINVOKE.CompoundMesh_getResource(swigCPtr);
     Resource ret = (cPtr == global::System.IntPtr.Zero) ? null : new Resource(cPtr, true);
@@ -58,6 +52,12 @@ public class CompoundMesh : Geometry {
   public override Geometry clone() {
     global::System.IntPtr cPtr = TesseractNativePINVOKE.CompoundMesh_clone(swigCPtr);
     Geometry ret = (cPtr == global::System.IntPtr.Zero) ? null : new Geometry(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public PolygonMeshVector getMeshes() {
+    PolygonMeshVector ret = new PolygonMeshVector(TesseractNativePINVOKE.CompoundMesh_getMeshes(swigCPtr), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

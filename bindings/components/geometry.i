@@ -34,8 +34,18 @@
 %include <tesseract/geometry/impl/mesh.h>
 %include <tesseract/geometry/impl/convex_mesh.h>
 %include <tesseract/geometry/impl/sdf_mesh.h>
+%ignore tesseract::geometry::CompoundMesh::getMeshes;
 %include <tesseract/geometry/impl/compound_mesh.h>
 %template(PolygonMeshVector) std::vector<std::shared_ptr<tesseract::geometry::PolygonMesh>>;
+
+%rename(getMeshes) tesseract::geometry::CompoundMesh::getMeshesForBinding;
+%extend tesseract::geometry::CompoundMesh
+{
+  std::vector<std::shared_ptr<tesseract::geometry::PolygonMesh>> getMeshesForBinding() const
+  {
+    return $self->getMeshes();
+  }
+}
 
 %rename(OctomapTree) octomap::OcTree;
 %rename(writeBinary) octomap::OcTree::writeBinaryConst;

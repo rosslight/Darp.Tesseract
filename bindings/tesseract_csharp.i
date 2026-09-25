@@ -280,6 +280,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::srdf::KinematicsInformation::group_states;
 %ignore tesseract::srdf::KinematicsInformation::group_tcps;
 %ignore tesseract::srdf::KinematicsInformation::addChainGroup;
+%ignore tesseract::scene_graph::Link::visual;
 %ignore tesseract::scene_graph::Link::collision;
 %ignore tesseract::scene_graph::SceneGraph::getLinks;
 %ignore tesseract::scene_graph::SceneGraph::getLeafLinks;

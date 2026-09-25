@@ -29,13 +29,7 @@ public sealed class VisualizationBindingsTests
             </robot>
             """;
 
-        using var locator = new GeneralResourceLocator();
-        using var sceneGraph = TesseractNative.parseURDFString(urdf, locator);
-        sceneGraph.ShouldNotBeNull();
-
-        using var link = sceneGraph.getLink("base_link");
-        link.ShouldNotBeNull();
-        using var visuals = link.visual;
+        using var visuals = GetVisuals(urdf);
         visuals.Count.ShouldBe(1);
 
         using var visual = visuals[0];
@@ -53,5 +47,16 @@ public sealed class VisualizationBindingsTests
         material.ShouldNotBeNull();
         material.getName().ShouldBe("paint");
         material.color.ShouldBe(new(0.1, 0.2, 0.3, 0.4));
+    }
+
+    private static VisualVector GetVisuals(string urdf)
+    {
+        using var locator = new GeneralResourceLocator();
+        using var sceneGraph = TesseractNative.parseURDFString(urdf, locator);
+        sceneGraph.ShouldNotBeNull();
+
+        using var link = sceneGraph.getLink("base_link");
+        link.ShouldNotBeNull();
+        return link.getVisuals();
     }
 }

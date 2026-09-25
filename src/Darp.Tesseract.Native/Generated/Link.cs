@@ -77,19 +77,6 @@ public class Link : global::System.IDisposable {
     } 
   }
 
-  public VisualVector visual {
-    set {
-      TesseractNativePINVOKE.Link_visual_set(swigCPtr, VisualVector.getCPtr(value));
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
-    get {
-      global::System.IntPtr cPtr = TesseractNativePINVOKE.Link_visual_get(swigCPtr);
-      VisualVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new VisualVector(cPtr, false);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
-  }
-
   public bool visible {
     set {
       TesseractNativePINVOKE.Link_visible_set(swigCPtr, value);
@@ -127,6 +114,12 @@ public class Link : global::System.IDisposable {
 
   public Link clone(string name) {
     Link ret = new Link(TesseractNativePINVOKE.Link_clone__SWIG_1(swigCPtr, name), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public VisualVector getVisuals() {
+    VisualVector ret = new VisualVector(TesseractNativePINVOKE.Link_getVisuals(swigCPtr), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

@@ -1791,9 +1791,6 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_SDFMesh_clone___")]
   public static extern global::System.IntPtr SDFMesh_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_CompoundMesh_getMeshes___")]
-  public static extern global::System.IntPtr CompoundMesh_getMeshes(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_CompoundMesh_getResource___")]
   public static extern global::System.IntPtr CompoundMesh_getResource(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -1802,6 +1799,9 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_CompoundMesh_clone___")]
   public static extern global::System.IntPtr CompoundMesh_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_CompoundMesh_getMeshes___")]
+  public static extern global::System.IntPtr CompoundMesh_getMeshes(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_CompoundMesh___")]
   public static extern void delete_CompoundMesh(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -2379,12 +2379,6 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Link_inertial_get___")]
   public static extern global::System.IntPtr Link_inertial_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Link_visual_set___")]
-  public static extern void Link_visual_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Link_visual_get___")]
-  public static extern global::System.IntPtr Link_visual_get(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Link_visible_set___")]
   public static extern void Link_visible_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
 
@@ -2405,6 +2399,9 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Link_clone__SWIG_1___")]
   public static extern global::System.IntPtr Link_clone__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Link_getVisuals___")]
+  public static extern global::System.IntPtr Link_getVisuals(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_VisualVector__SWIG_0___")]
   public static extern global::System.IntPtr new_VisualVector__SWIG_0();
