@@ -13,11 +13,13 @@ public sealed class PlanningBindingsTests
         using var trajOptMove = new TrajOptDefaultMoveProfile();
         using var trajOptComposite = new TrajOptDefaultCompositeProfile();
         using var trajOptSolver = new TrajOptOSQPSolverProfile();
+        using var contactCheck = new ContactCheckProfile();
 
         profiles.addProfile("OMPLMotionPlannerTask", "DEFAULT", ompl);
         profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptMove);
         profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptComposite);
         profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptSolver);
+        profiles.addProfile("DiscreteContactCheckTask", "DEFAULT", contactCheck);
     }
 
     [Fact]

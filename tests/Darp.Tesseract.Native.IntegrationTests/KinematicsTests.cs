@@ -156,6 +156,35 @@ public sealed class KinematicsTests
     }
 
     [Fact]
+    public void CollisionQueriesExposeContactDiagnostics()
+    {
+        using var environment = CreateEnvironment();
+        using var manager = environment.getDiscreteContactManager();
+        using var activeLinks = new StringVector { "link_1" };
+        manager.setActiveCollisionObjects(activeLinks);
+
+        var overlappingPose = new Euclidean3d(Rot3d.Identity, V3d.Zero);
+        manager.setCollisionObjectsTransform("link_1", overlappingPose);
+        manager.setCollisionObjectsTransform("link_5", overlappingPose);
+
+        using var request = new ContactRequest(ContactTestType.ALL);
+        using var results = new ContactResultMap();
+        manager.contactTest(results, request);
+
+        results.count().ShouldBeGreaterThan(0);
+        results.getSummary().ShouldNotBeNullOrWhiteSpace();
+
+        using ContactResultVector contacts = TesseractNative.flattenContactResults(results);
+        using ContactResult contact = contacts.First();
+        using StringArray2 links = contact.link_names;
+
+        links.ShouldContain("link_1");
+        links.ShouldContain("link_5");
+        contact.distance.ShouldBeLessThanOrEqualTo(0);
+        contact.normal.Length.ShouldBeGreaterThan(0);
+    }
+
+    [Fact]
     public void EmbeddedOpwFactoryLoadsFromUnchangedPluginConfiguration()
     {
         using var environment = CreateEnvironment();

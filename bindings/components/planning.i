@@ -404,6 +404,7 @@ struct OSQPSettings
 %shared_ptr(tesseract::task_composer::TaskComposerFuture)
 %shared_ptr(tesseract::task_composer::TaskComposerNode)
 %shared_ptr(tesseract::task_composer::TaskComposerPluginFactory)
+%shared_ptr(tesseract::task_composer::ContactCheckProfile)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerExecutor)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerFuture)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerNode)
@@ -418,6 +419,10 @@ DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerNode)
 %include <tesseract/task_composer/task_composer_future.h>
 %include <tesseract/task_composer/task_composer_executor.h>
 %include <tesseract/task_composer/task_composer_plugin_factory.h>
+%ignore tesseract::task_composer::ContactCheckProfile::ContactCheckProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::ContactCheckProfile::operator==;
+%ignore tesseract::task_composer::ContactCheckProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/contact_check_profile.h>
 
 %inline %{
 namespace darp_tesseract_bindings
@@ -622,6 +627,12 @@ std::shared_ptr<tesseract::common::Profile> asProfile(
 
 std::shared_ptr<tesseract::common::Profile> asProfile(
     const std::shared_ptr<tesseract::motion_planners::DescartesLadderGraphSolverProfile<double>>& profile)
+{
+  return profile;
+}
+
+std::shared_ptr<tesseract::common::Profile> asProfile(
+    const std::shared_ptr<tesseract::task_composer::ContactCheckProfile>& profile)
 {
   return profile;
 }

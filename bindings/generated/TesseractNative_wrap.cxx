@@ -388,6 +388,11 @@ template <typename T> T SwigValueInit() {
 #include <stdexcept>
 
 
+#include <array>
+#include <algorithm>
+#include <stdexcept>
+
+
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
@@ -564,6 +569,7 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <tesseract/task_composer/task_composer_node.h>
 #include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
+#include <tesseract/task_composer/planning/profiles/contact_check_profile.h>
 
 
 
@@ -1304,6 +1310,577 @@ SWIGINTERN void std_vector_Sl_tesseract_common_JointState_Sg__SetRange(std::vect
           throw std::out_of_range("index");
         std::copy(values.begin(), values.end(), self->begin()+index);
       }
+SWIGINTERN int std_array_Sl_int_Sc_2_Sg__getitemcopy(std::array< int,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::array< int,2 >::const_reference std_array_Sl_int_Sc_2_Sg__getitem(std::array< int,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_int_Sc_2_Sg__setitem(std::array< int,2 > *self,int index,std::array< int,2 >::const_reference val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_int_Sc_2_Sg__Reverse__SWIG_0(std::array< int,2 > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_array_Sl_int_Sc_2_Sg__Reverse__SWIG_1(std::array< int,2 > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::string std_array_Sl_std_string_Sc_2_Sg__getitemcopy(std::array< std::string,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::array< std::string,2 >::const_reference std_array_Sl_std_string_Sc_2_Sg__getitem(std::array< std::string,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_std_string_Sc_2_Sg__setitem(std::array< std::string,2 > *self,int index,std::array< std::string,2 >::const_reference val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_std_string_Sc_2_Sg__Reverse__SWIG_0(std::array< std::string,2 > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_array_Sl_std_string_Sc_2_Sg__Reverse__SWIG_1(std::array< std::string,2 > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN double std_array_Sl_double_Sc_2_Sg__getitemcopy(std::array< double,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::array< double,2 >::const_reference std_array_Sl_double_Sc_2_Sg__getitem(std::array< double,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_double_Sc_2_Sg__setitem(std::array< double,2 > *self,int index,std::array< double,2 >::const_reference val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_double_Sc_2_Sg__Reverse__SWIG_0(std::array< double,2 > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_array_Sl_double_Sc_2_Sg__Reverse__SWIG_1(std::array< double,2 > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN Eigen::Vector3d std_array_Sl_Eigen_Vector3d_Sc_2_Sg__getitemcopy(std::array< Eigen::Vector3d,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::array< Eigen::Vector3d,2 >::const_reference std_array_Sl_Eigen_Vector3d_Sc_2_Sg__getitem(std::array< Eigen::Vector3d,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_Eigen_Vector3d_Sc_2_Sg__setitem(std::array< Eigen::Vector3d,2 > *self,int index,std::array< Eigen::Vector3d,2 >::const_reference val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_Eigen_Vector3d_Sc_2_Sg__Reverse__SWIG_0(std::array< Eigen::Vector3d,2 > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_array_Sl_Eigen_Vector3d_Sc_2_Sg__Reverse__SWIG_1(std::array< Eigen::Vector3d,2 > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN Eigen::Isometry3d std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__getitemcopy(std::array< Eigen::Isometry3d,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::array< Eigen::Isometry3d,2 >::const_reference std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__getitem(std::array< Eigen::Isometry3d,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__setitem(std::array< Eigen::Isometry3d,2 > *self,int index,std::array< Eigen::Isometry3d,2 >::const_reference val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__Reverse__SWIG_0(std::array< Eigen::Isometry3d,2 > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__Reverse__SWIG_1(std::array< Eigen::Isometry3d,2 > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResult > *new_std_vector_Sl_tesseract_collision_ContactResult_Sg___SWIG_2(int capacity){
+        std::vector< tesseract::collision::ContactResult >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< tesseract::collision::ContactResult >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN tesseract::collision::ContactResult std_vector_Sl_tesseract_collision_ContactResult_Sg__getitemcopy(std::vector< tesseract::collision::ContactResult > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResult >::value_type const &std_vector_Sl_tesseract_collision_ContactResult_Sg__getitem(std::vector< tesseract::collision::ContactResult > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__setitem(std::vector< tesseract::collision::ContactResult > *self,int index,tesseract::collision::ContactResult const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__AddRange(std::vector< tesseract::collision::ContactResult > *self,std::vector< tesseract::collision::ContactResult > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResult > *std_vector_Sl_tesseract_collision_ContactResult_Sg__GetRange(std::vector< tesseract::collision::ContactResult > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< tesseract::collision::ContactResult >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__Insert(std::vector< tesseract::collision::ContactResult > *self,int index,tesseract::collision::ContactResult const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__InsertRange(std::vector< tesseract::collision::ContactResult > *self,int index,std::vector< tesseract::collision::ContactResult > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__RemoveAt(std::vector< tesseract::collision::ContactResult > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__RemoveRange(std::vector< tesseract::collision::ContactResult > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResult > *std_vector_Sl_tesseract_collision_ContactResult_Sg__Repeat(tesseract::collision::ContactResult const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< tesseract::collision::ContactResult >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__Reverse__SWIG_0(std::vector< tesseract::collision::ContactResult > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__Reverse__SWIG_1(std::vector< tesseract::collision::ContactResult > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResult_Sg__SetRange(std::vector< tesseract::collision::ContactResult > *self,int index,std::vector< tesseract::collision::ContactResult > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResultMap > *new_std_vector_Sl_tesseract_collision_ContactResultMap_Sg___SWIG_2(int capacity){
+        std::vector< tesseract::collision::ContactResultMap >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< tesseract::collision::ContactResultMap >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN tesseract::collision::ContactResultMap std_vector_Sl_tesseract_collision_ContactResultMap_Sg__getitemcopy(std::vector< tesseract::collision::ContactResultMap > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResultMap >::value_type const &std_vector_Sl_tesseract_collision_ContactResultMap_Sg__getitem(std::vector< tesseract::collision::ContactResultMap > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__setitem(std::vector< tesseract::collision::ContactResultMap > *self,int index,tesseract::collision::ContactResultMap const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__AddRange(std::vector< tesseract::collision::ContactResultMap > *self,std::vector< tesseract::collision::ContactResultMap > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResultMap > *std_vector_Sl_tesseract_collision_ContactResultMap_Sg__GetRange(std::vector< tesseract::collision::ContactResultMap > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< tesseract::collision::ContactResultMap >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Insert(std::vector< tesseract::collision::ContactResultMap > *self,int index,tesseract::collision::ContactResultMap const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__InsertRange(std::vector< tesseract::collision::ContactResultMap > *self,int index,std::vector< tesseract::collision::ContactResultMap > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__RemoveAt(std::vector< tesseract::collision::ContactResultMap > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__RemoveRange(std::vector< tesseract::collision::ContactResultMap > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactResultMap > *std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Repeat(tesseract::collision::ContactResultMap const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< tesseract::collision::ContactResultMap >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Reverse__SWIG_0(std::vector< tesseract::collision::ContactResultMap > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Reverse__SWIG_1(std::vector< tesseract::collision::ContactResultMap > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactResultMap_Sg__SetRange(std::vector< tesseract::collision::ContactResultMap > *self,int index,std::vector< tesseract::collision::ContactResultMap > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectorySubstepResults > *new_std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg___SWIG_2(int capacity){
+        std::vector< tesseract::collision::ContactTrajectorySubstepResults >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< tesseract::collision::ContactTrajectorySubstepResults >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN tesseract::collision::ContactTrajectorySubstepResults std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__getitemcopy(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectorySubstepResults >::value_type const &std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__getitem(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__setitem(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,tesseract::collision::ContactTrajectorySubstepResults const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__AddRange(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectorySubstepResults > *std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__GetRange(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< tesseract::collision::ContactTrajectorySubstepResults >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Insert(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,tesseract::collision::ContactTrajectorySubstepResults const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__InsertRange(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__RemoveAt(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__RemoveRange(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectorySubstepResults > *std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Repeat(tesseract::collision::ContactTrajectorySubstepResults const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< tesseract::collision::ContactTrajectorySubstepResults >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Reverse__SWIG_0(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Reverse__SWIG_1(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__SetRange(std::vector< tesseract::collision::ContactTrajectorySubstepResults > *self,int index,std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectoryStepResults > *new_std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg___SWIG_2(int capacity){
+        std::vector< tesseract::collision::ContactTrajectoryStepResults >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< tesseract::collision::ContactTrajectoryStepResults >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN tesseract::collision::ContactTrajectoryStepResults std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__getitemcopy(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectoryStepResults >::value_type const &std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__getitem(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__setitem(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,tesseract::collision::ContactTrajectoryStepResults const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__AddRange(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,std::vector< tesseract::collision::ContactTrajectoryStepResults > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectoryStepResults > *std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__GetRange(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< tesseract::collision::ContactTrajectoryStepResults >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Insert(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,tesseract::collision::ContactTrajectoryStepResults const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__InsertRange(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,std::vector< tesseract::collision::ContactTrajectoryStepResults > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__RemoveAt(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__RemoveRange(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< tesseract::collision::ContactTrajectoryStepResults > *std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Repeat(tesseract::collision::ContactTrajectoryStepResults const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< tesseract::collision::ContactTrajectoryStepResults >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Reverse__SWIG_0(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Reverse__SWIG_1(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__SetRange(std::vector< tesseract::collision::ContactTrajectoryStepResults > *self,int index,std::vector< tesseract::collision::ContactTrajectoryStepResults > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN tesseract::collision::ContinuousCollisionType std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__getitemcopy(std::array< tesseract::collision::ContinuousCollisionType,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::array< enum tesseract::collision::ContinuousCollisionType,2 >::const_reference std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__getitem(std::array< tesseract::collision::ContinuousCollisionType,2 > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__setitem(std::array< tesseract::collision::ContinuousCollisionType,2 > *self,int index,std::array< enum tesseract::collision::ContinuousCollisionType,2 >::const_reference val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__Reverse__SWIG_0(std::array< tesseract::collision::ContinuousCollisionType,2 > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__Reverse__SWIG_1(std::array< tesseract::collision::ContinuousCollisionType,2 > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+
+namespace darp_tesseract_bindings
+{
+std::vector<tesseract::collision::ContactResult>
+flattenContactResults(const tesseract::collision::ContactResultMap& results)
+{
+  tesseract::collision::ContactResultVector aligned_results;
+  results.flattenCopyResults(aligned_results);
+  return { aligned_results.begin(), aligned_results.end() };
+}
+
+std::string trajectoryCollisionResultsTable(const tesseract::collision::ContactTrajectoryResults& results)
+{
+  return results.trajectoryCollisionResultsTable().str();
+}
+
+std::string collisionFrequencyPerLink(const tesseract::collision::ContactTrajectoryResults& results)
+{
+  return results.collisionFrequencyPerLink().str();
+}
+
+std::string condensedCollisionSummary(const tesseract::collision::ContactTrajectoryResults& results)
+{
+  return results.condensedSummary().str();
+}
+}
+
 SWIGINTERN std::vector< std::shared_ptr< tesseract::environment::Command const > > *new_std_vector_Sl_std_shared_ptr_Sl_tesseract_environment_Command_SS_const_Sg__Sg___SWIG_2(int capacity){
         std::vector< std::shared_ptr< tesseract::environment::Command const > >* pv = 0;
         if (capacity >= 0) {
@@ -1780,6 +2357,12 @@ std::shared_ptr<tesseract::common::Profile> asProfile(
 
 std::shared_ptr<tesseract::common::Profile> asProfile(
     const std::shared_ptr<tesseract::motion_planners::DescartesLadderGraphSolverProfile<double>>& profile)
+{
+  return profile;
+}
+
+std::shared_ptr<tesseract::common::Profile> asProfile(
+    const std::shared_ptr<tesseract::task_composer::ContactCheckProfile>& profile)
 {
   return profile;
 }
@@ -24990,6 +25573,5465 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_MutableStateSol
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_IntArray2__SWIG_0___() {
+  void * jresult = 0 ;
+  std::array< int,2 > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::array< int,2 > *)new std::array< int,2 >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_IntArray2__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::array< int,2 > *arg1 = 0 ;
+  std::array< int,2 > *result = 0 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< int,2 > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::array< int,2 > *)new std::array< int,2 >((std::array< int,2 > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< int,2 > *arg1 = 0 ;
+  std::array< int,2 >::size_type result;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::array< int,2 > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< int,2 > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::array< int,2 > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_Fill___(void * jarg1, int jarg2) {
+  std::array< int,2 > *arg1 = 0 ;
+  std::array< int,2 >::value_type *arg2 = 0 ;
+  std::array< int,2 >::value_type temp2 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  temp2 = (std::array< int,2 >::value_type)jarg2; 
+  arg2 = &temp2; 
+  {
+    try
+    {
+      (arg1)->fill((std::array< int,2 >::value_type const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_Swap___(void * jarg1, void * jarg2) {
+  std::array< int,2 > *arg1 = 0 ;
+  std::array< int,2 > *arg2 = 0 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  arg2 = (std::array< int,2 > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< int,2 > & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->swap(*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_getitemcopy___(void * jarg1, int jarg2) {
+  int jresult = 0 ;
+  std::array< int,2 > *arg1 = 0 ;
+  int arg2 ;
+  int result;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (int)std_array_Sl_int_Sc_2_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_getitem___(void * jarg1, int jarg2) {
+  int jresult = 0 ;
+  std::array< int,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< int,2 >::value_type *result = 0 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::array< int,2 >::value_type *) &std_array_Sl_int_Sc_2_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = *result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_setitem___(void * jarg1, int jarg2, int jarg3) {
+  std::array< int,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< int,2 >::value_type *arg3 = 0 ;
+  int temp3 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (int)jarg3; 
+  arg3 = &temp3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_int_Sc_2_Sg__setitem(arg1,arg2,(int const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_Reverse__SWIG_0___(void * jarg1) {
+  std::array< int,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  {
+    try
+    {
+      std_array_Sl_int_Sc_2_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_IntArray2_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::array< int,2 > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_int_Sc_2_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_IntArray2___(void * jarg1) {
+  std::array< int,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< int,2 > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StringArray2__SWIG_0___() {
+  void * jresult = 0 ;
+  std::array< std::string,2 > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::array< std::string,2 > *)new std::array< std::string,2 >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StringArray2__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::array< std::string,2 > *arg1 = 0 ;
+  std::array< std::string,2 > *result = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< std::string,2 > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::array< std::string,2 > *)new std::array< std::string,2 >((std::array< std::string,2 > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< std::string,2 > *arg1 = 0 ;
+  std::array< std::string,2 >::size_type result;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::array< std::string,2 > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< std::string,2 > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::array< std::string,2 > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_Fill___(void * jarg1, const char * jarg2) {
+  std::array< std::string,2 > *arg1 = 0 ;
+  std::array< std::string,2 >::value_type *arg2 = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::array< std::string,2 >::value_type arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      (arg1)->fill((std::array< std::string,2 >::value_type const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_Swap___(void * jarg1, void * jarg2) {
+  std::array< std::string,2 > *arg1 = 0 ;
+  std::array< std::string,2 > *arg2 = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  arg2 = (std::array< std::string,2 > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< std::string,2 > & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->swap(*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_getitemcopy___(void * jarg1, int jarg2) {
+  const char * jresult = 0 ;
+  std::array< std::string,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::string result;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_array_Sl_std_string_Sc_2_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_getitem___(void * jarg1, int jarg2) {
+  const char * jresult = 0 ;
+  std::array< std::string,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< std::string,2 >::value_type *result = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::array< std::string,2 >::value_type *) &std_array_Sl_std_string_Sc_2_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_setitem___(void * jarg1, int jarg2, const char * jarg3) {
+  std::array< std::string,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< std::string,2 >::value_type *arg3 = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_std_string_Sc_2_Sg__setitem(arg1,arg2,(std::string const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_Reverse__SWIG_0___(void * jarg1) {
+  std::array< std::string,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  {
+    try
+    {
+      std_array_Sl_std_string_Sc_2_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringArray2_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::array< std::string,2 > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_std_string_Sc_2_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_StringArray2___(void * jarg1) {
+  std::array< std::string,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< std::string,2 > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_DoubleArray2__SWIG_0___() {
+  void * jresult = 0 ;
+  std::array< double,2 > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::array< double,2 > *)new std::array< double,2 >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_DoubleArray2__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::array< double,2 > *arg1 = 0 ;
+  std::array< double,2 > *result = 0 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< double,2 > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::array< double,2 > *)new std::array< double,2 >((std::array< double,2 > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< double,2 > *arg1 = 0 ;
+  std::array< double,2 >::size_type result;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::array< double,2 > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< double,2 > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::array< double,2 > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_Fill___(void * jarg1, double jarg2) {
+  std::array< double,2 > *arg1 = 0 ;
+  std::array< double,2 >::value_type *arg2 = 0 ;
+  std::array< double,2 >::value_type temp2 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  temp2 = (std::array< double,2 >::value_type)jarg2; 
+  arg2 = &temp2; 
+  {
+    try
+    {
+      (arg1)->fill((std::array< double,2 >::value_type const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_Swap___(void * jarg1, void * jarg2) {
+  std::array< double,2 > *arg1 = 0 ;
+  std::array< double,2 > *arg2 = 0 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  arg2 = (std::array< double,2 > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< double,2 > & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->swap(*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_getitemcopy___(void * jarg1, int jarg2) {
+  double jresult = 0 ;
+  std::array< double,2 > *arg1 = 0 ;
+  int arg2 ;
+  double result;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (double)std_array_Sl_double_Sc_2_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_getitem___(void * jarg1, int jarg2) {
+  double jresult = 0 ;
+  std::array< double,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< double,2 >::value_type *result = 0 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::array< double,2 >::value_type *) &std_array_Sl_double_Sc_2_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = *result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_setitem___(void * jarg1, int jarg2, double jarg3) {
+  std::array< double,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< double,2 >::value_type *arg3 = 0 ;
+  double temp3 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (double)jarg3; 
+  arg3 = &temp3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_double_Sc_2_Sg__setitem(arg1,arg2,(double const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_Reverse__SWIG_0___(void * jarg1) {
+  std::array< double,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  {
+    try
+    {
+      std_array_Sl_double_Sc_2_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DoubleArray2_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::array< double,2 > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_double_Sc_2_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_DoubleArray2___(void * jarg1) {
+  std::array< double,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< double,2 > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_Vector3dArray2__SWIG_0___() {
+  void * jresult = 0 ;
+  std::array< Eigen::Vector3d,2 > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::array< Eigen::Vector3d,2 > *)new std::array< Eigen::Vector3d,2 >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_Vector3dArray2__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 > *result = 0 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< Eigen::Vector3d,2 > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::array< Eigen::Vector3d,2 > *)new std::array< Eigen::Vector3d,2 >((std::array< Eigen::Vector3d,2 > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 >::size_type result;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::array< Eigen::Vector3d,2 > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::array< Eigen::Vector3d,2 > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_Fill___(void * jarg1, void * jarg2) {
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 >::value_type *arg2 = 0 ;
+  Eigen::Vector3d local2 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->fill((std::array< Eigen::Vector3d,2 >::value_type const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::Vector3d>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_Swap___(void * jarg1, void * jarg2) {
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg2 = 0 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  arg2 = (std::array< Eigen::Vector3d,2 > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< Eigen::Vector3d,2 > & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->swap(*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  Eigen::Vector3d result;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_array_Sl_Eigen_Vector3d_Sc_2_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Vector3d>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< Eigen::Vector3d,2 >::value_type *result = 0 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::array< Eigen::Vector3d,2 >::value_type *) &std_array_Sl_Eigen_Vector3d_Sc_2_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Vector3d>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< Eigen::Vector3d,2 >::value_type *arg3 = 0 ;
+  Eigen::Vector3d local3 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      try {
+        std_array_Sl_Eigen_Vector3d_Sc_2_Sg__setitem(arg1,arg2,(Eigen::Vector3d const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Vector3d>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_Reverse__SWIG_0___(void * jarg1) {
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  {
+    try
+    {
+      std_array_Sl_Eigen_Vector3d_Sc_2_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Vector3dArray2_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_Eigen_Vector3d_Sc_2_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_Vector3dArray2___(void * jarg1) {
+  std::array< Eigen::Vector3d,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< Eigen::Vector3d,2 > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_Isometry3dArray2__SWIG_0___() {
+  void * jresult = 0 ;
+  std::array< Eigen::Isometry3d,2 > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::array< Eigen::Isometry3d,2 > *)new std::array< Eigen::Isometry3d,2 >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_Isometry3dArray2__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 > *result = 0 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< Eigen::Isometry3d,2 > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::array< Eigen::Isometry3d,2 > *)new std::array< Eigen::Isometry3d,2 >((std::array< Eigen::Isometry3d,2 > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 >::size_type result;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::array< Eigen::Isometry3d,2 > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::array< Eigen::Isometry3d,2 > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_Fill___(void * jarg1, void * jarg2) {
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 >::value_type *arg2 = 0 ;
+  Eigen::Isometry3d local2 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      (arg1)->fill((std::array< Eigen::Isometry3d,2 >::value_type const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_Swap___(void * jarg1, void * jarg2) {
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg2 = 0 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  arg2 = (std::array< Eigen::Isometry3d,2 > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< Eigen::Isometry3d,2 > & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->swap(*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  Eigen::Isometry3d result;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< Eigen::Isometry3d,2 >::value_type *result = 0 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::array< Eigen::Isometry3d,2 >::value_type *) &std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Isometry3d>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< Eigen::Isometry3d,2 >::value_type *arg3 = 0 ;
+  Eigen::Isometry3d local3 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::Isometry3d>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      try {
+        std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__setitem(arg1,arg2,(Eigen::Isometry3d const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::Isometry3d>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_Reverse__SWIG_0___(void * jarg1) {
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  {
+    try
+    {
+      std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Isometry3dArray2_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_Eigen_Isometry3d_Sc_2_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_Isometry3dArray2___(void * jarg1) {
+  std::array< Eigen::Isometry3d,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< Eigen::Isometry3d,2 > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultVector__SWIG_0___() {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactResult > *)new std::vector< tesseract::collision::ContactResult >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultVector__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResult > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResult > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactResult > *)new std::vector< tesseract::collision::ContactResult >((std::vector< tesseract::collision::ContactResult > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_Clear___(void * jarg1) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_Add___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  tesseract::collision::ContactResult *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (tesseract::collision::ContactResult *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResult const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->push_back((tesseract::collision::ContactResult const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResult >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactResult > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::vector< tesseract::collision::ContactResult > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_capacity___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResult >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactResult > const *)arg1)->capacity();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_reserve___(void * jarg1, unsigned int jarg2) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResult >::size_type arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactResult >::size_type)jarg2; 
+  {
+    try
+    {
+      (arg1)->reserve(SWIG_STD_MOVE(*(&arg2)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultVector__SWIG_2___(int jarg1) {
+  void * jresult = 0 ;
+  int arg1 ;
+  std::vector< tesseract::collision::ContactResult > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResult > *)new_std_vector_Sl_tesseract_collision_ContactResult_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactResult result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_vector_Sl_tesseract_collision_ContactResult_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactResult(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResult >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResult >::value_type *) &std_vector_Sl_tesseract_collision_ContactResult_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactResult *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactResult *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResult const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__setitem(arg1,arg2,(tesseract::collision::ContactResult const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_AddRange___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactResult > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResult > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactResult_Sg__AddRange(arg1,(std::vector< tesseract::collision::ContactResult > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_GetRange___(void * jarg1, int jarg2, int jarg3) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< tesseract::collision::ContactResult > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResult > *)std_vector_Sl_tesseract_collision_ContactResult_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_Insert___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactResult *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactResult *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResult const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__Insert(arg1,arg2,(tesseract::collision::ContactResult const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResult > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactResult > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResult > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__InsertRange(arg1,arg2,(std::vector< tesseract::collision::ContactResult > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_RemoveAt___(void * jarg1, int jarg2) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_RemoveRange___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_Repeat___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResult > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResult const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResult > *)std_vector_Sl_tesseract_collision_ContactResult_Sg__Repeat((tesseract::collision::ContactResult const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_Reverse__SWIG_0___(void * jarg1) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactResult_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResult > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactResult > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResult > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResult_Sg__SetRange(arg1,arg2,(std::vector< tesseract::collision::ContactResult > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactResultVector___(void * jarg1) {
+  std::vector< tesseract::collision::ContactResult > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResult > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultMapVector__SWIG_0___() {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactResultMap > *)new std::vector< tesseract::collision::ContactResultMap >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultMapVector__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResultMap > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactResultMap > *)new std::vector< tesseract::collision::ContactResultMap >((std::vector< tesseract::collision::ContactResultMap > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_Clear___(void * jarg1) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_Add___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  tesseract::collision::ContactResultMap *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (tesseract::collision::ContactResultMap *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->push_back((tesseract::collision::ContactResultMap const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResultMap >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactResultMap > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::vector< tesseract::collision::ContactResultMap > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_capacity___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResultMap >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactResultMap > const *)arg1)->capacity();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_reserve___(void * jarg1, unsigned int jarg2) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResultMap >::size_type arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactResultMap >::size_type)jarg2; 
+  {
+    try
+    {
+      (arg1)->reserve(SWIG_STD_MOVE(*(&arg2)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultMapVector__SWIG_2___(int jarg1) {
+  void * jresult = 0 ;
+  int arg1 ;
+  std::vector< tesseract::collision::ContactResultMap > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResultMap > *)new_std_vector_Sl_tesseract_collision_ContactResultMap_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactResultMap result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_vector_Sl_tesseract_collision_ContactResultMap_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactResultMap(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResultMap >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResultMap >::value_type *) &std_vector_Sl_tesseract_collision_ContactResultMap_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactResultMap *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactResultMap *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__setitem(arg1,arg2,(tesseract::collision::ContactResultMap const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_AddRange___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactResultMap > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResultMap > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactResultMap_Sg__AddRange(arg1,(std::vector< tesseract::collision::ContactResultMap > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_GetRange___(void * jarg1, int jarg2, int jarg3) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< tesseract::collision::ContactResultMap > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResultMap > *)std_vector_Sl_tesseract_collision_ContactResultMap_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_Insert___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactResultMap *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactResultMap *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Insert(arg1,arg2,(tesseract::collision::ContactResultMap const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactResultMap > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResultMap > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__InsertRange(arg1,arg2,(std::vector< tesseract::collision::ContactResultMap > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_RemoveAt___(void * jarg1, int jarg2) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_RemoveRange___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_Repeat___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResultMap > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactResultMap > *)std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Repeat((tesseract::collision::ContactResultMap const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_Reverse__SWIG_0___(void * jarg1) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMapVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactResultMap > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactResultMap > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactResultMap > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactResultMap_Sg__SetRange(arg1,arg2,(std::vector< tesseract::collision::ContactResultMap > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactResultMapVector___(void * jarg1) {
+  std::vector< tesseract::collision::ContactResultMap > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactResultMap > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectorySubstepResultsVector__SWIG_0___() {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)new std::vector< tesseract::collision::ContactTrajectorySubstepResults >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectorySubstepResultsVector__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectorySubstepResults > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)new std::vector< tesseract::collision::ContactTrajectorySubstepResults >((std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_Clear___(void * jarg1) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_Add___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectorySubstepResults const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->push_back((tesseract::collision::ContactTrajectorySubstepResults const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactTrajectorySubstepResults > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::vector< tesseract::collision::ContactTrajectorySubstepResults > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_capacity___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactTrajectorySubstepResults > const *)arg1)->capacity();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_reserve___(void * jarg1, unsigned int jarg2) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults >::size_type arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults >::size_type)jarg2; 
+  {
+    try
+    {
+      (arg1)->reserve(SWIG_STD_MOVE(*(&arg2)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectorySubstepResultsVector__SWIG_2___(int jarg1) {
+  void * jresult = 0 ;
+  int arg1 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)new_std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactTrajectorySubstepResults result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactTrajectorySubstepResults(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults >::value_type *) &std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectorySubstepResults const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__setitem(arg1,arg2,(tesseract::collision::ContactTrajectorySubstepResults const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_AddRange___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectorySubstepResults > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__AddRange(arg1,(std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_GetRange___(void * jarg1, int jarg2, int jarg3) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_Insert___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectorySubstepResults const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Insert(arg1,arg2,(tesseract::collision::ContactTrajectorySubstepResults const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectorySubstepResults > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__InsertRange(arg1,arg2,(std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_RemoveAt___(void * jarg1, int jarg2) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_RemoveRange___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_Repeat___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectorySubstepResults const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Repeat((tesseract::collision::ContactTrajectorySubstepResults const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_Reverse__SWIG_0___(void * jarg1) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResultsVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectorySubstepResults > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectorySubstepResults_Sg__SetRange(arg1,arg2,(std::vector< tesseract::collision::ContactTrajectorySubstepResults > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactTrajectorySubstepResultsVector___(void * jarg1) {
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryStepResultsVector__SWIG_0___() {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)new std::vector< tesseract::collision::ContactTrajectoryStepResults >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryStepResultsVector__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectoryStepResults > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)new std::vector< tesseract::collision::ContactTrajectoryStepResults >((std::vector< tesseract::collision::ContactTrajectoryStepResults > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_Clear___(void * jarg1) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_Add___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (tesseract::collision::ContactTrajectoryStepResults *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryStepResults const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->push_back((tesseract::collision::ContactTrajectoryStepResults const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactTrajectoryStepResults > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::vector< tesseract::collision::ContactTrajectoryStepResults > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_capacity___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults >::size_type result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< tesseract::collision::ContactTrajectoryStepResults > const *)arg1)->capacity();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_reserve___(void * jarg1, unsigned int jarg2) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults >::size_type arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactTrajectoryStepResults >::size_type)jarg2; 
+  {
+    try
+    {
+      (arg1)->reserve(SWIG_STD_MOVE(*(&arg2)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryStepResultsVector__SWIG_2___(int jarg1) {
+  void * jresult = 0 ;
+  int arg1 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)new_std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactTrajectoryStepResults result;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactTrajectoryStepResults(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectoryStepResults >::value_type *) &std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactTrajectoryStepResults *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryStepResults const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__setitem(arg1,arg2,(tesseract::collision::ContactTrajectoryStepResults const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_AddRange___(void * jarg1, void * jarg2) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg2 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectoryStepResults > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__AddRange(arg1,(std::vector< tesseract::collision::ContactTrajectoryStepResults > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_GetRange___(void * jarg1, int jarg2, int jarg3) {
+  void * jresult = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *result = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_Insert___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (tesseract::collision::ContactTrajectoryStepResults *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryStepResults const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Insert(arg1,arg2,(tesseract::collision::ContactTrajectoryStepResults const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectoryStepResults > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__InsertRange(arg1,arg2,(std::vector< tesseract::collision::ContactTrajectoryStepResults > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_RemoveAt___(void * jarg1, int jarg2) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_RemoveRange___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_Repeat___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryStepResults const & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Repeat((tesseract::collision::ContactTrajectoryStepResults const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_Reverse__SWIG_0___(void * jarg1) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  {
+    try
+    {
+      std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResultsVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg3 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< tesseract::collision::ContactTrajectoryStepResults > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_tesseract_collision_ContactTrajectoryStepResults_Sg__SetRange(arg1,arg2,(std::vector< tesseract::collision::ContactTrajectoryStepResults > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactTrajectoryStepResultsVector___(void * jarg1) {
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg1 = 0 ;
+  
+  arg1 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTestTypeStrings_get___() {
   void * jresult = 0 ;
   std::vector< std::string > *result = 0 ;
@@ -24997,6 +31039,667 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTestTypeString
   result = (std::vector< std::string > *)&tesseract::collision::ContactTestTypeStrings;
   jresult = (void *)result; 
   return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_distance_set___(void * jarg1, double jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->distance = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_distance_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  double result;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (double) ((arg1)->distance);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_type_id_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< int,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< int,2 > *)jarg2; 
+  if (arg1) (arg1)->type_id = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_type_id_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< int,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< int,2 > *)& ((arg1)->type_id);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_link_names_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< std::string,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< std::string,2 > *)jarg2; 
+  if (arg1) (arg1)->link_names = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_link_names_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< std::string,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< std::string,2 > *)& ((arg1)->link_names);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_shape_id_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< int,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< int,2 > *)jarg2; 
+  if (arg1) (arg1)->shape_id = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_shape_id_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< int,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< int,2 > *)& ((arg1)->shape_id);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_subshape_id_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< int,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< int,2 > *)jarg2; 
+  if (arg1) (arg1)->subshape_id = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_subshape_id_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< int,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< int,2 > *)& ((arg1)->subshape_id);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_nearest_points_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< Eigen::Vector3d,2 > *)jarg2; 
+  if (arg1) (arg1)->nearest_points = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_nearest_points_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< Eigen::Vector3d,2 > *)& ((arg1)->nearest_points);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_nearest_points_local_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< Eigen::Vector3d,2 > *)jarg2; 
+  if (arg1) (arg1)->nearest_points_local = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_nearest_points_local_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Vector3d,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< Eigen::Vector3d,2 > *)& ((arg1)->nearest_points_local);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_transform_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< Eigen::Isometry3d,2 > *)jarg2; 
+  if (arg1) (arg1)->transform = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_transform_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< Eigen::Isometry3d,2 > *)& ((arg1)->transform);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_normal_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  Eigen::Vector3d *arg2 = 0 ;
+  Eigen::Vector3d local2 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::Vector3d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->normal = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_normal_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  Eigen::Vector3d *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (Eigen::Vector3d *)& ((arg1)->normal);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::Vector3d>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_cc_time_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< double,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< double,2 > *)jarg2; 
+  if (arg1) (arg1)->cc_time = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_cc_time_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< double,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< double,2 > *)& ((arg1)->cc_time);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_cc_type_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg2; 
+  if (arg1) (arg1)->cc_type = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_cc_type_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)& ((arg1)->cc_type);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_cc_transform_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = (std::array< Eigen::Isometry3d,2 > *)jarg2; 
+  if (arg1) (arg1)->cc_transform = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_cc_transform_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  std::array< Eigen::Isometry3d,2 > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (std::array< Eigen::Isometry3d,2 > *)& ((arg1)->cc_transform);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_single_contact_point_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->single_contact_point = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_single_contact_point_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  result = (bool) ((arg1)->single_contact_point);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResult___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResult *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactResult *)new tesseract::collision::ContactResult();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResult_clear___(void * jarg1) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactResult___(void * jarg1) {
+  tesseract::collision::ContactResult *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResult *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_count___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  long result;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      result = (long)((tesseract::collision::ContactResultMap const *)arg1)->count();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  std::size_t result;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContactResultMap const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((tesseract::collision::ContactResultMap const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_clear___(void * jarg1) {
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_shrinkToFit___(void * jarg1) {
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      (arg1)->shrinkToFit();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_release___(void * jarg1) {
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      (arg1)->release();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactResultMap_getSummary___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContactResultMap const *)arg1)->getSummary();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactResultMap___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResultMap *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactResultMap *)new tesseract::collision::ContactResultMap();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactResultMap___(void * jarg1) {
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
 }
 
 
@@ -25871,6 +32574,2097 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_CollisionCheckCo
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectorySubstepResults__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectorySubstepResults *)new tesseract::collision::ContactTrajectorySubstepResults();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectorySubstepResults__SWIG_1___(int jarg1, void * jarg2, void * jarg3) {
+  void * jresult = 0 ;
+  int arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd *arg3 = 0 ;
+  Eigen::VectorXd local2 ;
+  Eigen::VectorXd local3 ;
+  tesseract::collision::ContactTrajectorySubstepResults *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectorySubstepResults *)new tesseract::collision::ContactTrajectorySubstepResults(arg1,(Eigen::VectorXd const &)*arg2,(Eigen::VectorXd const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectorySubstepResults__SWIG_2___(int jarg1, void * jarg2) {
+  void * jresult = 0 ;
+  int arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  tesseract::collision::ContactTrajectorySubstepResults *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectorySubstepResults *)new tesseract::collision::ContactTrajectorySubstepResults(arg1,(Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_addContact___(void * jarg1, int jarg2, void * jarg3, void * jarg4, void * jarg5) {
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  int arg2 ;
+  Eigen::VectorXd *arg3 = 0 ;
+  Eigen::VectorXd *arg4 = 0 ;
+  tesseract::collision::ContactResultMap *arg5 = 0 ;
+  Eigen::VectorXd local3 ;
+  Eigen::VectorXd local4 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local4 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  arg5 = (tesseract::collision::ContactResultMap *)jarg5;
+  if (!arg5) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->addContact(arg2,(Eigen::VectorXd const &)*arg3,(Eigen::VectorXd const &)*arg4,(tesseract::collision::ContactResultMap const &)*arg5);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg4)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_numContacts___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  {
+    try
+    {
+      result = (int)((tesseract::collision::ContactTrajectorySubstepResults const *)arg1)->numContacts();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_contacts_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  tesseract::collision::ContactResultMap *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  arg2 = (tesseract::collision::ContactResultMap *)jarg2; 
+  if (arg1) (arg1)->contacts = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_contacts_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  tesseract::collision::ContactResultMap *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  result = (tesseract::collision::ContactResultMap *)& ((arg1)->contacts);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_substep_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->substep = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_substep_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  result = (int) ((arg1)->substep);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_state0_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->state0 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_state0_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->state0);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_state1_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->state1 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectorySubstepResults_state1_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->state1);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactTrajectorySubstepResults___(void * jarg1) {
+  tesseract::collision::ContactTrajectorySubstepResults *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectorySubstepResults *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryStepResults__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectoryStepResults *)new tesseract::collision::ContactTrajectoryStepResults();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryStepResults__SWIG_1___(int jarg1, void * jarg2, void * jarg3, int jarg4) {
+  void * jresult = 0 ;
+  int arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd *arg3 = 0 ;
+  int arg4 ;
+  Eigen::VectorXd local2 ;
+  Eigen::VectorXd local3 ;
+  tesseract::collision::ContactTrajectoryStepResults *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  arg4 = (int)jarg4; 
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectoryStepResults *)new tesseract::collision::ContactTrajectoryStepResults(arg1,(Eigen::VectorXd const &)*arg2,(Eigen::VectorXd const &)*arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryStepResults__SWIG_2___(int jarg1, void * jarg2) {
+  void * jresult = 0 ;
+  int arg1 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  tesseract::collision::ContactTrajectoryStepResults *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectoryStepResults *)new tesseract::collision::ContactTrajectoryStepResults(arg1,(Eigen::VectorXd const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg2) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg2)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_addContact___(void * jarg1, int jarg2, int jarg3, int jarg4, void * jarg5, void * jarg6, void * jarg7, void * jarg8, void * jarg9) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  Eigen::VectorXd *arg5 = 0 ;
+  Eigen::VectorXd *arg6 = 0 ;
+  Eigen::VectorXd *arg7 = 0 ;
+  Eigen::VectorXd *arg8 = 0 ;
+  tesseract::collision::ContactResultMap *arg9 = 0 ;
+  Eigen::VectorXd local5 ;
+  Eigen::VectorXd local6 ;
+  Eigen::VectorXd local7 ;
+  Eigen::VectorXd local8 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  {
+    try {
+      local5 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg5)); arg5 = &local5; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local6 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg6)); arg6 = &local6; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local7 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg7)); arg7 = &local7; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local8 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg8)); arg8 = &local8; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  arg9 = (tesseract::collision::ContactResultMap *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->addContact(arg2,arg3,arg4,(Eigen::VectorXd const &)*arg5,(Eigen::VectorXd const &)*arg6,(Eigen::VectorXd const &)*arg7,(Eigen::VectorXd const &)*arg8,(tesseract::collision::ContactResultMap const &)*arg9);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg5) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg5)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg6) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg6)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg7) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg7)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg8) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg8)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_resize___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      (arg1)->resize(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_numSubsteps___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try
+    {
+      result = (int)((tesseract::collision::ContactTrajectoryStepResults const *)arg1)->numSubsteps();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_numContacts___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try
+    {
+      result = (int)((tesseract::collision::ContactTrajectoryStepResults const *)arg1)->numContacts();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_worstSubstep___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContactTrajectoryStepResults const *)arg1)->worstSubstep();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactTrajectorySubstepResults(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_mostCollisionsSubstep___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  tesseract::collision::ContactTrajectorySubstepResults result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContactTrajectoryStepResults const *)arg1)->mostCollisionsSubstep();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactTrajectorySubstepResults(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_substeps_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)jarg2; 
+  if (arg1) (arg1)->substeps = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_substeps_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectorySubstepResults > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  result = (std::vector< tesseract::collision::ContactTrajectorySubstepResults > *)& ((arg1)->substeps);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_step_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->step = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_step_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  result = (int) ((arg1)->step);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_state0_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->state0 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_state0_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->state0);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_state1_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->state1 = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_state1_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->state1);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_total_substeps_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->total_substeps = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryStepResults_total_substeps_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  result = (int) ((arg1)->total_substeps);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactTrajectoryStepResults___(void * jarg1) {
+  tesseract::collision::ContactTrajectoryStepResults *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryStepResults *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryResults__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectoryResults *)new tesseract::collision::ContactTrajectoryResults();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryResults__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< std::string > arg1 ;
+  std::vector< std::string > *argp1 ;
+  tesseract::collision::ContactTrajectoryResults *result = 0 ;
+  
+  argp1 = (std::vector< std::string > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< std::string >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectoryResults *)new tesseract::collision::ContactTrajectoryResults(SWIG_STD_MOVE(*(&arg1)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactTrajectoryResults__SWIG_2___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< std::string > arg1 ;
+  int arg2 ;
+  std::vector< std::string > *argp1 ;
+  tesseract::collision::ContactTrajectoryResults *result = 0 ;
+  
+  argp1 = (std::vector< std::string > *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null std::vector< std::string >", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      result = (tesseract::collision::ContactTrajectoryResults *)new tesseract::collision::ContactTrajectoryResults(SWIG_STD_MOVE(*(&arg1)),arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_addContact___(void * jarg1, int jarg2, int jarg3, int jarg4, void * jarg5, void * jarg6, void * jarg7, void * jarg8, void * jarg9) {
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  Eigen::VectorXd *arg5 = 0 ;
+  Eigen::VectorXd *arg6 = 0 ;
+  Eigen::VectorXd *arg7 = 0 ;
+  Eigen::VectorXd *arg8 = 0 ;
+  tesseract::collision::ContactResultMap *arg9 = 0 ;
+  Eigen::VectorXd local5 ;
+  Eigen::VectorXd local6 ;
+  Eigen::VectorXd local7 ;
+  Eigen::VectorXd local8 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  {
+    try {
+      local5 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg5)); arg5 = &local5; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local6 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg6)); arg6 = &local6; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local7 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg7)); arg7 = &local7; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local8 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg8)); arg8 = &local8; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  arg9 = (tesseract::collision::ContactResultMap *)jarg9;
+  if (!arg9) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->addContact(arg2,arg3,arg4,(Eigen::VectorXd const &)*arg5,(Eigen::VectorXd const &)*arg6,(Eigen::VectorXd const &)*arg7,(Eigen::VectorXd const &)*arg8,(tesseract::collision::ContactResultMap const &)*arg9);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg5) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg5)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg6) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg6)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg7) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg7)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg8) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg8)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_resize___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      (arg1)->resize(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_numSteps___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  {
+    try
+    {
+      result = (int)((tesseract::collision::ContactTrajectoryResults const *)arg1)->numSteps();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_numContacts___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  {
+    try
+    {
+      result = (int)((tesseract::collision::ContactTrajectoryResults const *)arg1)->numContacts();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_worstStep___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContactTrajectoryResults const *)arg1)->worstStep();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactTrajectoryStepResults(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_mostCollisionsStep___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  tesseract::collision::ContactTrajectoryStepResults result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  {
+    try
+    {
+      result = ((tesseract::collision::ContactTrajectoryResults const *)arg1)->mostCollisionsStep();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new tesseract::collision::ContactTrajectoryStepResults(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_steps_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  arg2 = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)jarg2; 
+  if (arg1) (arg1)->steps = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_steps_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactTrajectoryStepResults > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  result = (std::vector< tesseract::collision::ContactTrajectoryStepResults > *)& ((arg1)->steps);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_joint_names_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::vector< std::string > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  arg2 = (std::vector< std::string > *)jarg2; 
+  if (arg1) (arg1)->joint_names = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_joint_names_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  result = (std::vector< std::string > *)& ((arg1)->joint_names);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_total_steps_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->total_steps = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTrajectoryResults_total_steps_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  result = (int) ((arg1)->total_steps);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactTrajectoryResults___(void * jarg1) {
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContinuousCollisionTypeArray2__SWIG_0___() {
+  void * jresult = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)new std::array< tesseract::collision::ContinuousCollisionType,2 >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContinuousCollisionTypeArray2__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *result = 0 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< tesseract::collision::ContinuousCollisionType,2 > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)new std::array< tesseract::collision::ContinuousCollisionType,2 >((std::array< tesseract::collision::ContinuousCollisionType,2 > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  std::array< enum tesseract::collision::ContinuousCollisionType,2 >::size_type result;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::array< tesseract::collision::ContinuousCollisionType,2 > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::array< tesseract::collision::ContinuousCollisionType,2 > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_Fill___(void * jarg1, int jarg2) {
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type *arg2 = 0 ;
+  std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type temp2 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  temp2 = (std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type)jarg2; 
+  arg2 = &temp2; 
+  {
+    try
+    {
+      (arg1)->fill((std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_Swap___(void * jarg1, void * jarg2) {
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg2 = 0 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  arg2 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::array< tesseract::collision::ContinuousCollisionType,2 > & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->swap(*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_getitemcopy___(void * jarg1, int jarg2) {
+  int jresult = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  int arg2 ;
+  tesseract::collision::ContinuousCollisionType result;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (tesseract::collision::ContinuousCollisionType)std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_getitem___(void * jarg1, int jarg2) {
+  int jresult = 0 ;
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type *result = 0 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type *) &std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)*result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_setitem___(void * jarg1, int jarg2, int jarg3) {
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  int arg2 ;
+  std::array< enum tesseract::collision::ContinuousCollisionType,2 >::value_type *arg3 = 0 ;
+  enum tesseract::collision::ContinuousCollisionType temp3 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = (enum tesseract::collision::ContinuousCollisionType)jarg3; 
+  arg3 = &temp3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__setitem(arg1,arg2,(enum tesseract::collision::ContinuousCollisionType const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_Reverse__SWIG_0___(void * jarg1) {
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  {
+    try
+    {
+      std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousCollisionTypeArray2_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_array_Sl_tesseract_collision_ContinuousCollisionType_Sc_2_Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContinuousCollisionTypeArray2___(void * jarg1) {
+  std::array< tesseract::collision::ContinuousCollisionType,2 > *arg1 = 0 ;
+  
+  arg1 = (std::array< tesseract::collision::ContinuousCollisionType,2 > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_flattenContactResults___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactResultMap *arg1 = 0 ;
+  std::vector< tesseract::collision::ContactResult > result;
+  
+  arg1 = (tesseract::collision::ContactResultMap *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::flattenContactResults((tesseract::collision::ContactResultMap const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = new std::vector< tesseract::collision::ContactResult >(result); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_trajectoryCollisionResultsTable___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryResults const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::trajectoryCollisionResultsTable((tesseract::collision::ContactTrajectoryResults const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_collisionFrequencyPerLink___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryResults const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::collisionFrequencyPerLink((tesseract::collision::ContactTrajectoryResults const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_condensedCollisionSummary___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::collision::ContactTrajectoryResults *arg1 = 0 ;
+  std::string result;
+  
+  arg1 = (tesseract::collision::ContactTrajectoryResults *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactTrajectoryResults const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::condensedCollisionSummary((tesseract::collision::ContactTrajectoryResults const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback((&result)->c_str()); 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_DiscreteContactManager___(void * jarg1) {
   tesseract::collision::DiscreteContactManager *arg1 = 0 ;
   std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
@@ -26557,6 +35351,86 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_
     try
     {
       (arg1)->incrementCollisionMargin(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_contactTest___(void * jarg1, void * jarg2, void * jarg3) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  tesseract::collision::ContactResultMap *arg2 = 0 ;
+  tesseract::collision::ContactRequest *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::ContactResultMap *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap & is null", 0);
+    return ;
+  } 
+  arg3 = (tesseract::collision::ContactRequest *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactRequest const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->contactTest(*arg2,(tesseract::collision::ContactRequest const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DiscreteContactManager_applyContactManagerConfig___(void * jarg1, void * jarg2) {
+  tesseract::collision::DiscreteContactManager *arg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::DiscreteContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::DiscreteContactManager > *)jarg1;
+  arg1 = (tesseract::collision::DiscreteContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactManagerConfig const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->applyContactManagerConfig((tesseract::collision::ContactManagerConfig const &)*arg2);
     }
     catch (const std::invalid_argument& exception)
     {
@@ -27497,6 +36371,86 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManage
     try
     {
       (arg1)->incrementCollisionMargin(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_contactTest___(void * jarg1, void * jarg2, void * jarg3) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  tesseract::collision::ContactResultMap *arg2 = 0 ;
+  tesseract::collision::ContactRequest *arg3 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::ContactResultMap *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactResultMap & is null", 0);
+    return ;
+  } 
+  arg3 = (tesseract::collision::ContactRequest *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactRequest const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->contactTest(*arg2,(tesseract::collision::ContactRequest const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContinuousContactManager_applyContactManagerConfig___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContinuousContactManager *arg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::collision::ContinuousContactManager > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::collision::ContinuousContactManager > *)jarg1;
+  arg1 = (tesseract::collision::ContinuousContactManager *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::collision::ContactManagerConfig const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      (arg1)->applyContactManagerConfig((tesseract::collision::ContactManagerConfig const &)*arg2);
     }
     catch (const std::invalid_argument& exception)
     {
@@ -60293,6 +69247,161 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TaskComposerPluginFac
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactCheckProfile__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::task_composer::ContactCheckProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::task_composer::ContactCheckProfile *)new tesseract::task_composer::ContactCheckProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::task_composer::ContactCheckProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactCheckProfile__SWIG_1___(double jarg1, double jarg2) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  tesseract::task_composer::ContactCheckProfile *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      result = (tesseract::task_composer::ContactCheckProfile *)new tesseract::task_composer::ContactCheckProfile(arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::task_composer::ContactCheckProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactCheckProfile_contact_manager_config_set___(void * jarg1, void * jarg2) {
+  tesseract::task_composer::ContactCheckProfile *arg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::ContactCheckProfile > *)jarg1;
+  arg1 = (tesseract::task_composer::ContactCheckProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
+  if (arg1) (arg1)->contact_manager_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactCheckProfile_contact_manager_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::ContactCheckProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *smartarg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::ContactCheckProfile > *)jarg1;
+  arg1 = (tesseract::task_composer::ContactCheckProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::collision::ContactManagerConfig *)& ((arg1)->contact_manager_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactCheckProfile_collision_check_config_set___(void * jarg1, void * jarg2) {
+  tesseract::task_composer::ContactCheckProfile *arg1 = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::ContactCheckProfile > *)jarg1;
+  arg1 = (tesseract::task_composer::ContactCheckProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
+  if (arg1) (arg1)->collision_check_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactCheckProfile_collision_check_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::task_composer::ContactCheckProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *smartarg1 = 0 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::ContactCheckProfile > *)jarg1;
+  arg1 = (tesseract::task_composer::ContactCheckProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::collision::CollisionCheckConfig *)& ((arg1)->collision_check_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactCheckProfile___(void * jarg1) {
+  tesseract::task_composer::ContactCheckProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::task_composer::ContactCheckProfile > *)jarg1;
+  arg1 = (tesseract::task_composer::ContactCheckProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_wrapCartesianWaypoint___(void * jarg1) {
   void * jresult = 0 ;
   tesseract::command_language::CartesianWaypoint *arg1 = 0 ;
@@ -61458,6 +70567,39 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_asProfile__SWIG_1___(
 }
 
 
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_asProfile__SWIG_2___(void * jarg1) {
+  void * jresult = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *arg1 = 0 ;
+  std::shared_ptr< tesseract::task_composer::ContactCheckProfile > tempnull1 ;
+  std::shared_ptr< tesseract::common::Profile > result;
+  
+  arg1 = jarg1 ? (std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *)jarg1 : &tempnull1; 
+  {
+    try
+    {
+      result = darp_tesseract_bindings::asProfile((std::shared_ptr< tesseract::task_composer::ContactCheckProfile > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result ? new std::shared_ptr< tesseract::common::Profile >(result) : 0; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_addProfile___(void * jarg1, const char * jarg2, const char * jarg3, void * jarg4) {
   tesseract::common::ProfileDictionary *arg1 = 0 ;
   std::string *arg2 = 0 ;
@@ -62089,6 +71231,10 @@ SWIGEXPORT std::shared_ptr< tesseract::motion_planners::TrajOptCompositeProfile 
 
 SWIGEXPORT std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *jarg1) {
     return jarg1 ? new std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactCheckProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::task_composer::ContactCheckProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
 }
 
 #ifdef __cplusplus

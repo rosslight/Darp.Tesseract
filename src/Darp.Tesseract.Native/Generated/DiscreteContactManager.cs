@@ -148,6 +148,16 @@ public class DiscreteContactManager : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public virtual void contactTest(ContactResultMap collisions, ContactRequest request) {
+    TesseractNativePINVOKE.DiscreteContactManager_contactTest(swigCPtr, ContactResultMap.getCPtr(collisions), ContactRequest.getCPtr(request));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual void applyContactManagerConfig(ContactManagerConfig config) {
+    TesseractNativePINVOKE.DiscreteContactManager_applyContactManagerConfig(swigCPtr, ContactManagerConfig.getCPtr(config));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
 }
 
 }

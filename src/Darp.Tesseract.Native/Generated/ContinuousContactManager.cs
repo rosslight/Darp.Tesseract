@@ -181,6 +181,16 @@ public class ContinuousContactManager : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public virtual void contactTest(ContactResultMap collisions, ContactRequest request) {
+    TesseractNativePINVOKE.ContinuousContactManager_contactTest(swigCPtr, ContactResultMap.getCPtr(collisions), ContactRequest.getCPtr(request));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public virtual void applyContactManagerConfig(ContactManagerConfig config) {
+    TesseractNativePINVOKE.ContinuousContactManager_applyContactManagerConfig(swigCPtr, ContactManagerConfig.getCPtr(config));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
 }
 
 }
