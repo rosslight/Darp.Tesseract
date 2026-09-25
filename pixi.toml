@@ -30,6 +30,7 @@ trajopt = "==0.35.0"
 taskflow = "==3.11.0"
 bullet-cpp = "*"
 fcl = "*"
+ompl = "1.7.*"
 
 [feature.native.target.win-64.dependencies]
 cmake = ">=4.4,<5"
