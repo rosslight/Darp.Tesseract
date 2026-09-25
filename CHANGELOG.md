@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.5.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.4.0+tesseract.0.35.0...v0.5.0+tesseract.0.35.0) (2026-09-25)
+
+
+### Features
+
+* expose collision diagnostics ([#12](https://github.com/rosslight/Darp.Tesseract/issues/12)) ([2e67552](https://github.com/rosslight/Darp.Tesseract/commit/2e675529dade2452d3f7bbd5a9b7632877916889))
+* expose configurable planner profiles ([#11](https://github.com/rosslight/Darp.Tesseract/issues/11)) ([d3a1aac](https://github.com/rosslight/Darp.Tesseract/commit/d3a1aacab03c102546aec976a2410fd3f3c4bf82))
+* expose planning primitives ([#9](https://github.com/rosslight/Darp.Tesseract/issues/9)) ([43826bf](https://github.com/rosslight/Darp.Tesseract/commit/43826bfe8d329805b7fab4bb0955ab8b71d91324))
+* expose stock planner profiles ([#10](https://github.com/rosslight/Darp.Tesseract/issues/10)) ([3fe80db](https://github.com/rosslight/Darp.Tesseract/commit/3fe80db0e3d9f4daaf75b96b28b7e72ae68738b4))
+* expose Tesseract planning bindings ([#6](https://github.com/rosslight/Darp.Tesseract/issues/6)) ([60b936f](https://github.com/rosslight/Darp.Tesseract/commit/60b936ff63f1f954abe95e2ce64a31a1b7d12a59))
+
+
+### Build
+
+* remove embedded geometry project ([#8](https://github.com/rosslight/Darp.Tesseract/issues/8)) ([0f10561](https://github.com/rosslight/Darp.Tesseract/commit/0f1056169d3610df48cd25b0ab14a67c357db59d))
+
 ## [0.4.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.3.0+tesseract.0.35.0...v0.4.0+tesseract.0.35.0) (2026-09-23)
 
 
