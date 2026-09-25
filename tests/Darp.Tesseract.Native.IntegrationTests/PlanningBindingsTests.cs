@@ -6,6 +6,21 @@ namespace Darp.Tesseract.Native.IntegrationTests;
 public sealed class PlanningBindingsTests
 {
     [Fact]
+    public void StockPlannerProfilesCanBeAddedToTheProfileDictionary()
+    {
+        using var profiles = new ProfileDictionary();
+        using var ompl = new OMPLRealVectorMoveProfile();
+        using var trajOptMove = new TrajOptDefaultMoveProfile();
+        using var trajOptComposite = new TrajOptDefaultCompositeProfile();
+        using var trajOptSolver = new TrajOptOSQPSolverProfile();
+
+        profiles.addProfile("OMPLMotionPlannerTask", "DEFAULT", ompl);
+        profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptMove);
+        profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptComposite);
+        profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptSolver);
+    }
+
+    [Fact]
     public void PlanningWaypointsPreserveJointAndTrajectoryData()
     {
         using var names = new StringVector { "joint_1", "joint_2" };
@@ -59,6 +74,12 @@ public sealed class PlanningBindingsTests
         using StringVector pipelines = TesseractNative.getConfiguredTaskComposerNodeNames(factory);
 
         pipelines.ShouldContain("DescartesDPipeline");
+        pipelines.ShouldContain("OMPLPipeline");
         pipelines.ShouldContain("FreespacePipeline");
+
+        using TaskComposerNode ompl = factory.createTaskComposerNode("OMPLPipeline");
+        using TaskComposerNode freespace = factory.createTaskComposerNode("FreespacePipeline");
+        ompl.ShouldNotBeNull();
+        freespace.ShouldNotBeNull();
     }
 }

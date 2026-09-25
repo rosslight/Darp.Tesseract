@@ -4221,6 +4221,15 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_CompositeInstruction___")]
   public static extern void delete_CompositeInstruction(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_OMPLMoveProfile___")]
+  public static extern void delete_OMPLMoveProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_OMPLRealVectorMoveProfile___")]
+  public static extern global::System.IntPtr new_OMPLRealVectorMoveProfile();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_OMPLRealVectorMoveProfile___")]
+  public static extern void delete_OMPLRealVectorMoveProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_DescartesDefaultMoveProfileD___")]
   public static extern global::System.IntPtr new_DescartesDefaultMoveProfileD();
 
@@ -4331,6 +4340,87 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_DescartesLadderGraphSolverProfileD___")]
   public static extern void delete_DescartesLadderGraphSolverProfileD(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TrajOptMoveProfile___")]
+  public static extern void delete_TrajOptMoveProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TrajOptCompositeProfile___")]
+  public static extern void delete_TrajOptCompositeProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TrajOptSolverProfile___")]
+  public static extern void delete_TrajOptSolverProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TrajOptDefaultMoveProfile___")]
+  public static extern global::System.IntPtr new_TrajOptDefaultMoveProfile();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TrajOptDefaultMoveProfile___")]
+  public static extern void delete_TrajOptDefaultMoveProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TrajOptDefaultCompositeProfile___")]
+  public static extern global::System.IntPtr new_TrajOptDefaultCompositeProfile();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_velocities_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_smooth_velocities_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_velocities_get___")]
+  public static extern bool TrajOptDefaultCompositeProfile_smooth_velocities_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_velocity_coeff_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_velocity_coeff_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_velocity_coeff_get___")]
+  public static extern global::System.IntPtr TrajOptDefaultCompositeProfile_velocity_coeff_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_accelerations_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_smooth_accelerations_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_accelerations_get___")]
+  public static extern bool TrajOptDefaultCompositeProfile_smooth_accelerations_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_acceleration_coeff_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_acceleration_coeff_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_acceleration_coeff_get___")]
+  public static extern global::System.IntPtr TrajOptDefaultCompositeProfile_acceleration_coeff_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_jerks_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_smooth_jerks_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_jerks_get___")]
+  public static extern bool TrajOptDefaultCompositeProfile_smooth_jerks_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_jerk_coeff_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_jerk_coeff_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_jerk_coeff_get___")]
+  public static extern global::System.IntPtr TrajOptDefaultCompositeProfile_jerk_coeff_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_avoid_singularity_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_get___")]
+  public static extern bool TrajOptDefaultCompositeProfile_avoid_singularity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_coeff_set___")]
+  public static extern void TrajOptDefaultCompositeProfile_avoid_singularity_coeff_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_coeff_get___")]
+  public static extern double TrajOptDefaultCompositeProfile_avoid_singularity_coeff_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TrajOptDefaultCompositeProfile___")]
+  public static extern void delete_TrajOptDefaultCompositeProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TrajOptOSQPSolverProfile___")]
+  public static extern global::System.IntPtr new_TrajOptOSQPSolverProfile();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_update_workspace_set___")]
+  public static extern void TrajOptOSQPSolverProfile_update_workspace_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_update_workspace_get___")]
+  public static extern bool TrajOptOSQPSolverProfile_update_workspace_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TrajOptOSQPSolverProfile___")]
+  public static extern void delete_TrajOptOSQPSolverProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TaskComposerKeys_add__SWIG_0___")]
   public static extern void TaskComposerKeys_add__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, string jarg2, string jarg3);
@@ -4895,6 +4985,30 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_CompositeInstruction_SWIGUpcast___")]
   public static extern global::System.IntPtr CompositeInstruction_SWIGUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_OMPLMoveProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr OMPLMoveProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr OMPLRealVectorMoveProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptMoveProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TrajOptMoveProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptCompositeProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TrajOptCompositeProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptSolverProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TrajOptSolverProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TrajOptDefaultMoveProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TrajOptDefaultCompositeProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TrajOptOSQPSolverProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
 }
 
 }

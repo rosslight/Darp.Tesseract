@@ -544,6 +544,10 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 
 #include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract/motion_planners/utils.h>
 
 #include <tesseract/task_composer/task_composer_context.h>
@@ -47309,6 +47313,100 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_CompositeInstruc
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OMPLMoveProfile___(void * jarg1) {
+  tesseract::motion_planners::OMPLMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_OMPLRealVectorMoveProfile___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)new tesseract::motion_planners::OMPLRealVectorMoveProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OMPLRealVectorMoveProfile___(void * jarg1) {
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_DescartesDefaultMoveProfileD___() {
   void * jresult = 0 ;
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *result = 0 ;
@@ -47942,6 +48040,597 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_DescartesLadderG
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesLadderGraphSolverProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesLadderGraphSolverProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptMoveProfile___(void * jarg1) {
+  tesseract::motion_planners::TrajOptMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptCompositeProfile___(void * jarg1) {
+  tesseract::motion_planners::TrajOptCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptSolverProfile___(void * jarg1) {
+  tesseract::motion_planners::TrajOptSolverProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptDefaultMoveProfile___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)new tesseract::motion_planners::TrajOptDefaultMoveProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptDefaultMoveProfile___(void * jarg1) {
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptDefaultCompositeProfile___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)new tesseract::motion_planners::TrajOptDefaultCompositeProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_velocities_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->smooth_velocities = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_velocities_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->smooth_velocities);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_velocity_coeff_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->velocity_coeff = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_velocity_coeff_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (Eigen::VectorXd *)& ((arg1)->velocity_coeff);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_accelerations_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->smooth_accelerations = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_accelerations_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->smooth_accelerations);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_acceleration_coeff_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->acceleration_coeff = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_acceleration_coeff_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (Eigen::VectorXd *)& ((arg1)->acceleration_coeff);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_jerks_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->smooth_jerks = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_smooth_jerks_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->smooth_jerks);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_jerk_coeff_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->jerk_coeff = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_jerk_coeff_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (Eigen::VectorXd *)& ((arg1)->jerk_coeff);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->avoid_singularity = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->avoid_singularity);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_coeff_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->avoid_singularity_coeff = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_avoid_singularity_coeff_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->avoid_singularity_coeff);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptDefaultCompositeProfile___(void * jarg1) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptOSQPSolverProfile___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptOSQPSolverProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TrajOptOSQPSolverProfile *)new tesseract::motion_planners::TrajOptOSQPSolverProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_update_workspace_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptOSQPSolverProfile *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptOSQPSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->update_workspace = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_update_workspace_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptOSQPSolverProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptOSQPSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->update_workspace);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptOSQPSolverProfile___(void * jarg1) {
+  tesseract::motion_planners::TrajOptOSQPSolverProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptOSQPSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
   {
     try
     {
@@ -53188,6 +53877,38 @@ SWIGEXPORT tesseract::command_language::MoveInstructionInterface * SWIGSTDCALL C
 
 SWIGEXPORT tesseract::command_language::InstructionInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_CompositeInstruction_SWIGUpcast___(tesseract::command_language::CompositeInstruction *jarg1) {
     return (tesseract::command_language::InstructionInterface *)jarg1;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLMoveProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::OMPLMoveProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLMoveProfile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLMoveProfile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptMoveProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptMoveProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCompositeProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptCompositeProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptSolverProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::TrajOptMoveProfile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::TrajOptMoveProfile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::TrajOptCompositeProfile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::TrajOptCompositeProfile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile >(*jarg1) : 0;
 }
 
 #ifdef __cplusplus

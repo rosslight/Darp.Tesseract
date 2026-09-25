@@ -122,6 +122,10 @@
 
 #include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
+#include <tesseract/motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
 #include <tesseract/motion_planners/utils.h>
 
 #include <tesseract/task_composer/task_composer_context.h>

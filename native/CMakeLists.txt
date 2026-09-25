@@ -52,6 +52,7 @@ find_package(
     motion_planners
     motion_planners_simple
     motion_planners_descartes
+    motion_planners_ompl
     motion_planners_trajopt
     task_composer
     task_composer_planning
@@ -112,6 +113,7 @@ set(darp_tesseract_libraries
   tesseract::motion_planners_simple
   tesseract::motion_planners_descartes
   descartes::descartes_light
+  tesseract::motion_planners_ompl
   tesseract::motion_planners_trajopt
   trajopt::trajopt
   trajopt::trajopt_common
