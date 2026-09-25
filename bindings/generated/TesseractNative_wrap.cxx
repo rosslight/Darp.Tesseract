@@ -495,6 +495,7 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 
 #include <tesseract/collision/discrete_contact_manager.h>
 #include <tesseract/collision/continuous_contact_manager.h>
+#include <tesseract/collision/types.h>
 
 #include <tesseract/kinematics/types.h>
 #include <tesseract/kinematics/forward_kinematics.h>
@@ -544,7 +545,12 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 
 #include <tesseract/motion_planners/descartes/profile/descartes_default_move_profile.h>
 #include <tesseract/motion_planners/descartes/profile/descartes_ladder_graph_solver_profile.h>
+#include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
+#include <tesseract/motion_planners/ompl/ompl_solver_config.h>
 #include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <trajopt_common/collision_types.h>
+#include <trajopt_sco/optimizers.hpp>
+#include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_composite_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_default_move_profile.h>
 #include <tesseract/motion_planners/trajopt/profile/trajopt_osqp_solver_profile.h>
@@ -792,6 +798,47 @@ SWIGINTERN std::unordered_map< std::string,double >::key_type const &std_unorder
         return (*iter).first;
       }
 SWIGINTERN void std_unordered_map_Sl_std_string_Sc_double_Sg__destroy_iterator(std::unordered_map< std::string,double > *self,std::unordered_map< std::string,double,std::hash< std::string > >::iterator *swigiterator){
+        (void)self;
+        delete swigiterator;
+      }
+SWIGINTERN std::unordered_map< std::string,bool >::mapped_type const &std_unordered_map_Sl_std_string_Sc_bool_Sg__getitem(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool >::key_type const &key){
+        std::unordered_map< std::string, bool, std::hash< std::string > >::iterator iter = self->find(key);
+        if (iter != self->end())
+          return iter->second;
+        else
+          throw std::out_of_range("key not found");
+      }
+SWIGINTERN void std_unordered_map_Sl_std_string_Sc_bool_Sg__setitem(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool >::key_type const &key,std::unordered_map< std::string,bool >::mapped_type const &x){
+        (*self)[key] = x;
+      }
+SWIGINTERN bool std_unordered_map_Sl_std_string_Sc_bool_Sg__ContainsKey(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool >::key_type const &key){
+        std::unordered_map< std::string, bool, std::hash< std::string > >::iterator iter = self->find(key);
+        return iter != self->end();
+      }
+SWIGINTERN void std_unordered_map_Sl_std_string_Sc_bool_Sg__Add(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool >::key_type const &key,std::unordered_map< std::string,bool >::mapped_type const &value){
+        std::unordered_map< std::string, bool, std::hash< std::string > >::iterator iter = self->find(key);
+        if (iter != self->end())
+          throw std::out_of_range("key already exists");
+        self->insert(std::pair< std::string, bool >(key, value));
+      }
+SWIGINTERN bool std_unordered_map_Sl_std_string_Sc_bool_Sg__Remove(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool >::key_type const &key){
+        std::unordered_map< std::string, bool, std::hash< std::string > >::iterator iter = self->find(key);
+        if (iter != self->end()) {
+          self->erase(iter);
+          return true;
+        }
+        return false;
+      }
+SWIGINTERN std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *std_unordered_map_Sl_std_string_Sc_bool_Sg__create_iterator_begin(std::unordered_map< std::string,bool > *self){
+        return new std::unordered_map< std::string, bool, std::hash< std::string > >::iterator(self->begin());
+      }
+SWIGINTERN std::unordered_map< std::string,bool >::key_type const &std_unordered_map_Sl_std_string_Sc_bool_Sg__get_next_key(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *swigiterator){
+        (void)self;
+        std::unordered_map< std::string, bool, std::hash< std::string > >::iterator iter = *swigiterator;
+        (*swigiterator)++;
+        return (*iter).first;
+      }
+SWIGINTERN void std_unordered_map_Sl_std_string_Sc_bool_Sg__destroy_iterator(std::unordered_map< std::string,bool > *self,std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *swigiterator){
         (void)self;
         delete swigiterator;
       }
@@ -1342,6 +1389,97 @@ SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_environment_Command_SS
         std::reverse(self->begin()+index, self->begin()+index+count);
       }
 SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_environment_Command_SS_const_Sg__Sg__SetRange(std::vector< std::shared_ptr< tesseract::environment::Command const > > *self,int index,std::vector< std::shared_ptr< tesseract::environment::Command const > > const &values){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (index+values.size() > self->size())
+          throw std::out_of_range("index");
+        std::copy(values.begin(), values.end(), self->begin()+index);
+      }
+SWIGINTERN std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *new_std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg___SWIG_2(int capacity){
+        std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >* pv = 0;
+        if (capacity >= 0) {
+          pv = new std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >();
+          pv->reserve(capacity);
+       } else {
+          throw std::out_of_range("capacity");
+       }
+       return pv;
+      }
+SWIGINTERN std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__getitemcopy(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::value_type const &std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__getitem(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          return (*self)[index];
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__setitem(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &val){
+        if (index>=0 && index<(int)self->size())
+          (*self)[index] = val;
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__AddRange(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &values){
+        self->insert(self->end(), values.begin(), values.end());
+      }
+SWIGINTERN std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__GetRange(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        return new std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Insert(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &x){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, x);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__InsertRange(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &values){
+        if (index>=0 && index<(int)self->size()+1)
+          self->insert(self->begin()+index, values.begin(), values.end());
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__RemoveAt(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index){
+        if (index>=0 && index<(int)self->size())
+          self->erase(self->begin() + index);
+        else
+          throw std::out_of_range("index");
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__RemoveRange(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        self->erase(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Repeat(std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &value,int count){
+        if (count < 0)
+          throw std::out_of_range("count");
+        return new std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >(count, value);
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Reverse__SWIG_0(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self){
+        std::reverse(self->begin(), self->end());
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Reverse__SWIG_1(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,int count){
+        if (index < 0)
+          throw std::out_of_range("index");
+        if (count < 0)
+          throw std::out_of_range("count");
+        if (index >= (int)self->size()+1 || index+count > (int)self->size())
+          throw std::invalid_argument("invalid range");
+        std::reverse(self->begin()+index, self->begin()+index+count);
+      }
+SWIGINTERN void std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__SetRange(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *self,int index,std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &values){
         if (index < 0)
           throw std::out_of_range("index");
         if (index+values.size() > self->size())
@@ -4102,6 +4240,493 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_StringDoubleMap_
   std::unordered_map< std::string,double > *arg1 = 0 ;
   
   arg1 = (std::unordered_map< std::string,double > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StringBoolMap__SWIG_0___() {
+  void * jresult = 0 ;
+  std::unordered_map< std::string,bool > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::unordered_map< std::string,bool > *)new std::unordered_map< std::string,bool >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_StringBoolMap__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool > *result = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::unordered_map< std::string,bool > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::unordered_map< std::string,bool > *)new std::unordered_map< std::string,bool >((std::unordered_map< std::string,bool > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool >::size_type result;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::unordered_map< std::string,bool > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::unordered_map< std::string,bool > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_Clear___(void * jarg1) {
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_getitem___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool >::key_type *arg2 = 0 ;
+  std::unordered_map< std::string,bool >::mapped_type *result = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::unordered_map< std::string,bool >::key_type arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      try {
+        result = (std::unordered_map< std::string,bool >::mapped_type *) &std_unordered_map_Sl_std_string_Sc_bool_Sg__getitem(arg1,(std::string const &)*arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = *result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_setitem___(void * jarg1, const char * jarg2, unsigned int jarg3) {
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool >::key_type *arg2 = 0 ;
+  std::unordered_map< std::string,bool >::mapped_type *arg3 = 0 ;
+  std::unordered_map< std::string,bool >::mapped_type temp3 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::unordered_map< std::string,bool >::key_type arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  temp3 = jarg3 ? true : false; 
+  arg3 = &temp3; 
+  {
+    try
+    {
+      std_unordered_map_Sl_std_string_Sc_bool_Sg__setitem(arg1,(std::string const &)*arg2,(bool const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_ContainsKey___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool >::key_type *arg2 = 0 ;
+  bool result;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::unordered_map< std::string,bool >::key_type arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)std_unordered_map_Sl_std_string_Sc_bool_Sg__ContainsKey(arg1,(std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_Add___(void * jarg1, const char * jarg2, unsigned int jarg3) {
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool >::key_type *arg2 = 0 ;
+  std::unordered_map< std::string,bool >::mapped_type *arg3 = 0 ;
+  std::unordered_map< std::string,bool >::mapped_type temp3 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::unordered_map< std::string,bool >::key_type arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  temp3 = jarg3 ? true : false; 
+  arg3 = &temp3; 
+  {
+    try
+    {
+      try {
+        std_unordered_map_Sl_std_string_Sc_bool_Sg__Add(arg1,(std::string const &)*arg2,(bool const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_Remove___(void * jarg1, const char * jarg2) {
+  unsigned int jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool >::key_type *arg2 = 0 ;
+  bool result;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::unordered_map< std::string,bool >::key_type arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  {
+    try
+    {
+      result = (bool)std_unordered_map_Sl_std_string_Sc_bool_Sg__Remove(arg1,(std::string const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_create_iterator_begin___(void * jarg1) {
+  void * jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *result = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  {
+    try
+    {
+      result = (std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *)std_unordered_map_Sl_std_string_Sc_bool_Sg__create_iterator_begin(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_get_next_key___(void * jarg1, void * jarg2) {
+  const char * jresult = 0 ;
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *arg2 = 0 ;
+  std::unordered_map< std::string,bool >::key_type *result = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  arg2 = (std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *)jarg2; 
+  {
+    try
+    {
+      result = (std::unordered_map< std::string,bool >::key_type *) &std_unordered_map_Sl_std_string_Sc_bool_Sg__get_next_key(arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_StringBoolMap_destroy_iterator___(void * jarg1, void * jarg2) {
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *arg2 = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
+  arg2 = (std::unordered_map< std::string,bool,std::hash< std::string > >::iterator *)jarg2; 
+  {
+    try
+    {
+      std_unordered_map_Sl_std_string_Sc_bool_Sg__destroy_iterator(arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_StringBoolMap___(void * jarg1) {
+  std::unordered_map< std::string,bool > *arg1 = 0 ;
+  
+  arg1 = (std::unordered_map< std::string,bool > *)jarg1; 
   {
     try
     {
@@ -24362,6 +24987,887 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_MutableStateSol
   }
   jresult = result; 
   return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactTestTypeStrings_get___() {
+  void * jresult = 0 ;
+  std::vector< std::string > *result = 0 ;
+  
+  result = (std::vector< std::string > *)&tesseract::collision::ContactTestTypeStrings;
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_type_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  tesseract::collision::ContactTestType arg2 ;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  arg2 = (tesseract::collision::ContactTestType)jarg2; 
+  if (arg1) (arg1)->type = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_type_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  tesseract::collision::ContactTestType result;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  result = (tesseract::collision::ContactTestType) ((arg1)->type);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_calculate_penetration_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->calculate_penetration = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_calculate_penetration_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  result = (bool) ((arg1)->calculate_penetration);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_calculate_distance_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->calculate_distance = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_calculate_distance_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  result = (bool) ((arg1)->calculate_distance);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_contact_limit_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  long arg2 ;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  arg2 = (long)jarg2; 
+  if (arg1) (arg1)->contact_limit = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactRequest_contact_limit_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  long result;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  result = (long) ((arg1)->contact_limit);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactRequest__SWIG_0___(int jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactTestType arg1 ;
+  tesseract::collision::ContactRequest *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactTestType)jarg1; 
+  {
+    try
+    {
+      result = (tesseract::collision::ContactRequest *)new tesseract::collision::ContactRequest(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactRequest__SWIG_1___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactRequest *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactRequest *)new tesseract::collision::ContactRequest();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactRequest___(void * jarg1) {
+  tesseract::collision::ContactRequest *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactRequest *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactManagerConfig__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::ContactManagerConfig *)new tesseract::collision::ContactManagerConfig();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ContactManagerConfig__SWIG_1___(double jarg1) {
+  void * jresult = 0 ;
+  double arg1 ;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  {
+    try
+    {
+      result = (tesseract::collision::ContactManagerConfig *)new tesseract::collision::ContactManagerConfig(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_default_margin_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  std::optional< double > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (std::optional< double > *)jarg2; 
+  if (arg1) (arg1)->default_margin = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_default_margin_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  std::optional< double > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  result = (std::optional< double > *)& ((arg1)->default_margin);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_pair_margin_override_type_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::collision::CollisionMarginPairOverrideType arg2 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (tesseract::collision::CollisionMarginPairOverrideType)jarg2; 
+  if (arg1) (arg1)->pair_margin_override_type = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_pair_margin_override_type_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::collision::CollisionMarginPairOverrideType result;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  result = (tesseract::collision::CollisionMarginPairOverrideType) ((arg1)->pair_margin_override_type);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_pair_margin_data_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::collision::CollisionMarginPairData *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (tesseract::collision::CollisionMarginPairData *)jarg2; 
+  if (arg1) (arg1)->pair_margin_data = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_pair_margin_data_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::collision::CollisionMarginPairData *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  result = (tesseract::collision::CollisionMarginPairData *)& ((arg1)->pair_margin_data);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_acm_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::common::AllowedCollisionMatrix *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  
+  arg2 = (tesseract::common::AllowedCollisionMatrix *)(((std::shared_ptr< const tesseract::common::AllowedCollisionMatrix > *)jarg2) ? ((std::shared_ptr< const tesseract::common::AllowedCollisionMatrix > *)jarg2)->get() : 0);
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::AllowedCollisionMatrix const & reference is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->acm = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_acm_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::common::AllowedCollisionMatrix *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  result = (tesseract::common::AllowedCollisionMatrix *) & ((arg1)->acm);
+  jresult = new std::shared_ptr< const tesseract::common::AllowedCollisionMatrix >(result SWIG_NO_NULL_DELETER_0); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_acm_override_type_set___(void * jarg1, int jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::collision::ACMOverrideType arg2 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (tesseract::collision::ACMOverrideType)jarg2; 
+  if (arg1) (arg1)->acm_override_type = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_acm_override_type_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  tesseract::collision::ACMOverrideType result;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  result = (tesseract::collision::ACMOverrideType) ((arg1)->acm_override_type);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_modify_object_enabled_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  std::unordered_map< std::string,bool,std::hash< std::string > > *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (std::unordered_map< std::string,bool,std::hash< std::string > > *)jarg2; 
+  if (arg1) (arg1)->modify_object_enabled = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_modify_object_enabled_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  std::unordered_map< std::string,bool,std::hash< std::string > > *result = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  result = (std::unordered_map< std::string,bool,std::hash< std::string > > *)& ((arg1)->modify_object_enabled);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_incrementMargins___(void * jarg1, double jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->incrementMargins(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_scaleMargins___(void * jarg1, double jarg2) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->scaleMargins(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ContactManagerConfig_validate___(void * jarg1) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  {
+    try
+    {
+      ((tesseract::collision::ContactManagerConfig const *)arg1)->validate();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ContactManagerConfig___(void * jarg1) {
+  tesseract::collision::ContactManagerConfig *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::ContactManagerConfig *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCheckConfig__SWIG_0___(void * jarg1, int jarg2, double jarg3, int jarg4, int jarg5) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactRequest arg1 ;
+  tesseract::collision::CollisionEvaluatorType arg2 ;
+  double arg3 ;
+  tesseract::collision::CollisionCheckProgramType arg4 ;
+  tesseract::collision::CollisionCheckExitType arg5 ;
+  tesseract::collision::ContactRequest *argp1 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  argp1 = (tesseract::collision::ContactRequest *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = (tesseract::collision::CollisionEvaluatorType)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (tesseract::collision::CollisionCheckProgramType)jarg4; 
+  arg5 = (tesseract::collision::CollisionCheckExitType)jarg5; 
+  {
+    try
+    {
+      result = (tesseract::collision::CollisionCheckConfig *)new tesseract::collision::CollisionCheckConfig(SWIG_STD_MOVE(*(&arg1)),arg2,arg3,arg4,arg5);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCheckConfig__SWIG_1___(void * jarg1, int jarg2, double jarg3, int jarg4) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactRequest arg1 ;
+  tesseract::collision::CollisionEvaluatorType arg2 ;
+  double arg3 ;
+  tesseract::collision::CollisionCheckProgramType arg4 ;
+  tesseract::collision::ContactRequest *argp1 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  argp1 = (tesseract::collision::ContactRequest *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = (tesseract::collision::CollisionEvaluatorType)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (tesseract::collision::CollisionCheckProgramType)jarg4; 
+  {
+    try
+    {
+      result = (tesseract::collision::CollisionCheckConfig *)new tesseract::collision::CollisionCheckConfig(SWIG_STD_MOVE(*(&arg1)),arg2,arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCheckConfig__SWIG_2___(void * jarg1, int jarg2, double jarg3) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactRequest arg1 ;
+  tesseract::collision::CollisionEvaluatorType arg2 ;
+  double arg3 ;
+  tesseract::collision::ContactRequest *argp1 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  argp1 = (tesseract::collision::ContactRequest *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = (tesseract::collision::CollisionEvaluatorType)jarg2; 
+  arg3 = (double)jarg3; 
+  {
+    try
+    {
+      result = (tesseract::collision::CollisionCheckConfig *)new tesseract::collision::CollisionCheckConfig(SWIG_STD_MOVE(*(&arg1)),arg2,arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCheckConfig__SWIG_3___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactRequest arg1 ;
+  tesseract::collision::CollisionEvaluatorType arg2 ;
+  tesseract::collision::ContactRequest *argp1 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  argp1 = (tesseract::collision::ContactRequest *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = (tesseract::collision::CollisionEvaluatorType)jarg2; 
+  {
+    try
+    {
+      result = (tesseract::collision::CollisionCheckConfig *)new tesseract::collision::CollisionCheckConfig(SWIG_STD_MOVE(*(&arg1)),arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCheckConfig__SWIG_4___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::ContactRequest arg1 ;
+  tesseract::collision::ContactRequest *argp1 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  argp1 = (tesseract::collision::ContactRequest *)jarg1; 
+  if (!argp1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg1 = *argp1; 
+  {
+    try
+    {
+      result = (tesseract::collision::CollisionCheckConfig *)new tesseract::collision::CollisionCheckConfig(SWIG_STD_MOVE(*(&arg1)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCheckConfig__SWIG_5___() {
+  void * jresult = 0 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::collision::CollisionCheckConfig *)new tesseract::collision::CollisionCheckConfig();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_contact_request_set___(void * jarg1, void * jarg2) {
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::ContactRequest *arg2 = 0 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  arg2 = (tesseract::collision::ContactRequest *)jarg2; 
+  if (arg1) (arg1)->contact_request = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_contact_request_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::ContactRequest *result = 0 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  result = (tesseract::collision::ContactRequest *)& ((arg1)->contact_request);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_type_set___(void * jarg1, int jarg2) {
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::CollisionEvaluatorType arg2 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  arg2 = (tesseract::collision::CollisionEvaluatorType)jarg2; 
+  if (arg1) (arg1)->type = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_type_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::CollisionEvaluatorType result;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  result = (tesseract::collision::CollisionEvaluatorType) ((arg1)->type);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_longest_valid_segment_length_set___(void * jarg1, double jarg2) {
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->longest_valid_segment_length = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_longest_valid_segment_length_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  double result;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  result = (double) ((arg1)->longest_valid_segment_length);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_check_program_mode_set___(void * jarg1, int jarg2) {
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::CollisionCheckProgramType arg2 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  arg2 = (tesseract::collision::CollisionCheckProgramType)jarg2; 
+  if (arg1) (arg1)->check_program_mode = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_check_program_mode_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::CollisionCheckProgramType result;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  result = (tesseract::collision::CollisionCheckProgramType) ((arg1)->check_program_mode);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_exit_condition_set___(void * jarg1, int jarg2) {
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::CollisionCheckExitType arg2 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  arg2 = (tesseract::collision::CollisionCheckExitType)jarg2; 
+  if (arg1) (arg1)->exit_condition = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCheckConfig_exit_condition_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  tesseract::collision::CollisionCheckExitType result;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  result = (tesseract::collision::CollisionCheckExitType) ((arg1)->exit_condition);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_CollisionCheckConfig___(void * jarg1) {
+  tesseract::collision::CollisionCheckConfig *arg1 = 0 ;
+  
+  arg1 = (tesseract::collision::CollisionCheckConfig *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
 }
 
 
@@ -47313,6 +48819,4070 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_CompositeInstruc
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OMPLPlannerConfigurator___(void * jarg1) {
+  tesseract::motion_planners::OMPLPlannerConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLPlannerConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLPlannerConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::OMPLPlannerConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::OMPLPlannerConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLPlannerConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::OMPLPlannerConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_SBLConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::SBLConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::SBLConfigurator *)new tesseract::motion_planners::SBLConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::SBLConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_SBLConfigurator___(void * jarg1) {
+  tesseract::motion_planners::SBLConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SBLConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SBLConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SBLConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_SBLConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::SBLConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::SBLConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::SBLConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::SBLConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::SBLConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::SBLConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::SBLConfigurator *)new tesseract::motion_planners::SBLConfigurator((tesseract::motion_planners::SBLConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::SBLConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SBLConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::SBLConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::SBLConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SBLConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SBLConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_SBLConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::SBLConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SBLConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SBLConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SBLConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_SBLConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::SBLConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SBLConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::SBLConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SBLConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::SBLConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ESTConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::ESTConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::ESTConfigurator *)new tesseract::motion_planners::ESTConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::ESTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ESTConfigurator___(void * jarg1) {
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::ESTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::ESTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ESTConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::ESTConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::ESTConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::ESTConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::ESTConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::ESTConfigurator *)new tesseract::motion_planners::ESTConfigurator((tesseract::motion_planners::ESTConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::ESTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ESTConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::ESTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::ESTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ESTConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::ESTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::ESTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ESTConfigurator_goal_bias_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::ESTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::ESTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->goal_bias = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ESTConfigurator_goal_bias_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::ESTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::ESTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->goal_bias);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_ESTConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::ESTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::ESTConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::ESTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::ESTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::ESTConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_LBKPIECE1Configurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::LBKPIECE1Configurator *)new tesseract::motion_planners::LBKPIECE1Configurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_LBKPIECE1Configurator___(void * jarg1) {
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_LBKPIECE1Configurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(((std::shared_ptr< const tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::LBKPIECE1Configurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::LBKPIECE1Configurator *)new tesseract::motion_planners::LBKPIECE1Configurator((tesseract::motion_planners::LBKPIECE1Configurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_border_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->border_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_border_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->border_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_min_valid_path_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_valid_path_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_min_valid_path_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->min_valid_path_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::LBKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::LBKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LBKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::LBKPIECE1Configurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_BKPIECE1Configurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::BKPIECE1Configurator *)new tesseract::motion_planners::BKPIECE1Configurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_BKPIECE1Configurator___(void * jarg1) {
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_BKPIECE1Configurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(((std::shared_ptr< const tesseract::motion_planners::BKPIECE1Configurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::BKPIECE1Configurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::BKPIECE1Configurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::BKPIECE1Configurator *)new tesseract::motion_planners::BKPIECE1Configurator((tesseract::motion_planners::BKPIECE1Configurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_border_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->border_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_border_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->border_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_failed_expansion_score_factor_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->failed_expansion_score_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_failed_expansion_score_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->failed_expansion_score_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_min_valid_path_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_valid_path_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_min_valid_path_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->min_valid_path_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::BKPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::BKPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BKPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::BKPIECE1Configurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_KPIECE1Configurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::KPIECE1Configurator *)new tesseract::motion_planners::KPIECE1Configurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_KPIECE1Configurator___(void * jarg1) {
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_KPIECE1Configurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(((std::shared_ptr< const tesseract::motion_planners::KPIECE1Configurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::KPIECE1Configurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::KPIECE1Configurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::KPIECE1Configurator *)new tesseract::motion_planners::KPIECE1Configurator((tesseract::motion_planners::KPIECE1Configurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_goal_bias_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->goal_bias = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_goal_bias_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->goal_bias);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_border_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->border_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_border_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->border_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_failed_expansion_score_factor_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->failed_expansion_score_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_failed_expansion_score_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->failed_expansion_score_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_min_valid_path_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_valid_path_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_min_valid_path_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->min_valid_path_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::KPIECE1Configurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::KPIECE1Configurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::KPIECE1Configurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::KPIECE1Configurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_BiTRRTConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::BiTRRTConfigurator *)new tesseract::motion_planners::BiTRRTConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_BiTRRTConfigurator___(void * jarg1) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_BiTRRTConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::BiTRRTConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::BiTRRTConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::BiTRRTConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::BiTRRTConfigurator *)new tesseract::motion_planners::BiTRRTConfigurator((tesseract::motion_planners::BiTRRTConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_temp_change_factor_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->temp_change_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_temp_change_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->temp_change_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_cost_threshold_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->cost_threshold = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_cost_threshold_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->cost_threshold);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_init_temperature_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->init_temperature = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_init_temperature_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->init_temperature);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_frontier_threshold_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->frontier_threshold = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_frontier_threshold_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->frontier_threshold);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_frontier_node_ratio_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->frontier_node_ratio = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_frontier_node_ratio_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->frontier_node_ratio);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::BiTRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::BiTRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::BiTRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::BiTRRTConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_RRTConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::RRTConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::RRTConfigurator *)new tesseract::motion_planners::RRTConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::RRTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_RRTConfigurator___(void * jarg1) {
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_RRTConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::RRTConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::RRTConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::RRTConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::RRTConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::RRTConfigurator *)new tesseract::motion_planners::RRTConfigurator((tesseract::motion_planners::RRTConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::RRTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConfigurator_goal_bias_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->goal_bias = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConfigurator_goal_bias_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->goal_bias);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::RRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::RRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::RRTConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_RRTConnectConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::RRTConnectConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::RRTConnectConfigurator *)new tesseract::motion_planners::RRTConnectConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::RRTConnectConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_RRTConnectConfigurator___(void * jarg1) {
+  tesseract::motion_planners::RRTConnectConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConnectConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConnectConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConnectConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_RRTConnectConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::RRTConnectConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::RRTConnectConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::RRTConnectConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::RRTConnectConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::RRTConnectConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::RRTConnectConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::RRTConnectConfigurator *)new tesseract::motion_planners::RRTConnectConfigurator((tesseract::motion_planners::RRTConnectConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::RRTConnectConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConnectConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::RRTConnectConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConnectConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConnectConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConnectConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConnectConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::RRTConnectConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConnectConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTConnectConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConnectConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConnectConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::RRTConnectConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTConnectConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::RRTConnectConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTConnectConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::RRTConnectConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_RRTstarConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::RRTstarConfigurator *)new tesseract::motion_planners::RRTstarConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_RRTstarConfigurator___(void * jarg1) {
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_RRTstarConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::RRTstarConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::RRTstarConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::RRTstarConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::RRTstarConfigurator *)new tesseract::motion_planners::RRTstarConfigurator((tesseract::motion_planners::RRTstarConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_goal_bias_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->goal_bias = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_goal_bias_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->goal_bias);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_delay_collision_checking_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->delay_collision_checking = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_delay_collision_checking_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->delay_collision_checking);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::RRTstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::RRTstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::RRTstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::RRTstarConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TRRTConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TRRTConfigurator *)new tesseract::motion_planners::TRRTConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TRRTConfigurator___(void * jarg1) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TRRTConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::TRRTConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::TRRTConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::TRRTConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TRRTConfigurator *)new tesseract::motion_planners::TRRTConfigurator((tesseract::motion_planners::TRRTConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_range_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->range = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_range_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->range);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_goal_bias_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->goal_bias = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_goal_bias_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->goal_bias);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_temp_change_factor_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->temp_change_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_temp_change_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->temp_change_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_init_temperature_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->init_temperature = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_init_temperature_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->init_temperature);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_frontier_threshold_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->frontier_threshold = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_frontier_threshold_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->frontier_threshold);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_frontier_node_ratio_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->frontier_node_ratio = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_frontier_node_ratio_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->frontier_node_ratio);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::TRRTConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TRRTConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::TRRTConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::TRRTConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::TRRTConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_PRMConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::PRMConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::PRMConfigurator *)new tesseract::motion_planners::PRMConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::PRMConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_PRMConfigurator___(void * jarg1) {
+  tesseract::motion_planners::PRMConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::PRMConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::PRMConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::PRMConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_PRMConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::PRMConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::PRMConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::PRMConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::PRMConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::PRMConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::PRMConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::PRMConfigurator *)new tesseract::motion_planners::PRMConfigurator((tesseract::motion_planners::PRMConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::PRMConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_PRMConfigurator_max_nearest_neighbors_set___(void * jarg1, int jarg2) {
+  tesseract::motion_planners::PRMConfigurator *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::PRMConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::PRMConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::PRMConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_nearest_neighbors = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_PRMConfigurator_max_nearest_neighbors_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::PRMConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::PRMConfigurator > *smartarg1 = 0 ;
+  int result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::PRMConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::PRMConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (int) ((arg1)->max_nearest_neighbors);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_PRMConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::PRMConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::PRMConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::PRMConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::PRMConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::PRMConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_PRMstarConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::PRMstarConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::PRMstarConfigurator *)new tesseract::motion_planners::PRMstarConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::PRMstarConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_PRMstarConfigurator___(void * jarg1) {
+  tesseract::motion_planners::PRMstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::PRMstarConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::PRMstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::PRMstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_PRMstarConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::PRMstarConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::PRMstarConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::PRMstarConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::PRMstarConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::PRMstarConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::PRMstarConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::PRMstarConfigurator *)new tesseract::motion_planners::PRMstarConfigurator((tesseract::motion_planners::PRMstarConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::PRMstarConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_PRMstarConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::PRMstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::PRMstarConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::PRMstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::PRMstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::PRMstarConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_LazyPRMstarConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::LazyPRMstarConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::LazyPRMstarConfigurator *)new tesseract::motion_planners::LazyPRMstarConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::LazyPRMstarConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_LazyPRMstarConfigurator___(void * jarg1) {
+  tesseract::motion_planners::LazyPRMstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LazyPRMstarConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::LazyPRMstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LazyPRMstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_LazyPRMstarConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::LazyPRMstarConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::LazyPRMstarConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::LazyPRMstarConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::LazyPRMstarConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::LazyPRMstarConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::LazyPRMstarConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::LazyPRMstarConfigurator *)new tesseract::motion_planners::LazyPRMstarConfigurator((tesseract::motion_planners::LazyPRMstarConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::LazyPRMstarConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_LazyPRMstarConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::LazyPRMstarConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::LazyPRMstarConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::LazyPRMstarConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::LazyPRMstarConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::LazyPRMstarConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_SPARSConfigurator__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::SPARSConfigurator *)new tesseract::motion_planners::SPARSConfigurator();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_SPARSConfigurator___(void * jarg1) {
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_SPARSConfigurator__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *result = 0 ;
+  
+  
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(((std::shared_ptr< const tesseract::motion_planners::SPARSConfigurator > *)jarg1) ? ((std::shared_ptr< const tesseract::motion_planners::SPARSConfigurator > *)jarg1)->get() : 0);
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::SPARSConfigurator const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::SPARSConfigurator *)new tesseract::motion_planners::SPARSConfigurator((tesseract::motion_planners::SPARSConfigurator const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_max_failures_set___(void * jarg1, int jarg2) {
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_failures = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_max_failures_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  int result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (int) ((arg1)->max_failures);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_dense_delta_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->dense_delta_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_dense_delta_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->dense_delta_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_sparse_delta_fraction_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->sparse_delta_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_sparse_delta_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->sparse_delta_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_stretch_factor_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->stretch_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_stretch_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->stretch_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_getType___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::SPARSConfigurator *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::SPARSConfigurator const > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLPlannerType result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::motion_planners::SPARSConfigurator > *)jarg1;
+  arg1 = (tesseract::motion_planners::SPARSConfigurator *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLPlannerType)((tesseract::motion_planners::SPARSConfigurator const *)arg1)->getType();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_OMPLPlannerConfiguratorVector__SWIG_0___() {
+  void * jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *result = 0 ;
+  
+  {
+    try
+    {
+      result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)new std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_OMPLPlannerConfiguratorVector__SWIG_1___(void * jarg1) {
+  void * jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *result = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)new std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >((std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &)*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_Clear___(void * jarg1) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  {
+    try
+    {
+      (arg1)->clear();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_Add___(void * jarg1, void * jarg2) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > tempnull2 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = jarg2 ? (std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *)jarg2 : &tempnull2; 
+  {
+    try
+    {
+      (arg1)->push_back((std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_size___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::size_type result;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const *)arg1)->size();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_empty___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  {
+    try
+    {
+      result = (bool)((std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const *)arg1)->empty();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_capacity___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::size_type result;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  {
+    try
+    {
+      result = ((std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const *)arg1)->capacity();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (unsigned int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_reserve___(void * jarg1, unsigned int jarg2) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::size_type arg2 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::size_type)jarg2; 
+  {
+    try
+    {
+      (arg1)->reserve(SWIG_STD_MOVE(*(&arg2)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_OMPLPlannerConfiguratorVector__SWIG_2___(int jarg1) {
+  void * jresult = 0 ;
+  int arg1 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *result = 0 ;
+  
+  arg1 = (int)jarg1; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)new_std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg___SWIG_2(arg1);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_getitemcopy___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > result;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__getitemcopy(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const >(result) : 0; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_getitem___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::value_type *result = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::value_type *) &std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__getitem(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = *result ? new std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > >::value_type(*result) : 0; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_setitem___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *arg3 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > tempnull3 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = jarg3 ? (std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *)jarg3 : &tempnull3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__setitem(arg1,arg2,(std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_AddRange___(void * jarg1, void * jarg2) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg2 = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__AddRange(arg1,(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &)*arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_GetRange___(void * jarg1, int jarg2, int jarg3) {
+  void * jresult = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *result = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__GetRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_Insert___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *arg3 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > tempnull3 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = jarg3 ? (std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *)jarg3 : &tempnull3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Insert(arg1,arg2,(std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_InsertRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__InsertRange(arg1,arg2,(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_RemoveAt___(void * jarg1, int jarg2) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__RemoveAt(arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_RemoveRange___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__RemoveRange(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_Repeat___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > tempnull1 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *result = 0 ;
+  
+  arg1 = jarg1 ? (std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > *)jarg1 : &tempnull1; 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      try {
+        result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Repeat((std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > const &)*arg1,arg2);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return 0;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_Reverse__SWIG_0___(void * jarg1) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  {
+    try
+    {
+      std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Reverse__SWIG_0(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_Reverse__SWIG_1___(void * jarg1, int jarg2, int jarg3) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  int arg3 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__Reverse__SWIG_1(arg1,arg2,arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      } catch(std::invalid_argument &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, (&_e)->what(), "");
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLPlannerConfiguratorVector_SetRange___(void * jarg1, int jarg2, void * jarg3) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  int arg2 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg3 = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg3;
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const & is null", 0);
+    return ;
+  } 
+  {
+    try
+    {
+      try {
+        std_vector_Sl_std_shared_ptr_Sl_tesseract_motion_planners_OMPLPlannerConfigurator_SS_const_Sg__Sg__SetRange(arg1,arg2,(std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > const &)*arg3);
+      } catch(std::out_of_range &_e) {
+        SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentOutOfRangeException, 0, (&_e)->what());
+        return ;
+      }
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OMPLPlannerConfiguratorVector___(void * jarg1) {
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg1 = 0 ;
+  
+  arg1 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OMPLSolverConfig___(void * jarg1) {
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_planning_time_set___(void * jarg1, double jarg2) {
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->planning_time = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_planning_time_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->planning_time);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_max_solutions_set___(void * jarg1, int jarg2) {
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  int arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_solutions = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_max_solutions_get___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  int result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (int) ((arg1)->max_solutions);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_simplify_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->simplify = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_simplify_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->simplify);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_optimize_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->optimize = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_optimize_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->optimize);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_planners_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)jarg2; 
+  if (arg1) (arg1)->planners = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLSolverConfig_planners_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLSolverConfig > *smartarg1 = 0 ;
+  std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLSolverConfig *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (std::vector< std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator const > > *)& ((arg1)->planners);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_OMPLSolverConfig___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::OMPLSolverConfig *)new tesseract::motion_planners::OMPLSolverConfig();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::motion_planners::OMPLSolverConfig >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OMPLMoveProfile___(void * jarg1) {
   tesseract::motion_planners::OMPLMoveProfile *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::OMPLMoveProfile > *smartarg1 = 0 ;
@@ -47372,6 +52942,95 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_OMPLRealVectorMov
   
   jresult = result ? new std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
   
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_solver_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  
+  arg2 = (tesseract::motion_planners::OMPLSolverConfig *)(((std::shared_ptr< const tesseract::motion_planners::OMPLSolverConfig > *)jarg2) ? ((std::shared_ptr< const tesseract::motion_planners::OMPLSolverConfig > *)jarg2)->get() : 0);
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::motion_planners::OMPLSolverConfig const & reference is null", 0);
+    return ;
+  } 
+  if (arg1) (arg1)->solver_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_solver_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  tesseract::motion_planners::OMPLSolverConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::motion_planners::OMPLSolverConfig *) & ((arg1)->solver_config);
+  jresult = new std::shared_ptr< const tesseract::motion_planners::OMPLSolverConfig >(result SWIG_NO_NULL_DELETER_0); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_contact_manager_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
+  if (arg1) (arg1)->contact_manager_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_contact_manager_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::collision::ContactManagerConfig *)& ((arg1)->contact_manager_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_collision_check_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
+  if (arg1) (arg1)->collision_check_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLRealVectorMoveProfile_collision_check_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::OMPLRealVectorMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::OMPLRealVectorMoveProfile > *smartarg1 = 0 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::OMPLRealVectorMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::OMPLRealVectorMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::collision::CollisionCheckConfig *)& ((arg1)->collision_check_config);
+  jresult = (void *)result; 
   return jresult;
 }
 
@@ -47689,20 +53348,14 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaul
 
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveProfileD_vertex_contact_manager_config_set___(void * jarg1, void * jarg2) {
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
-  tesseract::collision::ContactManagerConfig arg2 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::ContactManagerConfig *argp2 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  argp2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactManagerConfig", 0);
-    return ;
-  }
-  arg2 = *argp2; 
-  if (arg1) (arg1)->vertex_contact_manager_config = arg2;
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
+  if (arg1) (arg1)->vertex_contact_manager_config = *arg2;
 }
 
 
@@ -47710,33 +53363,27 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveP
   void * jresult = 0 ;
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::ContactManagerConfig result;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  result =  ((arg1)->vertex_contact_manager_config);
-  jresult = new tesseract::collision::ContactManagerConfig(result); 
+  result = (tesseract::collision::ContactManagerConfig *)& ((arg1)->vertex_contact_manager_config);
+  jresult = (void *)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveProfileD_vertex_collision_check_config_set___(void * jarg1, void * jarg2) {
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
-  tesseract::collision::CollisionCheckConfig arg2 ;
+  tesseract::collision::CollisionCheckConfig *arg2 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::CollisionCheckConfig *argp2 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  argp2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::CollisionCheckConfig", 0);
-    return ;
-  }
-  arg2 = *argp2; 
-  if (arg1) (arg1)->vertex_collision_check_config = arg2;
+  arg2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
+  if (arg1) (arg1)->vertex_collision_check_config = *arg2;
 }
 
 
@@ -47744,13 +53391,13 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveP
   void * jresult = 0 ;
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::CollisionCheckConfig result;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  result =  ((arg1)->vertex_collision_check_config);
-  jresult = new tesseract::collision::CollisionCheckConfig(result); 
+  result = (tesseract::collision::CollisionCheckConfig *)& ((arg1)->vertex_collision_check_config);
+  jresult = (void *)result; 
   return jresult;
 }
 
@@ -47785,20 +53432,14 @@ SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaul
 
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveProfileD_edge_contact_manager_config_set___(void * jarg1, void * jarg2) {
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
-  tesseract::collision::ContactManagerConfig arg2 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::ContactManagerConfig *argp2 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  argp2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactManagerConfig", 0);
-    return ;
-  }
-  arg2 = *argp2; 
-  if (arg1) (arg1)->edge_contact_manager_config = arg2;
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
+  if (arg1) (arg1)->edge_contact_manager_config = *arg2;
 }
 
 
@@ -47806,33 +53447,27 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveP
   void * jresult = 0 ;
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::ContactManagerConfig result;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  result =  ((arg1)->edge_contact_manager_config);
-  jresult = new tesseract::collision::ContactManagerConfig(result); 
+  result = (tesseract::collision::ContactManagerConfig *)& ((arg1)->edge_contact_manager_config);
+  jresult = (void *)result; 
   return jresult;
 }
 
 
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveProfileD_edge_collision_check_config_set___(void * jarg1, void * jarg2) {
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
-  tesseract::collision::CollisionCheckConfig arg2 ;
+  tesseract::collision::CollisionCheckConfig *arg2 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::CollisionCheckConfig *argp2 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  argp2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
-  if (!argp2) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::CollisionCheckConfig", 0);
-    return ;
-  }
-  arg2 = *argp2; 
-  if (arg1) (arg1)->edge_collision_check_config = arg2;
+  arg2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
+  if (arg1) (arg1)->edge_collision_check_config = *arg2;
 }
 
 
@@ -47840,13 +53475,13 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DescartesDefaultMoveP
   void * jresult = 0 ;
   tesseract::motion_planners::DescartesDefaultMoveProfile< double > *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::DescartesDefaultMoveProfile< double > > *smartarg1 = 0 ;
-  tesseract::collision::CollisionCheckConfig result;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
   
   
   smartarg1 = (std::shared_ptr<  tesseract::motion_planners::DescartesDefaultMoveProfile<double> > *)jarg1;
   arg1 = (tesseract::motion_planners::DescartesDefaultMoveProfile<double> *)(smartarg1 ? smartarg1->get() : 0); 
-  result =  ((arg1)->edge_collision_check_config);
-  jresult = new tesseract::collision::CollisionCheckConfig(result); 
+  result = (tesseract::collision::CollisionCheckConfig *)& ((arg1)->edge_collision_check_config);
+  jresult = (void *)result; 
   return jresult;
 }
 
@@ -48064,6 +53699,2271 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_DescartesLadderG
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_improve_ratio_threshold_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->improve_ratio_threshold = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_improve_ratio_threshold_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->improve_ratio_threshold);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_min_trust_box_size_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_trust_box_size = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_min_trust_box_size_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->min_trust_box_size);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_min_approx_improve_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_approx_improve = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_min_approx_improve_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->min_approx_improve);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_min_approx_improve_frac_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_approx_improve_frac = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_min_approx_improve_frac_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->min_approx_improve_frac);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_iter_set___(void * jarg1, int jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_iter = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_iter_get___(void * jarg1) {
+  int jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  int result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (int) ((arg1)->max_iter);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_trust_shrink_ratio_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->trust_shrink_ratio = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_trust_shrink_ratio_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->trust_shrink_ratio);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_trust_expand_ratio_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->trust_expand_ratio = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_trust_expand_ratio_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->trust_expand_ratio);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_cnt_tolerance_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->cnt_tolerance = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_cnt_tolerance_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->cnt_tolerance);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_merit_coeff_increases_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_merit_coeff_increases = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_merit_coeff_increases_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->max_merit_coeff_increases);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_qp_solver_failures_set___(void * jarg1, int jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_qp_solver_failures = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_qp_solver_failures_get___(void * jarg1) {
+  int jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  int result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (int) ((arg1)->max_qp_solver_failures);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_merit_coeff_increase_ratio_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->merit_coeff_increase_ratio = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_merit_coeff_increase_ratio_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->merit_coeff_increase_ratio);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_time_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_time = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_max_time_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->max_time);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_initial_merit_error_coeff_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->initial_merit_error_coeff = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_initial_merit_error_coeff_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->initial_merit_error_coeff);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_inflate_constraints_individually_set___(void * jarg1, unsigned int jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->inflate_constraints_individually = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_inflate_constraints_individually_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (bool) ((arg1)->inflate_constraints_individually);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_trust_box_size_set___(void * jarg1, double jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->trust_box_size = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_trust_box_size_get___(void * jarg1) {
+  double jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  double result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (double) ((arg1)->trust_box_size);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_log_results_set___(void * jarg1, unsigned int jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->log_results = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_log_results_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (bool) ((arg1)->log_results);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_log_dir_set___(void * jarg1, const char * jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (arg1) (arg1)->log_dir = *arg2;
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_log_dir_get___(void * jarg1) {
+  const char * jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  std::string *result = 0 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (std::string *) & ((arg1)->log_dir);
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_num_threads_set___(void * jarg1, int jarg2) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->num_threads = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_BasicTrustRegionSQPParameters_num_threads_get___(void * jarg1) {
+  int jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  int result;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  result = (int) ((arg1)->num_threads);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_BasicTrustRegionSQPParameters___() {
+  void * jresult = 0 ;
+  sco::BasicTrustRegionSQPParameters *result = 0 ;
+  
+  {
+    try
+    {
+      result = (sco::BasicTrustRegionSQPParameters *)new sco::BasicTrustRegionSQPParameters();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_BasicTrustRegionSQPParameters___(void * jarg1) {
+  sco::BasicTrustRegionSQPParameters *arg1 = 0 ;
+  
+  arg1 = (sco::BasicTrustRegionSQPParameters *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCoeffData__SWIG_0___() {
+  void * jresult = 0 ;
+  trajopt_common::CollisionCoeffData *result = 0 ;
+  
+  {
+    try
+    {
+      result = (trajopt_common::CollisionCoeffData *)new trajopt_common::CollisionCoeffData();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_CollisionCoeffData__SWIG_1___(double jarg1) {
+  void * jresult = 0 ;
+  double arg1 ;
+  trajopt_common::CollisionCoeffData *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  {
+    try
+    {
+      result = (trajopt_common::CollisionCoeffData *)new trajopt_common::CollisionCoeffData(arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCoeffData_setDefaultCollisionCoeff___(void * jarg1, double jarg2) {
+  trajopt_common::CollisionCoeffData *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (trajopt_common::CollisionCoeffData *)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      (arg1)->setDefaultCollisionCoeff(arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCoeffData_getDefaultCollisionCoeff___(void * jarg1) {
+  double jresult = 0 ;
+  trajopt_common::CollisionCoeffData *arg1 = 0 ;
+  double result;
+  
+  arg1 = (trajopt_common::CollisionCoeffData *)jarg1; 
+  {
+    try
+    {
+      result = (double)((trajopt_common::CollisionCoeffData const *)arg1)->getDefaultCollisionCoeff();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCoeffData_setCollisionCoeff___(void * jarg1, const char * jarg2, const char * jarg3, double jarg4) {
+  trajopt_common::CollisionCoeffData *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  double arg4 ;
+  
+  arg1 = (trajopt_common::CollisionCoeffData *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return ;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  arg4 = (double)jarg4; 
+  {
+    try
+    {
+      (arg1)->setCollisionCoeff((std::string const &)*arg2,(std::string const &)*arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_CollisionCoeffData_getCollisionCoeff___(void * jarg1, const char * jarg2, const char * jarg3) {
+  double jresult = 0 ;
+  trajopt_common::CollisionCoeffData *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  double result;
+  
+  arg1 = (trajopt_common::CollisionCoeffData *)jarg1; 
+  if (!jarg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg2_str(jarg2);
+  arg2 = &arg2_str; 
+  if (!jarg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  std::string arg3_str(jarg3);
+  arg3 = &arg3_str; 
+  {
+    try
+    {
+      result = (double)((trajopt_common::CollisionCoeffData const *)arg1)->getCollisionCoeff((std::string const &)*arg2,(std::string const &)*arg3);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_CollisionCoeffData___(void * jarg1) {
+  trajopt_common::CollisionCoeffData *arg1 = 0 ;
+  
+  arg1 = (trajopt_common::CollisionCoeffData *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCollisionConfig__SWIG_0___() {
+  void * jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  {
+    try
+    {
+      result = (trajopt_common::TrajOptCollisionConfig *)new trajopt_common::TrajOptCollisionConfig();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCollisionConfig__SWIG_1___(double jarg1, double jarg2, void * jarg3, int jarg4, double jarg5, int jarg6) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  tesseract::collision::ContactRequest arg3 ;
+  tesseract::collision::CollisionEvaluatorType arg4 ;
+  double arg5 ;
+  tesseract::collision::CollisionCheckProgramType arg6 ;
+  tesseract::collision::ContactRequest *argp3 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  argp3 = (tesseract::collision::ContactRequest *)jarg3; 
+  if (!argp3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg3 = *argp3; 
+  arg4 = (tesseract::collision::CollisionEvaluatorType)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (tesseract::collision::CollisionCheckProgramType)jarg6; 
+  {
+    try
+    {
+      result = (trajopt_common::TrajOptCollisionConfig *)new trajopt_common::TrajOptCollisionConfig(arg1,arg2,SWIG_STD_MOVE(*(&arg3)),arg4,arg5,arg6);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCollisionConfig__SWIG_2___(double jarg1, double jarg2, void * jarg3, int jarg4, double jarg5) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  tesseract::collision::ContactRequest arg3 ;
+  tesseract::collision::CollisionEvaluatorType arg4 ;
+  double arg5 ;
+  tesseract::collision::ContactRequest *argp3 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  argp3 = (tesseract::collision::ContactRequest *)jarg3; 
+  if (!argp3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg3 = *argp3; 
+  arg4 = (tesseract::collision::CollisionEvaluatorType)jarg4; 
+  arg5 = (double)jarg5; 
+  {
+    try
+    {
+      result = (trajopt_common::TrajOptCollisionConfig *)new trajopt_common::TrajOptCollisionConfig(arg1,arg2,SWIG_STD_MOVE(*(&arg3)),arg4,arg5);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCollisionConfig__SWIG_3___(double jarg1, double jarg2, void * jarg3, int jarg4) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  tesseract::collision::ContactRequest arg3 ;
+  tesseract::collision::CollisionEvaluatorType arg4 ;
+  tesseract::collision::ContactRequest *argp3 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  argp3 = (tesseract::collision::ContactRequest *)jarg3; 
+  if (!argp3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg3 = *argp3; 
+  arg4 = (tesseract::collision::CollisionEvaluatorType)jarg4; 
+  {
+    try
+    {
+      result = (trajopt_common::TrajOptCollisionConfig *)new trajopt_common::TrajOptCollisionConfig(arg1,arg2,SWIG_STD_MOVE(*(&arg3)),arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCollisionConfig__SWIG_4___(double jarg1, double jarg2, void * jarg3) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  tesseract::collision::ContactRequest arg3 ;
+  tesseract::collision::ContactRequest *argp3 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  argp3 = (tesseract::collision::ContactRequest *)jarg3; 
+  if (!argp3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "Attempt to dereference null tesseract::collision::ContactRequest", 0);
+    return 0;
+  }
+  arg3 = *argp3; 
+  {
+    try
+    {
+      result = (trajopt_common::TrajOptCollisionConfig *)new trajopt_common::TrajOptCollisionConfig(arg1,arg2,SWIG_STD_MOVE(*(&arg3)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCollisionConfig__SWIG_5___(double jarg1, double jarg2) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  {
+    try
+    {
+      result = (trajopt_common::TrajOptCollisionConfig *)new trajopt_common::TrajOptCollisionConfig(arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_enabled_set___(void * jarg1, unsigned int jarg2) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->enabled = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_enabled_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  result = (bool) ((arg1)->enabled);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_contact_manager_config_set___(void * jarg1, void * jarg2) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *arg2 = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  arg2 = (tesseract::collision::ContactManagerConfig *)jarg2; 
+  if (arg1) (arg1)->contact_manager_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_contact_manager_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  tesseract::collision::ContactManagerConfig *result = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  result = (tesseract::collision::ContactManagerConfig *)& ((arg1)->contact_manager_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_collision_check_config_set___(void * jarg1, void * jarg2) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  tesseract::collision::CollisionCheckConfig *arg2 = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  arg2 = (tesseract::collision::CollisionCheckConfig *)jarg2; 
+  if (arg1) (arg1)->collision_check_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_collision_check_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  tesseract::collision::CollisionCheckConfig *result = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  result = (tesseract::collision::CollisionCheckConfig *)& ((arg1)->collision_check_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_collision_coeff_data_set___(void * jarg1, void * jarg2) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  trajopt_common::CollisionCoeffData *arg2 = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  arg2 = (trajopt_common::CollisionCoeffData *)jarg2; 
+  if (arg1) (arg1)->collision_coeff_data = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_collision_coeff_data_get___(void * jarg1) {
+  void * jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  trajopt_common::CollisionCoeffData *result = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  result = (trajopt_common::CollisionCoeffData *)& ((arg1)->collision_coeff_data);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_collision_margin_buffer_set___(void * jarg1, double jarg2) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->collision_margin_buffer = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_collision_margin_buffer_get___(void * jarg1) {
+  double jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  double result;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  result = (double) ((arg1)->collision_margin_buffer);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_max_num_cnt_set___(void * jarg1, int jarg2) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  int arg2 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->max_num_cnt = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCollisionConfig_max_num_cnt_get___(void * jarg1) {
+  int jresult = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  int result;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  result = (int) ((arg1)->max_num_cnt);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptCollisionConfig___(void * jarg1) {
+  trajopt_common::TrajOptCollisionConfig *arg1 = 0 ;
+  
+  arg1 = (trajopt_common::TrajOptCollisionConfig *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptCartesianWaypointConfig___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)new tesseract::motion_planners::TrajOptCartesianWaypointConfig();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_enabled_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->enabled = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_enabled_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  result = (bool) ((arg1)->enabled);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_use_tolerance_override_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->use_tolerance_override = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_use_tolerance_override_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  result = (bool) ((arg1)->use_tolerance_override);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_lower_tolerance_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->lower_tolerance = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_lower_tolerance_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->lower_tolerance);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_upper_tolerance_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->upper_tolerance = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_upper_tolerance_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->upper_tolerance);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_coeff_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->coeff = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptCartesianWaypointConfig_coeff_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->coeff);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptCartesianWaypointConfig___(void * jarg1) {
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg1 = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptJointWaypointConfig___() {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::motion_planners::TrajOptJointWaypointConfig *)new tesseract::motion_planners::TrajOptJointWaypointConfig();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_enabled_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->enabled = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_enabled_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  result = (bool) ((arg1)->enabled);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_use_tolerance_override_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  bool arg2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->use_tolerance_override = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_use_tolerance_override_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  result = (bool) ((arg1)->use_tolerance_override);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_lower_tolerance_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->lower_tolerance = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_lower_tolerance_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->lower_tolerance);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_upper_tolerance_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->upper_tolerance = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_upper_tolerance_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->upper_tolerance);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_coeff_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *arg2 = 0 ;
+  Eigen::VectorXd local2 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->coeff = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptJointWaypointConfig_coeff_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  Eigen::VectorXd *result = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  result = (Eigen::VectorXd *)& ((arg1)->coeff);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\dev\AvaloniaExampleAppTesting\WestfalenPanther\artifacts\dtn\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptJointWaypointConfig___(void * jarg1) {
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg1 = 0 ;
+  
+  arg1 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_device_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->device = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_device_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->device);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_linsys_solver_set___(void * jarg1, int jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  osqp_linsys_solver_type arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (osqp_linsys_solver_type)jarg2; 
+  if (arg1) (arg1)->linsys_solver = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_linsys_solver_get___(void * jarg1) {
+  int jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  osqp_linsys_solver_type result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (osqp_linsys_solver_type) ((arg1)->linsys_solver);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_allocate_solution_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->allocate_solution = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_allocate_solution_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->allocate_solution);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_verbose_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->verbose = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_verbose_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->verbose);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_profiler_level_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->profiler_level = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_profiler_level_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->profiler_level);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_warm_starting_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->warm_starting = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_warm_starting_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->warm_starting);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_scaling_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->scaling = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_scaling_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->scaling);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_polishing_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->polishing = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_polishing_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->polishing);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_rho_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->rho = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_rho_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->rho);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_rho_is_vec_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->rho_is_vec = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_rho_is_vec_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->rho_is_vec);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_sigma_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->sigma = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_sigma_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->sigma);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_alpha_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->alpha = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_alpha_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->alpha);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_max_iter_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->cg_max_iter = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_max_iter_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->cg_max_iter);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_tol_reduction_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->cg_tol_reduction = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_tol_reduction_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->cg_tol_reduction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_tol_fraction_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->cg_tol_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_tol_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->cg_tol_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_precond_set___(void * jarg1, int jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  osqp_precond_type arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (osqp_precond_type)jarg2; 
+  if (arg1) (arg1)->cg_precond = arg2;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_cg_precond_get___(void * jarg1) {
+  int jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  osqp_precond_type result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (osqp_precond_type) ((arg1)->cg_precond);
+  jresult = (int)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->adaptive_rho = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->adaptive_rho);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_interval_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->adaptive_rho_interval = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_interval_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->adaptive_rho_interval);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_fraction_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->adaptive_rho_fraction = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_fraction_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->adaptive_rho_fraction);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_tolerance_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->adaptive_rho_tolerance = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_adaptive_rho_tolerance_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->adaptive_rho_tolerance);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_max_iter_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->max_iter = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_max_iter_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->max_iter);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_abs_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->eps_abs = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_abs_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->eps_abs);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_rel_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->eps_rel = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_rel_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->eps_rel);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_prim_inf_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->eps_prim_inf = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_prim_inf_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->eps_prim_inf);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_dual_inf_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->eps_dual_inf = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_eps_dual_inf_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->eps_dual_inf);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_scaled_termination_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->scaled_termination = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_scaled_termination_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->scaled_termination);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_check_termination_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->check_termination = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_check_termination_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->check_termination);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_check_dualgap_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->check_dualgap = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_check_dualgap_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->check_dualgap);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_time_limit_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->time_limit = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_time_limit_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->time_limit);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_delta_set___(void * jarg1, double jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  double arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->delta = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_delta_get___(void * jarg1) {
+  double jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  double result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (double) ((arg1)->delta);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_polish_refine_iter_set___(void * jarg1, long long jarg2) {
+  OSQPSettings *arg1 = 0 ;
+  long long arg2 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  arg2 = (long long)jarg2; 
+  if (arg1) (arg1)->polish_refine_iter = arg2;
+}
+
+
+SWIGEXPORT long long SWIGSTDCALL CSharp_DarpfTesseractfNative_OSQPSettings_polish_refine_iter_get___(void * jarg1) {
+  long long jresult = 0 ;
+  OSQPSettings *arg1 = 0 ;
+  long long result;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  result = (long long) ((arg1)->polish_refine_iter);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_OSQPSettings___(void * jarg1) {
+  OSQPSettings *arg1 = 0 ;
+  
+  arg1 = (OSQPSettings *)jarg1; 
+  {
+    try
+    {
+      delete arg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptMoveProfile___(void * jarg1) {
   tesseract::motion_planners::TrajOptMoveProfile *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::TrajOptMoveProfile > *smartarg1 = 0 ;
@@ -48123,6 +56023,34 @@ SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptComposite
       return ;
     }
   }
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptSolverProfile_opt_params_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptSolverProfile *arg1 = 0 ;
+  sco::BasicTrustRegionSQPParameters *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (sco::BasicTrustRegionSQPParameters *)jarg2; 
+  if (arg1) (arg1)->opt_params = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptSolverProfile_opt_params_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptSolverProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptSolverProfile > *smartarg1 = 0 ;
+  sco::BasicTrustRegionSQPParameters *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (sco::BasicTrustRegionSQPParameters *)& ((arg1)->opt_params);
+  jresult = (void *)result; 
+  return jresult;
 }
 
 
@@ -48189,6 +56117,118 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptDefaultMov
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_cartesian_cost_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg2; 
+  if (arg1) (arg1)->cartesian_cost_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_cartesian_cost_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)& ((arg1)->cartesian_cost_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_cartesian_constraint_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)jarg2; 
+  if (arg1) (arg1)->cartesian_constraint_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_cartesian_constraint_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  tesseract::motion_planners::TrajOptCartesianWaypointConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::motion_planners::TrajOptCartesianWaypointConfig *)& ((arg1)->cartesian_constraint_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_joint_cost_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg2; 
+  if (arg1) (arg1)->joint_cost_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_joint_cost_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::motion_planners::TrajOptJointWaypointConfig *)& ((arg1)->joint_cost_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_joint_constraint_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::motion_planners::TrajOptJointWaypointConfig *)jarg2; 
+  if (arg1) (arg1)->joint_constraint_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultMoveProfile_joint_constraint_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
+  tesseract::motion_planners::TrajOptJointWaypointConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultMoveProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultMoveProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (tesseract::motion_planners::TrajOptJointWaypointConfig *)& ((arg1)->joint_constraint_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TrajOptDefaultMoveProfile___(void * jarg1) {
   tesseract::motion_planners::TrajOptDefaultMoveProfile *arg1 = 0 ;
   std::shared_ptr< tesseract::motion_planners::TrajOptDefaultMoveProfile > *smartarg1 = 0 ;
@@ -48248,6 +56288,62 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptDefaultCom
   
   jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
   
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_collision_cost_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (trajopt_common::TrajOptCollisionConfig *)jarg2; 
+  if (arg1) (arg1)->collision_cost_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_collision_cost_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (trajopt_common::TrajOptCollisionConfig *)& ((arg1)->collision_cost_config);
+  jresult = (void *)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_collision_constraint_config_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  trajopt_common::TrajOptCollisionConfig *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (trajopt_common::TrajOptCollisionConfig *)jarg2; 
+  if (arg1) (arg1)->collision_constraint_config = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptDefaultCompositeProfile_collision_constraint_config_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptDefaultCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptDefaultCompositeProfile > *smartarg1 = 0 ;
+  trajopt_common::TrajOptCollisionConfig *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptDefaultCompositeProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptDefaultCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (trajopt_common::TrajOptCollisionConfig *)& ((arg1)->collision_constraint_config);
+  jresult = (void *)result; 
   return jresult;
 }
 
@@ -48592,6 +56688,34 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TrajOptOSQPSolver
   
   jresult = result ? new std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
   
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_settings_set___(void * jarg1, void * jarg2) {
+  tesseract::motion_planners::TrajOptOSQPSolverProfile *arg1 = 0 ;
+  OSQPSettings *arg2 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptOSQPSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (OSQPSettings *)jarg2; 
+  if (arg1) (arg1)->settings = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TrajOptOSQPSolverProfile_settings_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::motion_planners::TrajOptOSQPSolverProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::motion_planners::TrajOptOSQPSolverProfile > *smartarg1 = 0 ;
+  OSQPSettings *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::motion_planners::TrajOptOSQPSolverProfile > *)jarg1;
+  arg1 = (tesseract::motion_planners::TrajOptOSQPSolverProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (OSQPSettings *)& ((arg1)->settings);
+  jresult = (void *)result; 
   return jresult;
 }
 
@@ -53877,6 +62001,62 @@ SWIGEXPORT tesseract::command_language::MoveInstructionInterface * SWIGSTDCALL C
 
 SWIGEXPORT tesseract::command_language::InstructionInterface * SWIGSTDCALL CSharp_DarpfTesseractfNative_CompositeInstruction_SWIGUpcast___(tesseract::command_language::CompositeInstruction *jarg1) {
     return (tesseract::command_language::InstructionInterface *)jarg1;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_SBLConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::SBLConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_ESTConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::ESTConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_LBKPIECE1Configurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::LBKPIECE1Configurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_BKPIECE1Configurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::BKPIECE1Configurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_KPIECE1Configurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::KPIECE1Configurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_BiTRRTConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::BiTRRTConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::RRTConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTConnectConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::RRTConnectConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_RRTstarConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::RRTstarConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TRRTConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::TRRTConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_PRMConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::PRMConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_PRMstarConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::PRMstarConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_LazyPRMstarConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::LazyPRMstarConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_SPARSConfigurator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::SPARSConfigurator > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::motion_planners::OMPLPlannerConfigurator >(*jarg1) : 0;
 }
 
 SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_OMPLMoveProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::motion_planners::OMPLMoveProfile > *jarg1) {

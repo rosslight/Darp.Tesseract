@@ -21,6 +21,56 @@ public sealed class PlanningBindingsTests
     }
 
     [Fact]
+    public void PlannerProfilesExposeTheirNativeConfiguration()
+    {
+        using var ompl = new OMPLRealVectorMoveProfile();
+        using OMPLSolverConfig omplSolver = ompl.solver_config;
+        using OMPLPlannerConfiguratorVector planners = omplSolver.planners;
+        using var rrtConnect = new RRTConnectConfigurator { range = 0.25 };
+        planners.Clear();
+        planners.Add(rrtConnect);
+        omplSolver.planning_time = 2.5;
+
+        using ContactManagerConfig contactManager = ompl.contact_manager_config;
+        using var margin = new OptionalDouble(0.02);
+        contactManager.default_margin = margin;
+        using StringBoolMap enabledObjects = contactManager.modify_object_enabled;
+        enabledObjects["fixture"] = false;
+
+        using CollisionCheckConfig collisionCheck = ompl.collision_check_config;
+        collisionCheck.type = CollisionEvaluatorType.LVS_CONTINUOUS;
+        collisionCheck.longest_valid_segment_length = 0.01;
+
+        using var trajOptMove = new TrajOptDefaultMoveProfile();
+        using TrajOptCartesianWaypointConfig cartesianCost = trajOptMove.cartesian_cost_config;
+        cartesianCost.coeff = [1, 2, 3, 4, 5, 6];
+        cartesianCost.use_tolerance_override = true;
+
+        using var trajOptComposite = new TrajOptDefaultCompositeProfile();
+        using TrajOptCollisionConfig collisionCost = trajOptComposite.collision_cost_config;
+        using CollisionCoeffData collisionCoefficients = collisionCost.collision_coeff_data;
+        collisionCoefficients.setCollisionCoeff("tool", "fixture", 7.5);
+
+        using var trajOptSolver = new TrajOptOSQPSolverProfile();
+        using BasicTrustRegionSQPParameters sqp = trajOptSolver.opt_params;
+        using OSQPSettings osqp = trajOptSolver.settings;
+        sqp.max_iter = 25;
+        osqp.max_iter = 1_000;
+
+        omplSolver.planning_time.ShouldBe(2.5);
+        planners.Single().getType().ShouldBe(OMPLPlannerType.RRTConnect);
+        contactManager.default_margin.value().ShouldBe(0.02);
+        enabledObjects["fixture"].ShouldBeFalse();
+        collisionCheck.type.ShouldBe(CollisionEvaluatorType.LVS_CONTINUOUS);
+        collisionCheck.longest_valid_segment_length.ShouldBe(0.01);
+        cartesianCost.coeff.ShouldBe([1, 2, 3, 4, 5, 6]);
+        cartesianCost.use_tolerance_override.ShouldBeTrue();
+        collisionCoefficients.getCollisionCoeff("fixture", "tool").ShouldBe(7.5);
+        sqp.max_iter.ShouldBe(25);
+        osqp.max_iter.ShouldBe(1_000);
+    }
+
+    [Fact]
     public void PlanningWaypointsPreserveJointAndTrajectoryData()
     {
         using var names = new StringVector { "joint_1", "joint_2" };

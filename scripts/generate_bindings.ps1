@@ -38,6 +38,7 @@ $includeDirs = @(
   (Join-Path $repositoryDir "native/tesseract_planning/motion_planners/descartes/include"),
   (Join-Path $repositoryDir "native/tesseract_planning/motion_planners/ompl/include"),
   (Join-Path $repositoryDir "native/tesseract_planning/motion_planners/trajopt/include"),
+  (Join-Path $repositoryDir "native/trajopt/trajopt_common/include"),
   (Join-Path $repositoryDir "native/tesseract_planning/task_composer/core/include"),
   (Join-Path $repositoryDir "native/tesseract_planning/time_parameterization/core/include"),
   (Join-Path $repositoryDir "native")

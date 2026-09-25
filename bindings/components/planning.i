@@ -125,10 +125,43 @@ class AnyPoly {};
 %ignore tesseract::motion_planners::OMPLMoveProfile::createSolverConfig;
 %ignore tesseract::motion_planners::OMPLMoveProfile::createStateExtractor;
 %ignore tesseract::motion_planners::OMPLMoveProfile::createSimpleSetup;
+%ignore tesseract::motion_planners::OMPLPlannerConfigurator::create;
+%ignore tesseract::motion_planners::SBLConfigurator::create;
+%ignore tesseract::motion_planners::ESTConfigurator::create;
+%ignore tesseract::motion_planners::LBKPIECE1Configurator::create;
+%ignore tesseract::motion_planners::BKPIECE1Configurator::create;
+%ignore tesseract::motion_planners::KPIECE1Configurator::create;
+%ignore tesseract::motion_planners::BiTRRTConfigurator::create;
+%ignore tesseract::motion_planners::RRTConfigurator::create;
+%ignore tesseract::motion_planners::RRTConnectConfigurator::create;
+%ignore tesseract::motion_planners::RRTstarConfigurator::create;
+%ignore tesseract::motion_planners::TRRTConfigurator::create;
+%ignore tesseract::motion_planners::PRMConfigurator::create;
+%ignore tesseract::motion_planners::PRMstarConfigurator::create;
+%ignore tesseract::motion_planners::LazyPRMstarConfigurator::create;
+%ignore tesseract::motion_planners::SPARSConfigurator::create;
+%ignore tesseract::motion_planners::OMPLSolverConfig::operator==;
+%ignore tesseract::motion_planners::OMPLSolverConfig::operator!=;
+%shared_ptr(tesseract::motion_planners::OMPLPlannerConfigurator)
+%shared_ptr(tesseract::motion_planners::SBLConfigurator)
+%shared_ptr(tesseract::motion_planners::ESTConfigurator)
+%shared_ptr(tesseract::motion_planners::LBKPIECE1Configurator)
+%shared_ptr(tesseract::motion_planners::BKPIECE1Configurator)
+%shared_ptr(tesseract::motion_planners::KPIECE1Configurator)
+%shared_ptr(tesseract::motion_planners::BiTRRTConfigurator)
+%shared_ptr(tesseract::motion_planners::RRTConfigurator)
+%shared_ptr(tesseract::motion_planners::RRTConnectConfigurator)
+%shared_ptr(tesseract::motion_planners::RRTstarConfigurator)
+%shared_ptr(tesseract::motion_planners::TRRTConfigurator)
+%shared_ptr(tesseract::motion_planners::PRMConfigurator)
+%shared_ptr(tesseract::motion_planners::PRMstarConfigurator)
+%shared_ptr(tesseract::motion_planners::LazyPRMstarConfigurator)
+%shared_ptr(tesseract::motion_planners::SPARSConfigurator)
+%shared_ptr(tesseract::motion_planners::OMPLSolverConfig)
+%include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
+%template(OMPLPlannerConfiguratorVector) std::vector<std::shared_ptr<const tesseract::motion_planners::OMPLPlannerConfigurator>>;
+%include <tesseract/motion_planners/ompl/ompl_solver_config.h>
 %ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::OMPLRealVectorMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
-%ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::solver_config;
-%ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::contact_manager_config;
-%ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::collision_check_config;
 %ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::createSolverConfig;
 %ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::createStateExtractor;
 %ignore tesseract::motion_planners::OMPLRealVectorMoveProfile::createSimpleSetup;
@@ -154,35 +187,114 @@ class AnyPoly {};
 
 %ignore tesseract::motion_planners::TrajOptTermInfos;
 %ignore tesseract::motion_planners::TrajOptWaypointInfo;
+namespace sco
+{
+struct BasicTrustRegionSQPParameters
+{
+  double improve_ratio_threshold;
+  double min_trust_box_size;
+  double min_approx_improve;
+  double min_approx_improve_frac;
+  int max_iter;
+  double trust_shrink_ratio;
+  double trust_expand_ratio;
+  double cnt_tolerance;
+  double max_merit_coeff_increases;
+  int max_qp_solver_failures;
+  double merit_coeff_increase_ratio;
+  double max_time;
+  double initial_merit_error_coeff;
+  bool inflate_constraints_individually;
+  double trust_box_size;
+  bool log_results;
+  std::string log_dir;
+  int num_threads;
+};
+}
+%ignore trajopt_common::CollisionCoeffData::getCollisionCoeffPairData;
+%ignore trajopt_common::CollisionCoeffData::getPairsWithZeroCoeff;
+%ignore trajopt_common::CollisionCoeffData::operator==;
+%ignore trajopt_common::CollisionCoeffData::operator!=;
+%ignore trajopt_common::TrajOptCollisionConfig::operator==;
+%ignore trajopt_common::TrajOptCollisionConfig::operator!=;
+%ignore trajopt_common::LinkGradientResults;
+%ignore trajopt_common::GradientResults;
+%ignore trajopt_common::LinkMaxError;
+%ignore trajopt_common::GradientResultsSet;
+%ignore trajopt_common::CollisionCacheData;
+%include <trajopt_common/collision_types.h>
+%ignore tesseract::motion_planners::TrajOptCartesianWaypointConfig::operator==;
+%ignore tesseract::motion_planners::TrajOptCartesianWaypointConfig::operator!=;
+%ignore tesseract::motion_planners::TrajOptJointWaypointConfig::operator==;
+%ignore tesseract::motion_planners::TrajOptJointWaypointConfig::operator!=;
+%include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
 %ignore tesseract::motion_planners::TrajOptMoveProfile::create;
 %ignore tesseract::motion_planners::TrajOptCompositeProfile::create;
-%ignore tesseract::motion_planners::TrajOptSolverProfile::opt_params;
 %ignore tesseract::motion_planners::TrajOptSolverProfile::callbacks;
 %ignore tesseract::motion_planners::TrajOptSolverProfile::getSolverType;
 %ignore tesseract::motion_planners::TrajOptSolverProfile::createSolverConfig;
 %ignore tesseract::motion_planners::TrajOptSolverProfile::createOptimizationParameters;
 %ignore tesseract::motion_planners::TrajOptSolverProfile::createOptimizationCallbacks;
 %ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::TrajOptDefaultMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
-%ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::cartesian_cost_config;
-%ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::cartesian_constraint_config;
-%ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::joint_cost_config;
-%ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::joint_constraint_config;
 %ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::create;
 %ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::operator==;
 %ignore tesseract::motion_planners::TrajOptDefaultMoveProfile::operator!=;
 %ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::TrajOptDefaultCompositeProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
-%ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::collision_cost_config;
-%ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::collision_constraint_config;
 %ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::create;
 %ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::computeLongestValidSegmentLength;
 %ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::operator==;
 %ignore tesseract::motion_planners::TrajOptDefaultCompositeProfile::operator!=;
 %ignore tesseract::motion_planners::TrajOptOSQPSolverProfile::TrajOptOSQPSolverProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
-%ignore tesseract::motion_planners::TrajOptOSQPSolverProfile::settings;
 %ignore tesseract::motion_planners::TrajOptOSQPSolverProfile::getSolverType;
 %ignore tesseract::motion_planners::TrajOptOSQPSolverProfile::createSolverConfig;
 %ignore tesseract::motion_planners::TrajOptOSQPSolverProfile::operator==;
 %ignore tesseract::motion_planners::TrajOptOSQPSolverProfile::operator!=;
+enum osqp_linsys_solver_type
+{
+  OSQP_UNKNOWN_SOLVER = 0,
+  OSQP_DIRECT_SOLVER,
+  OSQP_INDIRECT_SOLVER
+};
+enum osqp_precond_type
+{
+  OSQP_NO_PRECONDITIONER = 0,
+  OSQP_DIAGONAL_PRECONDITIONER
+};
+%nodefaultctor OSQPSettings;
+struct OSQPSettings
+{
+  long long device;
+  osqp_linsys_solver_type linsys_solver;
+  long long allocate_solution;
+  long long verbose;
+  long long profiler_level;
+  long long warm_starting;
+  long long scaling;
+  long long polishing;
+  double rho;
+  long long rho_is_vec;
+  double sigma;
+  double alpha;
+  long long cg_max_iter;
+  long long cg_tol_reduction;
+  double cg_tol_fraction;
+  osqp_precond_type cg_precond;
+  long long adaptive_rho;
+  long long adaptive_rho_interval;
+  double adaptive_rho_fraction;
+  double adaptive_rho_tolerance;
+  long long max_iter;
+  double eps_abs;
+  double eps_rel;
+  double eps_prim_inf;
+  double eps_dual_inf;
+  long long scaled_termination;
+  long long check_termination;
+  long long check_dualgap;
+  double time_limit;
+  double delta;
+  long long polish_refine_iter;
+};
 %shared_ptr(tesseract::motion_planners::TrajOptMoveProfile)
 %shared_ptr(tesseract::motion_planners::TrajOptCompositeProfile)
 %shared_ptr(tesseract::motion_planners::TrajOptSolverProfile)
