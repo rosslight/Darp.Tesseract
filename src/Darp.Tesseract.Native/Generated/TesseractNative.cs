@@ -20,6 +20,69 @@ public class TesseractNative {
     } 
   }
 
+  public static Box asBox(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asBox(Geometry.getCPtr(geometry));
+    Box ret = (cPtr == global::System.IntPtr.Zero) ? null : new Box(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Sphere asSphere(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asSphere(Geometry.getCPtr(geometry));
+    Sphere ret = (cPtr == global::System.IntPtr.Zero) ? null : new Sphere(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Cylinder asCylinder(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asCylinder(Geometry.getCPtr(geometry));
+    Cylinder ret = (cPtr == global::System.IntPtr.Zero) ? null : new Cylinder(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Capsule asCapsule(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asCapsule(Geometry.getCPtr(geometry));
+    Capsule ret = (cPtr == global::System.IntPtr.Zero) ? null : new Capsule(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Cone asCone(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asCone(Geometry.getCPtr(geometry));
+    Cone ret = (cPtr == global::System.IntPtr.Zero) ? null : new Cone(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Plane asPlane(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asPlane(Geometry.getCPtr(geometry));
+    Plane ret = (cPtr == global::System.IntPtr.Zero) ? null : new Plane(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static PolygonMesh asPolygonMesh(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asPolygonMesh(Geometry.getCPtr(geometry));
+    PolygonMesh ret = (cPtr == global::System.IntPtr.Zero) ? null : new PolygonMesh(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static CompoundMesh asCompoundMesh(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asCompoundMesh(Geometry.getCPtr(geometry));
+    CompoundMesh ret = (cPtr == global::System.IntPtr.Zero) ? null : new CompoundMesh(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static Octree asOctree(Geometry geometry) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.asOctree(Geometry.getCPtr(geometry));
+    Octree ret = (cPtr == global::System.IntPtr.Zero) ? null : new Octree(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static bool isIdentical(Geometry geom1, Geometry geom2) {
     bool ret = TesseractNativePINVOKE.isIdentical(Geometry.getCPtr(geom1), Geometry.getCPtr(geom2));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();

@@ -56,6 +56,8 @@
 #include <tesseract/geometry/geometry.h>
 #include <tesseract/geometry/geometries.h>
 #include <tesseract/geometry/impl/mesh_material.h>
+#include <octomap/OcTree.h>
+#include <tesseract/geometry/impl/octree.h>
 #include <tesseract/geometry/mesh_parser.h>
 #include <tesseract/geometry/utils.h>
 
@@ -194,9 +196,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 
 /* Managed subclassing/callbacks are outside this native-only slice. */
 %ignore tesseract::common::ResourceLocator::locateResource;
-%ignore tesseract::common::Resource::getResourceContents;
 %ignore tesseract::common::Resource::getResourceContentStream;
-%ignore tesseract::common::SimpleLocatedResource::getResourceContents;
 %ignore tesseract::common::SimpleLocatedResource::getResourceContentStream;
 %ignore tesseract::common::BytesResource;
 %ignore tesseract::common::ProfilesPluginInfo;
@@ -242,15 +242,15 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::kinematics::FwdKinFactory;
 %ignore tesseract::kinematics::InvKinFactory;
 
-/* Mesh data needs a dedicated aligned-vector/indexed-face layer. Robot
- * loading still uses it internally; defer only its public construction API. */
-%ignore tesseract::geometry::PolygonMesh;
-%ignore tesseract::geometry::Mesh;
-%ignore tesseract::geometry::ConvexMesh;
-%ignore tesseract::geometry::SDFMesh;
-%ignore tesseract::geometry::CompoundMesh;
-%ignore tesseract::geometry::MeshMaterial;
-%ignore tesseract::geometry::MeshTexture;
+/* Scene geometry is created by robot loading. Rendering only needs its
+ * read-only data, so constructors with nested native containers stay hidden. */
+%ignore tesseract::geometry::PolygonMesh::PolygonMesh;
+%ignore tesseract::geometry::Mesh::Mesh;
+%ignore tesseract::geometry::ConvexMesh::ConvexMesh;
+%ignore tesseract::geometry::SDFMesh::SDFMesh;
+%ignore tesseract::geometry::CompoundMesh::CompoundMesh;
+%ignore tesseract::geometry::MeshTexture::MeshTexture;
+%ignore tesseract::geometry::Octree::Octree;
 %ignore tesseract::geometry::Geometry::setUUID;
 %ignore tesseract::geometry::Geometry::getUUID;
 %ignore tesseract::geometry::extractVertices;
@@ -329,6 +329,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %shared_ptr(tesseract::geometry::CompoundMesh)
 %shared_ptr(tesseract::geometry::MeshMaterial)
 %shared_ptr(tesseract::geometry::MeshTexture)
+%shared_ptr(tesseract::geometry::Octree)
 
 %shared_ptr(tesseract::scene_graph::JointDynamics)
 %shared_ptr(tesseract::scene_graph::JointLimits)

@@ -166,6 +166,24 @@ namespace darp_geometry { struct Value {}; }
 }
 %enddef
 
+/* Optional shared containers returned by mesh data become owned snapshots. */
+%define DARP_SHARED_CONTAINER_RESULT(TYPE, MANAGED)
+%typemap(ctype) const std::shared_ptr<const TYPE>& "void *"
+%typemap(imtype, out="global::System.IntPtr") const std::shared_ptr<const TYPE>& "global::System.Runtime.InteropServices.HandleRef"
+%typemap(cstype, out="MANAGED") const std::shared_ptr<const TYPE>& "MANAGED"
+%typemap(out, canthrow=1) const std::shared_ptr<const TYPE>& {
+  try {
+    $result = (*$1) ? new darp_geometry::Value(darp_geometry::owned_container<TYPE>(**$1)) : nullptr;
+  }
+  DARP_GEOMETRY_CATCH
+}
+%typemap(csout, excode=SWIGEXCODE) const std::shared_ptr<const TYPE>& {
+    var result = $imcall;$excode
+    return result == global::System.IntPtr.Zero ? null : new MANAGED(result);
+}
+%enddef
+
+
 /* Frozen collections use the shared managed owner instead of SWIG's disposable proxy. */
 %define DARP_CONTAINER_PROXY(TYPE, MANAGED, BASE, ELEMENT, KIND, WRAP)
 %nodefaultctor TYPE;

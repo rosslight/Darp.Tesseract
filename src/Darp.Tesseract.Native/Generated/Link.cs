@@ -118,6 +118,12 @@ public class Link : global::System.IDisposable {
     return ret;
   }
 
+  public VisualVector getVisuals() {
+    VisualVector ret = new VisualVector(TesseractNativePINVOKE.Link_getVisuals(swigCPtr), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

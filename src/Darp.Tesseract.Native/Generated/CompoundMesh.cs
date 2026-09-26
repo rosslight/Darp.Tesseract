@@ -10,16 +10,16 @@
 
 namespace Darp.Tesseract.Native {
 
-public class Resource : ResourceLocator {
+public class CompoundMesh : Geometry {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   private bool swigCMemOwnDerived;
 
-  internal Resource(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.Resource_SWIGSmartPtrUpcast(cPtr), true) {
+  internal CompoundMesh(global::System.IntPtr cPtr, bool cMemoryOwn) : base(TesseractNativePINVOKE.CompoundMesh_SWIGSmartPtrUpcast(cPtr), true) {
     swigCMemOwnDerived = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(Resource obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(CompoundMesh obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
@@ -28,7 +28,7 @@ public class Resource : ResourceLocator {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwnDerived) {
           swigCMemOwnDerived = false;
-          TesseractNativePINVOKE.delete_Resource(swigCPtr);
+          TesseractNativePINVOKE.delete_CompoundMesh(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -36,26 +36,28 @@ public class Resource : ResourceLocator {
     }
   }
 
-  public virtual bool isFile() {
-    bool ret = TesseractNativePINVOKE.Resource_isFile(swigCPtr);
+  public Resource getResource() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.CompoundMesh_getResource(swigCPtr);
+    Resource ret = (cPtr == global::System.IntPtr.Zero) ? null : new Resource(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual string getUrl() {
-    string ret = TesseractNativePINVOKE.Resource_getUrl(swigCPtr);
+  public global::Aardvark.Base.V3d getScale() {
+    var result = TesseractNativePINVOKE.CompoundMesh_getScale(swigCPtr);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return TensorResult.Vector3(result);
+  }
+
+  public override Geometry clone() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.CompoundMesh_clone(swigCPtr);
+    Geometry ret = (cPtr == global::System.IntPtr.Zero) ? null : new Geometry(cPtr, true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public virtual string getFilePath() {
-    string ret = TesseractNativePINVOKE.Resource_getFilePath(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    return ret;
-  }
-
-  public virtual ByteVector getResourceContents() {
-    ByteVector ret = new ByteVector(TesseractNativePINVOKE.Resource_getResourceContents(swigCPtr), true);
+  public PolygonMeshVector getMeshes() {
+    PolygonMeshVector ret = new PolygonMeshVector(TesseractNativePINVOKE.CompoundMesh_getMeshes(swigCPtr), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

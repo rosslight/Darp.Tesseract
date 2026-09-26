@@ -70,6 +70,12 @@ public class SimpleLocatedResource : Resource {
     return ret;
   }
 
+  public override ByteVector getResourceContents() {
+    ByteVector ret = new ByteVector(TesseractNativePINVOKE.SimpleLocatedResource_getResourceContents(swigCPtr), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

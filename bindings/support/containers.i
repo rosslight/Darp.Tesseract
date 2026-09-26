@@ -41,6 +41,9 @@ namespace common
 {
 class TransformMap {};
 class VectorIsometry3d {};
+class VectorVector2d {};
+class VectorVector3d {};
+class VectorVector4d {};
 }
 }
 
