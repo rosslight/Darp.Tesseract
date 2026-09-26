@@ -1896,14 +1896,8 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Octree_clone___")]
   public static extern global::System.IntPtr Octree_clone(global::System.Runtime.InteropServices.HandleRef jarg1);
 
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Octree_update___")]
-  public static extern void Octree_update(global::System.Runtime.InteropServices.HandleRef jarg1);
-
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Octree_calcNumSubShapes___")]
   public static extern int Octree_calcNumSubShapes(global::System.Runtime.InteropServices.HandleRef jarg1);
-
-  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_Octree_prune___")]
-  public static extern void Octree_prune(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_asBox___")]
   public static extern global::System.IntPtr asBox(global::System.Runtime.InteropServices.HandleRef jarg1);

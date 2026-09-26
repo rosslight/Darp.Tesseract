@@ -21258,37 +21258,6 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_Octree_clone___(void 
 }
 
 
-SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Octree_update___(void * jarg1) {
-  tesseract::geometry::Octree *arg1 = 0 ;
-  std::shared_ptr< tesseract::geometry::Octree > *smartarg1 = 0 ;
-  
-  
-  smartarg1 = (std::shared_ptr<  tesseract::geometry::Octree > *)jarg1;
-  arg1 = (tesseract::geometry::Octree *)(smartarg1 ? smartarg1->get() : 0); 
-  {
-    try
-    {
-      (arg1)->update();
-    }
-    catch (const std::invalid_argument& exception)
-    {
-      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
-      return ;
-    }
-    catch (const std::out_of_range& exception)
-    {
-      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
-      return ;
-    }
-    catch (const std::exception& exception)
-    {
-      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
-      return ;
-    }
-  }
-}
-
-
 SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_Octree_calcNumSubShapes___(void * jarg1) {
   int jresult = 0 ;
   tesseract::geometry::Octree *arg1 = 0 ;
@@ -21321,39 +21290,6 @@ SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_Octree_calcNumSubShapes_
   }
   jresult = result; 
   return jresult;
-}
-
-
-SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_Octree_prune___(void * jarg1) {
-  octomap::OcTree *arg1 = 0 ;
-  
-  
-  arg1 = (octomap::OcTree *)(((std::shared_ptr<  octomap::OcTree > *)jarg1) ? ((std::shared_ptr<  octomap::OcTree > *)jarg1)->get() : 0);
-  if (!arg1) {
-    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "octomap::OcTree & reference is null", 0);
-    return ;
-  } 
-  {
-    try
-    {
-      tesseract::geometry::Octree::prune(*arg1);
-    }
-    catch (const std::invalid_argument& exception)
-    {
-      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
-      return ;
-    }
-    catch (const std::out_of_range& exception)
-    {
-      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
-      return ;
-    }
-    catch (const std::exception& exception)
-    {
-      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
-      return ;
-    }
-  }
 }
 
 

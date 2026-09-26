@@ -62,20 +62,10 @@ public class Octree : Geometry {
     return ret;
   }
 
-  public void update() {
-    TesseractNativePINVOKE.Octree_update(swigCPtr);
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-  }
-
   public int calcNumSubShapes() {
     int ret = TesseractNativePINVOKE.Octree_calcNumSubShapes(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
-  }
-
-  public static void prune(OctomapTree octree) {
-    TesseractNativePINVOKE.Octree_prune(OctomapTree.getCPtr(octree));
-    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
 }

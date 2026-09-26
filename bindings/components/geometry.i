@@ -59,6 +59,9 @@ public:
   bool writeBinaryConst(const std::string& filename) const;
 };
 }
+/* Scene octrees expose read-only geometry; hide operations that require mutable handles. */
+%ignore tesseract::geometry::Octree::update;
+%ignore tesseract::geometry::Octree::prune;
 %include <tesseract/geometry/impl/octree.h>
 
 %inline %{
