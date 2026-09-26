@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.5.0+tesseract.0.35.0...v0.6.0+tesseract.0.35.0) (2026-09-26)
+
+
+### Features
+
+* expose scene geometry for visualization ([#13](https://github.com/rosslight/Darp.Tesseract/issues/13)) ([b73a04b](https://github.com/rosslight/Darp.Tesseract/commit/b73a04bd11899c3ba37f78d4d79f3aa0b375327d))
+
 ## [0.5.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.4.0+tesseract.0.35.0...v0.5.0+tesseract.0.35.0) (2026-09-25)
 
 
