@@ -172,6 +172,63 @@ class AnyPoly {};
 %include <tesseract/motion_planners/ompl/profile/ompl_profile.h>
 %include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
 
+/* Stock planner profiles use the same shared ownership as ProfileDictionary. */
+%ignore tesseract::motion_planners::SimplePlannerMoveProfile::SimplePlannerMoveProfile;
+%ignore tesseract::motion_planners::SimplePlannerMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeMoveProfile::operator!=;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignMoveProfile::operator!=;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignNoIKMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignNoIKMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignNoIKMoveProfile::operator!=;
+%ignore tesseract::motion_planners::SimplePlannerLVSMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerLVSMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerLVSMoveProfile::operator!=;
+%ignore tesseract::motion_planners::SimplePlannerLVSNoIKMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerLVSNoIKMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerLVSNoIKMoveProfile::operator!=;
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignMoveProfile::operator!=;
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignNoIKMoveProfile::generate;
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignNoIKMoveProfile::operator==;
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignNoIKMoveProfile::operator!=;
+%shared_ptr(tesseract::motion_planners::SimplePlannerMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerCompositeProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerFixedSizeMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerFixedSizeAssignMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerFixedSizeAssignNoIKMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerLVSMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerLVSNoIKMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerLVSAssignMoveProfile)
+%shared_ptr(tesseract::motion_planners::SimplePlannerLVSAssignNoIKMoveProfile)
+%include <tesseract/motion_planners/simple/profile/simple_planner_profile.h>
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeMoveProfile::SimplePlannerFixedSizeMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignMoveProfile::SimplePlannerFixedSizeAssignMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::motion_planners::SimplePlannerFixedSizeAssignNoIKMoveProfile::SimplePlannerFixedSizeAssignNoIKMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::motion_planners::SimplePlannerLVSMoveProfile::SimplePlannerLVSMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::motion_planners::SimplePlannerLVSNoIKMoveProfile::SimplePlannerLVSNoIKMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignMoveProfile::SimplePlannerLVSAssignMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::motion_planners::SimplePlannerLVSAssignNoIKMoveProfile::SimplePlannerLVSAssignNoIKMoveProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%include <tesseract/motion_planners/simple/profile/simple_planner_fixed_size_move_profile.h>
+%include <tesseract/motion_planners/simple/profile/simple_planner_fixed_size_assign_move_profile.h>
+%include <tesseract/motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_move_profile.h>
+%include <tesseract/motion_planners/simple/profile/simple_planner_lvs_move_profile.h>
+%include <tesseract/motion_planners/simple/profile/simple_planner_lvs_no_ik_move_profile.h>
+%include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_move_profile.h>
+%include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_move_profile.h>
+
+%shared_ptr(tesseract::time_parameterization::IterativeSplineParameterizationCompositeProfile)
+%shared_ptr(tesseract::time_parameterization::IterativeSplineParameterizationMoveProfile)
+%ignore tesseract::time_parameterization::IterativeSplineParameterizationCompositeProfile::operator==;
+%ignore tesseract::time_parameterization::IterativeSplineParameterizationCompositeProfile::operator!=;
+%ignore tesseract::time_parameterization::IterativeSplineParameterizationMoveProfile::operator==;
+%ignore tesseract::time_parameterization::IterativeSplineParameterizationMoveProfile::operator!=;
+%include <tesseract/time_parameterization/isp/iterative_spline_parameterization_profiles.h>
+
 %ignore tesseract::motion_planners::DescartesDefaultMoveProfile<double>::createWaypointSampler;
 %ignore tesseract::motion_planners::DescartesDefaultMoveProfile<double>::createEdgeEvaluator;
 %ignore tesseract::motion_planners::DescartesDefaultMoveProfile<double>::createStateEvaluator;
@@ -405,6 +462,12 @@ struct OSQPSettings
 %shared_ptr(tesseract::task_composer::TaskComposerNode)
 %shared_ptr(tesseract::task_composer::TaskComposerPluginFactory)
 %shared_ptr(tesseract::task_composer::ContactCheckProfile)
+%shared_ptr(tesseract::task_composer::UpsampleTrajectoryProfile)
+%shared_ptr(tesseract::task_composer::KinematicLimitsCheckProfile)
+%shared_ptr(tesseract::task_composer::MinLengthProfile)
+%shared_ptr(tesseract::task_composer::FixStateBoundsProfile)
+%shared_ptr(tesseract::task_composer::FixStateCollisionProfile)
+%shared_ptr(tesseract::task_composer::ProfileSwitchProfile)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerExecutor)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerFuture)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerNode)
@@ -423,6 +486,31 @@ DARP_UNIQUE_PTR_TO_SHARED(tesseract::task_composer::TaskComposerNode)
 %ignore tesseract::task_composer::ContactCheckProfile::operator==;
 %ignore tesseract::task_composer::ContactCheckProfile::operator!=;
 %include <tesseract/task_composer/planning/profiles/contact_check_profile.h>
+%ignore tesseract::task_composer::UpsampleTrajectoryProfile::UpsampleTrajectoryProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::UpsampleTrajectoryProfile::operator==;
+%ignore tesseract::task_composer::UpsampleTrajectoryProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/upsample_trajectory_profile.h>
+%ignore tesseract::task_composer::KinematicLimitsCheckProfile::KinematicLimitsCheckProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::KinematicLimitsCheckProfile::operator==;
+%ignore tesseract::task_composer::KinematicLimitsCheckProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/kinematic_limits_check_profile.h>
+%ignore tesseract::task_composer::MinLengthProfile::MinLengthProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::MinLengthProfile::operator==;
+%ignore tesseract::task_composer::MinLengthProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/min_length_profile.h>
+%ignore tesseract::task_composer::FixStateBoundsProfile::FixStateBoundsProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::FixStateBoundsProfile::operator==;
+%ignore tesseract::task_composer::FixStateBoundsProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/fix_state_bounds_profile.h>
+%ignore tesseract::task_composer::FixStateCollisionProfile::FixStateCollisionProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::FixStateCollisionProfile::operator==;
+%ignore tesseract::task_composer::FixStateCollisionProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/fix_state_collision_profile.h>
+%template(FixStateCollisionCorrectionMethods) std::vector<tesseract::task_composer::FixStateCollisionProfile::CorrectionMethod>;
+%ignore tesseract::task_composer::ProfileSwitchProfile::ProfileSwitchProfile(const YAML::Node&, const tesseract::common::ProfilePluginFactory&);
+%ignore tesseract::task_composer::ProfileSwitchProfile::operator==;
+%ignore tesseract::task_composer::ProfileSwitchProfile::operator!=;
+%include <tesseract/task_composer/planning/profiles/profile_switch_profile.h>
 
 %inline %{
 namespace darp_tesseract_bindings

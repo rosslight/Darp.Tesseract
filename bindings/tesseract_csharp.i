@@ -129,6 +129,15 @@
 #include <tesseract/motion_planners/ompl/ompl_planner_configurator.h>
 #include <tesseract/motion_planners/ompl/ompl_solver_config.h>
 #include <tesseract/motion_planners/ompl/profile/ompl_real_vector_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_fixed_size_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_fixed_size_assign_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_fixed_size_assign_no_ik_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_lvs_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_lvs_no_ik_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_move_profile.h>
+#include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_move_profile.h>
+#include <tesseract/time_parameterization/isp/iterative_spline_parameterization_profiles.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_sco/optimizers.hpp>
 #include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
@@ -146,6 +155,12 @@
 #include <tesseract/task_composer/task_composer_node_info.h>
 #include <tesseract/task_composer/task_composer_plugin_factory.h>
 #include <tesseract/task_composer/planning/profiles/contact_check_profile.h>
+#include <tesseract/task_composer/planning/profiles/upsample_trajectory_profile.h>
+#include <tesseract/task_composer/planning/profiles/kinematic_limits_check_profile.h>
+#include <tesseract/task_composer/planning/profiles/min_length_profile.h>
+#include <tesseract/task_composer/planning/profiles/fix_state_bounds_profile.h>
+#include <tesseract/task_composer/planning/profiles/fix_state_collision_profile.h>
+#include <tesseract/task_composer/planning/profiles/profile_switch_profile.h>
 
 %}
 

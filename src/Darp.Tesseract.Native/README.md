@@ -58,6 +58,91 @@ The SRDF and referenced YAML configure the kinematics plugins.
 [The integration tests](../../tests/Darp.Tesseract.Native.IntegrationTests/KinematicsTests.cs)
 also show collision-manager setup, environment commands and joint-state access.
 
+## Configure stock planning pipelines
+
+The package copies `Tesseract/task_composer_plugins.yaml` to the application's
+output directory. It contains the stock Descartes, OMPL, TrajOpt, Cartesian,
+Freespace and raster pipelines supported by the embedded factories. Ifopt
+pipelines are excluded because this package does not build that planner.
+
+Register profiles under the node's namespace and the profile name used by the
+program. `StockProfileNamespaces` provides the default node namespaces. A custom
+YAML `namespace` overrides these defaults.
+
+```csharp
+using var profiles = new ProfileDictionary();
+using var timing = new IterativeSplineParameterizationCompositeProfile(0.5, 0.5);
+profiles.addProfile(
+    StockProfileNamespaces.IterativeSplineParameterization, "DEFAULT", timing);
+
+using var interpolation = new SimplePlannerLVSNoIKMoveProfile
+{
+    translation_longest_valid_segment_length = 0.002,
+};
+profiles.addProfile(
+    StockProfileNamespaces.SimpleMotionPlanner, "DEFAULT", interpolation);
+
+using var ompl = new OMPLRealVectorMoveProfile();
+profiles.addProfile(StockProfileNamespaces.OmplMotionPlanner, "DEFAULT", ompl);
+using var trajOpt = new TrajOptDefaultCompositeProfile();
+profiles.addProfile(StockProfileNamespaces.TrajOptMotionPlanner, "DEFAULT", trajOpt);
+```
+
+ISP move profiles can override the composite's velocity and acceleration scaling
+for individual instructions. Simple planner profiles control interpolation in
+`SimpleMotionPlannerTask`, which the stock raster pipelines use. The stock
+`CartesianPipeline` uses Descartes and TrajOpt. Upsampling, minimum trajectory
+length, bounds repair, collision repair, kinematic checks and profile switching
+also have native profile classes. Their fields follow the upstream API.
+
+`ProfileDictionary` retains shared ownership of registered profiles, so disposing
+the original managed profile wrapper does not remove the registration. Descartes
+template profiles use the existing `TesseractNative.asProfile` bridge; the other
+stock profiles inherit `Profile` directly. The
+[pipeline integration tests](../../tests/Darp.Tesseract.Native.IntegrationTests/StockPipelineTests.cs)
+show program construction, execution and result extraction.
+
+Nested configuration objects and the collision correction workflow are mutable
+native views. Keep the profile alive while using those views.
+
+Collision-aware pipelines need a default contact manager configured in the SRDF.
+For a robot whose resources live in a `my_robot` resource directory, a minimal
+SRDF can reference both plugin configurations:
+
+```xml
+<robot name="my_robot">
+  <group name="manipulator">
+    <chain base_link="base_link" tip_link="tool0"/>
+  </group>
+  <kinematics_plugin_config filename="package://my_robot/kinematics_plugins.yaml"/>
+  <contact_managers_plugin_config filename="package://my_robot/contact_manager_plugins.yaml"/>
+</robot>
+```
+
+Keep the kinematics configuration appropriate for that robot. The contact-manager
+configuration can use the embedded Bullet factories:
+
+```yaml
+contact_manager_plugins:
+  search_libraries:
+    - tesseract_collision_bullet_factories
+  discrete_plugins:
+    default: BulletDiscreteBVHManager
+    plugins:
+      BulletDiscreteBVHManager:
+        class: BulletDiscreteBVHManagerFactory
+  continuous_plugins:
+    default: BulletCastBVHManager
+    plugins:
+      BulletCastBVHManager:
+        class: BulletCastBVHManagerFactory
+```
+
+Add the resources' parent directory to `GeneralResourceLocator` before parsing
+the SRDF. The configuration uses embedded factories and requires no absolute
+native-library search path. Add the robot's allowed collision pairs to its SRDF
+as needed; the ABB fixture demonstrates this.
+
 ## Geometry inputs and results
 
 Fixed-size Eigen values map to Aardvark.Base values: `V2d`, `V3d`, `V4d`,
