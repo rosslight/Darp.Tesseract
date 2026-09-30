@@ -173,12 +173,14 @@ elseif(UNIX)
       INSTALL_REMOVE_ENVIRONMENT_RPATH TRUE)
 endif()
 
+# Task Composer compares RTTI from the wrapper with RTTI from the static
+# native libraries. Hidden typeinfo breaks AnyPoly casts on Apple ARM64.
 set_target_properties(
   tesseract_csharp
   PROPERTIES
     OUTPUT_NAME "tesseract_csharp"
-    CXX_VISIBILITY_PRESET hidden
-    VISIBILITY_INLINES_HIDDEN YES)
+    CXX_VISIBILITY_PRESET default
+    VISIBILITY_INLINES_HIDDEN NO)
 
 check_ipo_supported(RESULT ipo_supported OUTPUT ipo_error)
 if(ipo_supported)
