@@ -15,11 +15,70 @@ public sealed class PlanningBindingsTests
         using var trajOptSolver = new TrajOptOSQPSolverProfile();
         using var contactCheck = new ContactCheckProfile();
 
-        profiles.addProfile("OMPLMotionPlannerTask", "DEFAULT", ompl);
-        profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptMove);
-        profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptComposite);
-        profiles.addProfile("TrajOptMotionPlannerTask", "DEFAULT", trajOptSolver);
-        profiles.addProfile("DiscreteContactCheckTask", "DEFAULT", contactCheck);
+        profiles.addProfile(StockProfileNamespaces.OmplMotionPlanner, "DEFAULT", ompl);
+        profiles.addProfile(StockProfileNamespaces.TrajOptMotionPlanner, "DEFAULT", trajOptMove);
+        profiles.addProfile(StockProfileNamespaces.TrajOptMotionPlanner, "DEFAULT", trajOptComposite);
+        profiles.addProfile(StockProfileNamespaces.TrajOptMotionPlanner, "DEFAULT", trajOptSolver);
+        profiles.addProfile(StockProfileNamespaces.DiscreteContactCheck, "DEFAULT", contactCheck);
+    }
+
+    [Fact]
+    public void SimplePlannerAndTaskProfilesRegisterAsProfiles()
+    {
+        using var profiles = new ProfileDictionary();
+        (string Namespace, Profile Profile)[] entries =
+        [
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerFixedSizeMoveProfile()),
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerFixedSizeAssignMoveProfile()),
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerFixedSizeAssignNoIKMoveProfile()),
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerLVSMoveProfile()),
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerLVSNoIKMoveProfile()),
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerLVSAssignMoveProfile()),
+            (StockProfileNamespaces.SimpleMotionPlanner, new SimplePlannerLVSAssignNoIKMoveProfile()),
+            (StockProfileNamespaces.UpsampleTrajectory, new UpsampleTrajectoryProfile(0.02)),
+            (StockProfileNamespaces.KinematicLimitsCheck, new KinematicLimitsCheckProfile()),
+            (StockProfileNamespaces.MinLength, new MinLengthProfile(20)),
+            (StockProfileNamespaces.FixStateBounds, new FixStateBoundsProfile()),
+            (StockProfileNamespaces.FixStateCollision, new FixStateCollisionProfile()),
+            (StockProfileNamespaces.ProfileSwitch, new ProfileSwitchProfile(2)),
+        ];
+        foreach (var (profileNamespace, profile) in entries)
+        {
+            using (profile)
+                profiles.addProfile(profileNamespace, "DEFAULT", profile);
+        }
+    }
+
+    [Fact]
+    public void ProfilesExposeCollisionCorrectionAndJointLimitOverrides()
+    {
+        using var collision = new FixStateCollisionProfile(FixStateCollisionProfile.Settings.START_ONLY);
+        using var methods = collision.correction_workflow;
+        methods.Clear();
+        methods.Add(FixStateCollisionProfile.CorrectionMethod.RANDOM_SAMPLER);
+        using var optimization = collision.opt_params;
+        optimization.max_iter = 17;
+        using var osqp = collision.osqp_settings;
+        osqp.max_iter = 500;
+        collision.sampling_attempts = 25;
+
+        using var timing = new IterativeSplineParameterizationCompositeProfile
+        {
+            override_limits = true,
+            velocity_limits = new double[,] { { -1, 1 }, { -2, 2 } },
+            acceleration_limits = new double[,] { { -3, 3 }, { -4, 4 } },
+            minimum_time_delta = 0.001,
+        };
+
+        collision.mode.ShouldBe(FixStateCollisionProfile.Settings.START_ONLY);
+        methods.ToArray().ShouldBe([FixStateCollisionProfile.CorrectionMethod.RANDOM_SAMPLER]);
+        optimization.max_iter.ShouldBe(17);
+        osqp.max_iter.ShouldBe(500);
+        collision.sampling_attempts.ShouldBe(25);
+        timing.override_limits.ShouldBeTrue();
+        timing.velocity_limits[1, 1].ShouldBe(2);
+        timing.acceleration_limits[1, 0].ShouldBe(-4);
+        timing.minimum_time_delta.ShouldBe(0.001);
     }
 
     [Fact]
@@ -128,10 +187,13 @@ public sealed class PlanningBindingsTests
         pipelines.ShouldContain("DescartesDPipeline");
         pipelines.ShouldContain("OMPLPipeline");
         pipelines.ShouldContain("FreespacePipeline");
+        pipelines.ShouldContain("CartesianPipeline");
+        pipelines.ShouldNotContain(name => name.Contains("Ifopt", StringComparison.Ordinal));
 
-        using TaskComposerNode ompl = factory.createTaskComposerNode("OMPLPipeline");
-        using TaskComposerNode freespace = factory.createTaskComposerNode("FreespacePipeline");
-        ompl.ShouldNotBeNull();
-        freespace.ShouldNotBeNull();
+        foreach (var pipeline in pipelines)
+        {
+            using TaskComposerNode node = factory.createTaskComposerNode(pipeline);
+            node.ShouldNotBeNull(pipeline);
+        }
     }
 }
