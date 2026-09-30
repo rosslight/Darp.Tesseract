@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.5.0+tesseract.0.35.0...v0.6.0+tesseract.0.35.0) (2026-09-30)
+
+
+### Features
+
+* expose scene geometry for visualization ([#13](https://github.com/rosslight/Darp.Tesseract/issues/13)) ([b73a04b](https://github.com/rosslight/Darp.Tesseract/commit/b73a04bd11899c3ba37f78d4d79f3aa0b375327d))
+* expose stock pipeline profile controls ([#15](https://github.com/rosslight/Darp.Tesseract/issues/15)) ([62be9ba](https://github.com/rosslight/Darp.Tesseract/commit/62be9ba1e4127ad7c24bc1f403748f7e54bad163))
+
 ## [0.5.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.4.0+tesseract.0.35.0...v0.5.0+tesseract.0.35.0) (2026-09-25)
 
 
