@@ -134,8 +134,8 @@ public sealed class StockPipelineTests
         {
             using (node)
             {
-                if (node.status_code == 0)
-                    failures.Add($"{node.name}: {node.status_message}");
+                if (node.status_code <= 0)
+                    failures.Add($"{node.name} (status {node.status_code}): {node.status_message}");
             }
         }
         context.isSuccessful().ShouldBeTrue(string.Join(System.Environment.NewLine, failures));
