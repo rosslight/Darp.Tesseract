@@ -86,6 +86,7 @@ public sealed class TimeParameterizationTests
         trajectory.getPosition(101).ShouldBe(new double[6]);
         program.clear();
         trajectory.empty().ShouldBeTrue();
+        Should.Throw<ApplicationException>(() => trajectory.dof()).Message.ShouldContain("empty trajectory");
         Should.Throw<IndexOutOfRangeException>(() => trajectory.getPosition(0));
         program.Dispose();
         Should.Throw<ObjectDisposedException>(() => trajectory.size());

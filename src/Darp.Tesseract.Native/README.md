@@ -184,6 +184,8 @@ view, and subsequent calls throw `ObjectDisposedException`. The view owns no
 native resource and needs no disposal. Do not mutate or dispose the program
 concurrently with a solver or view operation. Each view call flattens the program;
 this interface is intended for trajectory inspection and editing.
+An empty program has size zero; `dof()` requires at least one state waypoint and
+throws a managed `ApplicationException` from the native constructor's empty check.
 
 The runtime also embeds `TimeOptimalParameterizationTaskFactory` and
 `ConstantTCPSpeedParameterizationTaskFactory`. Configure them in custom Task
