@@ -54,6 +54,16 @@ public class ConvexMesh : PolygonMesh {
     return ret;
   }
 
+  static private global::System.IntPtr SwigConstructConvexMesh(VectorVector3d vertices, IntVector faces) {
+    using (var vertices_arg = new ContainerArgument(vertices.Owner)) {
+    return TesseractNativePINVOKE.new_ConvexMesh(vertices_arg.Handle, IntVector.getCPtr(faces));
+    }
+  }
+
+  public ConvexMesh(VectorVector3d vertices, IntVector faces) : this(ConvexMesh.SwigConstructConvexMesh(vertices, faces), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public enum CreationMethod : byte {
     DEFAULT,
     MESH,

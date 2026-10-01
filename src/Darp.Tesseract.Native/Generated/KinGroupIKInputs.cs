@@ -10,20 +10,20 @@
 
 namespace Darp.Tesseract.Native {
 
-public class PluginInfo : global::System.IDisposable {
+public class KinGroupIKInputs : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
 
-  internal PluginInfo(global::System.IntPtr cPtr, bool cMemoryOwn) {
+  internal KinGroupIKInputs(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(PluginInfo obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef getCPtr(KinGroupIKInputs obj) {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(PluginInfo obj) {
+  internal static global::System.Runtime.InteropServices.HandleRef swigRelease(KinGroupIKInputs obj) {
     if (obj != null) {
       if (!obj.swigCMemOwn)
         throw new global::System.ApplicationException("Cannot release ownership as memory is not owned");
@@ -36,7 +36,7 @@ public class PluginInfo : global::System.IDisposable {
     }
   }
 
-  ~PluginInfo() {
+  ~KinGroupIKInputs() {
     Dispose(false);
   }
 
@@ -50,37 +50,36 @@ public class PluginInfo : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          TesseractNativePINVOKE.delete_PluginInfo(swigCPtr);
+          TesseractNativePINVOKE.delete_KinGroupIKInputs(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
   }
 
-  public string class_name {
-    set {
-      TesseractNativePINVOKE.PluginInfo_class_name_set(swigCPtr, value);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-    } 
-    get {
-      string ret = TesseractNativePINVOKE.PluginInfo_class_name_get(swigCPtr);
-      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
-      return ret;
-    } 
+  public KinGroupIKInputs() : this(TesseractNativePINVOKE.new_KinGroupIKInputs(), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public string getConfigString() {
-    string ret = TesseractNativePINVOKE.PluginInfo_getConfigString(swigCPtr);
+  public void push_back(KinGroupIKInput value) {
+    TesseractNativePINVOKE.KinGroupIKInputs_push_back(swigCPtr, KinGroupIKInput.getCPtr(value));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public KinGroupIKInput at(uint index) {
+    KinGroupIKInput ret = new KinGroupIKInput(TesseractNativePINVOKE.KinGroupIKInputs_at(swigCPtr, index), true);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public void setConfigString(string yaml) {
-    TesseractNativePINVOKE.PluginInfo_setConfigString(swigCPtr, yaml);
+  public uint size() {
+    uint ret = TesseractNativePINVOKE.KinGroupIKInputs_size(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
   }
 
-  public PluginInfo() : this(TesseractNativePINVOKE.new_PluginInfo(), true) {
+  public void clear() {
+    TesseractNativePINVOKE.KinGroupIKInputs_clear(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 

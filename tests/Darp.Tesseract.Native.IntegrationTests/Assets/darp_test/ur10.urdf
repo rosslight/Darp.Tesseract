@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- Matches the pinned upstream getSceneGraphUR(UR10Parameters, 0.220941, -0.1719) fixture. -->
+<robot name="ur10_test" xmlns:tesseract="https://github.com/tesseract-robotics/tesseract" tesseract:make_convex="false">
+  <link name="base_link" />
+  <link name="shoulder_link" />
+  <link name="upper_arm_link" />
+  <link name="forearm_link" />
+  <link name="wrist_1_link" />
+  <link name="wrist_2_link" />
+  <link name="wrist_3_link" />
+  <link name="tool0" />
+  <link name="weld_tcp" />
+  <joint name="shoulder_pan_joint" type="revolute">
+    <parent link="base_link" /><child link="shoulder_link" />
+    <origin xyz="0 0 0.1273" /><axis xyz="0 0 1" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" velocity="2.16" effort="100" />
+  </joint>
+  <joint name="shoulder_lift_joint" type="revolute">
+    <parent link="shoulder_link" /><child link="upper_arm_link" />
+    <origin xyz="0 0.220941 0" rpy="0 1.5707963267948966 0" /><axis xyz="0 1 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" velocity="2.16" effort="100" />
+  </joint>
+  <joint name="elbow_joint" type="revolute">
+    <parent link="upper_arm_link" /><child link="forearm_link" />
+    <origin xyz="0 -0.1719 0.612" /><axis xyz="0 1 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" velocity="2.16" effort="100" />
+  </joint>
+  <joint name="wrist_1_joint" type="revolute">
+    <parent link="forearm_link" /><child link="wrist_1_link" />
+    <origin xyz="0 0 0.5723" rpy="0 1.5707963267948966 0" /><axis xyz="0 1 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" velocity="2.16" effort="100" />
+  </joint>
+  <joint name="wrist_2_joint" type="revolute">
+    <parent link="wrist_1_link" /><child link="wrist_2_link" />
+    <origin xyz="0 0.1149 0" /><axis xyz="0 0 1" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" velocity="2.16" effort="100" />
+  </joint>
+  <joint name="wrist_3_joint" type="revolute">
+    <parent link="wrist_2_link" /><child link="wrist_3_link" />
+    <origin xyz="0 0 0.1157" /><axis xyz="0 1 0" />
+    <limit lower="-6.283185307179586" upper="6.283185307179586" velocity="2.16" effort="100" />
+  </joint>
+  <joint name="tool0_joint" type="fixed">
+    <parent link="wrist_3_link" /><child link="tool0" />
+    <origin xyz="0 0.0922 0" rpy="-1.5707963267948966 0 0" />
+  </joint>
+  <joint name="weld_tcp_joint" type="fixed">
+    <parent link="tool0" /><child link="weld_tcp" /><origin xyz="0 0 0.12" />
+  </joint>
+</robot>

@@ -36,12 +36,35 @@ public class KinematicGroup : JointGroup {
     }
   }
 
+  public IKSolutions calcInvKinMultiple(KinGroupIKInputs tip_link_poses, double[] seed) {
+    using (var seed_arg = new TensorArgument(seed)) {
+    {
+      var result = TesseractNativePINVOKE.KinematicGroup_calcInvKinMultiple__SWIG_0(swigCPtr, KinGroupIKInputs.getCPtr(tip_link_poses), seed_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return new IKSolutions(result);
+    }
+    }
+  }
+
   public IKSolutions calcInvKin(KinGroupIKInput tip_link_pose, double[] seed) {
     using (var seed_arg = new TensorArgument(seed)) {
     {
       var result = TesseractNativePINVOKE.KinematicGroup_calcInvKin__SWIG_0(swigCPtr, KinGroupIKInput.getCPtr(tip_link_pose), seed_arg.Handle);
       if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
       return new IKSolutions(result);
+    }
+    }
+  }
+
+  public void calcInvKinMultiple(ref IKSolutions solutions, KinGroupIKInputs tip_link_poses, double[] seed) {
+    using (var solutions_arg = new ContainerArgument(solutions.Owner)) {
+    using (var seed_arg = new TensorArgument(seed)) {
+    try {
+      TesseractNativePINVOKE.KinematicGroup_calcInvKinMultiple__SWIG_1(swigCPtr, solutions_arg.Handle, KinGroupIKInputs.getCPtr(tip_link_poses), seed_arg.Handle);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    } finally {
+      if (solutions_arg.HasOutput) solutions = new IKSolutions(solutions_arg.Take());
+    }
     }
     }
   }
