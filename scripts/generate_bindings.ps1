@@ -44,6 +44,8 @@ $includeDirs = @(
   (Join-Path $repositoryDir "native/tesseract_planning/task_composer/planning/include"),
   (Join-Path $repositoryDir "native/tesseract_planning/time_parameterization/core/include"),
   (Join-Path $repositoryDir "native/tesseract_planning/time_parameterization/isp/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/time_parameterization/totg/include"),
+  (Join-Path $repositoryDir "native/tesseract_planning/time_parameterization/kdl/include"),
   (Join-Path $repositoryDir "native")
 )
 

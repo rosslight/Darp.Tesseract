@@ -138,6 +138,13 @@
 #include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_move_profile.h>
 #include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_move_profile.h>
 #include <tesseract/time_parameterization/isp/iterative_spline_parameterization_profiles.h>
+#include <tesseract/time_parameterization/time_parameterization.h>
+#include <tesseract/time_parameterization/instructions_trajectory.h>
+#include <tesseract/time_parameterization/isp/iterative_spline_parameterization.h>
+#include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
+#include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
+#include <tesseract/time_parameterization/kdl/constant_tcp_speed_parameterization.h>
+#include <tesseract/time_parameterization/kdl/constant_tcp_speed_parameterization_profiles.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_sco/optimizers.hpp>
 #include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
@@ -447,3 +454,4 @@ DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Link)
 %include "components/kinematics.i"
 %include "components/environment.i"
 %include "components/planning.i"
+%include "components/time_parameterization.i"

@@ -564,6 +564,13 @@ SWIGINTERN void SWIG_CSharpException(int code, const char *msg) {
 #include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_move_profile.h>
 #include <tesseract/motion_planners/simple/profile/simple_planner_lvs_assign_no_ik_move_profile.h>
 #include <tesseract/time_parameterization/isp/iterative_spline_parameterization_profiles.h>
+#include <tesseract/time_parameterization/time_parameterization.h>
+#include <tesseract/time_parameterization/instructions_trajectory.h>
+#include <tesseract/time_parameterization/isp/iterative_spline_parameterization.h>
+#include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation.h>
+#include <tesseract/time_parameterization/totg/time_optimal_trajectory_generation_profiles.h>
+#include <tesseract/time_parameterization/kdl/constant_tcp_speed_parameterization.h>
+#include <tesseract/time_parameterization/kdl/constant_tcp_speed_parameterization_profiles.h>
 #include <trajopt_common/collision_types.h>
 #include <trajopt_sco/optimizers.hpp>
 #include <tesseract/motion_planners/trajopt/trajopt_waypoint_config.h>
@@ -3069,6 +3076,74 @@ void addProfile(tesseract::common::ProfileDictionary& profiles,
   profiles.addProfile(profile_namespace, profile_name, profile);
 }
 }
+
+
+class DarpInstructionsTrajectoryInterop
+{
+public:
+  static int size(tesseract::command_language::CompositeInstruction& program)
+  {
+    const auto count = program.flatten(tesseract::command_language::moveFilter).size();
+    if (count > static_cast<std::size_t>(std::numeric_limits<int>::max()))
+      throw std::overflow_error("Trajectory size exceeds Int32.");
+    return static_cast<int>(count);
+  }
+
+  static int dof(tesseract::command_language::CompositeInstruction& program)
+  {
+    return static_cast<int>(tesseract::time_parameterization::InstructionsTrajectory(program).dof());
+  }
+
+  static Eigen::VectorXd getPosition(tesseract::command_language::CompositeInstruction& program, int i)
+  {
+    return checked(program, i).getPosition(i);
+  }
+
+  static Eigen::VectorXd getVelocity(tesseract::command_language::CompositeInstruction& program, int i)
+  {
+    return checked(program, i).getVelocity(i);
+  }
+
+  static Eigen::VectorXd getAcceleration(tesseract::command_language::CompositeInstruction& program, int i)
+  {
+    return checked(program, i).getAcceleration(i);
+  }
+
+  static double getTimeFromStart(tesseract::command_language::CompositeInstruction& program, int i)
+  {
+    return checked(program, i).getTimeFromStart(i);
+  }
+
+  static void setData(tesseract::command_language::CompositeInstruction& program,
+                      int i, const Eigen::VectorXd& velocity, const Eigen::VectorXd& acceleration, double time)
+  {
+    auto trajectory = checked(program, i);
+    if (velocity.size() != trajectory.dof() || acceleration.size() != trajectory.dof())
+      throw std::invalid_argument("Velocity and acceleration must match the trajectory's joint count.");
+    trajectory.setData(i, velocity, acceleration, time);
+  }
+
+  static bool isTimeStrictlyIncreasing(tesseract::command_language::CompositeInstruction& program)
+  {
+    if (size(program) < 2)
+      return true;
+    const tesseract::time_parameterization::InstructionsTrajectory trajectory(program);
+    // The upstream 0.35 check omits the final waypoint.
+    for (Eigen::Index i = 1; i < trajectory.size(); ++i)
+      if (!(trajectory.getTimeFromStart(i) > trajectory.getTimeFromStart(i - 1)))
+        return false;
+    return true;
+  }
+
+private:
+  static tesseract::time_parameterization::InstructionsTrajectory checked(
+      tesseract::command_language::CompositeInstruction& program, int i)
+  {
+    if (i < 0 || i >= size(program))
+      throw std::out_of_range("Trajectory index is out of range.");
+    return tesseract::time_parameterization::InstructionsTrajectory(program);
+  }
+};
 
 
 #ifdef __cplusplus
@@ -82868,6 +82943,1560 @@ SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_contactCheckProgram__
 }
 
 
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TimeParameterization___(void * jarg1) {
+  tesseract::time_parameterization::TimeParameterization *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeParameterization > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT const char * SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeParameterization_getName___(void * jarg1) {
+  const char * jresult = 0 ;
+  tesseract::time_parameterization::TimeParameterization *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeParameterization const > *smartarg1 = 0 ;
+  std::string *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::time_parameterization::TimeParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      result = (std::string *) &((tesseract::time_parameterization::TimeParameterization const *)arg1)->getName();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = SWIG_csharp_string_callback(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeParameterization_compute___(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  unsigned int jresult = 0 ;
+  tesseract::time_parameterization::TimeParameterization *arg1 = 0 ;
+  tesseract::command_language::CompositeInstruction *arg2 = 0 ;
+  tesseract::environment::Environment *arg3 = 0 ;
+  tesseract::common::ProfileDictionary *arg4 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeParameterization const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::time_parameterization::TimeParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::command_language::CompositeInstruction *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  
+  arg3 = (tesseract::environment::Environment *)(((std::shared_ptr< const tesseract::environment::Environment > *)jarg3) ? ((std::shared_ptr< const tesseract::environment::Environment > *)jarg3)->get() : 0);
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::environment::Environment const & reference is null", 0);
+    return 0;
+  } 
+  
+  arg4 = (tesseract::common::ProfileDictionary *)(((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4) ? ((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4)->get() : 0);
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::ProfileDictionary const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (bool)((tesseract::time_parameterization::TimeParameterization const *)arg1)->compute(*arg2,(tesseract::environment::Environment const &)*arg3,(tesseract::common::ProfileDictionary const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_IterativeSplineParameterization___(const char * jarg1) {
+  void * jresult = 0 ;
+  std::string arg1 ;
+  tesseract::time_parameterization::IterativeSplineParameterization *result = 0 ;
+  
+  if (!jarg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  (&arg1)->assign(jarg1); 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::IterativeSplineParameterization *)new tesseract::time_parameterization::IterativeSplineParameterization(SWIG_STD_MOVE(*(&arg1)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::IterativeSplineParameterization >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_IterativeSplineParameterization___(void * jarg1) {
+  tesseract::time_parameterization::IterativeSplineParameterization *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::IterativeSplineParameterization > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::IterativeSplineParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::IterativeSplineParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_IterativeSplineParameterization_compute___(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  unsigned int jresult = 0 ;
+  tesseract::time_parameterization::IterativeSplineParameterization *arg1 = 0 ;
+  tesseract::command_language::CompositeInstruction *arg2 = 0 ;
+  tesseract::environment::Environment *arg3 = 0 ;
+  tesseract::common::ProfileDictionary *arg4 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::IterativeSplineParameterization const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::time_parameterization::IterativeSplineParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::IterativeSplineParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::command_language::CompositeInstruction *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  
+  arg3 = (tesseract::environment::Environment *)(((std::shared_ptr< const tesseract::environment::Environment > *)jarg3) ? ((std::shared_ptr< const tesseract::environment::Environment > *)jarg3)->get() : 0);
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::environment::Environment const & reference is null", 0);
+    return 0;
+  } 
+  
+  arg4 = (tesseract::common::ProfileDictionary *)(((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4) ? ((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4)->get() : 0);
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::ProfileDictionary const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (bool)((tesseract::time_parameterization::IterativeSplineParameterization const *)arg1)->compute(*arg2,(tesseract::environment::Environment const &)*arg3,(tesseract::common::ProfileDictionary const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TimeOptimalTrajectoryGeneration___(const char * jarg1) {
+  void * jresult = 0 ;
+  std::string arg1 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGeneration *result = 0 ;
+  
+  if (!jarg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  (&arg1)->assign(jarg1); 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::TimeOptimalTrajectoryGeneration *)new tesseract::time_parameterization::TimeOptimalTrajectoryGeneration(SWIG_STD_MOVE(*(&arg1)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGeneration >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGeneration_compute___(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  unsigned int jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGeneration *arg1 = 0 ;
+  tesseract::command_language::CompositeInstruction *arg2 = 0 ;
+  tesseract::environment::Environment *arg3 = 0 ;
+  tesseract::common::ProfileDictionary *arg4 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGeneration const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::time_parameterization::TimeOptimalTrajectoryGeneration > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGeneration *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::command_language::CompositeInstruction *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  
+  arg3 = (tesseract::environment::Environment *)(((std::shared_ptr< const tesseract::environment::Environment > *)jarg3) ? ((std::shared_ptr< const tesseract::environment::Environment > *)jarg3)->get() : 0);
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::environment::Environment const & reference is null", 0);
+    return 0;
+  } 
+  
+  arg4 = (tesseract::common::ProfileDictionary *)(((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4) ? ((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4)->get() : 0);
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::ProfileDictionary const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (bool)((tesseract::time_parameterization::TimeOptimalTrajectoryGeneration const *)arg1)->compute(*arg2,(tesseract::environment::Environment const &)*arg3,(tesseract::common::ProfileDictionary const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TimeOptimalTrajectoryGeneration___(void * jarg1) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGeneration *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGeneration > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGeneration > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGeneration *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterization___(const char * jarg1) {
+  void * jresult = 0 ;
+  std::string arg1 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterization *result = 0 ;
+  
+  if (!jarg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "null string", 0);
+    return 0;
+  }
+  (&arg1)->assign(jarg1); 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::ConstantTCPSpeedParameterization *)new tesseract::time_parameterization::ConstantTCPSpeedParameterization(SWIG_STD_MOVE(*(&arg1)));
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterization >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ConstantTCPSpeedParameterization___(void * jarg1) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterization *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterization > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterization_compute___(void * jarg1, void * jarg2, void * jarg3, void * jarg4) {
+  unsigned int jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterization *arg1 = 0 ;
+  tesseract::command_language::CompositeInstruction *arg2 = 0 ;
+  tesseract::environment::Environment *arg3 = 0 ;
+  tesseract::common::ProfileDictionary *arg4 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterization const > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr< const tesseract::time_parameterization::ConstantTCPSpeedParameterization > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterization *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (tesseract::command_language::CompositeInstruction *)jarg2;
+  if (!arg2) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  
+  arg3 = (tesseract::environment::Environment *)(((std::shared_ptr< const tesseract::environment::Environment > *)jarg3) ? ((std::shared_ptr< const tesseract::environment::Environment > *)jarg3)->get() : 0);
+  if (!arg3) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::environment::Environment const & reference is null", 0);
+    return 0;
+  } 
+  
+  arg4 = (tesseract::common::ProfileDictionary *)(((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4) ? ((std::shared_ptr< const tesseract::common::ProfileDictionary > *)jarg4)->get() : 0);
+  if (!arg4) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::common::ProfileDictionary const & reference is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (bool)((tesseract::time_parameterization::ConstantTCPSpeedParameterization const *)arg1)->compute(*arg2,(tesseract::environment::Environment const &)*arg3,(tesseract::common::ProfileDictionary const &)*arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TimeOptimalTrajectoryGenerationCompositeProfile__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)new tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_TimeOptimalTrajectoryGenerationCompositeProfile__SWIG_1___(double jarg1, double jarg2, double jarg3, double jarg4) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)new tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile(arg1,arg2,arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_override_limits_set___(void * jarg1, unsigned int jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  bool arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = jarg2 ? true : false; 
+  if (arg1) (arg1)->override_limits = arg2;
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_override_limits_get___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  bool result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (bool) ((arg1)->override_limits);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_velocity_limits_set___(void * jarg1, void * jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  Eigen::MatrixX2d *arg2 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  Eigen::MatrixX2d local2 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::MatrixX2d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->velocity_limits = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_velocity_limits_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  Eigen::MatrixX2d *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (Eigen::MatrixX2d *)& ((arg1)->velocity_limits);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixX2d>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_acceleration_limits_set___(void * jarg1, void * jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  Eigen::MatrixX2d *arg2 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  Eigen::MatrixX2d local2 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try {
+      local2 = darp_geometry::read<Eigen::MatrixX2d>(static_cast<darp_geometry::Value*>(jarg2)); arg2 = &local2; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  if (arg1) (arg1)->acceleration_limits = *arg2;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_acceleration_limits_get___(void * jarg1) {
+  void * jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  Eigen::MatrixX2d *result = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (Eigen::MatrixX2d *)& ((arg1)->acceleration_limits);
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::MatrixX2d>(*result)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_velocity_scaling_factor_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_velocity_scaling_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_velocity_scaling_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_velocity_scaling_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_acceleration_scaling_factor_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_acceleration_scaling_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_acceleration_scaling_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_acceleration_scaling_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_path_tolerance_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->path_tolerance = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_path_tolerance_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->path_tolerance);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_min_angle_change_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->min_angle_change = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_min_angle_change_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->min_angle_change);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_TimeOptimalTrajectoryGenerationCompositeProfile___(void * jarg1) {
+  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_0___() {
+  void * jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *result = 0 ;
+  
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)new tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile();
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_1___(double jarg1, double jarg2, double jarg3, double jarg4, double jarg5, double jarg6) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  double arg6 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  arg6 = (double)jarg6; 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)new tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile(arg1,arg2,arg3,arg4,arg5,arg6);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_2___(double jarg1, double jarg2, double jarg3, double jarg4, double jarg5) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  double arg5 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  arg5 = (double)jarg5; 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)new tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile(arg1,arg2,arg3,arg4,arg5);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_3___(double jarg1, double jarg2, double jarg3, double jarg4) {
+  void * jresult = 0 ;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double arg4 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *result = 0 ;
+  
+  arg1 = (double)jarg1; 
+  arg2 = (double)jarg2; 
+  arg3 = (double)jarg3; 
+  arg4 = (double)jarg4; 
+  {
+    try
+    {
+      result = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)new tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile(arg1,arg2,arg3,arg4);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  
+  jresult = result ? new std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile >(result SWIG_NO_NULL_DELETER_1) : 0;
+  
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_velocity_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_translational_velocity = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_velocity_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_translational_velocity);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_velocity_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_rotational_velocity = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_velocity_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_rotational_velocity);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_acceleration_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_translational_acceleration = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_acceleration_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_translational_acceleration);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_acceleration_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_rotational_acceleration = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_acceleration_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_rotational_acceleration);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_velocity_scaling_factor_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_velocity_scaling_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_velocity_scaling_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_velocity_scaling_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_acceleration_scaling_factor_set___(void * jarg1, double jarg2) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  double arg2 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  arg2 = (double)jarg2; 
+  if (arg1) (arg1)->max_acceleration_scaling_factor = arg2;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_acceleration_scaling_factor_get___(void * jarg1) {
+  double jresult = 0 ;
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  double result;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  result = (double) ((arg1)->max_acceleration_scaling_factor);
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_delete_ConstantTCPSpeedParameterizationCompositeProfile___(void * jarg1) {
+  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *arg1 = 0 ;
+  std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *smartarg1 = 0 ;
+  
+  
+  smartarg1 = (std::shared_ptr<  tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *)jarg1;
+  arg1 = (tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile *)(smartarg1 ? smartarg1->get() : 0); 
+  {
+    try
+    {
+      (void)arg1; delete smartarg1;
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_size___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (int)DarpInstructionsTrajectoryInterop::size(*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT int SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_dof___(void * jarg1) {
+  int jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (int)DarpInstructionsTrajectoryInterop::dof(*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getPosition___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int arg2 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      result = DarpInstructionsTrajectoryInterop::getPosition(*arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getVelocity___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int arg2 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      result = DarpInstructionsTrajectoryInterop::getVelocity(*arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void * SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getAcceleration___(void * jarg1, int jarg2) {
+  void * jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int arg2 ;
+  Eigen::VectorXd result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      result = DarpInstructionsTrajectoryInterop::getAcceleration(*arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  {
+    try {
+      jresult = new darp_geometry::Value(darp_geometry::owned_tensor<Eigen::VectorXd>(SWIG_STD_MOVE(*(&result)))); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return 0;
+    }
+    /*@SWIG@*/
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT double SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getTimeFromStart___(void * jarg1, int jarg2) {
+  double jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int arg2 ;
+  double result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try
+    {
+      result = (double)DarpInstructionsTrajectoryInterop::getTimeFromStart(*arg1,arg2);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_setData___(void * jarg1, int jarg2, void * jarg3, void * jarg4, double jarg5) {
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  int arg2 ;
+  Eigen::VectorXd *arg3 = 0 ;
+  Eigen::VectorXd *arg4 = 0 ;
+  double arg5 ;
+  Eigen::VectorXd local3 ;
+  Eigen::VectorXd local4 ;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return ;
+  } 
+  arg2 = (int)jarg2; 
+  {
+    try {
+      local3 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg3)); arg3 = &local3; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      local4 = darp_geometry::read<Eigen::VectorXd>(static_cast<darp_geometry::Value*>(jarg4)); arg4 = &local4; 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  arg5 = (double)jarg5; 
+  {
+    try
+    {
+      DarpInstructionsTrajectoryInterop::setData(*arg1,arg2,(Eigen::VectorXd const &)*arg3,(Eigen::VectorXd const &)*arg4,arg5);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return ;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return ;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return ;
+    }
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg3) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg3)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+  {
+    try {
+      *static_cast<darp_geometry::Value*>(jarg4) = darp_geometry::owned_tensor<Eigen::VectorXd>(std::move(*arg4)); 
+    }
+    /*@SWIG:C:\Users\OleRosskamp\.codex\worktrees\stock-pipeline-control\Darp.Tesseract.Native\bindings\geometry\typemaps.i,16,DARP_GEOMETRY_CATCH@*/  catch (const std::exception& error) {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, error.what(), "");
+      return ;
+    }
+    /*@SWIG@*/
+  }
+}
+
+
+SWIGEXPORT unsigned int SWIGSTDCALL CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_isTimeStrictlyIncreasing___(void * jarg1) {
+  unsigned int jresult = 0 ;
+  tesseract::command_language::CompositeInstruction *arg1 = 0 ;
+  bool result;
+  
+  arg1 = (tesseract::command_language::CompositeInstruction *)jarg1;
+  if (!arg1) {
+    SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentNullException, "tesseract::command_language::CompositeInstruction & is null", 0);
+    return 0;
+  } 
+  {
+    try
+    {
+      result = (bool)DarpInstructionsTrajectoryInterop::isTimeStrictlyIncreasing(*arg1);
+    }
+    catch (const std::invalid_argument& exception)
+    {
+      SWIG_CSharpSetPendingExceptionArgument(SWIG_CSharpArgumentException, exception.what(), "");
+      return 0;
+    }
+    catch (const std::out_of_range& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpIndexOutOfRangeException, exception.what());
+      return 0;
+    }
+    catch (const std::exception& exception)
+    {
+      SWIG_CSharpSetPendingException(SWIG_CSharpApplicationException, exception.what());
+      return 0;
+    }
+  }
+  jresult = result; 
+  return jresult;
+}
+
+
 SWIGEXPORT std::shared_ptr< tesseract::common::ResourceLocator > * SWIGSTDCALL CSharp_DarpfTesseractfNative_GeneralResourceLocator_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::common::GeneralResourceLocator > *jarg1) {
     return jarg1 ? new std::shared_ptr< tesseract::common::ResourceLocator >(*jarg1) : 0;
 }
@@ -83209,6 +84838,26 @@ SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_Da
 }
 
 SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_ProfileSwitchProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::task_composer::ProfileSwitchProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::time_parameterization::TimeParameterization > * SWIGSTDCALL CSharp_DarpfTesseractfNative_IterativeSplineParameterization_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::time_parameterization::IterativeSplineParameterization > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::time_parameterization::TimeParameterization >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::time_parameterization::TimeParameterization > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGeneration_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGeneration > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::time_parameterization::TimeParameterization >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::time_parameterization::TimeParameterization > * SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterization_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterization > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::time_parameterization::TimeParameterization >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::time_parameterization::TimeOptimalTrajectoryGenerationCompositeProfile > *jarg1) {
+    return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
+}
+
+SWIGEXPORT std::shared_ptr< tesseract::common::Profile > * SWIGSTDCALL CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_SWIGSmartPtrUpcast___(std::shared_ptr< tesseract::time_parameterization::ConstantTCPSpeedParameterizationCompositeProfile > *jarg1) {
     return jarg1 ? new std::shared_ptr< tesseract::common::Profile >(*jarg1) : 0;
 }
 
