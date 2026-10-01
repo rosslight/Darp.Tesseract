@@ -58,7 +58,9 @@ find_package(
     task_composer_planning
     task_composer_taskflow
     time_parameterization
-    time_parameterization_isp)
+    time_parameterization_isp
+    time_parameterization_totg
+    time_parameterization_kdl)
 find_package(console_bridge REQUIRED)
 
 find_library(
@@ -125,6 +127,8 @@ set(darp_tesseract_libraries
   tesseract::task_composer_taskflow
   tesseract::time_parameterization
   tesseract::time_parameterization_isp
+  tesseract::time_parameterization_totg
+  tesseract::time_parameterization_kdl
   console_bridge::console_bridge)
 set(darp_task_composer_factory_libraries
   "$<LINK_LIBRARY:WHOLE_ARCHIVE,${task_composer_factories}>"

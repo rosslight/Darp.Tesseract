@@ -143,6 +143,61 @@ the SRDF. The configuration uses embedded factories and requires no absolute
 native-library search path. Add the robot's allowed collision pairs to its SRDF
 as needed; the ABB fixture demonstrates this.
 
+## Retime a planned program
+
+Standalone solvers update a `CompositeInstruction` in place. Its moves must use
+state waypoints, as produced by the stock planning pipelines. Register timing
+profiles under the solver's name and the program's profile name:
+
+```csharp
+using var solver = new TimeOptimalTrajectoryGeneration("retime");
+using var profiles = new ProfileDictionary();
+using var timing = new TimeOptimalTrajectoryGenerationCompositeProfile
+{
+    max_velocity_scaling_factor = 0.5,
+    max_acceleration_scaling_factor = 0.25,
+    path_tolerance = 0.01,
+};
+profiles.addProfile(solver.getName(), "DEFAULT", timing);
+
+if (!solver.compute(program, environment, profiles))
+    throw new InvalidOperationException("Could not retime the program.");
+
+var trajectory = new InstructionsTrajectory(program);
+Console.WriteLine(trajectory.getTimeFromStart(trajectory.size() - 1));
+var velocity = trajectory.getVelocity(1);
+var acceleration = trajectory.getAcceleration(1);
+```
+
+`IterativeSplineParameterization` uses the ISP profiles described above.
+`ConstantTCPSpeedParameterization` uses
+`ConstantTCPSpeedParameterizationCompositeProfile`, with translational and
+rotational velocity/acceleration limits and scaling factors. The pinned upstream
+constant-TCP implementation is experimental and does not guarantee enforcement
+of joint limits; use it for evaluation and validate the resulting trajectory.
+
+`InstructionsTrajectory` retains its managed program and creates a short native
+view for each operation. Reads return vector copies; `setData` writes velocity,
+acceleration and time back to the current waypoint. Structural changes are
+resolved on the next call. Explicitly disposing the program invalidates the
+view, and subsequent calls throw `ObjectDisposedException`. The view owns no
+native resource and needs no disposal. Do not mutate or dispose the program
+concurrently with a solver or view operation. Each view call flattens the program;
+this interface is intended for trajectory inspection and editing.
+An empty program has size zero; `dof()` requires at least one state waypoint and
+throws a managed `ApplicationException` from the native constructor's empty check.
+
+The runtime also embeds `TimeOptimalParameterizationTaskFactory` and
+`ConstantTCPSpeedParameterizationTaskFactory`. Configure them in custom Task
+Composer YAML with `program`, `environment` and `profiles` inputs and a `program`
+output. Their default profile namespaces are
+`StockProfileNamespaces.TimeOptimalParameterization` and
+`StockProfileNamespaces.ConstantTCPSpeedParameterization`.
+[The timing YAML fixture](../../tests/Darp.Tesseract.Native.IntegrationTests/Assets/darp_test/timing_tasks.yaml)
+shows a Simple-planner/TOTG pipeline, and
+[the timing tests](../../tests/Darp.Tesseract.Native.IntegrationTests/TimeParameterizationTests.cs)
+exercise standalone retiming and trajectory lifetime handling.
+
 ## Geometry inputs and results
 
 Fixed-size Eigen values map to Aardvark.Base values: `V2d`, `V3d`, `V4d`,

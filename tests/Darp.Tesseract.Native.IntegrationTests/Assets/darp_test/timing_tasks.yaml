@@ -1,0 +1,49 @@
+task_composer_plugins:
+  search_libraries:
+    - tesseract_task_composer_factories
+    - tesseract_task_composer_planning_factories
+    - tesseract_task_composer_taskflow_factories
+  executors:
+    plugins:
+      TaskflowExecutor:
+        class: TaskflowTaskComposerExecutorFactory
+        config:
+          threads: 1
+  tasks:
+    plugins:
+      TOTGPipeline:
+        class: PipelineTaskFactory
+        config:
+          conditional: false
+          inputs:
+            program: input_data
+            environment: environment
+            profiles: profiles
+          outputs:
+            program: output_data
+          nodes:
+            SimpleMotionPlannerTask:
+              class: SimpleMotionPlannerTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: input_data
+                  environment: environment
+                  profiles: profiles
+                outputs:
+                  program: seed
+                format_result_as_input: false
+            TimeOptimalParameterizationTask:
+              class: TimeOptimalParameterizationTaskFactory
+              config:
+                conditional: false
+                inputs:
+                  program: seed
+                  environment: environment
+                  profiles: profiles
+                outputs:
+                  program: output_data
+          edges:
+            - source: SimpleMotionPlannerTask
+              destinations: [TimeOptimalParameterizationTask]
+          terminals: [TimeOptimalParameterizationTask]

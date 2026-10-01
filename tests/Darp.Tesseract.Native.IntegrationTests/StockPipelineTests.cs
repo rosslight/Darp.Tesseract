@@ -102,7 +102,7 @@ public sealed class StockPipelineTests
         return TesseractNative.instructionCount(result);
     }
 
-    private static CompositeInstruction Run(
+    internal static CompositeInstruction Run(
         TesseractEnvironment environment,
         ProfileDictionary profiles,
         CompositeInstruction program,
@@ -161,7 +161,7 @@ public sealed class StockPipelineTests
         return program;
     }
 
-    private static TesseractEnvironment CreateEnvironment()
+    internal static TesseractEnvironment CreateEnvironment()
     {
         var assetRoot = Path.Combine(AppContext.BaseDirectory, "Assets");
         var fixtureRoot = Path.Combine(assetRoot, "darp_test");

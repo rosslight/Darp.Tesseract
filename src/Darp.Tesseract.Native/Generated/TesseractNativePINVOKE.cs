@@ -8037,6 +8037,168 @@ class TesseractNativePINVOKE {
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_contactCheckProgram__SWIG_1___")]
   public static extern global::System.IntPtr contactCheckProgram__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, global::System.Runtime.InteropServices.HandleRef jarg5);
 
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TimeParameterization___")]
+  public static extern void delete_TimeParameterization(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeParameterization_getName___")]
+  public static extern string TimeParameterization_getName(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeParameterization_compute___")]
+  public static extern bool TimeParameterization_compute(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_IterativeSplineParameterization___")]
+  public static extern global::System.IntPtr new_IterativeSplineParameterization(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_IterativeSplineParameterization___")]
+  public static extern void delete_IterativeSplineParameterization(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_IterativeSplineParameterization_compute___")]
+  public static extern bool IterativeSplineParameterization_compute(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TimeOptimalTrajectoryGeneration___")]
+  public static extern global::System.IntPtr new_TimeOptimalTrajectoryGeneration(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGeneration_compute___")]
+  public static extern bool TimeOptimalTrajectoryGeneration_compute(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TimeOptimalTrajectoryGeneration___")]
+  public static extern void delete_TimeOptimalTrajectoryGeneration(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterization___")]
+  public static extern global::System.IntPtr new_ConstantTCPSpeedParameterization(string jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_ConstantTCPSpeedParameterization___")]
+  public static extern void delete_ConstantTCPSpeedParameterization(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterization_compute___")]
+  public static extern bool ConstantTCPSpeedParameterization_compute(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TimeOptimalTrajectoryGenerationCompositeProfile__SWIG_0___")]
+  public static extern global::System.IntPtr new_TimeOptimalTrajectoryGenerationCompositeProfile__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_TimeOptimalTrajectoryGenerationCompositeProfile__SWIG_1___")]
+  public static extern global::System.IntPtr new_TimeOptimalTrajectoryGenerationCompositeProfile__SWIG_1(double jarg1, double jarg2, double jarg3, double jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_override_limits_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_override_limits_set(global::System.Runtime.InteropServices.HandleRef jarg1, bool jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_override_limits_get___")]
+  public static extern bool TimeOptimalTrajectoryGenerationCompositeProfile_override_limits_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_velocity_limits_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_velocity_limits_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_velocity_limits_get___")]
+  public static extern global::System.IntPtr TimeOptimalTrajectoryGenerationCompositeProfile_velocity_limits_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_acceleration_limits_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_acceleration_limits_set(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_acceleration_limits_get___")]
+  public static extern global::System.IntPtr TimeOptimalTrajectoryGenerationCompositeProfile_acceleration_limits_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_velocity_scaling_factor_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_max_velocity_scaling_factor_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_velocity_scaling_factor_get___")]
+  public static extern double TimeOptimalTrajectoryGenerationCompositeProfile_max_velocity_scaling_factor_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_acceleration_scaling_factor_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_max_acceleration_scaling_factor_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_max_acceleration_scaling_factor_get___")]
+  public static extern double TimeOptimalTrajectoryGenerationCompositeProfile_max_acceleration_scaling_factor_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_path_tolerance_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_path_tolerance_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_path_tolerance_get___")]
+  public static extern double TimeOptimalTrajectoryGenerationCompositeProfile_path_tolerance_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_min_angle_change_set___")]
+  public static extern void TimeOptimalTrajectoryGenerationCompositeProfile_min_angle_change_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_min_angle_change_get___")]
+  public static extern double TimeOptimalTrajectoryGenerationCompositeProfile_min_angle_change_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_TimeOptimalTrajectoryGenerationCompositeProfile___")]
+  public static extern void delete_TimeOptimalTrajectoryGenerationCompositeProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_0___")]
+  public static extern global::System.IntPtr new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_0();
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_1___")]
+  public static extern global::System.IntPtr new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_1(double jarg1, double jarg2, double jarg3, double jarg4, double jarg5, double jarg6);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_2___")]
+  public static extern global::System.IntPtr new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_2(double jarg1, double jarg2, double jarg3, double jarg4, double jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_3___")]
+  public static extern global::System.IntPtr new_ConstantTCPSpeedParameterizationCompositeProfile__SWIG_3(double jarg1, double jarg2, double jarg3, double jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_velocity_set___")]
+  public static extern void ConstantTCPSpeedParameterizationCompositeProfile_max_translational_velocity_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_velocity_get___")]
+  public static extern double ConstantTCPSpeedParameterizationCompositeProfile_max_translational_velocity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_velocity_set___")]
+  public static extern void ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_velocity_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_velocity_get___")]
+  public static extern double ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_velocity_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_acceleration_set___")]
+  public static extern void ConstantTCPSpeedParameterizationCompositeProfile_max_translational_acceleration_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_translational_acceleration_get___")]
+  public static extern double ConstantTCPSpeedParameterizationCompositeProfile_max_translational_acceleration_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_acceleration_set___")]
+  public static extern void ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_acceleration_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_acceleration_get___")]
+  public static extern double ConstantTCPSpeedParameterizationCompositeProfile_max_rotational_acceleration_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_velocity_scaling_factor_set___")]
+  public static extern void ConstantTCPSpeedParameterizationCompositeProfile_max_velocity_scaling_factor_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_velocity_scaling_factor_get___")]
+  public static extern double ConstantTCPSpeedParameterizationCompositeProfile_max_velocity_scaling_factor_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_acceleration_scaling_factor_set___")]
+  public static extern void ConstantTCPSpeedParameterizationCompositeProfile_max_acceleration_scaling_factor_set(global::System.Runtime.InteropServices.HandleRef jarg1, double jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_max_acceleration_scaling_factor_get___")]
+  public static extern double ConstantTCPSpeedParameterizationCompositeProfile_max_acceleration_scaling_factor_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_delete_ConstantTCPSpeedParameterizationCompositeProfile___")]
+  public static extern void delete_ConstantTCPSpeedParameterizationCompositeProfile(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_size___")]
+  public static extern int DarpInstructionsTrajectoryInterop_size(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_dof___")]
+  public static extern int DarpInstructionsTrajectoryInterop_dof(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getPosition___")]
+  public static extern global::System.IntPtr DarpInstructionsTrajectoryInterop_getPosition(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getVelocity___")]
+  public static extern global::System.IntPtr DarpInstructionsTrajectoryInterop_getVelocity(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getAcceleration___")]
+  public static extern global::System.IntPtr DarpInstructionsTrajectoryInterop_getAcceleration(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_getTimeFromStart___")]
+  public static extern double DarpInstructionsTrajectoryInterop_getTimeFromStart(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_setData___")]
+  public static extern void DarpInstructionsTrajectoryInterop_setData(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4, double jarg5);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_DarpInstructionsTrajectoryInterop_isTimeStrictlyIncreasing___")]
+  public static extern bool DarpInstructionsTrajectoryInterop_isTimeStrictlyIncreasing(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_GeneralResourceLocator_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr GeneralResourceLocator_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
 
@@ -8294,6 +8456,21 @@ class TesseractNativePINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ProfileSwitchProfile_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr ProfileSwitchProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_IterativeSplineParameterization_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr IterativeSplineParameterization_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGeneration_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TimeOptimalTrajectoryGeneration_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterization_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr ConstantTCPSpeedParameterization_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_TimeOptimalTrajectoryGenerationCompositeProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr TimeOptimalTrajectoryGenerationCompositeProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("tesseract_csharp", EntryPoint="CSharp_DarpfTesseractfNative_ConstantTCPSpeedParameterizationCompositeProfile_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr ConstantTCPSpeedParameterizationCompositeProfile_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
 }
 
 }
