@@ -124,6 +124,22 @@ public class Link : global::System.IDisposable {
     return ret;
   }
 
+  public void addCollision(Collision collision) {
+    TesseractNativePINVOKE.Link_addCollision(swigCPtr, Collision.getCPtr(collision));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void addVisual(Visual visual) {
+    TesseractNativePINVOKE.Link_addVisual(swigCPtr, Visual.getCPtr(visual));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public CollisionVector getCollisions() {
+    CollisionVector ret = new CollisionVector(TesseractNativePINVOKE.Link_getCollisions(swigCPtr), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

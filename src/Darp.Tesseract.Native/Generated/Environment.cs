@@ -72,6 +72,15 @@ public class Environment : global::System.IDisposable {
     return ret;
   }
 
+  public Environment clone() {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.Environment_clone(swigCPtr);
+    Environment ret = (cPtr == global::System.IntPtr.Zero)
+      ? null
+      : new Environment(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public bool reset() {
     bool ret = TesseractNativePINVOKE.Environment_reset(swigCPtr);
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();

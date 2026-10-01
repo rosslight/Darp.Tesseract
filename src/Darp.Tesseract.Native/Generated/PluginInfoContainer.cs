@@ -74,6 +74,17 @@ public class PluginInfoContainer : global::System.IDisposable {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public void addPlugin(string name, PluginInfo plugin) {
+    TesseractNativePINVOKE.PluginInfoContainer_addPlugin(swigCPtr, name, PluginInfo.getCPtr(plugin));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public PluginInfo getPlugin(string name) {
+    PluginInfo ret = new PluginInfo(TesseractNativePINVOKE.PluginInfoContainer_getPlugin(swigCPtr, name), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public PluginInfoContainer() : this(TesseractNativePINVOKE.new_PluginInfoContainer(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }
