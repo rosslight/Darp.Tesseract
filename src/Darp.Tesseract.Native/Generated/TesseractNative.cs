@@ -89,6 +89,145 @@ public class TesseractNative {
     return ret;
   }
 
+  public static MeshVector createMeshFromPath(string path, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten, bool normals, bool vertex_colors, bool material_and_texture) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_0(path, scale_arg.Handle, triangulate, flatten, normals, vertex_colors, material_and_texture), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromPath(string path, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten, bool normals, bool vertex_colors) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_1(path, scale_arg.Handle, triangulate, flatten, normals, vertex_colors), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromPath(string path, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten, bool normals) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_2(path, scale_arg.Handle, triangulate, flatten, normals), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromPath(string path, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_3(path, scale_arg.Handle, triangulate, flatten), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromPath(string path, global::Aardvark.Base.V3d scale, bool triangulate) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_4(path, scale_arg.Handle, triangulate), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromPath(string path, global::Aardvark.Base.V3d scale) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_5(path, scale_arg.Handle), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromPath(string path) {
+    MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromPath__SWIG_6(path), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten, bool normals, bool vertex_colors, bool material_and_texture) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_0(Resource.getCPtr(resource), scale_arg.Handle, triangulate, flatten, normals, vertex_colors, material_and_texture), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten, bool normals, bool vertex_colors) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_1(Resource.getCPtr(resource), scale_arg.Handle, triangulate, flatten, normals, vertex_colors), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten, bool normals) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_2(Resource.getCPtr(resource), scale_arg.Handle, triangulate, flatten, normals), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource, global::Aardvark.Base.V3d scale, bool triangulate, bool flatten) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_3(Resource.getCPtr(resource), scale_arg.Handle, triangulate, flatten), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource, global::Aardvark.Base.V3d scale, bool triangulate) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_4(Resource.getCPtr(resource), scale_arg.Handle, triangulate), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource, global::Aardvark.Base.V3d scale) {
+    using (var scale_arg = new TensorArgument(scale)) {
+    {
+      MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_5(Resource.getCPtr(resource), scale_arg.Handle), true);
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return ret;
+    }
+    }
+  }
+
+  public static MeshVector createMeshFromResource(Resource resource) {
+    MeshVector ret = new MeshVector(TesseractNativePINVOKE.createMeshFromResource__SWIG_6(Resource.getCPtr(resource)), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static ConvexMesh makeConvexMesh(Mesh mesh) {
+    global::System.IntPtr cPtr = TesseractNativePINVOKE.makeConvexMesh(Mesh.getCPtr(mesh));
+    ConvexMesh ret = (cPtr == global::System.IntPtr.Zero) ? null : new ConvexMesh(cPtr, true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static SceneGraph parseURDFString(string urdf_xml_string, ResourceLocator locator) {
     global::System.IntPtr cPtr = TesseractNativePINVOKE.parseURDFString(urdf_xml_string, ResourceLocator.getCPtr(locator));
     SceneGraph ret = (cPtr == global::System.IntPtr.Zero)
@@ -148,6 +287,18 @@ public class TesseractNative {
     string ret = TesseractNativePINVOKE.condensedCollisionSummary(ContactTrajectoryResults.getCPtr(results));
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  public static IKSolutions getRedundantSolutions(double[] solution, double[,]  limits, IndexVector indices) {
+    using (var solution_arg = new TensorArgument(solution)) {
+    using (var limits_arg = new TensorArgument(limits)) {
+    {
+      var result = TesseractNativePINVOKE.getRedundantSolutions(solution_arg.Handle, limits_arg.Handle, IndexVector.getCPtr(indices));
+      if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+      return new IKSolutions(result);
+    }
+    }
+    }
   }
 
   public static bool isSetAnalogInstruction(InstructionPoly instruction) {

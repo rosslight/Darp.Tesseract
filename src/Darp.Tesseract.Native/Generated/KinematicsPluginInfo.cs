@@ -107,6 +107,28 @@ public class KinematicsPluginInfo : global::System.IDisposable {
     } 
   }
 
+  public void setFwdPluginInfo(string group, PluginInfoContainer plugins) {
+    TesseractNativePINVOKE.KinematicsPluginInfo_setFwdPluginInfo(swigCPtr, group, PluginInfoContainer.getCPtr(plugins));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public void setInvPluginInfo(string group, PluginInfoContainer plugins) {
+    TesseractNativePINVOKE.KinematicsPluginInfo_setInvPluginInfo(swigCPtr, group, PluginInfoContainer.getCPtr(plugins));
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
+  public PluginInfoContainer getFwdPluginInfo(string group) {
+    PluginInfoContainer ret = new PluginInfoContainer(TesseractNativePINVOKE.KinematicsPluginInfo_getFwdPluginInfo(swigCPtr, group), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public PluginInfoContainer getInvPluginInfo(string group) {
+    PluginInfoContainer ret = new PluginInfoContainer(TesseractNativePINVOKE.KinematicsPluginInfo_getInvPluginInfo(swigCPtr, group), true);
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public KinematicsPluginInfo() : this(TesseractNativePINVOKE.new_KinematicsPluginInfo(), true) {
     if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
   }

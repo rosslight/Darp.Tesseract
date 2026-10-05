@@ -43,6 +43,16 @@ public class Mesh : PolygonMesh {
     return ret;
   }
 
+  static private global::System.IntPtr SwigConstructMesh(VectorVector3d vertices, IntVector faces) {
+    using (var vertices_arg = new ContainerArgument(vertices.Owner)) {
+    return TesseractNativePINVOKE.new_Mesh(vertices_arg.Handle, IntVector.getCPtr(faces));
+    }
+  }
+
+  public Mesh(VectorVector3d vertices, IntVector faces) : this(Mesh.SwigConstructMesh(vertices, faces), true) {
+    if (TesseractNativePINVOKE.SWIGPendingException.Pending) throw TesseractNativePINVOKE.SWIGPendingException.Retrieve();
+  }
+
 }
 
 }

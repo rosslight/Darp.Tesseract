@@ -198,6 +198,108 @@ shows a Simple-planner/TOTG pipeline, and
 [the timing tests](../../tests/Darp.Tesseract.Native.IntegrationTests/TimeParameterizationTests.cs)
 exercise standalone retiming and trajectory lifetime handling.
 
+## Configure robot plugins at runtime
+
+`PluginInfo.setConfigString` parses a YAML document directly. The existing
+`getConfigString` serializes it. `addPlugin` and `setFwdPluginInfo`/`setInvPluginInfo`
+copy their inputs. `getPlugin` and `getFwdPluginInfo`/`getInvPluginInfo` return
+detached copies, including YAML data:
+
+```csharp
+using var plugin = new PluginInfo { class_name = "URInvKinFactory" };
+plugin.setConfigString("""
+    base_link: base_link
+    tip_link: tool0
+    params:
+      d1: 0.1273
+      a2: -0.612
+      a3: -0.5723
+      d4: 0.163941
+      d5: 0.1157
+      d6: 0.0922
+    """);
+using var plugins = new PluginInfoContainer { default_plugin = "RuntimeUR" };
+plugins.addPlugin("RuntimeUR", plugin);
+using var information = new KinematicsPluginInfo();
+information.setInvPluginInfo("manipulator", plugins);
+using var kinematics = new KinematicsInformation { kinematics_plugin_info = information };
+using var command = new AddKinematicsInformationCommand(kinematics);
+if (!environment.applyCommand(command))
+    throw new InvalidOperationException("Could not configure robot kinematics.");
+using var group = environment.getKinematicGroup("manipulator", "RuntimeUR");
+```
+
+These parameters describe the UR10 fixture; use parameters and frames matching
+the actual robot. `setFwdPluginInfo` configures forward-kinematics plugins.
+`PluginInfoContainer.addPlugin` also works with the discrete/continuous containers
+in `ContactManagersPluginInfo`, applied through
+`AddContactManagersPluginInfoCommand`. Keep the parent `ContactManagersPluginInfo`
+alive while editing its discrete/continuous container views. Factories are
+embedded in the runtime.
+Malformed YAML throws a managed exception and leaves the previous configuration
+intact. Temporary configuration wrappers can be disposed after their data has
+been copied into the command.
+
+## Clone environments and use kinematics utilities
+
+`Environment.clone()` owns an independent native environment, including state,
+scene commands and plugin configuration. Dispose the clone when finished. It
+can be used after disposing the source environment; separate clones allow
+planning and live kinematics to use different state.
+
+`KinGroupIKInputs` stores copies of `KinGroupIKInput` values. Add inputs with
+`push_back`, inspect them with `at` (an owned copy), and pass the container to
+`KinematicGroup.calcInvKinMultiple`. The native API solves all supplied tip
+constraints together; provide one input per IK solver tip. A single-tool robot
+therefore needs one input. Both returning and `ref IKSolutions` forms are bound.
+
+`TesseractNative.getRedundantSolutions(solution, limits, indices)` returns
+additional configurations obtained by adding or subtracting full turns within
+joint limits. The original solution is excluded. Supply a two-column limit
+matrix with one row per joint and an `IndexVector` of redundancy-capable joints.
+
+### UR and OPW frame conventions
+
+`KinGroupIKInput.pose` is expressed in its `working_frame` and targets its
+`tip_link_name`. The group converts supported working frames and fixed tool
+offsets into the solver's configured base and tip frames. Use the group's
+`getAllValidWorkingFrames` and `getAllPossibleTipLinkNames` to inspect them.
+
+The UR solver uses the conventional UR chain ending at `tool0`; it applies a
+180-degree rotation around the configured base's Z axis internally. The OPW
+solver passes the configured base-to-tip pose directly to OPW and uses its
+parameter offsets/sign corrections for the robot's joint conventions. A UR
+parameter set applied to an arbitrary six-joint URDF need not reproduce its FK.
+Verify the configured model with an FK/IK round trip, including the actual TCP.
+[The UR10 fixture](../../tests/Darp.Tesseract.Native.IntegrationTests/Assets/darp_test/ur10.urdf)
+and [robot construction tests](../../tests/Darp.Tesseract.Native.IntegrationTests/RobotConstructionTests.cs)
+exercise runtime configuration and an offset weld TCP.
+
+## Construct scene geometry
+
+`Mesh(vertices, faces)` and `ConvexMesh(vertices, faces)` own copies of a
+`VectorVector3d` and an `IntVector`. Faces use the native encoding: the vertex
+count followed by that many vertex indices, repeated for each face. `Mesh`
+requires triangles; `ConvexMesh` accepts polygon faces and assumes the supplied
+geometry is convex. Invalid face encoding or indices throw managed exceptions.
+The input containers can be disposed after construction.
+
+`TesseractNative.createMeshFromPath` and `createMeshFromResource` load meshes with
+the native scale and import options and return a `MeshVector`. Both loaders
+triangulate by default because `Mesh` requires triangles, matching nanobind.
+Meshes retrieved
+from the vector retain shared native ownership after the vector or resource is
+disposed. `TesseractNative.makeConvexMesh(mesh)` computes a convex hull using the
+already-built Bullet implementation.
+
+Set a `Collision` or `Visual` object's `geometry`, then attach it with
+`Link.addCollision` or `Link.addVisual`. These methods retain shared ownership;
+`getCollisions` and `getVisuals` return owned vectors of shared objects. Apply
+`AddLinkCommand(link, joint)` to connect the link to an environment.
+[The scene construction tests](../../tests/Darp.Tesseract.Native.IntegrationTests/SceneConstructionTests.cs)
+demonstrate mesh loading, lifetime handling and collision detection with newly
+constructed geometry.
+
 ## Geometry inputs and results
 
 Fixed-size Eigen values map to Aardvark.Base values: `V2d`, `V3d`, `V4d`,

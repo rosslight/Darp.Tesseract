@@ -130,6 +130,8 @@ namespace darp_geometry { struct Value {}; }
   try { $1 = &darp_geometry::container<TYPE>(static_cast<darp_geometry::Value*>($input)); }
   DARP_GEOMETRY_CATCH
 }
+// Prevent SWIG from applying the mutable-reference output map to const inputs.
+%typemap(argout) const TYPE&, TYPE* ""
 %typemap(out, canthrow=1) TYPE {
   try { $result = new darp_geometry::Value(darp_geometry::owned_container<TYPE>(SWIG_STD_MOVE(*(&$1)))); }
   DARP_GEOMETRY_CATCH

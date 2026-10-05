@@ -38,6 +38,7 @@
 #include <limits>
 #include <optional>
 #include <stdexcept>
+#include <yaml-cpp/yaml.h>
 #include <boost/uuid/uuid_io.hpp>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
@@ -60,6 +61,7 @@
 #include <tesseract/geometry/impl/octree.h>
 #include <tesseract/geometry/mesh_parser.h>
 #include <tesseract/geometry/utils.h>
+#include <tesseract/collision/bullet/convex_hull_utils.h>
 
 #include <tesseract/scene_graph/joint.h>
 #include <tesseract/scene_graph/link.h>
@@ -84,6 +86,7 @@
 #include <tesseract/kinematics/joint_group.h>
 #include <tesseract/kinematics/kinematic_group.h>
 #include <tesseract/kinematics/kinematics_plugin_factory.h>
+#include <tesseract/kinematics/utils.h>
 
 #include <tesseract/environment/environment.h>
 #include <tesseract/common/allowed_collision_matrix.h>
@@ -169,6 +172,15 @@
 #include <tesseract/task_composer/planning/profiles/fix_state_collision_profile.h>
 #include <tesseract/task_composer/planning/profiles/profile_switch_profile.h>
 
+/* SWIG emits %extend bodies before helper definitions in later interface blocks. */
+namespace
+{
+tesseract::common::PluginInfoContainer darpCopyPluginContainer(
+    const tesseract::common::PluginInfoContainer& source);
+std::shared_ptr<const Eigen::VectorXi> darpMeshFaces(
+    const tesseract::common::VectorVector3d& vertices, const std::vector<int>& faces, bool triangles);
+}
+
 %}
 
 /* Export/serialization macros are irrelevant to the SWIG parser. */
@@ -246,7 +258,6 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::environment::Environment::addEventCallback;
 %ignore tesseract::environment::Environment::getEventCallbacks;
 %ignore tesseract::environment::Environment::lockRead;
-%ignore tesseract::environment::Environment::clone;
 %ignore tesseract::environment::Environment::getCommandHistory;
 %ignore tesseract::environment::Environment::init(std::vector<std::shared_ptr<const Command>> const &);
 %ignore tesseract::environment::Environment::init(
@@ -283,10 +294,10 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %ignore tesseract::environment::Environment::getCurrentStateTimestamp;
 %ignore tesseract::srdf::SRDFModel::version;
 %ignore tesseract::srdf::SRDFModel::calibration_info;
-%ignore tesseract::kinematics::KinematicGroup::calcInvKin(
+%rename(calcInvKinMultiple) tesseract::kinematics::KinematicGroup::calcInvKin(
   KinGroupIKInputs const &,
   Eigen::Ref<Eigen::VectorXd const> const &) const;
-%ignore tesseract::kinematics::KinematicGroup::calcInvKin(
+%rename(calcInvKinMultiple) tesseract::kinematics::KinematicGroup::calcInvKin(
   IKSolutions &,
   KinGroupIKInputs const &,
   Eigen::Ref<Eigen::VectorXd const> const &) const;
@@ -405,6 +416,7 @@ using KinGroupIKInputs = tesseract::common::AlignedVector<KinGroupIKInput>;
 %shared_ptr(tesseract::environment::SetActiveDiscreteContactManagerCommand)
 
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::SceneGraph)
+DARP_UNIQUE_PTR_TO_SHARED(tesseract::environment::Environment)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::scene_graph::StateSolver)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::kinematics::ForwardKinematics)
 DARP_UNIQUE_PTR_TO_SHARED(tesseract::kinematics::InverseKinematics)
@@ -448,6 +460,7 @@ DARP_MOVE_ONLY_VALUE_TO_SHARED(tesseract::scene_graph::Link)
 %include "components/common.i"
 %include "components/geometry.i"
 %include "components/scene_graph.i"
+%include "components/scene_construction.i"
 %include "components/robot_description.i"
 %include "components/state_solver.i"
 %include "components/collision.i"
