@@ -11,6 +11,8 @@ public static class StockProfileNamespaces
     public const string TrajOptMotionPlanner = "TrajOptMotionPlannerTask";
     public const string SimpleMotionPlanner = "SimpleMotionPlannerTask";
     public const string IterativeSplineParameterization = "IterativeSplineParameterizationTask";
+    public const string TimeOptimalParameterization = "TimeOptimalParameterizationTask";
+    public const string ConstantTCPSpeedParameterization = "ConstantTCPSpeedParameterizationTask";
     public const string UpsampleTrajectory = "UpsampleTrajectoryTask";
     public const string MinLength = "MinLengthTask";
     public const string KinematicLimitsCheck = "KinematicLimitsCheckTask";
