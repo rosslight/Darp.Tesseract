@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.6.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.5.0+tesseract.0.35.0...v0.6.0+tesseract.0.35.0) (2026-10-05)
+
+
+### Features
+
+* expose robot and scene construction ([#17](https://github.com/rosslight/Darp.Tesseract/issues/17)) ([feb7f22](https://github.com/rosslight/Darp.Tesseract/commit/feb7f221c862472fb2d731bbd76277985c4274a9))
+* expose scene geometry for visualization ([#13](https://github.com/rosslight/Darp.Tesseract/issues/13)) ([b73a04b](https://github.com/rosslight/Darp.Tesseract/commit/b73a04bd11899c3ba37f78d4d79f3aa0b375327d))
+* expose standalone time parameterization ([#16](https://github.com/rosslight/Darp.Tesseract/issues/16)) ([b1952e4](https://github.com/rosslight/Darp.Tesseract/commit/b1952e4dfc7f27abb85c6df89b7f875594a1fca2))
+* expose stock pipeline profile controls ([#15](https://github.com/rosslight/Darp.Tesseract/issues/15)) ([62be9ba](https://github.com/rosslight/Darp.Tesseract/commit/62be9ba1e4127ad7c24bc1f403748f7e54bad163))
+
 ## [0.5.0+tesseract.0.35.0](https://github.com/rosslight/Darp.Tesseract/compare/v0.4.0+tesseract.0.35.0...v0.5.0+tesseract.0.35.0) (2026-09-25)
 
 
